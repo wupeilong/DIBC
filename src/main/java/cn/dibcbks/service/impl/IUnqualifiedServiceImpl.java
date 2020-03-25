@@ -50,7 +50,7 @@ public class IUnqualifiedServiceImpl implements IUnqualifiedService{
 
 
 	@Override
-	public ResponseResult<List<Unqualified>> selectUnqualifiedList(Integer unitId, Integer type) {
+	public String selectUnqualifiedList(Integer unitId, Integer type) {
 		ResponseResult<List<Unqualified>> rr = null;
 		try {
 			String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(q.create_time) ";

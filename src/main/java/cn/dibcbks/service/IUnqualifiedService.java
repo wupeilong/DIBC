@@ -29,6 +29,6 @@ public interface IUnqualifiedService {
 	 * @param type
 	 * @return
 	 */
-	ResponseResult<List<Unqualified>> selectUnqualifiedList(Integer unitId, Integer type);
+	String selectUnqualifiedList(Integer unitId, Integer type);
 
 }

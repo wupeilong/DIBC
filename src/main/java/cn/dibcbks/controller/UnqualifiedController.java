@@ -36,15 +36,15 @@ public class UnqualifiedController {
 		return iUnqualifiedService.selectUnqualifiedListPag(modelMap);
 	}
 	
+	
 	/**
-	 * 不合格信息列表查询
+	 * 进入不合格信息详情页
 	 * @param unitId
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping("/list")
-	@ResponseBody
-	public ResponseResult<List<Unqualified>> selectUnqualifiedList(Integer unitId,Integer type){
+	@RequestMapping("/detail")
+	public String selectUnqualifiedDetail(Integer unitId,Integer type){
 		
 		return iUnqualifiedService.selectUnqualifiedList(unitId,type);
 	}
