@@ -25,6 +25,7 @@ public class UnqualifiedController {
 	@Autowired
 	private IUnqualifiedService iUnqualifiedService;
 	
+	
 	/**
 	 * 进入不合格信息列表页
 	 * @param modelMap
@@ -35,6 +36,7 @@ public class UnqualifiedController {
 		
 		return iUnqualifiedService.selectUnqualifiedListPag(modelMap);
 	}
+	
 	
 	/**
 	 * 不合格信息列表查询
@@ -47,5 +49,18 @@ public class UnqualifiedController {
 	public ResponseResult<List<Unqualified>> selectUnqualifiedList(Integer unitId,Integer type){
 		
 		return iUnqualifiedService.selectUnqualifiedList(unitId,type);
+	}
+	
+	
+	/**
+	 * 进入不合格信息详情页
+	 * @param unitId
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("/detail")
+	public String selectUnqualifiedDetailPage(ModelMap modelMap,Integer id){
+		
+		return iUnqualifiedService.selectUnqualifiedDetailPage(modelMap,id);
 	}
 }

@@ -69,4 +69,11 @@ public class IUnqualifiedServiceImpl implements IUnqualifiedService{
 		return rr;
 	}
 
+
+	@Override
+	public String selectUnqualifiedDetailPage(ModelMap modelMap, Integer id) {
+		
+		return "bks_wap/unqualified_detail";
+	}
+
 }

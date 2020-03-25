@@ -31,4 +31,12 @@ public interface IUnqualifiedService {
 	 */
 	ResponseResult<List<Unqualified>> selectUnqualifiedList(Integer unitId, Integer type);
 
+	/**
+	 * 进入不合格信息详情页
+	 * @param modelMap
+	 * @param id
+	 * @return
+	 */
+	String selectUnqualifiedDetailPage(ModelMap modelMap, Integer id);
+
 }
