@@ -91,7 +91,7 @@
 						$("input[name='password']").focus();
 					}else{
 						var url = "userLogin";
-						var data = "idCard="+account+"&password="+password;		
+						var data = "idCard="+account+"&password="+password;	
 						$.ajax({
 							"url" : url,
 							"data" : data,
@@ -100,8 +100,6 @@
 							"success" : function(obj) {
 								if (obj.state == 0) {
 									layer.msg(obj.message,{icon:2,time:1000});
-									console.log("账号:" + $("#idCard").val());
-									console.log("是否记住密码:" + $('#remember').is(':checked'));
 									return;
 								}else{
 									//选中记住密码 + 并且支持localStorage

@@ -42,21 +42,21 @@
 								<div class="">									
 									<div class="padding-side margin-top05">
 										<span class="">名称：</span>
-										<c:if test="${unitlist==null}">
+										<c:if test="${unitDetail == null}">
 											<select id="unit_list"">
 												<option value="0">请选择企业信息</option>
-												<c:forEach items="${unitlistall}" var="item">								
+												<c:forEach items="${unitList}" var="item">								
 													<option value="${item.unitId}">${item.unitName}</option>
 												</c:forEach>							
 											</select>
 										</c:if>
-										<c:if test="${unitlist!=null}">
-											<span>${unitlist[0].unitName}</span>											
+										<c:if test="${unitDetail != null}">
+											<span>${unitDetail.unitName}</span>											
 										</c:if>	
-										<input type="hidden" id="unitId" value="${unitlist[0].unitId}"/>									
+										<input type="hidden" id="unitId" value="${unitDetail.unitId}"/>									
 									</div>
 									<div class="padding-side margin-top05">
-										<span class="">地址：</span><span id="unitAddress">${unitlist[0].unitAddress}</span>
+										<span class="">地址：</span><span id="unitAddress">${unitDetail.unitAddress}</span>
 									</div>
 								</div>
 								<div class="fs margin-top05 padding-side">
@@ -73,7 +73,7 @@
 								<div class="margin-top05 padding-side fb">
 									<div class="">
 										<div class="">
-											负责人员：<span class="" id="legalPerson">${unitlist[0].legalPerson}</span>
+											负责人员：<span class="" id="legalPerson">${unitDetail.legalPerson}</span>
 										</div>
 										<div class="">
 											检查人员：<span class="">${user.username}</span>
@@ -168,7 +168,7 @@
 	</body>
 	<script type="text/javascript">
 	$('#unit_list').searchableSelect({
-		"afterSelectItem":function(){
+		"afterSelectItem":function(){			
 			if($("#unit_list").val()==0){
 				return;				
 			}else{
@@ -190,7 +190,7 @@
 												
 						}				
 					}
-				}); 
+				});
 			}	
 		}
 	});

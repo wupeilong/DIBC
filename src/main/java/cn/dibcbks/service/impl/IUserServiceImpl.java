@@ -1,6 +1,7 @@
 package cn.dibcbks.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
@@ -143,52 +145,6 @@ public class IUserServiceImpl implements IUserService {
 		return rr;
 	}
 
-	@Override
-	public ResponseResult<Void> allocateAccount(String uuid,String idCard, String username, String password, String phone, String duty,
-			Integer age,String healthCertificateCode,String stratpath) {
-		ResponseResult<Void> rr = null;
-		GetCommonUser get = new GetCommonUser();
-		try {
-			Subject subject = SecurityUtils.getSubject();
-			if(subject.isAuthenticated()){
-				Session session = subject.getSession();
-				User currentUser = (User)session.getAttribute("user");
-				if(!currentUser.getParentId().equals(0)){
-					get.deluoladimg(stratpath);
-					rr = new ResponseResult<Void>(ResponseResult.ERROR, "该账户不是管理员，不能分配账户！");
-					logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败， 原因：该账户不是管理员账户");
-				}else {
-					password = password == null ? Constants.INITIAL_PASSWORD : password;
-	 				String hashPassword = CommonUtil.getEncrpytedPassword(Constants.MD5, password, uuid, 1024);
-					User user = new User();
-					user.setIdCard(idCard);
-					user.setUsername(username);
-					user.setPhone(phone);
-					user.setUuid(uuid);
-					user.setPassword(hashPassword);
-					user.setDuty(duty);
-					user.setAge(age);
-					user.setParentId(currentUser.getId());//父级ID
-					user.setType(currentUser.getType());//用户类型
-					user.setUnitId(currentUser.getUnitId());
-					user.setHealthCertificateCode(healthCertificateCode);
-					user.setHealthCertificate(stratpath);
-					userMapper.insert(user);
-					rr = new ResponseResult<>(ResponseResult.SUCCESS,"企业账户分配成功!");
-					logger.info(Constants.SUCCESSU_HEAD_INFO + "企业账户分配成功");
-				}				
-			}else{
-				get.deluoladimg(stratpath);
-				rr = new ResponseResult<Void>(ResponseResult.ERROR, "请操作后在请此操作！");
-				logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败， 原因：未登录账户");
-			}
-		} catch (Exception e) {
-			get.deluoladimg(stratpath);
-			rr = new ResponseResult<Void>(ResponseResult.ERROR, "操作失败！");
-			logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败，原因：" + e.getMessage());
-		}		
-		return rr;
-	}
 
 	@Override
 	public ResponseResult<Void> updateUser(User user) {
@@ -218,32 +174,6 @@ public class IUserServiceImpl implements IUserService {
 	}
 
 	
-
-	@Override
-	public String userCenter(ModelMap modelMap) {
-		try {
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入个人中心页面成功！");
-			//TODO 个人中心页面
-			return "";
-		} catch (Exception e) {
-			logger.error(Constants.ERROR_HEAD_INFO + "用户进个人中心页面失败，原因：" + e.getMessage());
-		}
-		return "error/404";
-	}
-
-
-	@Override
-	public String allocateAccountPage() {
-		try {
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入用户进入分配账户页成功！");
-			//TODO 用户进入分配账户页
-			return "";
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(Constants.ERROR_HEAD_INFO + "用户进入用户进入分配账户页失败，原因：" + e.getMessage());
-		}
-		return "error/404";
-	}
 
 	@Override
 	public ResponseResult<Void> userIsExist(String idCard,String phone) {
@@ -289,7 +219,6 @@ public class IUserServiceImpl implements IUserService {
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！",list);
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
 		}		
 		return rr;
@@ -299,13 +228,11 @@ public class IUserServiceImpl implements IUserService {
 	public String queryUnitUserDetail(ModelMap modelMap,String id) {
 		try {
 			List<User> list = userMapper.select(" u.id = '" + id + "'", null, null, null);
-			modelMap.addAttribute("userDetail", list.isEmpty() ? null : list.get(0));
-			//TODO 用户信息详情页
-			return "bks_wap/workmens_detal";
+			modelMap.addAttribute("userDetail", list.isEmpty() ? null : list.get(0));					
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "error/404";
+		return "bks_wap/workmens_detal";
 	}
 
 	@Override
@@ -322,14 +249,12 @@ public class IUserServiceImpl implements IUserService {
 		}
 		modelMap.addAttribute("userList", userList);		
 		logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入从业人员信息页面成功！");
-		//TODO 从业人员信息页面
 		return "bks_wap/workmens";
 	}
 
 	@Override
 	public String workmensHealth(ModelMap modelMap,Integer userId) {
 		List<Hygiene> hygieneList = hygieneMapper.select(" h.user_id = '" + userId + "'", " h.upload_time DESC", null, null);
-		System.out.println(hygieneList);
 		modelMap.addAttribute("hygieneList", hygieneList);
 		return "bks_wap/workmens_health";
 	}
@@ -346,13 +271,11 @@ public class IUserServiceImpl implements IUserService {
 	public String queryUserPcenter(ModelMap modelMap, String id) {
 		try {
 			List<User> list = userMapper.select(" u.id = '" + id + "'", null, null, null);
-			modelMap.addAttribute("userPcenter", list.isEmpty() ? null : list.get(0));
-			//TODO 用户信息详情页
-			return "bks_wap/user_pcenter";
+			modelMap.addAttribute("userPcenter", list.isEmpty() ? null : list.get(0));			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "error/404";
+		return "bks_wap/user_pcenter";
 	}	
 	@Override
 	public ResponseResult<Void> addHygiene(Hygiene hygiene) {
@@ -373,18 +296,193 @@ public class IUserServiceImpl implements IUserService {
 		return unitMapper.select(where, null, null, null);
 	}
 
+	
+
 	@Override
-	public ResponseResult<Void> updatePassword(User user) {
-		ResponseResult<Void> rr = null;
-		try {			
-			userMapper.updateById(user);
-			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功");
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户资料修改成功！");
+	public ResponseResult<Void> uploadPassword(String password, String oldpassword) {
+		try {
+			String uuid = CommonUtil.getSessionUser().getUuid();
+			String hashPassword = CommonUtil.getEncrpytedPassword(Constants.MD5, oldpassword, uuid, 1024);		
+			if (CommonUtil.getSessionUser().getPassword().equals(hashPassword)) {
+				String newPassword = CommonUtil.getEncrpytedPassword(Constants.MD5, password, uuid, 1024);
+				if (newPassword.equals(hashPassword)) {
+					return new ResponseResult<Void>(ResponseResult.ERROR,"新密码不能与原密码相同！");
+				}else{
+					User user=new User();
+					user.setId(CommonUtil.getSessionUser().getId());
+					user.setPassword(newPassword);
+					userMapper.updateById(user);
+					logger.info(Constants.SUCCESSU_HEAD_INFO + "用户密码修改成功！");
+					return new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+				}			
+			}else{
+				return new ResponseResult<Void>(ResponseResult.ERROR,"原密码输入有误！");
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
-			rr = new ResponseResult<Void>(ResponseResult.ERROR, "用户资料修改操作失败！");
 			logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：" + e.getMessage());
+			return new ResponseResult<Void>(ResponseResult.ERROR, "操作失败！");			
+		}
+		
+	}
+
+	@Override
+	public ResponseResult<Void> allocateAccount(String duty, 
+												String idCard, 
+												String username, 
+												String password,
+												String phone, 
+												Integer age, 
+												String healthCertificateCode, 
+												MultipartFile file) {
+		
+		ResponseResult<Void> rr = null;		
+		String healthCertificate = "";
+		GetCommonUser get = new GetCommonUser();
+		try {			
+			Subject subject = SecurityUtils.getSubject();
+			if(!subject.isAuthenticated()){
+				rr = new ResponseResult<Void>(ResponseResult.ERROR, "请登录后在进行此操作！");
+				logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败， 原因：未登录账户!");
+			}else if (userMapper.queryUserByPhone(phone) != null) {
+				rr = new ResponseResult<>(ResponseResult.ERROR,"手机号已存在！");
+				logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败， 原因：手机号已存在!");
+			}else if(!CommonUtil.getSessionUser().getParentId().equals(0)){
+				rr = new ResponseResult<Void>(ResponseResult.ERROR, "该账户不是管理员，不能分配账户！");
+				logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败，原因：该账户不是管理员账户");
+			}else if(StringUtils.isNotEmpty(idCard) && userMapper.queryUser(idCard) != null){
+				rr = new ResponseResult<Void>(ResponseResult.ERROR, "该账户不是管理员，身份证号重复！");
+				logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败， 原因：身份证号重复");
+			}else{
+				String uuid = CommonUtil.getUUID();
+				if(file != null){
+					healthCertificate = get.uoladimg(file, uuid);
+				}				
+				password = password == null ? Constants.INITIAL_PASSWORD : password;
+				String hashPassword = CommonUtil.getEncrpytedPassword(Constants.MD5, password, uuid, 1024);
+				User insert = new User();
+				insert.setUsername(username);
+				insert.setIdCard(idCard);
+				insert.setPhone(phone);
+				insert.setPassword(hashPassword);
+				insert.setAge(age);
+				insert.setHealthCertificateCode(healthCertificateCode);
+				insert.setHealthCertificate(healthCertificate);
+				insert.setUuid(uuid);
+				insert.setUnitId(CommonUtil.getSessionUser().getUnitId());
+				insert.setParentId(CommonUtil.getSessionUser().getId());
+				insert.setType(CommonUtil.getSessionUser().getType());
+				insert.setCreateTime(new Date());
+				userMapper.insert(insert);
+				rr = new ResponseResult<>(ResponseResult.SUCCESS,"企业账户分配成功!");
+				logger.info(Constants.SUCCESSU_HEAD_INFO + "企业账户分配成功");
+			}			
+		} catch (Exception e) {
+			get.deluoladimg(healthCertificate);
+			rr = new ResponseResult<Void>(ResponseResult.ERROR, "操作失败！");
+			logger.error(Constants.ERROR_HEAD_INFO + "分配账号失败，原因：" + e.getMessage());
+		}		
+		return rr;
+	}
+
+	
+	@Override
+	public ResponseResult<Void> addHygiene(	Integer userId,
+											String username,
+											String dailyTime, 
+											Double celsius,
+											String fever, 
+											String diarrhea, 
+											String woundsFester, 
+											String hygiene, 
+											String remark, 
+											MultipartFile file) {
+		
+		ResponseResult<Void> rr = null;
+		GetCommonUser get = new GetCommonUser();
+		String healthCodePhoto = ""; 
+		try {
+			healthCodePhoto = get.uoladimg(file,CommonUtil.getSessionUser().getUuid());
+			if (healthCodePhoto == null) {
+				rr = new ResponseResult<Void>(ResponseResult.ERROR,"健康码上传异常,信息添加失败");
+			}else{	
+				Hygiene insert = new Hygiene();
+				insert.setUserId(userId);
+				insert.setUsername(username);
+				insert.setDailyTime(dailyTime);
+				insert.setCelsius(celsius);
+				insert.setFever(fever);
+				insert.setDiarrhea(diarrhea);
+				insert.setWoundsFester(woundsFester);
+				insert.setHygiene(hygiene);
+				insert.setRemark(remark);
+				insert.setHealthCodePhoto(healthCodePhoto);
+				insert.setUploadTime(new Date());
+				hygieneMapper.insert(insert);
+				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+			}
+		} catch (Exception e) {
+			get.deluoladimg(healthCodePhoto);
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}	
+		return rr;		
+	}
+
+	@Override
+	public ResponseResult<Void> updateUser(	Integer id, 
+											String idCard, 
+											String username, 
+											String duty,
+											String phone, 
+											Integer age, 
+											String healthCertificateCode, 
+											String healthCertificate,
+											MultipartFile file) {
+		ResponseResult<Void> rr = null;	
+		GetCommonUser get = new GetCommonUser();
+		String newHealthCertificate = "";
+		try {
+			if(StringUtils.isNotEmpty(idCard) && userMapper.queryUser(idCard) != null && !idCard.equals(CommonUtil.getSessionUser().getIdCard())){
+				
+				rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败，身省份证号重复！");
+			}else if (StringUtils.isNotEmpty(phone) && userMapper.queryUserByPhone(phone) != null && !phone.equals(CommonUtil.getSessionUser().getPhone())) {
+				
+				rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败，手机号重复！");
+			}else{
+				if(file != null){
+					newHealthCertificate = get.uoladimg(file,CommonUtil.getSessionUser().getUuid());
+					if(StringUtils.isEmpty(newHealthCertificate)){
+						return new ResponseResult<Void>(ResponseResult.ERROR,"健康证上传异常,人员信息添加失败！");
+					}
+					if(StringUtils.isNotEmpty(healthCertificate)){
+						get.deluoladimg(healthCertificate);
+					}
+				}
+				User update = new User();
+				update.setId(id);
+				update.setUsername(username);
+				update.setPhone(phone);
+				update.setIdCard(idCard);
+				update.setAge(age);
+				update.setDuty(duty);
+				update.setHealthCertificateCode(healthCertificateCode);	
+				update.setHealthCertificate(newHealthCertificate);
+				userMapper.updateById(update);
+				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+			}			
+		} catch (Exception e) {
+			get.deluoladimg(healthCertificate);
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
 		}
 		return rr;
 	}
+
+	@Override
+	public String updateUserPage(ModelMap modelMap) {
+		
+		modelMap.addAttribute("userDetail", userMapper.queryUser(CommonUtil.getSessionUser().getIdCard()));
+		return "bks_wap/workmens_update";
+	}
+
 }

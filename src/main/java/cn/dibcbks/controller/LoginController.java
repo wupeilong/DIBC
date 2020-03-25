@@ -1,7 +1,6 @@
 package cn.dibcbks.controller;
 
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.User;
-import cn.dibcbks.mapper.UserMapper;
+import cn.dibcbks.service.ILoginService;
 import cn.dibcbks.service.IUserService;
-import cn.dibcbks.util.CommonUtil;
-import cn.dibcbks.util.Constants;
-import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
 
 /**
@@ -26,7 +22,8 @@ public class LoginController {
 	@Autowired
 	private IUserService iUserService;
 	@Autowired
-	private UserMapper userMapper;
+	private ILoginService iLoginService;
+	
 	
 	/**
 	 * 进入登录页
@@ -36,6 +33,8 @@ public class LoginController {
 	public String loginPage(){		
 		return "bks_wap/login";
 	}	
+	
+	
 	/**
 	 * 进入首页
 	 * @return
@@ -45,6 +44,7 @@ public class LoginController {
 		return "bks_wap/home";
 	}
 	
+	
 	/**
 	 * 进入注册页
 	 * @return
@@ -53,6 +53,7 @@ public class LoginController {
 	public String register(){
 		return "bks_wap/register";
 	}
+	
 	
 	/**
 	 * 查询用户名是否已注册
@@ -66,8 +67,9 @@ public class LoginController {
 		return iUserService.userIsExist(idCard,phone);
 	}
 
+	
 	/**
-	 * 实现注册功能
+	 * 企业+用户注册实现
 	 * @param idCard 身份证号
 	 * @param username 姓名
 	 * @param password 密码
@@ -99,31 +101,10 @@ public class LoginController {
 			@RequestParam(value="unitAddress",required = false) String unitAddress,			
 			@RequestParam(value="unitType",required = false) Integer unitType,
 			@RequestParam(value="legalPerson",required = false) String legalPerson){
-		ResponseResult<Void> responseResult = null;
-		try {
-			GetCommonUser get=new GetCommonUser();
-			String uuid = CommonUtil.getUUID();
-			System.out.println("1111111111111111111111");
-			String businessLicensepath=get.uoladimg(file,uuid);
-			System.out.println("2222222222222222222222");
-			if (businessLicensepath==null) {
-				responseResult=new ResponseResult<Void>(ResponseResult.ERROR,"营业执照上传异常,人员信息添加失败");
-			}else{
-				String productionLicensepath=get.uoladimg(file1,uuid);
-				if (productionLicensepath==null) {
-					responseResult=new ResponseResult<Void>(ResponseResult.ERROR,"许可证上传异常,人员信息添加失败");
-				}else{
-					System.out.println("3333333333333");
-					responseResult=iUserService.registeradd(uuid,idCard,username,password,phone,duty,age,unitName,legalPerson,businessLicenseCode,businessLicensepath,productionLicensepath,unitAddress,null,unitType);
-				}			
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-			responseResult = new ResponseResult<>(ResponseResult.ERROR,"账户信息重复，注册失败");
-		}
-		return responseResult;
-	
+		
+		return iLoginService.registerUnitUser(idCard,username,password,phone,duty,age,unitName,businessLicenseCode,file,file1,unitAddress,unitType,legalPerson);
 	}
+	
 	
 	/**
 	 * 实现用户登录
@@ -138,6 +119,7 @@ public class LoginController {
 		
 		return iUserService.login(idCard,password);
 	}
+	
 	
 	/**
 	 * 错误登录页
@@ -154,46 +136,22 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("/admin_login")
-	public String adminlogin(){		
+	public String adminlogin(){	
+		
 		return "bks_wap/admin_login";
 	}
 	
+
 	/**
 	 * 监管人员注册
+	 * @param user
+	 * @return
 	 */
 	@RequestMapping("/admin_add")
 	@ResponseBody
 	public ResponseResult<Void> adminAdd(User user){		
-		ResponseResult<Void> rr = null;
-		try {
-			/*User queryUser = userMapper.queryUser(user.getIdCard());			
-			if (queryUser != null ) {
-				rr = new ResponseResult<Void>(ResponseResult.ERROR, "身份证已存在！");
-			}else */if(userMapper.queryUserByPhone(user.getPhone()) != null){
-				rr =  new ResponseResult<Void>(ResponseResult.ERROR,"手机号重复！");
-			}else{
-//				List<User> list = userMapper.select(" u.username = '" + user.getUsername() + "'", null, null,null);
-//				if (!list.isEmpty()) {
-//					rr =  new ResponseResult<Void>(ResponseResult.ERROR,"用户名重复！");
-//				}else{
-					String uuid = CommonUtil.getUUID();
-					String password = user.getPassword() == null ? Constants.INITIAL_PASSWORD : user.getPassword();
-			 		String hashPassword = CommonUtil.getEncrpytedPassword(Constants.MD5, password, uuid, 1024);
-			 		user.setUuid(uuid);
-					user.setPassword(hashPassword);
-					user.setParentId(0);//父级ID
-					user.setType(1);//用户类型
-					user.setUnitId(1);
-					userMapper.insert(user);
-					rr =  new ResponseResult<Void>(ResponseResult.SUCCESS,"企业账户分配成功!");
-//				}				
-			}
-						
-		} catch (Exception e) {			
-			rr =  new ResponseResult<Void>(ResponseResult.ERROR, "操作失败！");
-		}
-		return rr;		
-			
+		
+		return iLoginService.registerAdminUser(user);
 	}
 	
 }

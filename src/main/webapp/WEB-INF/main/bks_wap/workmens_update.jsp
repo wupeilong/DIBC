@@ -62,8 +62,7 @@
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>健康证号</span>
 					  <input type="text" class="form-control box-shadow0 border-bottom"  value="${userDetail.healthCertificateCode }"  id="healthCertificateCode" name="healthCertificateCode" placeholder="请输入健康证编号" aria-describedby="sizing-addon1">
 					</div>
-				</div>
-				
+				</div>				
 				<div class="">
 					<div class="fc">
 						<div class="upload_imgs">

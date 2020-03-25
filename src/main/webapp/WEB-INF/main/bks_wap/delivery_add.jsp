@@ -46,7 +46,7 @@
 						<select id="mealsUnitName"">
 								<option value="">请选择送餐企业</option>
 								<c:forEach items="${unitList}" var="item">								
-									<option value="${item.unitName}">${item.unitName}</option>
+									<option value="${item.unitId}">${item.unitName}</option>
 								</c:forEach>							
 							</select>
 					</div>					
@@ -128,7 +128,7 @@
 	    	intoBase64("fileinput2","preview2");	        
 	    });
 	  //新增图片
-		$("#add").click(function() {				
+		$("#add").click(function() {
 			if($("#preview").attr('src') == ""){
 				layer.msg("请上传送餐装箱照",{icon:2,time:1000});
 				$("#preview").focus();
@@ -147,11 +147,12 @@
 			}else if($("#type").val() == ""){
 				layer.msg("请填写配餐类型",{icon:2,time:1000});
 				$("#type").focus();
-			}else{ 
-				var loadingindex=layerloadingOpen();
+			}else{ 				
+				var loadingindex = layerloadingOpen();
 				var formData = new FormData();				
 				formData.append('type',$("#type").val());//送餐类型
-				formData.append('mealsUnitName',$("#mealsUnitName").val());//供餐企业
+				formData.append('mealsUnitId',$("#mealsUnitName").val());//供餐企业
+				formData.append('mealsUnitName',$("#mealsUnitName option:selected").text());//供餐企业
 				formData.append('acceptanceUnitName','${user.unitName}');//订餐企业
 				formData.append('mealsUserName','${user.username}');//订餐企业
 				formData.append('packingPhoto',dataURLtoFile($("#preview").attr('src'),'dsf.jpg'));//送餐装箱图
@@ -181,7 +182,7 @@
 							}
 							
 						}
-				}); 
+				});
 			}
 		});	
 	})					

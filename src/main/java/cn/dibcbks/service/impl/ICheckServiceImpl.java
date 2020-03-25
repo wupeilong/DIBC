@@ -1,7 +1,6 @@
 package cn.dibcbks.service.impl;
 
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,12 +16,16 @@ import org.springframework.ui.ModelMap;
 import com.alibaba.fastjson.JSONArray;
 import cn.dibcbks.entity.Check;
 import cn.dibcbks.entity.Unit;
+import cn.dibcbks.entity.Unqualified;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.mapper.CheckMapper;
 import cn.dibcbks.mapper.UnitMapper;
+import cn.dibcbks.mapper.UnqualifiedMapper;
 import cn.dibcbks.service.ICheckService;
+import cn.dibcbks.service.IUnitService;
 import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.Constants;
+import cn.dibcbks.util.DateUtil;
 import cn.dibcbks.util.ResponseResult;
 
 @Service
@@ -32,27 +35,22 @@ public class ICheckServiceImpl implements ICheckService {
 	private CheckMapper checkMapper;
 	@Autowired
 	private UnitMapper unitMapper;
+	@Autowired
+	private IUnitService iUnitService;
+	@Autowired
+	private UnqualifiedMapper unqualifiedMapper;
 	
-
+	
 	@Override
-	public ResponseResult<List<Check>> queryCheckListInfo(String unitId, Integer unitType) {
+	public ResponseResult<List<Check>> selectCheckList(String unitId, Integer unitType) {
 		ResponseResult<List<Check>> rr = null;
 		try {
-			String where = "";
-			if(StringUtils.isEmpty(unitId) && unitType == null){
-				where = null;
-			}
-			boolean addAnd = false;
+			String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(c.create_time) ";
 			if(StringUtils.isNotEmpty(unitId)){
-				where += " c.unit_id = '" + unitId + "'";
-				addAnd = true;
+				where += " AND c.unit_id = '" + unitId + "'";
 			}
-			if (unitType != null) {
-				if(addAnd){
-					where += " AND c.unit_type = '" + unitType + "'";
-				}else{
-					where += " c.unit_type = '" + unitType + "'";
-				}
+			if (unitType != null) {				
+				where += " AND c.unit_type = '" + unitType + "'";				
 			}
 			List<Check> list = checkMapper.select(where, " c.create_time DESC", null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！",list);
@@ -77,88 +75,15 @@ public class ICheckServiceImpl implements ICheckService {
 			}else {
 				checkList = checkMapper.select(" c.unit_id = '" + user.getUnitId() + "'", " c.create_time DESC", null, null);
 			}
-			System.out.println(checkList);
-			
+			System.out.println(checkList);			
 			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入监管采集信息查看页面成功！");
-			//TODO 监管采集信息查看页面
-			return checkList;// 
+			return checkList; 
 		} catch (Exception e) {			
 			logger.error(Constants.ERROR_HEAD_INFO + "用户进入信息采集信息查看页面失败，原因：" + e.getMessage());
 			return null;
 		}		
 	}
-
-
-	@Override
-	public String checkDetailInfo(ModelMap modelMap,Integer id) {
-		try {
-			Check checkDetail = checkMapper.queryCheck(id);
-			JSONArray jsonArray = JSONArray.parseArray(checkDetail.getResult());
-			List<Integer> resultList = new ArrayList<>();
-	        for (int i = 0; i < jsonArray.size(); i++) {
-	        	resultList.add(jsonArray.getInteger(i));
-	        }
-	        checkDetail.setResultList(resultList);
-			modelMap.addAttribute("checkDetail", checkDetail);
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户查看检查信息详情成功！");
-			//TODO 检查信息详情页面
-			return "";
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(Constants.ERROR_HEAD_INFO + "用户查看检查信息详情失败，原因：" + e.getMessage());
-		}
-		return "error/404";
-	}
 	
-	
-	@Override
-	public String businessPage(ModelMap modelMap) {
-		try {
-			Subject subject = SecurityUtils.getSubject();
-			Session session = subject.getSession();
-			User user = (User)session.getAttribute("user");
-			List<Unit> unitList = unitMapper.select("n.unit_id = '" + user.getUnitId() + "'", null, null, null);
-			modelMap.addAttribute("unitList", unitList);
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入商家自检页面成功！");
-			//TODO 商家自检页面
-			return "";
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(Constants.ERROR_HEAD_INFO + "用户进入商家自检页面失败，原因：" + e.getMessage());
-		}
-		return "error/404";
-	}
-
-	@Override
-	public String supervisePage(ModelMap modelMap) {
-		try {
-			List<Unit> unitList = unitMapper.select(null, null, null, null);
-			modelMap.addAttribute("unitList", unitList);
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入监管局专检页面成功！");
-			//TODO 监管局专检页面
-			return "";
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(Constants.ERROR_HEAD_INFO + "用户进入监管局专检页面失败，原因：" + e.getMessage());
-		}
-		return "error/404";
-	}
-
-	@Override
-	public String supervisionPage(ModelMap modelMap) {
-		try {
-			List<Unit> unitList = unitMapper.select(null, null, null, null);
-			modelMap.addAttribute("unitList", unitList);
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入督察组专检页面成功！");
-			//TODO 督察组专检页面
-			return "";
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(Constants.ERROR_HEAD_INFO + "用户进入督察组专检页面失败，原因：" + e.getMessage());
-		}
-		return "error/404";
-	}
-
 
 	@Override
 	public ResponseResult<Void> addCheckInfo(Integer unitId,String unitName,String unitType,String unitAddress,
@@ -167,7 +92,7 @@ public class ICheckServiceImpl implements ICheckService {
 		ResponseResult<Void> rr = null;
 		try {
 			Check check = new Check();
-			check.setUserId(CommonUtil.getStessionUser().getId());
+			check.setUserId(CommonUtil.getSessionUser().getId());
 			check.setUnitId(unitId);
 			check.setUnitName(unitName);
 			check.setUnitType(unitType);
@@ -204,8 +129,107 @@ public class ICheckServiceImpl implements ICheckService {
 		return checkMapper.select(where, null, null, null);
 	}
 
+	@Override
+	public String selectCheckListPag(ModelMap modelMap) {
+		User user = CommonUtil.getSessionUser();
+		List<Check> checkList = new ArrayList<>();
+		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(c.create_time) ";
+		if (user.getType().equals(1)) {
+			checkList = checkMapper.select(where, " c.create_time DESC", null, null);			
+			iUnitService.addUnitListToModelMap(modelMap);
+		}else{
+			checkList = checkMapper.select(where + " AND c.unit_id = '" + user.getUnitId() + "'", " c.create_time DESC", null, null);
+		}		
+		modelMap.addAttribute("checkList", checkList);
+		return "bks_wap/inspect_list";
+	}
+
+	@Override
+	public String addCheckPag(ModelMap modelMap, Integer checkType) {
+		if (checkType == 1) {			
+			List<Unit> unitList = unitMapper.select(" n.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);
+			modelMap.addAttribute("unitDetail", unitList.get(0));
+		}else{
+			iUnitService.addUnitListToModelMap(modelMap);
+		}
+		modelMap.addAttribute("checkType", checkType);
+		return "bks_wap/inspect_add";
+	}
+
+	@Override
+	public String selectCheckDetailPag(ModelMap modelMap, Integer id) {
+		Check check = checkMapper.queryCheck(id);
+		System.out.println(check);
+		JSONArray jsonArray = JSONArray.parseArray(check.getResult());
+		modelMap.addAttribute("InspectDetal", jsonArray);
+		modelMap.addAttribute("checkListbyid", check);		
+		return "bks_wap/inspect_detal";
+	}
+
+	@Override
+	public ResponseResult<Void> addCheck(	Integer unitId, 
+											String unitType, 
+											String unitPhone, 
+											String queryrights,
+											String other, 
+											Integer checkType) {
+
+		ResponseResult<Void> rr = null;
+		try {
+			List<Unit> unitList = unitMapper.select(" n.unit_id = '" + unitId + "'", null, null, null);			
+			Date currentTime = new Date();
+			Check check = new Check();
+			check.setUserId(CommonUtil.getSessionUser().getId());
+			check.setUnitId(unitId);
+			check.setUnitName(unitList.get(0).getUnitName());
+			check.setUnitType(unitType);
+			check.setUnitAddress(unitList.get(0).getUnitAddress());
+			check.setUnitPrincipal(unitList.get(0).getLegalPerson());
+			check.setUnitPhone(unitPhone);
+			check.setResult(queryrights);
+			check.setOther(other);
+			check.setInspectors(CommonUtil.getSessionUser().getUsername());
+			check.setDailyTime(DateUtil.dateFormat(currentTime, DateUtil.DATE_PATTERN));
+			check.setCheckType(checkType);
+			check.setCreateTime(currentTime);
+			checkMapper.insert(check);
+			JSONArray jsonArray = JSONArray.parseArray(queryrights);
+			boolean qualified = false;
+			for(int i=0; i<jsonArray.size(); i++){
+				if(jsonArray.getInteger(i).equals(0)){
+					System.out.println("第" + (i+1) + "项不合格！" );
+					qualified = true;
+				}
+			}
+			//存在不合格检查项生成不合格信息记录
+			if(qualified){
+				Unqualified unqualified = new Unqualified();
+				unqualified.setUnitId(unitId);
+				unqualified.setUnitName(unitList.get(0).getUnitName());
+				unqualified.setOrderId(check.getId().toString());
+				unqualified.setType(checkType == 1 ? 3 : checkType == 2 ? 4 : 5);
+				unqualified.setCause((checkType == 1 ? "商检自检" : checkType == 2 ? "监管局专检" : "督察组检查") + "有检查项不符合要求。");
+				unqualified.setStatus(0);
+				unqualified.setCreateTime(currentTime);
+				unqualifiedMapper.insert(unqualified);
+				logger.info(Constants.SUCCESSU_HEAD_INFO + "监督检查单号:" + check.getId() + " 生成不合格信息记录！");
+			}
+			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户新增监督检查信息成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+			logger.error(Constants.ERROR_HEAD_INFO + "用户新增监督检查信息失败，原因：" + e.getMessage());
+		}
+		return rr;
+	}
 
 
+	public static void main(String[] args) {
+		int a = 1;
+		String abc = a == 1 ? "3" : a == 2 ? "4" : "5";
+		System.out.print(abc);
+	}
 
 
 }

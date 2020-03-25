@@ -25,22 +25,22 @@
 				  <div class="">
 				  	<table class="table table-bordered" cellspacing="" cellpadding="">
 				  		<caption>
-				  			<c:if test="${checkListbyid[0].checkType==1}">
+				  			<c:if test="${checkListbyid.checkType==1}">
 				  				<h3 class="text-center">食品商家专项监督检查表</h3>
 				  			</c:if>
-							<c:if test="${checkListbyid[0].checkType==2}">
+							<c:if test="${checkListbyid.checkType==2}">
 				  				<h3 class="text-center">监督管理局专项监督检查表</h3>
 				  			</c:if>
-				  			<c:if test="${checkListbyid[0].checkType==3}">
+				  			<c:if test="${checkListbyid.checkType==3}">
 				  				<h3 class="text-center">督查专项监督检查表</h3>
 				  			</c:if>
 							<div class="margin-top2">
 								<div class="">
 									<div class="padding-side margin-top05">
-										<span class="">名称：</span><span>${checkListbyid[0].unitName }</span>
+										<span class="">名称：</span><span>${checkListbyid.unitName }</span>
 									</div>
 									<div class="padding-side margin-top05">
-										<span class="">地址：</span><span>${checkListbyid[0].unitAddress }</span>
+										<span class="">地址：</span><span>${checkListbyid.unitAddress }</span>
 									</div>
 								</div>
 								<div class="fs margin-top05 padding-side">
@@ -53,7 +53,7 @@
 										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="幼儿园" />幼儿园</label>
 										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="餐饮企业" />餐饮企业</label>
 									</div>
-									<input type="hidden" value="${checkListbyid[0].unitType}" id="unitType">
+									<input type="hidden" value="${checkListbyid.unitType}" id="unitType">
 									<script type="text/javascript">
 									$(":radio[name='objectType'][value='"+$('#unitType').val()+"']").prop("checked", "checked");
 									</script>
@@ -61,19 +61,19 @@
 								<div class="margin-top05 padding-side fb">
 									<div class="">
 										<div class="">
-											负责人员：<span class="" id="legalPerson">${checkListbyid[0].unitPrincipal }</span>
+											负责人员：<span class="" id="legalPerson">${checkListbyid.unitPrincipal }</span>
 										</div>
 										<div class="margin-top05">
-											检查人员：</span><span class="">${checkListbyid[0].inspectors }</span>
+											检查人员：</span><span class="">${checkListbyid.inspectors }</span>
 										</div>
 									</div>
 									<div class="">
 										<div class="">
-										联系电话：<span class="">${checkListbyid[0].unitPhone }</span>
+										联系电话：<span class="">${checkListbyid.unitPhone }</span>
 										</div>
 										<div class="margin-top05">
 											<span class="" style="width: 100px;" >检查时间：</span>
-						  					<span class="">${checkListbyid[0].dailyTime }</span>
+						  					<span class="">${checkListbyid.dailyTime }</span>
 										</div>
 									</div>
 								</div>
@@ -150,7 +150,7 @@
 							<tr><td>存放时间超过2小时的食品食用前经过充分加热</td><c:if test="${InspectDetal[40]==0}"><td style="color: red;">不合格</td>	</c:if><c:if test="${InspectDetal[40]==1}"><td style="color: green;">合格</td>	</c:if></tr>
 							<tr><td class="vertical-mid" rowspan="2">使用食品添加剂情况</td><td>食品添加剂使用符合国家有关规定</td><c:if test="${InspectDetal[41]==0}"><td style="color: red;">不合格</td>	</c:if><c:if test="${InspectDetal[41]==1}"><td style="color: green;">合格</td>	</c:if></tr>
 							<tr><td>达到专人采购、专人保管、专人领用、专人登记、专柜保存要求</td><c:if test="${InspectDetal[42]==0}"><td style="color: red;">不合格</td>	</c:if><c:if test="${InspectDetal[42]==1}"><td style="color: green;">合格</td>	</c:if></tr>
-							<tr><td class="vertical-mid" style="height: 5em;">其它需要说明的情况</td><td colspan="2">${checkListbyid[0].other }</td></tr>
+							<tr><td class="vertical-mid" style="height: 5em;">其它需要说明的情况</td><td colspan="2">${checkListbyid.other }</td></tr>
 				  		</tbody>
 				  	</table>
 				  </div>

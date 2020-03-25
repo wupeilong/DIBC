@@ -24,7 +24,7 @@
 					<div class="">
 						<select id="unit_list"">
 								<option value="">查看全部企业</option>
-								<c:forEach items="${unitlistall}" var="item">								
+								<c:forEach items="${unitList}" var="item">								
 									<option value="${item.unitId}">${item.unitName}</option>
 								</c:forEach>							
 						</select>
@@ -41,7 +41,7 @@
 						<tr><th>检查单位公司</th><th>样品名称</th><th style="width: 4em">日期</th><th style="width: 4em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">
-						<c:forEach items="${unitList}" var="f">
+						<c:forEach items="${detectionList}" var="f">
 							<tr>
 								<td>${f.unitName }</td>
 								<td>${f.samplName }</td>

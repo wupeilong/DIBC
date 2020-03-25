@@ -6,7 +6,7 @@
 <head>
 	<meta charset=utf-8>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>采购报送信息列表</title>
+	<title>不合格信息列表</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
@@ -21,9 +21,7 @@
 			<div class="fb padding-side">
 				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
 				<div class="">
-					<div class="">
-						<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->
-						
+					<div class="">						
 						<c:if test="${user.type == 1}">
 							<select id="unit_list">
 								<option value="">查询所有企业信息</option>
@@ -31,31 +29,28 @@
 									<option value="${item.unitId}">${item.unitName}</option>
 								</c:forEach>
 							</select>
-						</c:if>					
-				
+						</c:if>
 					</div>
-				</div>
-				<c:if test="${user.type == 2 }">
-					<a href="${pageContext.request.contextPath}/procurement/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
-				</c:if>				
+				</div>							
 			</div>
 		</div>
 		<main class="main margin-top2 padding-side05">
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead>
-						<tr><th>采购商</th><th width="60">状态</th><th width="100px">采购日期</th><th width="50px">操作</th></tr>
+						<tr><th>单位</th><th width="60">状态</th><th width="150px">原因</th><th width="100px">时间</th><th width="50px">详情</th></tr>
 					</thead>
 					<tbody id="result_list">
-						<c:forEach items="${procurementList}" var="item">
+						<c:forEach items="${unqualifiedList}" var="item">
 							<tr><td>${item.unitName}</td>
 							<c:if test="${item.status == 0}">
-								<td>未验收</td>
+								<td>未处理</td>
 							</c:if>
 							<c:if test="${item.status == 1}">
-								<td>已验收</td>
+								<td>已处理</td>
 							</c:if>
-							<td><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></td>
+							<td>${item.cause }</td>
+							<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd" /></td>
 							<td><a href="${pageContext.request.contextPath}/procurement/buy_detal?id=${item.id}">详情</a></td>
 							</tr>
 						</c:forEach>						
@@ -68,7 +63,7 @@
 	<script type="text/javascript">
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/procurement/list";
+			var url = "${pageContext.request.contextPath}/unqualified/list";
 			var data = "unitId=" + $("#unit_list").val();
 			$.ajax({
 				"url" : url,
@@ -85,12 +80,13 @@
 							result += "<tr>";
 							result += "<td>" + obj.data[i].unitName + "</td>";
 							if(obj.data[i].status == 0){
-								result += "<td>未验收</td>";
+								result += "<td>未处理</td>";
 							}
 							if(obj.data[i].status == 1){
-								result += "<td>已验收</td>";
+								result += "<td>已处理</td>";
 							}	
-							result += "<td>" + format(obj.data[i].purchasingTime, "yyyy-MM-dd") + "</td>";
+							result += "<td>" + obj.data[i].cause + "</td>";
+							result += "<td>" + format(obj.data[i].createTime, "yyyy-MM-dd") + "</td>";
 							result += "<td><a href='${pageContext.request.contextPath}/procurement/buy_detal?id=" + obj.data[i].id + "'>详情</a></td>";
 							result += "</tr>";
 						}
@@ -98,7 +94,7 @@
 					}		
 				}
 			});
-		}
+		} 
 	});
 	
 	var format = function(time, format) {

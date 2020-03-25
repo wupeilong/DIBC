@@ -2,11 +2,10 @@ package cn.dibcbks.service;
 
 
 
-import java.util.Date;
+
 import java.util.List;
-
 import org.springframework.ui.ModelMap;
-
+import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
@@ -26,21 +25,16 @@ public interface IUserService {
 
 	ResponseResult<Void> login(String idCard, String password);
 
-	ResponseResult<Void> allocateAccount(String uuid, String idCard, String username, String password, String phone, String duty, Integer age,String healthCertificateCode,String stratpath);
-
-	ResponseResult<Void> updateUser(User user);
-	ResponseResult<Void> updatePassword(User user);
-
-	String userCenter(ModelMap modelMap);
-
-	String allocateAccountPage();
+	ResponseResult<Void> updateUser(User user);	
 
 	ResponseResult<Void> userIsExist(String idCard,String phone);
 
 	ResponseResult<List<User>> queryUnitUser(Integer unitId, String unitName);
 
 	String queryUnitUserDetail(ModelMap modelMap,String id);
+	
 	List<Unit> queryUnitUserDetail(Integer unitid);
+	
 	String queryUserPcenter(ModelMap modelMap,String id);
 
 	String workmens(ModelMap modelMap);
@@ -48,7 +42,70 @@ public interface IUserService {
 	String workmensHealth(ModelMap modelMap,Integer userId);
 
 	String workmensHealthDetal(ModelMap modelMap, Integer hygieneId);
+	
 	ResponseResult<Void> addHygiene(Hygiene hygiene);
+
+	/**
+	 * 修改用户密码
+	 * @param password
+	 * @param oldpassword
+	 * @return
+	 */
+	ResponseResult<Void> uploadPassword(String password, String oldpassword);
+
+	/**
+	 * 分配员工账户
+	 * @param duty
+	 * @param idCard
+	 * @param username
+	 * @param password
+	 * @param phone
+	 * @param age
+	 * @param healthCertificateCode
+	 * @param file
+	 * @return
+	 */
+	ResponseResult<Void> allocateAccount(String duty, String idCard, String username, String password, String phone,
+			Integer age, String healthCertificateCode, MultipartFile file);
+	
+	/**
+	 * 新增健康信息
+	 * @param userId
+	 * @param username
+	 * @param dailyTime
+	 * @param celsius
+	 * @param fever
+	 * @param diarrhea
+	 * @param woundsFester
+	 * @param hygiene
+	 * @param remark
+	 * @param file
+	 * @return
+	 */
+	ResponseResult<Void> addHygiene(Integer userId, String username, String dailyTime, Double celsius, String fever,
+			String diarrhea, String woundsFester, String hygiene, String remark, MultipartFile file);
+	
+	/**
+	 * 修改用户信息
+	 * @param id
+	 * @param idCard
+	 * @param username
+	 * @param duty
+	 * @param phone
+	 * @param age
+	 * @param healthCertificateCode
+	 * @param healthCertificate
+	 * @return
+	 */
+	ResponseResult<Void> updateUser(Integer id, String idCard, String username, String duty,String phone,
+			Integer age, String healthCertificateCode, String healthCertificate,MultipartFile file);
+
+	/**
+	 * 进入个人中心修改页面
+	 * @param modelMap
+	 * @return
+	 */
+	String updateUserPage(ModelMap modelMap);
 
 	
 }

@@ -9,13 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import cn.dibcbks.entity.Unit;
-import cn.dibcbks.entity.User;
-import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.service.IUnitService;
-import cn.dibcbks.util.CommonUtil;
-import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
 /**
  * 企业控制器
@@ -27,8 +22,7 @@ import cn.dibcbks.util.ResponseResult;
 public class UnitController {
 	@Autowired
 	private IUnitService iUnitService;
-	@Autowired
-	private UnitMapper unitMapper;
+
 	
 	/**
 	 * 进入企业信息列表页
@@ -77,40 +71,9 @@ public class UnitController {
 			@RequestParam(value="productionLicense",required=false)MultipartFile file1,				
 			@RequestParam(value="unitAddress",required = true) String unitAddress,			
 			@RequestParam(value="unitType",required = true) Integer unitType,
-			@RequestParam(value="legalPerson",required = true) String legalPerson){
+			@RequestParam(value="legalPerson",required = true) String legalPerson){		
 		
-		GetCommonUser get = new GetCommonUser();
-		User user = CommonUtil.getStessionUser();
-		List<Unit> unitList = unitMapper.select(" n.unit_id = '" + user.getUnitId() + "'", null, null, null);
-		if(unitList.isEmpty()){
-			return new ResponseResult<Void>(ResponseResult.ERROR,"企业信息异常，操作失败！");
-		}
-		Unit update = unitList.get(0);
-		update.setUnitName(unitName);
-		update.setBusinessLicenseCode(businessLicenseCode);
-		update.setUnitAddress(unitAddress);
-		update.setUnitType(unitType);
-		update.setLegalPerson(legalPerson);
-		System.out.println("11111");
-		if(file != null){
-			get.deluoladimg(update.getBusinessLicense());
-			String businessLicense = get.uoladimg(file, user.getUuid());
-			if(businessLicense == null){
-				return new ResponseResult<Void>(ResponseResult.ERROR,"营业执照上传异常,人员信息添加失败");
-			}
-			update.setBusinessLicense(businessLicense);
-		}
-		System.out.println("2222222");
-		if(file1 != null){
-			System.out.println("3333333");
-			get.deluoladimg(update.getProductionLicense());
-			String productionLicense = get.uoladimg(file1, user.getUuid());
-			if(productionLicense == null){
-				return new ResponseResult<Void>(ResponseResult.ERROR,"许可证上传异常,人员信息添加失败");
-			}
-			update.setProductionLicense(productionLicense);		
-		}		
-		return iUnitService.updatUunit(update);
+		return iUnitService.updateUnit(unitName,businessLicenseCode,file,file1,unitAddress,unitType,legalPerson);
 	}
 	
 	

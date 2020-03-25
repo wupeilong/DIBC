@@ -29,8 +29,8 @@
 						<table class="table table-bordered" cellspacing="" cellpadding="">
 							<caption class="">
 								<div class="fb">
-									<span class="">消毒人员：<span>${disinfectionbyid[0].username}</span></span>
-									<span class="padding-side05">消毒日期：<span>${disinfectionbyid[0].dailyTime}</span><span>
+									<span class="">消毒人员：<span>${disinfectionbyid.username}</span></span>
+									<span class="padding-side05">消毒日期：<span>${disinfectionbyid.dailyTime}</span><span>
 								</div>			                   
 							</caption>
 							<thead>
@@ -131,7 +131,7 @@
 									<td colspan="2" class="vertical-mid">消毒时间</td>
 									<td colspan="2" style="width: 15em;">
 										<div class="">
-											<input readonly="" class="form-control" type="text" id="date-group1-6" value="<fmt:formatDate value="${disinfectionbyid[0].createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" placeholder="hh:mm">
+											<input readonly="" class="form-control" type="text" id="date-group1-6" value="<fmt:formatDate value="${disinfectionbyid.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" placeholder="hh:mm">
 										</div>
 										<!-- <select name="">
 											<option value="">请选择时间</option>

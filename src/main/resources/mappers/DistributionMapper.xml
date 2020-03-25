@@ -7,9 +7,13 @@
 	    <result column="daily_time" property="dailyTime" />
 	    <result column="type" property="type" />
 	    <result column="catering_type" property="cateringType" />
+	    <result column="meals_unit_id" property="mealsUnitId" />
 	    <result column="meals_unit_name" property="mealsUnitName" />
+	    <result column="meals_user_id" property="mealsUserId" />
 	    <result column="meals_user_name" property="mealsUserName" />
+	    <result column="acceptance_unit_id" property="acceptanceUnitId" />
 	    <result column="acceptance_unit_name" property="acceptanceUnitName" />
+	    <result column="acceptance_user_id" property="acceptanceUserId" />
 	    <result column="acceptance_user_name" property="acceptanceUserName" />
 	    <result column="packing_photo" property="packingPhoto" />
 	    <result column="seal_photo" property="sealPhoto" />
@@ -18,6 +22,7 @@
 	    <result column="start_time" property="startTime" />
 	    <result column="end_time" property="endTime" />
 	    <result column="acceptance_time" property="acceptanceTime" />
+	    <result column="acceptance_result" property="acceptanceResult" />
 	    <result column="status" property="status" />
 	    <result column="address" property="address" />
 	    <result column="create_time" property="createTime" />
@@ -37,15 +42,27 @@
 	      </if>
 	      <if test="cateringType != null">
 	        catering_type,
-	      </if>	      
+	      </if>
+	      <if test="mealsUnitId != null">
+	        meals_unit_id,
+	      </if>  
 	      <if test="mealsUnitName != null">
 	        meals_unit_name,
+	      </if>
+	      <if test="mealsUserId != null">
+	        meals_user_id,
 	      </if>
 	      <if test="mealsUserName != null">
 	        meals_user_name,
 	      </if>
+	      <if test="acceptanceUnitId != null">
+	        acceptance_unit_id,
+	      </if>
 	      <if test="acceptanceUnitName != null">
 	        acceptance_unit_name,
+	      </if>
+	      <if test="acceptanceUserId != null">
+	        acceptance_user_id,
 	      </if>
 	      <if test="acceptanceUserName != null">
 	        acceptance_user_name,
@@ -71,6 +88,9 @@
 	      <if test="acceptanceTime != null">
 	        acceptance_time,
 	      </if>
+	      <if test="acceptanceResult != null">
+	        acceptance_result,
+	      </if>
 	      <if test="status != null">
 	        status,
 	      </if>
@@ -93,15 +113,27 @@
 	      </if>
 	      <if test="cateringType != null">
 	        #{cateringType},
+	      </if>
+	      <if test="mealsUnitId != null">
+	        #{mealsUnitId},
 	      </if>	      
 	      <if test="mealsUnitName != null">
 	        #{mealsUnitName},
 	      </if>
+	      <if test="mealsUserId != null">
+	        #{mealsUserId},
+	      </if>
 	      <if test="mealsUserName != null">
 	        #{mealsUserName},
 	      </if>
+	      <if test="acceptanceUnitId != null">
+	        #{acceptanceUnitId},
+	      </if>
 	      <if test="acceptanceUnitName != null">
 	        #{acceptanceUnitName},
+	      </if>
+	      <if test="acceptanceUserId != null">
+	        #{acceptanceUserId},
 	      </if>
 	      <if test="acceptanceUserName != null">
 	        #{acceptanceUserName},
@@ -127,6 +159,9 @@
 	      <if test="acceptanceTime != null">
 	        #{acceptanceTime},
 	      </if>
+	      <if test="acceptanceResult != null">
+	        #{acceptanceResult},
+	      </if>
 	      <if test="status != null">
 	        #{status},
 	      </if>
@@ -146,9 +181,13 @@
 			d.daily_time,
 			d.type,
 			d.catering_type,
+			d.meals_unit_id,
 			d.meals_unit_name,
+			d.meals_user_id,
 			d.meals_user_name,
+			d.acceptance_unit_id,
 			d.acceptance_unit_name,
+			d.acceptance_user_id,
 			d.acceptance_user_name,
 			d.packing_photo,
 			d.seal_photo,
@@ -157,6 +196,7 @@
 			d.start_time,
 			d.end_time,
 			d.acceptance_time,
+			d.acceptance_result,
 			d.`status`,
 			d.address,
 			d.create_time
@@ -174,9 +214,13 @@
 			d.daily_time,
 			d.type,
 			d.catering_type,
+			d.meals_unit_id,
 			d.meals_unit_name,
+			d.meals_user_id,
 			d.meals_user_name,
+			d.acceptance_unit_id,
 			d.acceptance_unit_name,
+			d.acceptance_user_id,
 			d.acceptance_user_name,
 			d.packing_photo,
 			d.seal_photo,
@@ -185,6 +229,7 @@
 			d.start_time,
 			d.end_time,
 			d.acceptance_time,
+			d.acceptance_result,
 			d.`status`,
 			d.address,
 			d.create_time
@@ -209,15 +254,27 @@
 	      </if>
 	      <if test="cateringType != null">
 	        catering_type = #{cateringType},
+	      </if>
+	      <if test="mealsUnitId != null">
+	        meals_unit_id = #{mealsUnitId},
 	      </if>	      
 	      <if test="mealsUnitName != null">
 	        meals_unit_name = #{mealsUnitName},
 	      </if>
+	      <if test="mealsUserId != null">
+	        meals_user_id = #{mealsUserId},
+	      </if>
 	      <if test="mealsUserName != null">
 	        meals_user_name = #{mealsUserName},
 	      </if>
+	      <if test="acceptanceUnitId != null">
+	        acceptance_unit_id = #{acceptanceUnitId},
+	      </if>
 	      <if test="acceptanceUnitName != null">
 	        acceptance_unit_name = #{acceptanceUnitName},
+	      </if>
+	      <if test="acceptanceUserId != null">
+	        acceptance_user_id = #{acceptanceUserId},
 	      </if>
 	      <if test="acceptanceUserName != null">
 	        acceptance_user_name = #{acceptanceUserName},
@@ -242,6 +299,9 @@
 	      </if>
 	      <if test="acceptanceTime != null">
 	        acceptance_time = #{acceptanceTime},
+	      </if>
+	      <if test="acceptanceResult != null">
+	        acceptance_result = #{acceptanceResult},
 	      </if>
 	      <if test="status != null">
 	        status = #{status},

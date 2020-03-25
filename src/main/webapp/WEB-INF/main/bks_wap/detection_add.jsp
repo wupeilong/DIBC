@@ -36,7 +36,7 @@
 							  	<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->
 							  	<select id="unit_list"">
 										<option value="0">请选择企业信息</option>
-										<c:forEach items="${unitlistall}" var="item">								
+										<c:forEach items="${unitList}" var="item">								
 											<option value="${item.unitId}">${item.unitName}</option>
 										</c:forEach>							
 								</select>

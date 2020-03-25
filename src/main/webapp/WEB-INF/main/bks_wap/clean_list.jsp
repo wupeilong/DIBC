@@ -24,7 +24,7 @@
 						<c:if test="${user.type==1}">
 							<select id="unit_list"">
 									<option value="0">选择全部企业信息</option>
-									<c:forEach items="${unitlistall}" var="item">								
+									<c:forEach items="${unitList}" var="item">								
 										<option value="${item.unitId}">${item.unitName}</option>
 									</c:forEach>							
 							</select>

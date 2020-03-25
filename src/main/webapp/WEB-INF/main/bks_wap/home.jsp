@@ -78,6 +78,13 @@
 							<p class="padding-side05">视频监控</p>
 						</a>
 					</li>
+					
+					<li class="">
+						<a href="${pageContext.request.contextPath}/unqualified/list_pag">
+							<div><div class="padding-side icon_box"><i class="fa fa-crosshairs"></i></div></div>
+							<p class="padding-side05">不合格记录</p>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</main>
