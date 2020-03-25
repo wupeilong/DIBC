@@ -50,7 +50,7 @@ public class IUnqualifiedServiceImpl implements IUnqualifiedService{
 
 
 	@Override
-	public String selectUnqualifiedList(Integer unitId, Integer type) {
+	public ResponseResult<List<Unqualified>> selectUnqualifiedList(Integer unitId, Integer type) {
 		ResponseResult<List<Unqualified>> rr = null;
 		try {
 			String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(q.create_time) ";
@@ -67,6 +67,13 @@ public class IUnqualifiedServiceImpl implements IUnqualifiedService{
 			rr  = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
 		}
 		return rr;
+	}
+
+
+	@Override
+	public String selectUnqualifiedDetailPage(ModelMap modelMap, Integer id) {
+		
+		return "bks_wap/unqualified_detail";
 	}
 
 }
