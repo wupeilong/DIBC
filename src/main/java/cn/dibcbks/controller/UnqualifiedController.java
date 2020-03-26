@@ -63,4 +63,28 @@ public class UnqualifiedController {
 		
 		return iUnqualifiedService.selectUnqualifiedDetailPage(modelMap,id);
 	}
+	
+	/**
+	 * 处理不合格信息记录
+	 * @param id
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping("/process")
+	@ResponseBody()
+	public ResponseResult<Void> updateUnqualified(Integer id,String result){
+		
+		return iUnqualifiedService.updateUnqualified(id,result);
+	}
+	
+	/**
+	 * 不合格记录订单详情
+	 * @param orderId
+	 * @return
+	 */
+	@RequestMapping("/order_detail")
+	public String unqualifiedOrderDetail(ModelMap modelMap,Integer id){
+		
+		return iUnqualifiedService.selectUnqualifiedOrderDetail(modelMap,id);
+	}
 }

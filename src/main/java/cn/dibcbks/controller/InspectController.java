@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import cn.dibcbks.entity.Check;
 import cn.dibcbks.service.ICheckService;
-import cn.dibcbks.service.IUserService;
 import cn.dibcbks.util.ResponseResult;
 
 /**
@@ -24,8 +23,6 @@ public class InspectController {
 	
 	@Autowired
 	private ICheckService iCheckService;
-	@Autowired
-	private IUserService iUserService;
 	
 	
 	/**

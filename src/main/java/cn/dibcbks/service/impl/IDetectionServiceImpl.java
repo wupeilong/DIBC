@@ -113,8 +113,8 @@ public class IDetectionServiceImpl implements IDetectionService{
 												String remark, 
 												MultipartFile file) {
 		
-		ResponseResult<Void> rr = null;		
-		GetCommonUser get=new GetCommonUser();			
+		ResponseResult<Void> rr = null;
+		GetCommonUser get=new GetCommonUser();
 		String detectionpath=get.uoladimg(file,CommonUtil.getSessionUser().getUuid());
 		if (detectionpath==null) {
 			rr = new ResponseResult<Void>(ResponseResult.ERROR,"图片上传异常,人员信息添加失败");

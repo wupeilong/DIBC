@@ -38,5 +38,21 @@ public interface IUnqualifiedService {
 	 * @return
 	 */
 	String selectUnqualifiedDetailPage(ModelMap modelMap, Integer id);
+	
+	/**
+	 * 处理不合格信息记录
+	 * @param id
+	 * @param result
+	 * @return
+	 */
+	ResponseResult<Void> updateUnqualified(Integer id, String result);
+	
+	/**
+	 * 不合格记录订单详情
+	 * @param modelMap
+	 * @param id
+	 * @return
+	 */
+	String selectUnqualifiedOrderDetail(ModelMap modelMap, Integer id);
 
 }

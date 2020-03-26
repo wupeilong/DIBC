@@ -20,7 +20,7 @@ public interface UnqualifiedMapper {
 							  @Param("offset") String offset,
 							  @Param("offset") String countPerPage);
 	
-	Unqualified selectUnqualifiedById(@Param("id")String id);
+	Unqualified selectUnqualifiedById(@Param("id")Integer id);
 	
 	Integer updateById(Unqualified unqualified);
 	
