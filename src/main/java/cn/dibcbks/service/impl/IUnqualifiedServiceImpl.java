@@ -124,8 +124,8 @@ public class IUnqualifiedServiceImpl implements IUnqualifiedService{
 			}
 			if (unqualified.getType().equals(2)){//2-配餐验收
 				Distribution distribution = distributionMapper.queryDistribution(unqualified.getOrderId());
-				JSONArray acceptanceResult = JSONArray.parseArray(distribution.getAcceptanceResult());
-				modelMap.addAttribute("acceptanceResult", acceptanceResult);
+				//JSONArray acceptanceResult = JSONArray.parseArray(distribution.getAcceptanceResult());
+				//modelMap.addAttribute("acceptanceResult", acceptanceResult);
 				modelMap.addAttribute("distributionDetial", distributionMapper.queryDistribution(unqualified.getOrderId()));
 				//TODO 返校验收开餐验收信息页
 				return "bks_wap/delivery_detal";

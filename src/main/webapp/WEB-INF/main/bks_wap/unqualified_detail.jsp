@@ -56,7 +56,7 @@
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>订&ensp;单&ensp;ID</span>
-					  <div class="form-control box-shadow0 border0">${unqualifiedDetail.orderId }<span style="padding-left:9em;"><a href="${pageContext.request.contextPath}/unqualified/order_detail?id=${unqualifiedDetail.id}">详情查询</a></span></div>
+					  <div class="form-control box-shadow0 border0">${unqualifiedDetail.orderId }<span style="padding-left:9em;"><a href="${pageContext.request.contextPath}/unqualified/order_detail?id=${unqualifiedDetail.id}">订单详情</a></span></div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>原&ensp;&ensp;&ensp;&ensp;因</span>

@@ -79,8 +79,9 @@ public class IDistributionServiceImpl implements IDistributionService {
 
 	@Override
 	public String distributionDetailPag(ModelMap modelMap, String id) {
-		
-		modelMap.addAttribute("distributionDetial", distributionMapper.queryDistribution(id));
+		Distribution distribution = distributionMapper.queryDistribution(id);
+		modelMap.addAttribute("distributionDetial", distribution);
+		//modelMap.addAttribute("distributionDetialResult", JSONArray.parseArray(distribution.getAcceptanceResult()));
 		return "bks_wap/delivery_detal";
 	}
 
