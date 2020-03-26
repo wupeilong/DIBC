@@ -344,3 +344,10 @@ table.table_arrange>tbody>tr>td:nth-of-type(3)>div:active,
 table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	color: #007DDB;
 }
+
+.forms form{
+	display: none;
+}
+.forms form.cur{
+	display: block;
+}
