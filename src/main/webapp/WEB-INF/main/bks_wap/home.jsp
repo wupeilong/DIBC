@@ -22,19 +22,19 @@
 				<div class="list_tit padding-side fonwei text-muted margin-top05"><h5 class="padding-side border-bottom fonwei">功能菜单</h5></div>
 				<ul class="function_list list-unstyled clearfix">
 					<li class="">
-						<a href="${pageContext.request.contextPath}/unit/coopration_list">
+						<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
 							<div><div class="padding-side icon_box"><i class="fa fa-info"></i></div></div>
 							<p class="padding-side05">企业信息</p>
 						</a>
 					</li>
 					<li class="">
-						<a href="${pageContext.request.contextPath}/user/workmens">
+						<a href="${pageContext.request.contextPath}/wap_user/workmens">
 							<div><div class="padding-side icon_box"><i class="fa fa-users"></i></div></div>
 							<p class="padding-side05">从业人员</p>
 						</a>
 					</li>
 					<li class="">
-						<a href="${pageContext.request.contextPath}/procurement/buy_list">
+						<a href="${pageContext.request.contextPath}/wap_pro/buy_list">
 							<div><div class="padding-side icon_box"><i class="fa fa-opencart"></i></div></div>
 							<p class="padding-side05">采购报送</p>
 						</a>
@@ -46,26 +46,26 @@
 						</a>
 					</li>
 					<li class="">
-						<a href="${pageContext.request.contextPath}/dry/delivery">
+						<a href="${pageContext.request.contextPath}/wap_dry/delivery">
 							<div><div class="padding-side icon_box"><i class="fa fa-truck"></i></div></div>
 							<p class="padding-side05">配送报备</p>
 						</a>
 					</li>
 					<li class="">
-						<a href="${pageContext.request.contextPath}/clean/clean_list">
+						<a href="${pageContext.request.contextPath}/wap_clean/clean_list">
 							<div><div class="padding-side icon_box"><i class="fa fa-shower"></i></div></div>
 							<p class="padding-side05">清洁<!-- /消毒 -->记录</p>
 						</a>
 					</li>
 					<li class="">
-						<a href="${pageContext.request.contextPath}/inspect/inspect_choise">
+						<a href="${pageContext.request.contextPath}/wap_ins/inspect_choise">
 							<div><div class="padding-side icon_box"><i class="fa fa-edit"></i></div></div>
 							<p class="padding-side05">监管采集</p>
 						</a>
 					</li>
 					<c:if test="${user.type == 1 }">
 						<li class="">
-						<a href="${pageContext.request.contextPath}/detection/detection_list">
+						<a href="${pageContext.request.contextPath}/wap_det/detection_list">
 							<div><div class="padding-side icon_box"><i class="fa fa-paper-plane-o"></i></div></div>
 							<p class="padding-side05">检测报送</p>
 						</a>
@@ -80,7 +80,7 @@
 					</li>
 					
 					<li class="">
-						<a href="${pageContext.request.contextPath}/unqualified/list_pag">
+						<a href="${pageContext.request.contextPath}/wap_unq/list_pag">
 							<div><div class="padding-side icon_box"><i class="fa fa-crosshairs"></i></div></div>
 							<p class="padding-side05">不合格记录</p>
 						</a>

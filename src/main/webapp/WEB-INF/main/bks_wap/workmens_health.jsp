@@ -28,7 +28,7 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${hygieneList}" var="item" varStatus="vs">
-							<tr><td>${vs.count}</td><td>${item.username}</td><td>${item.celsius}</td><td>${item.dailyTime }</td><td><a href="${pageContext.request.contextPath}/user/workmens_health_detal?hygieneId=${item.hygieneId}">详情</a></td></tr>
+							<tr><td>${vs.count}</td><td>${item.username}</td><td>${item.celsius}</td><td>${item.dailyTime }</td><td><a href="${pageContext.request.contextPath}/wap_user/workmens_health_detal?hygieneId=${item.hygieneId}">详情</a></td></tr>
 						</c:forEach>	
 						</tbody>
 				</table>

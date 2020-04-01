@@ -172,7 +172,7 @@
 			if($("#unit_list").val()==0){
 				return;				
 			}else{
-				var url = "${pageContext.request.contextPath}/unit/list";
+				var url = "${pageContext.request.contextPath}/wap_unit/list";
 				var data = "unitId=" + $("#unit_list").val();
 				$.ajax({
 					"url" : url,
@@ -199,22 +199,22 @@
 	</script>
 <script type="text/javascript">
 function diskinput(){	
-	var queryrights=new Array();
+	var queryrights = new Array();
 	var unitType = $("input[name='objectType']:checked").val();
-	var unitId=$("#unitId").val();
+	var unitId = $("#unitId").val();
 	if(unitId == ""){
 		layer.msg("请选择检查的企业",{icon:2,time:1000});
 		return;
 	}
-	var unitPhone=$("#unitPhone").val();
-	var other=$("#other").text();
-	var checkType=parseInt("${checkType}");  
+	var unitPhone = $("#unitPhone").val();
+	var other = $("#other").text();
+	var checkType = parseInt("${checkType}");  
 	var rs = document.querySelectorAll("select[name='inspectruset']");
 	for(var i = 0; i < rs.length; i++){ 
-		queryrights[i]=rs[i].value;		
+		queryrights[i] = rs[i].value;		
 	} 	
-	var url="inspect_regadd"; 
-	var  data ="queryrights="+JSON.stringify(queryrights)+"&unitId="+unitId+"&unitType="+unitType+"&other="+other+"&unitPhone="+unitPhone+"&checkType="+checkType;	 			  
+	var url = "${pageContext.request.contextPath}/wap_ins/inspect_regadd"; 
+	var  data = "queryrights="+JSON.stringify(queryrights)+"&unitId="+unitId+"&unitType="+unitType+"&other="+other+"&unitPhone="+unitPhone+"&checkType="+checkType;	 			  
     $.ajax({    	   
 	   "url":url,    	  
 	   "data":data,

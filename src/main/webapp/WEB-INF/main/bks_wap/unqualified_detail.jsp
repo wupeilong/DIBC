@@ -56,7 +56,7 @@
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>订&ensp;单&ensp;ID</span>
-					  <div class="form-control box-shadow0 border0">${unqualifiedDetail.orderId }<span style="padding-left:9em;"><a href="${pageContext.request.contextPath}/unqualified/order_detail?id=${unqualifiedDetail.id}">订单详情</a></span></div>
+					  <div class="form-control box-shadow0 border0">${unqualifiedDetail.orderId }<span style="padding-left:9em;"><a href="${pageContext.request.contextPath}/wap_unq/order_detail?id=${unqualifiedDetail.id}">订单详情</a></span></div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>原&ensp;&ensp;&ensp;&ensp;因</span>
@@ -113,7 +113,7 @@
 				layer.msg("请输入处理信息！",{icon:2,time:1000});
 				return;
 			}
-			var url = "${pageContext.request.contextPath}/unqualified/process";
+			var url = "${pageContext.request.contextPath}/wap_unq/process";
 			var data = "result=" + $("#result").val() + "&id=" + $("#unqualifiedId").val();
 			$.ajax({
 				 "url" : url,

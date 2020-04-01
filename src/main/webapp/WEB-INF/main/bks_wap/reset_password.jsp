@@ -58,7 +58,7 @@
 						layer.msg("请重新输入新密码",{icon:2,time:1000});
 						renew_pwd.focus()
 					}else{
-						var url = "../user/password_update";
+						var url = "${pageContext.request.contextPath}/wap_user/password_update";
 						var data = "password=" + $("#new_pwd").val()+"&oldpassword="+ $("#before_pwd").val();
 						$.ajax({
 							"url" : url,
@@ -71,7 +71,7 @@
 									return;
 								}else{									
 									layer.msg(obj.message,{icon:1,time:1000},function(){
-										location.href="../login";
+										location.href="${pageContext.request.contextPath}/wap_login";
 									});					
 								}				
 							}

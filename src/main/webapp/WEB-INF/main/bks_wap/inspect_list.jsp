@@ -57,7 +57,7 @@
 									</c:if>
 								</td>
 								<td>${f.dailyTime}</td>
-								<td style="4em"><a href="${pageContext.request.contextPath}/inspect/inspect_detal?id=${f.id}">详情</a></td>
+								<td style="4em"><a href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=${f.id}">详情</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -68,7 +68,7 @@
 	</body>
 	<script type="text/javascript">$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/inspect/queryList";
+			var url = "${pageContext.request.contextPath}/wap_ins/queryList";
 			var data = "unitId=" + $("#unit_list").val();
 			$.ajax({
 				"url" : url,
@@ -94,7 +94,7 @@
 								result += "<td>督查组检查</td>";
 							}							
 							result += "<td>" + obj.data[i].dailyTime + "</td>";
-							result += "<td style='4em'><a href='${pageContext.request.contextPath}/inspect/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+							result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
 							result += "</tr>";
 						}
 						$("#result_list").html(result);							

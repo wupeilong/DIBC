@@ -29,7 +29,7 @@
 						<div class="">
 							<span>
 								<c:if test="${user.parentId == 0 && user.unitId == unitDetail.unitId}">
-									<a href="${pageContext.request.contextPath}/unit/coopration_update"><input type="button"class="btn btn-primary form-control" value="完善企业信息"><!-- <i style="font-size: 20px;color: #1294b3;" class="fa fa-edit"></i> --></a>
+									<a href="${pageContext.request.contextPath}/wap_unit/coopration_update"><input type="button"class="btn btn-primary form-control" value="完善企业信息"><!-- <i style="font-size: 20px;color: #1294b3;" class="fa fa-edit"></i> --></a>
 								</c:if>
 							</span>
 						</div>

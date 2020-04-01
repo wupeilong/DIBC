@@ -179,7 +179,7 @@
 					formData.append('unitType',$("#unitType").val());
 					//formData.append('legalPerson',$("#legalPerson").val());			
 					 $.ajax({
-						 url: 'registeradd',
+						 url: '${pageContext.request.contextPath}/wap_registeradd',
 				          type: 'POST',
 				          cache: false,				          
 				          data: formData,				        
@@ -193,7 +193,7 @@
 								}else{					
 									layer.msg(obj.message,{icon:1,time:1000},function(){layer_close();});
 									setTimeout(function (){							 
-										window.location.href = "${pageContext.request.contextPath}/login";
+										window.location.href = "${pageContext.request.contextPath}/wap_login";
 									}, 3000);
 								}								
 							}
@@ -227,7 +227,7 @@
 						layer.msg("请正确输入手机号",{icon:2,time:1000});
 						$("#newpassword").focus();		
 					}else {
-						var url = "${pageContext.request.contextPath}/is_exist";
+						var url = "${pageContext.request.contextPath}/wap_is_exist";
 						var data = "idCard=" + $("#idCard").val() + "&phone=" + $("#phone").val();
 						console.log(data);
 						$.ajax({

@@ -1,7 +1,8 @@
 package cn.dibcbks.controller;
 
-import java.text.ParseException;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,21 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import java.text.ParseException;
 import cn.dibcbks.entity.Procurement;
 import cn.dibcbks.service.IProcurementService;
 import cn.dibcbks.util.ResponseResult;
 
 /**
- * 采购控制器
+ * H5采购控制器
  * @author Administrator
  *
  */
 @Controller
-@RequestMapping("/procurement")
-public class ProcurementController {
+@RequestMapping("/wap_pro")
+public class WapProcurementController {
 	@Autowired
 	private IProcurementService iProcurementService;
-	
 	/**
 	 * 进入采购列表页
 	 * @return

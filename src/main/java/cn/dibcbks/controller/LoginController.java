@@ -13,7 +13,7 @@ import cn.dibcbks.service.IUserService;
 import cn.dibcbks.util.ResponseResult;
 
 /**
- * 登录控制器
+ * 公共登录控制器
  * @author Administrator
  *
  */
@@ -26,41 +26,41 @@ public class LoginController {
 	
 	
 	/**
-	 * 进入登录页
+	 * H5进入登录页
 	 * @return
 	 */
-	@RequestMapping("/login")
+	@RequestMapping("/wap_login")
 	public String loginPage(){		
 		return "bks_wap/login";
 	}	
 	
 	
 	/**
-	 * 进入首页
+	 * H5进入首页
 	 * @return
 	 */
-	@RequestMapping("/home")
+	@RequestMapping("/wap_home")
 	public String Home(){		
 		return "bks_wap/home";
 	}
 	
 	
 	/**
-	 * 进入注册页
+	 * 进入H5注册页
 	 * @return
 	 */
-	@RequestMapping("/register")
+	@RequestMapping("/wap_register")
 	public String register(){
 		return "bks_wap/register";
 	}
 	
 	
 	/**
-	 * 查询用户名是否已注册
+	 * H5查询用户名是否已注册
 	 * @param idCard
 	 * @return
 	 */
-	@RequestMapping("/is_exist")
+	@RequestMapping("/wap_is_exist")
 	@ResponseBody
 	public ResponseResult<Void> userIsExist(String idCard,String phone){
 		
@@ -69,7 +69,7 @@ public class LoginController {
 
 	
 	/**
-	 * 企业+用户注册实现
+	 * H5企业+用户注册实现
 	 * @param idCard 身份证号
 	 * @param username 姓名
 	 * @param password 密码
@@ -85,7 +85,7 @@ public class LoginController {
 	 * @param unitType 单位类型
 	 * @return
 	 */
-	@RequestMapping("/registeradd")
+	@RequestMapping("/wap_registeradd")
 	@ResponseBody
 	public ResponseResult<Void> registeradd(
 			@RequestParam(value="idCard",required = false) String idCard,
@@ -107,12 +107,12 @@ public class LoginController {
 	
 	
 	/**
-	 * 实现用户登录
+	 * H5实现用户登录
 	 * @param idCard
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping("/userLogin")
+	@RequestMapping("/wap_user_login")
 	@ResponseBody
 	public ResponseResult<Void> login(@RequestParam(value="idCard",required = true) String idCard,
 									  @RequestParam(value="password",required = true) String password){
@@ -122,20 +122,20 @@ public class LoginController {
 	
 	
 	/**
-	 * 错误登录页
+	 * H5错误登录页
 	 * @return
 	 */
-	@RequestMapping("/error")
+	@RequestMapping("/wap_error")
 	public String error(){		
 		return "error/404";
 	}
 	
 	
 	/**
-	 * 进入登录页
+	 * H5进入监管人员注册页
 	 * @return
 	 */
-	@RequestMapping("/admin_login")
+	@RequestMapping("/wap_admin_login")
 	public String adminlogin(){	
 		
 		return "bks_wap/admin_login";
@@ -143,15 +143,25 @@ public class LoginController {
 	
 
 	/**
-	 * 监管人员注册
+	 * H5监管人员注册
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping("/admin_add")
+	@RequestMapping("/wap_admin_add")
 	@ResponseBody
-	public ResponseResult<Void> adminAdd(User user){		
+	public ResponseResult<Void> adminAdd(User user){
 		
 		return iLoginService.registerAdminUser(user);
 	}
 	
+
+	/**
+	 * 进入首页
+	 * @return
+	 */
+	@RequestMapping("/web_home")
+	public String webHome(){	
+		
+		return "bks_web/home";
+	}
 }

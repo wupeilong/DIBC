@@ -1,7 +1,6 @@
 package cn.dibcbks.controller;
 
 
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,23 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.User;
-import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.service.IUserService;
-import cn.dibcbks.util.CommonUtil;
-import cn.dibcbks.util.Constants;
-import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
 
 
-
-
+/**
+ * @author: wupeilong
+ * @version: v1.0.0
+ * @ClassName: UnqualifiedMapper
+ * @Description: H5用户控制器
+ * @Date: 2020-03-25 02:59
+ */
 @Controller
-@RequestMapping("/user")
-public class UserController {
-	@Autowired
-	private UserMapper userMapper;
+@RequestMapping("/wap_user")
+public class WapUserController {
 	@Autowired
 	private IUserService iUserService;
 	

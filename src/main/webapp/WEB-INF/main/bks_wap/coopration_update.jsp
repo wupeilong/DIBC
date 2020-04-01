@@ -171,7 +171,7 @@
 			formData.append('unitType',$("#unitType").val());
 			formData.append('legalPerson',$("#legalPerson").val());					
 			 $.ajax({
-				 url: '${pageContext.request.contextPath}/unit/update',
+				 url: '${pageContext.request.contextPath}/wap_unit/update',
 		          type: 'POST',
 		          cache: false,				          
 		          data: formData,				        
@@ -184,7 +184,7 @@
 							return;				
 						}else{
 							layer.msg(obj.message,{icon:1,time:1000} ,function(){
-								location.href = "${pageContext.request.contextPath}/unit/coopration_detal?unitId=" + $("#unitId").val(); 
+								location.href = "${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=" + $("#unitId").val(); 
 							});							
 						}								
 					}

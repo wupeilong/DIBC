@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+html, body { -ms-overflow-style: scrollbar; }
+*{ margin: 0; padding: 0; font-size: 13px; }
+img{ border:0;}
+a{ text-decoration:none; color:#333;}
+a:link{ text-decoration: none; }
+a:active{text-decoration:none;}
+body{ background-color: #f9f9f9; }
+i{font-style: normal;}
+.margin0{margin: 0;}
+.margin_top{ margin-top: 1em; }
+.margin_top2{ margin-top: 2em; }
+.margin_bot{ margin-bottom: 1em; }
+.margin_bot2{ margin-bottom: 2em; }
+.padding-side05{ padding: 0 .5em; }
+.padding-side{ padding: 0 1em; }
+.padding-side2{ padding: 0 2em; }
+.borde0{ border: 0; }
+.fontwei{
+	font-weight: bolder;
+}
+.flexCenter{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.flexBet{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.flexStart{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+textarea{
+	width: 100%;
+	border: 0;
+	background-color: #f9f9f9;
+}
+.text-white{
+	color: #fff;
+}
+.circle{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 6em;
+	height: 6em;
+	text-align: center;
+	border: 1px solid #00AADC;
+	border-radius: 50%;
+	margin-bottom: .6em;
+}
+textarea:focus, 
+input[type="text"]:focus, 
+input[type="password"]:focus,
+input[type="datetime"]:focus, 
+input[type="datetime-local"]:focus, 
+input[type="date"]:focus, 
+input[type="month"]:focus, 
+input[type="time"]:focus, 
+input[type="week"]:focus, 
+input[type="number"]:focus, 
+input[type="email"]:focus, 
+input[type="url"]:focus, 
+input[type="search"]:focus, 
+input[type="tel"]:focus, 
+input[type="color"]:focus, 
+.uneditable-input:focus{
+	box-shadow: none !important;
+	border-color:#3b8bec !important;
+	background-color: #fff;
+}

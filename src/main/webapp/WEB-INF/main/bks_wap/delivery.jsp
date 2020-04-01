@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<c:if test="${user.type == 2}">
-					<a href="${pageContext.request.contextPath}/dry/delivery_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+					<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
 				</c:if>				
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 							<td>${item.id }</td>
 							<td>${item.mealsUnitName}</td>
 							<td>${item.acceptanceUnitName}</td>
-							<td><a href="${pageContext.request.contextPath}/dry/delivery_detal?id=${item.id}">详情</a></td>
+							<td><a href="${pageContext.request.contextPath}/wap_dry/delivery_detal?id=${item.id}">详情</a></td>
 							</tr>
 						</c:forEach>				
 					</tbody>
@@ -62,7 +62,7 @@
 	<script type="text/javascript">
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/dry/deliveryList";
+			var url = "${pageContext.request.contextPath}/wap_dry/deliveryList";
 			var data = "unitName=" + $("#unit_list").val();	
 			$.ajax({
 				"url" : url,
@@ -81,7 +81,7 @@
 							result += "<td>" + obj.data[i].id + "</td>";
 							result += "<td>" + obj.data[i].mealsUnitName + "</td>";
 							result += "<td>" + obj.data[i].acceptanceUnitName + "</td>";
-							result += "<td><a href='${pageContext.request.contextPath}/dry/delivery_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+							result += "<td><a href='${pageContext.request.contextPath}/wap_dry/delivery_detal?id=" + obj.data[i].id + "'>详情</a></td>";
 							result += "</tr>";
 						}
 						$("#result_list").html(result);

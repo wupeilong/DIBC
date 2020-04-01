@@ -13,13 +13,13 @@ import cn.dibcbks.service.IDisinfectionService;
 import cn.dibcbks.util.ResponseResult;
 
 /**
- * 清洗消毒控制器
+ * H5清洗消毒控制器
  * @author Administrator
  *
  */
 @Controller
-@RequestMapping("/clean")
-public class CleanController {
+@RequestMapping("/wap_clean")
+public class WapCleanController {
 	@Autowired
 	private IDisinfectionService iDisinfectionService;
 

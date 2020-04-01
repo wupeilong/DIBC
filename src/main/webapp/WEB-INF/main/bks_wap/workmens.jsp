@@ -32,7 +32,7 @@
 					</c:if>								
 				</div>
 				<c:if test="${user.parentId == 0 && user.type == 2 }">
-					<a href="${pageContext.request.contextPath}/user/workmens_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+					<a href="${pageContext.request.contextPath}/wap_user/workmens_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
 				</c:if>
 			</div>
 		</div>
@@ -45,7 +45,7 @@
 					<tbody id="result_list">
 						
 						<c:forEach items="${userList}" var="item" varStatus="vs">
-							<tr><td>${vs.count }</td><td>${item.username }</td><td>${item.duty }</td><td>${item.age }</td><td><a href="${pageContext.request.contextPath}/user/workmens_detal?id=${item.id }">详情</a></td></tr>
+							<tr><td>${vs.count }</td><td>${item.username }</td><td>${item.duty }</td><td>${item.age }</td><td><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
 						</c:forEach>
 						
 					</tbody>
@@ -57,7 +57,7 @@
 	<script type="text/javascript">
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/user/unitUserList";
+			var url = "${pageContext.request.contextPath}/wap_user/unitUserList";
 			var data = "unitId=" + $("#unit_list").val();
 			$.ajax({
 				"url" : url,
@@ -76,7 +76,7 @@
 							result += "<td>" + obj.data[i].username + "</td>";
 							result += "<td>" + obj.data[i].duty + "</td>";
 							result += "<td>" + obj.data[i].age + "</td>";
-							result += "<td><a href='${pageContext.request.contextPath}/user/workmens_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+							result += "<td><a href='${pageContext.request.contextPath}/wap_user/workmens_detal?id=" + obj.data[i].id + "'>详情</a></td>";
 							result += "</tr>";
 						}
 						$("#result_list").html(result);

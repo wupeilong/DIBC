@@ -127,7 +127,7 @@
 					formData.append('phone',$("#phone").val());
 					/* formData.append('healthCertificateCode',$("#healthCertificateCode").val());	 */			
 					 $.ajax({
-						 url: '${pageContext.request.contextPath}/user/workmens_reg',
+						 url: '${pageContext.request.contextPath}/wap_user/workmens_reg',
 				          type: 'POST',
 				          cache: false,
 				          data: formData,				        
@@ -140,7 +140,7 @@
 									return;				
 								}else{					
 									layer.msg(obj.message,{icon:1,time:1000});
-									location.href = "${pageContext.request.contextPath}/user/workmens";
+									location.href = "${pageContext.request.contextPath}/wap_user/workmens";
 								}				
 							}
 						}); 

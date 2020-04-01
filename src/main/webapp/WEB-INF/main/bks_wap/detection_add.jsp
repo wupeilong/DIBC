@@ -146,7 +146,7 @@ $("#detection").click(function() {
 		formData.append('remark',$("#remark").val());
 		formData.append('detectionPhoto',dataURLtoFile($("#preview").attr('src'),"we.jpg"));						
 		 $.ajax({
-			 url: 'detection_regadd',
+			 url: '${pageContext.request.contextPath}/wap_det/detection_regadd',
 	          type: 'POST',
 	          cache: false,
 	          data: formData,				        
@@ -159,7 +159,7 @@ $("#detection").click(function() {
 						return;				
 					}else{					
 						layer.msg(obj.message,{icon:1,time:1000});
-						location.href = "${pageContext.request.contextPath}/detection/detection_add";
+						location.href = "${pageContext.request.contextPath}/wap_det/detection_add";
 					}
 					
 				}

@@ -121,6 +121,9 @@
 		<property name="unauthorizedUrl" value="/error" />
 		<property name="filterChainDefinitions">
 			<value>
+				/*/** = anon
+			</value>
+			<!-- <value>
 				/static/** = anon
 				/login = anon
 				/register = anon
@@ -128,9 +131,10 @@
 				/userLogin = anon
 				/admin_login = anon
 				/admin_add = anon
-				/is_exist = anon
+				/is_exist = anon				
 				/*/** = authc
-   			</value>
+   			</value> -->
+   			<!-- /*/** = authc -->
 		</property>
 	</bean>	
 </beans>

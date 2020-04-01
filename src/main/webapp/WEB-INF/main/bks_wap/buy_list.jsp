@@ -36,7 +36,7 @@
 					</div>
 				</div>
 				<c:if test="${user.type == 2 }">
-					<a href="${pageContext.request.contextPath}/procurement/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+					<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
 				</c:if>				
 			</div>
 		</div>
@@ -56,7 +56,7 @@
 								<td>已验收</td>
 							</c:if>
 							<td><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></td>
-							<td><a href="${pageContext.request.contextPath}/procurement/buy_detal?id=${item.id}">详情</a></td>
+							<td><a href="${pageContext.request.contextPath}/wap_pro/buy_detal?id=${item.id}">详情</a></td>
 							</tr>
 						</c:forEach>						
 					</tbody>
@@ -68,7 +68,7 @@
 	<script type="text/javascript">
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/procurement/list";
+			var url = "${pageContext.request.contextPath}/wap_pro/list";
 			var data = "unitId=" + $("#unit_list").val();
 			$.ajax({
 				"url" : url,
@@ -91,7 +91,7 @@
 								result += "<td>已验收</td>";
 							}	
 							result += "<td>" + format(obj.data[i].purchasingTime, "yyyy-MM-dd") + "</td>";
-							result += "<td><a href='${pageContext.request.contextPath}/procurement/buy_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+							result += "<td><a href='${pageContext.request.contextPath}/wap_pro/buy_detal?id=" + obj.data[i].id + "'>详情</a></td>";
 							result += "</tr>";
 						}
 						$("#result_list").html(result);							

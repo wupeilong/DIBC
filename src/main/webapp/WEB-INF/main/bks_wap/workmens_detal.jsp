@@ -64,7 +64,7 @@
 			</form>
 			
 			<div class="margin-top2 margin-bot2">
-				<a href="${pageContext.request.contextPath}/user/workmens_health?userId=${userDetail.id}" class="btn btn-primary form-control">健康状况查询</a>
+				<a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${userDetail.id}" class="btn btn-primary form-control">健康状况查询</a>
 			</div>
 		</main>		
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>

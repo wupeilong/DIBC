@@ -24,31 +24,23 @@
 			<div class="width100">
 				<c:if test="${user.type==1}">
 					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/inspect/inspect_list?start=1" class="btn btn-info form-control">信息查看</a>
+						<a href="${pageContext.request.contextPath}/wap_ins/inspect_list?start=1" class="btn btn-info form-control">信息查看</a>
 					</div>					
 					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/inspect/inspect_add?checkType=2" class="btn btn-info form-control">管局专检</a>
+						<a href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=2" class="btn btn-info form-control">管局专检</a>
 					</div>
 					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/inspect/inspect_add?checkType=3" class="btn btn-info form-control">督察专检</a>
+						<a href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=3" class="btn btn-info form-control">督察专检</a>
 					</div>
 				</c:if>
 				<c:if test="${user.type==2}">
 					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/inspect/inspect_list?start=2" class="btn btn-info form-control">信息查看</a>
+						<a href="${pageContext.request.contextPath}/wap_ins/inspect_list?start=2" class="btn btn-info form-control">信息查看</a>
 					</div>
 					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/inspect/inspect_add?checkType=1" class="btn btn-info form-control">商家自检</a>
+						<a href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=1" class="btn btn-info form-control">商家自检</a>
 					</div>					
-				</c:if>				
-				<!-- <table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th>序号</th><th>样品名称</th><th>抽检批次</th><th>检查结果</th><th>操作</th></tr>
-					</thead>
-					<tbody>
-						<tr><td>1</td><td>贵阳市第一实验中学</td><td>未验收</td><td>data</td><td><a href="http://192.168.1.106:8848/wap_MCLZ/inspect_detal.html">详情</a></td></tr>
-					</tbody>
-				</table> -->
+				</c:if>	
 			</div>
 		</main>		
 	<c:import url="public/footer.jsp"></c:import>

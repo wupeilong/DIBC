@@ -168,7 +168,7 @@
 			   query[i][1]=ys[i].value; 
 			}
 			var data ="result=" + JSON.stringify(query) + "&id=" + '${procurementDetail.id}';
-			var url = "${pageContext.request.contextPath}/procurement/acceptance";
+			var url = "${pageContext.request.contextPath}/wap_pro/acceptance";
 			$.ajax({
 				"url" : url,
 				"data" : data,

@@ -160,7 +160,7 @@
 				formData.append('carPhoto',dataURLtoFile($("#preview2").attr('src'),'dsf2.jpg'));//送餐车图
 				formData.append('address',$("#address").val());//送餐地址
 				$.ajax({
-					 url: "${pageContext.request.contextPath}/dry/add",
+					 url: "${pageContext.request.contextPath}/wap_dry/add",
 			          type: 'POST',
 			          cache: false,
 			          data: formData,				        
@@ -177,7 +177,7 @@
 								
 								//延时刷新页面
 								setTimeout(function (){							 
-									window.location.href = "${pageContext.request.contextPath}/dry/delivery";
+									window.location.href = "${pageContext.request.contextPath}/wap_dry/delivery";
 								}, 3000);	
 							}
 							
