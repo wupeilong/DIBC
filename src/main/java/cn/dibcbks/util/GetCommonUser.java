@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
 * @Title: GetCommonUser.java
-* @Package cn.hqtzytb.controller
+* @Package cn.dibcbks.util
 * @Description:(用一句话描述该文件做什么)
 * @author: ZhouLingZhang
 * @date 2019年11月11日

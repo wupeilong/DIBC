@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.dibcbks.mapper.DepartmentMapper">
+	 <resultMap id="BaseResultMap" type="cn.dibcbks.entity.Department">
+	    <id column="department_id" property="departmentId" />
+	    <result column="department_name" property="departmentName" />
+	    <result column="unit_id" property="unitId" />
+	     <result column="unit_name" property="unitName" />
+	    <result column="department_head" property="departmentHead" />
+	    <result column="department_description" property="departmentDescription" />
+	    <result column="department_parent_id" property="departmentParentId" />
+	    <result column="department_type" property="departmentType" />
+	    <result column="department_authorization" property="departmentAuthorization" />	    
+	 
+	</resultMap>
+
+	<insert id="insert" parameterType="cn.dibcbks.entity.Department" useGeneratedKeys="true" keyProperty="departmentId">
+		INSERT INTO  department
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="departmentId != null">
+	        department_id,
+	      </if>
+	      <if test="unitId != null">
+	        unit_id,
+	      </if>
+	      <if test="departmentName != null">
+	        department_name,
+	      </if>
+	      <if test="departmentHead != null">
+	        department_head,
+	      </if>
+	      <if test="departmentDescription != null">
+	        department_description,
+	      </if>
+	      <if test="departmentParentId != null">
+	        department_parent_id,
+	      </if>
+	      <if test="departmentType != null">
+	        department_type,
+	      </if>	
+	      <if test="departmentAuthorization != null">
+	        department_authorization,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">	     
+	      <if test="departmentId != null">
+	        #{departmentId},
+	      </if>
+	      <if test="unitId != null">
+	        #{unitId},
+	      </if>
+	      <if test="departmentName != null">
+	        #{departmentName},
+	      </if>
+	      <if test="departmentHead != null">
+	        #{departmentHead},
+	      </if>
+	      <if test="departmentDescription != null">
+	        #{departmentDescription},
+	      </if>
+	      <if test="departmentParentId != null">
+	        #{departmentParentId},
+	      </if>
+	      <if test="departmentType != null">
+	        #{departmentType},
+	      </if>	
+	      <if test="departmentAuthorization != null">
+	        #{departmentAuthorization},
+	      </if>
+	    </trim>
+	</insert>
+	
+	<!--查询用户 -->
+	<select id="select" resultMap="BaseResultMap"> 
+		SELECT
+			d.unit_id,
+			n.unit_name,
+			d.department_id,
+			d.department_name,
+			d.department_head,
+			d.department_description,
+			d.department_parent_id,
+			d.department_type,
+			d.department_authorization
+		FROM
+			department AS d
+		LEFT JOIN unit AS n ON n.unit_id = d.unit_id
+		<if test="where != null">where ${where}</if>
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="offset != null">limit ${offset},${countPerPage}</if>
+	</select>
+	
+	<!-- 查询单个用户信息 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+			d.unit_id,
+			n.unit_name,
+			d.department_id,
+			d.department_name,
+			d.department_head,
+			d.department_description,
+			d.department_parent_id,
+			d.department_type,
+			d.department_authorization
+		FROM
+			department AS d
+		LEFT JOIN unit AS n ON n.unit_id = d.unit_id
+		WHERE
+			d.department_id = #{departmentId} 
+	</select>
+	 
+
+	<update id="updateById"  parameterType="cn.dibcbks.entity.Department">
+		update user
+	    <set>    
+	      <if test="unitId != null">
+	        unit_id = #{unitId},
+	      </if>
+	      <if test="departmentName != null">
+	        department_name = #{departmentName},
+	      </if>
+	      <if test="departmentHead != null">
+	        department_head = #{departmentHead},
+	      </if>
+	      <if test="departmentDescription != null">
+	        department_description = #{departmentDescription},
+	      </if>
+	      <if test="departmentParentId != null">
+	        department_parent_id = #{departmentParentId},
+	      </if>
+	      <if test="departmentType != null">
+	        department_type = #{departmentType},
+	      </if>	
+	      <if test="departmentAuthorization != null">
+	        department_authorization = #{departmentAuthorization},
+	      </if>
+	    </set>
+	    where department_id = #{departmentId}
+	</update>
+
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM department where department_id = #{departmentId};
+	</delete>
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

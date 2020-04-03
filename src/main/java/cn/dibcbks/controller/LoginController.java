@@ -1,8 +1,13 @@
 package cn.dibcbks.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,26 +15,33 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.service.ILoginService;
 import cn.dibcbks.service.IUserService;
+import cn.dibcbks.service.IWxService;
 import cn.dibcbks.util.ResponseResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 
 /**
- * 公共登录控制器
+ * 登录控制器
  * @author Administrator
  *
  */
+@Api(value="LoginController",tags="登录控制器")
 @Controller
 public class LoginController {
 	@Autowired
 	private IUserService iUserService;
 	@Autowired
 	private ILoginService iLoginService;
-	
+	@Autowired
+	private IWxService iWxService;
 	
 	/**
 	 * H5进入登录页
 	 * @return
-	 */
-	@RequestMapping("/wap_login")
+	 */	
+	@GetMapping("/wap_login")
 	public String loginPage(){		
 		return "bks_wap/login";
 	}	
@@ -112,7 +124,12 @@ public class LoginController {
 	 * @param password
 	 * @return
 	 */
-	@RequestMapping("/wap_user_login")
+	@ApiOperation("H5实现用户登录")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name="idCard",value="手机号/身份证号",dataType="String",example="13027837002/522601199210015432",required=true,paramType="query"),
+			@ApiImplicitParam(name="password",value="密码",dataType="String",example="888888",required=true,paramType="query")
+	})
+	@PostMapping("/wap_user_login")
 	@ResponseBody
 	public ResponseResult<Void> login(@RequestParam(value="idCard",required = true) String idCard,
 									  @RequestParam(value="password",required = true) String password){
@@ -164,4 +181,25 @@ public class LoginController {
 		
 		return "bks_web/home";
 	}
+	
+
+
+	@ApiOperation(value = "微信登录获取网页授权地址页", notes = "微信登录获取网页授权地址页")
+	@GetMapping("/wx_login")
+	public String wxLogin(ModelMap modelMap) {
+
+	   return iWxService.wxLogin(modelMap);
+	}
+	
+	
+	@ApiOperation(value = "处理网页授权回调", notes = "处理网页授权回调")
+	@ApiImplicitParam(name = "code", value = "换取oauth2_token的票据")
+	@GetMapping("/wx_oauth2")
+	public String wxOauth2Redirect(String code,HttpServletRequest request) {
+
+	   return iWxService.wxOauth2Redirect(code,request);
+	}
+	
+	
+	
 }
