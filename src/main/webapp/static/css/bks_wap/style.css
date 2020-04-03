@@ -128,3 +128,6 @@ a:hover{
 img[src=""],img:not([src]){
   opacity:0;
 }
+.bg-white{
+	background-color: #fff;
+}
