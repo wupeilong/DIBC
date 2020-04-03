@@ -51,7 +51,7 @@
 							</c:if>
 							<td>${item.cause }</td>
 							<td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd" /></td>
-							<td><a href="${pageContext.request.contextPath}/unqualified/detail?id=${item.id}">详情</a></td>
+							<td><a href="${pageContext.request.contextPath}/wap_unq/detail?id=${item.id}">详情</a></td>
 							</tr>
 						</c:forEach>						
 					</tbody>
@@ -63,7 +63,7 @@
 	<script type="text/javascript">
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/unqualified/list";
+			var url = "${pageContext.request.contextPath}/wap_unq/list";
 			var data = "unitId=" + $("#unit_list").val();
 			$.ajax({
 				"url" : url,
@@ -87,7 +87,7 @@
 							}	
 							result += "<td>" + obj.data[i].cause + "</td>";
 							result += "<td>" + format(obj.data[i].createTime, "yyyy-MM-dd") + "</td>";
-							result += "<td><a href='${pageContext.request.contextPath}/unqualified/detail?id=" + obj.data[i].id + "'>详情</a></td>";
+							result += "<td><a href='${pageContext.request.contextPath}/wap_unq/detail?id=" + obj.data[i].id + "'>详情</a></td>";
 							result += "</tr>";
 						}
 						$("#result_list").html(result);							

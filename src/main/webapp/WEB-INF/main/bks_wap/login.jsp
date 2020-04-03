@@ -37,7 +37,7 @@
 						  <div class="form-control box-shadow0 border0 clear-bg">记住密码</div>
 						</div> 
 						<div class="margin-bot2 text-right">
-							<a href="${pageContext.request.contextPath}/register" class="">没有账号？去注册</a>
+							<a href="${pageContext.request.contextPath}/wap_register" class="">没有账号？去注册</a>
 						</div>
 					</fieldset>
 				</form>
@@ -90,7 +90,7 @@
 						layer.msg("账号或密码有误，请重新输入",{icon:2,time:1000});
 						$("input[name='password']").focus();
 					}else{
-						var url = "userLogin";
+						var url = "${pageContext.request.contextPath}/wap_user_login";
 						var data = "idCard="+account+"&password="+password;	
 						$.ajax({
 							"url" : url,
@@ -115,7 +115,7 @@
 										storage.removeItem("remember");
 									}
 									//location.reload();
-									layer.msg(obj.message,{icon:1,time:1000},function(){location.href = "home";});
+									layer.msg(obj.message,{icon:1,time:1000},function(){location.href = "wap_home";});
 								}					
 							}
 						}); 

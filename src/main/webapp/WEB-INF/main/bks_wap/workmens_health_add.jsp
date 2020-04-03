@@ -141,7 +141,7 @@ function save(){
 			formData.append('hygiene',$("#hygiene").val());	
 			formData.append('remark',$("#remark").val());		
 			 $.ajax({
-				 url: 'workmens_health_regadd',
+				 url: '${pageContext.request.contextPath}/wap_user/workmens_health_regadd',
 		          type: 'POST',
 		          cache: false,
 		          data: formData,				        
@@ -153,7 +153,7 @@ function save(){
 							layer.msg(obj.message,{icon:2,time:1000});
 							return;				
 						}else{					
-							layer.msg(obj.message,{icon:1,time:1000},function(){location.href = '${pageContext.request.contextPath}/user/workmens_health?userId=' + ${user.id}});
+							layer.msg(obj.message,{icon:1,time:1000},function(){location.href = '${pageContext.request.contextPath}/wap_user/workmens_health?userId=' + ${user.id}});
 						}
 						
 					}

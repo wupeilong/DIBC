@@ -46,10 +46,9 @@
 								<td>${f.unitName }</td>
 								<td>${f.samplName }</td>
 								<td class="vertical-mid"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></td>
-								<td class="vertical-mid"><a href="${pageContext.request.contextPath}/detection/detection_detal?id=${f.id}">详情</a></td>
+								<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a></td>
 							</tr>
-						</c:forEach>
-						
+						</c:forEach>						
 					</tbody>
 				</table>
 			</div>
@@ -78,7 +77,7 @@
 													result += "<td>" + obj.data[i].unitName + "</td>";
 													result += "<td>" + obj.data[i].samplName + "</td>";
 													result += "<td>"+time+"</td>";
-													result += "<td class='vertical-mid'><a href='${pageContext.request.contextPath}/detection/detection_detal?id="+obj.data[i].id+"'>详情</a></td>";
+													result += "<td class='vertical-mid'><a href='${pageContext.request.contextPath}/wap_det/detection_detal?id="+obj.data[i].id+"'>详情</a></td>";
 													result += "</tr>";
 												}
 												$("#result_list").html(result);

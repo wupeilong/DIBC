@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<c:if test="${user.type == 2}">
-					<a href="${pageContext.request.contextPath}/clean/clean_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+					<a href="${pageContext.request.contextPath}/wap_clean/clean_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
 				</c:if>				
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 								<td>${vs.count}</td>
 								<td>${f.unitName}</td>
 								<td>${f.dailyTime}</td>
-								<td><a href="${pageContext.request.contextPath}/clean/clean_detal?id=${f.id}">详情</a></td>
+								<td><a href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">详情</a></td>
 							</tr>
 						</c:forEach>						
 					</tbody>
@@ -77,7 +77,7 @@
 							datvar +='<tr><td>' + (i+1) + '</td>'+
 									'<td>'+obj.data[i].unitName+'</td>'+
 									'<td>'+obj.data[i].dailyTime+'</td>'+
-									'<td><a href="${pageContext.request.contextPath}/clean/clean_detal?id='+obj.data[i].id+'">详情</a></td></tr>';							
+									'<td><a href="${pageContext.request.contextPath}/wap_clean/clean_detal?id='+obj.data[i].id+'">详情</a></td></tr>';							
 						}
 						$("#datvarbody").html(datvar);													
 					}				

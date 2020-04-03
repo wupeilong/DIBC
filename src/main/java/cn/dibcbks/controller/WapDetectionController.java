@@ -18,12 +18,12 @@ import cn.dibcbks.util.ResponseResult;
  * @author: wupeilong
  * @version: v1.0.0
  * @ClassName: DetectionController
- * @Description: 多频检查控制器
+ * @Description: H5多频检查控制器
  * @Date: 2020-03-24 15:39
  */
 @Controller
-@RequestMapping("/detection")
-public class DetectionController {
+@RequestMapping("/wap_det")
+public class WapDetectionController {
 		
 	@Autowired
 	private IDetectionService iDetectionService;

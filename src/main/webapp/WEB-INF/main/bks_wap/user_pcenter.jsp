@@ -22,10 +22,10 @@
 				<div class="munulist">
 					<a href="javascript:;" class="text-white"> <i class="fa fa-list"></i></a>
 					<ul class="list-unstyled margin0">
-						<li><a href="${pageContext.request.contextPath}/unit/coopration_detal?unitId=${userPcenter.unitId}" class="fonwei">企业信息查询</a></li>
-						<li><a href="${pageContext.request.contextPath}/user/workmens_health?userId=${user.id}" class="fonwei">健康状况查询</a></li>
-						<li><a href="${pageContext.request.contextPath}/user/workmens_health_add" class="fonwei">健康信息录入</a></li>
-						<li><a href="${pageContext.request.contextPath}/user/reset_password" class="fonwei">个人密码修改</a></li>
+						<li><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${userPcenter.unitId}" class="fonwei">企业信息查询</a></li>
+						<li><a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${user.id}" class="fonwei">健康状况查询</a></li>
+						<li><a href="${pageContext.request.contextPath}/wap_user/workmens_health_add" class="fonwei">健康信息录入</a></li>
+						<li><a href="${pageContext.request.contextPath}/wap_user/reset_password" class="fonwei">个人密码修改</a></li>
 					</ul>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 						<div class="item_name fonwei">个人信息</div>						
 						<div class="">
 							<span>								
-								<a href="${pageContext.request.contextPath}/user/workmens_update"><input type="button"class="btn btn-primary form-control" value="完善个人信息"><!-- <i class="fa fa-edit" style="font-size: 20px;color: #1294b3;"></i> --></a>
+								<a href="${pageContext.request.contextPath}/wap_user/workmens_update"><input type="button"class="btn btn-primary form-control" value="完善个人信息"><!-- <i class="fa fa-edit" style="font-size: 20px;color: #1294b3;"></i> --></a>
 							</span>
 						</div>
 					</div>

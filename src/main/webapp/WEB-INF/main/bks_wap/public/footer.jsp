@@ -14,8 +14,8 @@
 <body>
 	<div class="tabBar">
 		<ul class="list-unstyled clearfix margin0">
-			<li><a href="${pageContext.request.contextPath}/home"><div><i class="fa fa-home"></i><div>工作台</div></div></a></li>
-			<li><a href="${pageContext.request.contextPath}/user/user_pcenter?id=${user.id}"><div><i class="fa fa-user"></i><div>个人中心</div></div></a></li>
+			<li><a href="${pageContext.request.contextPath}/wap_home"><div><i class="fa fa-home"></i><div>工作台</div></div></a></li>
+			<li><a href="${pageContext.request.contextPath}/wap_user/user_pcenter?id=${user.id}"><div><i class="fa fa-user"></i><div>个人中心</div></div></a></li>
 		</ul>
 	</div>		
 </body>

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import cn.dibcbks.service.IUnqualifiedService;
 import cn.dibcbks.util.ResponseResult;
 import cn.dibcbks.entity.Unqualified;;
@@ -16,12 +15,12 @@ import cn.dibcbks.entity.Unqualified;;
  * @author: wupeilong
  * @version: v1.0.0
  * @ClassName: UnqualifiedMapper
- * @Description: 不合格记录控制器
+ * @Description: H5不合格记录控制器
  * @Date: 2020-03-25 02:59
  */
-@RequestMapping("/unqualified")
+@RequestMapping("/wap_unq")
 @Controller
-public class UnqualifiedController {
+public class WapUnqualifiedController {
 	@Autowired
 	private IUnqualifiedService iUnqualifiedService;
 	

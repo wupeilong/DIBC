@@ -13,13 +13,13 @@ import cn.dibcbks.entity.Unit;
 import cn.dibcbks.service.IUnitService;
 import cn.dibcbks.util.ResponseResult;
 /**
- * 企业控制器
+ * H5企业控制器
  * @author Administrator
  *
  */
 @Controller
-@RequestMapping("/unit")
-public class UnitController {
+@RequestMapping("/wap_unit")
+public class WapUnitController {
 	@Autowired
 	private IUnitService iUnitService;
 

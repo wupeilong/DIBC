@@ -203,7 +203,7 @@
 							formData.append('detailList',JSON.stringify(detailList));//采购详情
 							console.log(formData);
 							 $.ajax({
-								 url: "${pageContext.request.contextPath}/procurement/add",
+								 url: "${pageContext.request.contextPath}/wap_pro/add",
 						          type: 'POST',
 						          cache: false,
 						          data: formData,				        
@@ -217,7 +217,7 @@
 										}else{		
 											layer.msg(obj.message,{icon:1,time:1000});
 											//延时刷新页面																	 
-											location.href = "${pageContext.request.contextPath}/procurement/buy_list";											
+											location.href = "${pageContext.request.contextPath}/wap_pro/buy_list";							
 										}
 										
 									}

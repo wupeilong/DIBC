@@ -41,7 +41,7 @@
 					</thead>
 					<tbody id="result_list">
 						<c:forEach items="${unitList}" var="item" varStatus="vs">
-							<tr><td>${vs.count}</td><td>${item.unitName}</td><td>${item.legalPerson}</td><td><a href="${pageContext.request.contextPath}/unit/coopration_detal?unitId=${item.unitId}">详情</a></td></tr>
+							<tr><td>${vs.count}</td><td>${item.unitName}</td><td>${item.legalPerson}</td><td><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td></tr>
 						</c:forEach>						
 					</tbody>
 				</table>
@@ -52,7 +52,7 @@
 	<script type="text/javascript">
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/unit/list";
+			var url = "${pageContext.request.contextPath}/wap_unit/list";
 			var data = "unitId=" + $("#unit_list").val();
 			$.ajax({
 				"url" : url,
@@ -70,7 +70,7 @@
 							result += "<td>" + (i+1) + "</td>";
 							result += "<td>" + obj.data[i].unitName + "</td>";
 							result += "<td>" + obj.data[i].legalPerson + "</td>";
-							result += "<td><a href='${pageContext.request.contextPath}/unit/coopration_detal?unitId=" + obj.data[i].unitId + "'>详情</a></td>";
+							result += "<td><a href='${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=" + obj.data[i].unitId + "'>详情</a></td>";
 							result += "</tr>";
 						}
 						$("#result_list").html(result);

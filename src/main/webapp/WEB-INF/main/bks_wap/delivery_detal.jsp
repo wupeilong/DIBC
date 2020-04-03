@@ -405,7 +405,7 @@
 		//确认送达
 		function songda(){
 			var data = "id=${distributionDetial.id}";
-			var url = "${pageContext.request.contextPath}/dry/service";
+			var url = "${pageContext.request.contextPath}/wap_dry/service";
 			$.ajax({
 				"url" : url,
 				"data" : data,
@@ -451,7 +451,7 @@
 			formData.append('id','${distributionDetial.id}');//订单ID
 			formData.append('acceptanceResult',JSON.stringify(acceptanceResult));//验收结果
 			formData.append('openedPhoto',dataURLtoFile($("#preview").attr('src'),'dsf.jpg'));//拆封取餐照
-			var url = "${pageContext.request.contextPath}/dry/acceptance";
+			var url = "${pageContext.request.contextPath}/wap_dry/acceptance";
 			$.ajax({
 				  url: url,
 		          type: 'POST',

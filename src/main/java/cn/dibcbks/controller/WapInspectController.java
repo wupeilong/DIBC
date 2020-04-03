@@ -13,13 +13,13 @@ import cn.dibcbks.service.ICheckService;
 import cn.dibcbks.util.ResponseResult;
 
 /**
- * 监管采集控制器
+ * H5监管采集控制器
  * @author Administrator
  *
  */
 @Controller
-@RequestMapping("/inspect")
-public class InspectController {
+@RequestMapping("/wap_ins")
+public class WapInspectController {
 	
 	@Autowired
 	private ICheckService iCheckService;

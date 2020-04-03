@@ -18,13 +18,13 @@ import cn.dibcbks.util.ResponseResult;
 
 
 /**
- * 配送控制器
+ * H5配送控制器
  * @author Administrator
  *
  */
 @Controller
-@RequestMapping("/dry")
-public class DeliveryController {
+@RequestMapping("/wap_dry")
+public class WapDeliveryController {
 	
 	@Autowired
 	private IDistributionService iDistributionService;
