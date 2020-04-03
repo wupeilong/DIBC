@@ -2,7 +2,6 @@ package cn.dibcbks.service;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.ModelMap;
-import cn.dibcbks.util.ResponseResult;
 
 public interface IWxService {
 	

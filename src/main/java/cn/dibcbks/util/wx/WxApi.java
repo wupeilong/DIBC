@@ -166,7 +166,7 @@ public class WxApi {
     public static AccessTokenOut getWxAccessToken() {
         AccessTokenOut accessTokenOut = null;
         String requestUrl = WxApiAddressUtil.GET_ACCESS_TOKEN_URL
-                .replace("APPID", PropsUtil.loadProps("_config.properties").getProperty("wx_appid"))
+                .replace("APPID", PropsUtil.loadProps("config.properties").getProperty("wx_appid"))
                 .replace("APPSECRET", PropsUtil.loadProps("config.properties").getProperty("wx_appsecret"));
         JSONObject jsonObject = HttpRequestUtil.httpRequest(requestUrl, "GET", null);
         logger.info("调用获取微信token接口返回：" + JSON.toJSONStringWithDateFormat(jsonObject,
@@ -227,6 +227,7 @@ public class WxApi {
                 .replace("APPID", PropsUtil.loadProps("config.properties").getProperty("wx_appid"))
                 .replace("REDIRECT_URI", PropsUtil.loadProps("config.properties").getProperty("oauth2_redirect_url"));
 
-        return getWxShortUrl(requestUrl,accessToken);
+        return requestUrl;
+        //return getWxShortUrl(requestUrl,accessToken);
     }
 }

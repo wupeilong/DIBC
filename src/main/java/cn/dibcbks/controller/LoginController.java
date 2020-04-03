@@ -42,7 +42,7 @@ public class LoginController {
 	 * @return
 	 */	
 	@GetMapping("/wap_login")
-	public String loginPage(){		
+	public String loginPage(){
 		return "bks_wap/login";
 	}	
 	

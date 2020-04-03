@@ -67,9 +67,7 @@ public class IWxServiceImpl implements IWxService {
          }
 		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
 	    modelMap.addAttribute("wechat_login_url", shortUrl);
-	    
-	    //TODO 微信登录授权页
-	    return "";
+	    return "bks_wap/login";
 	}
 
 	@Override
@@ -78,7 +76,7 @@ public class IWxServiceImpl implements IWxService {
 		Subject subject = SecurityUtils.getSubject();
         if (wxUserInfo == null) {
             logger.info("获取微信用户信息失败");           
-            return "";
+            return "error/404";
         }        
         User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
         if (user == null) {
@@ -103,9 +101,9 @@ public class IWxServiceImpl implements IWxService {
 			session.setAttribute("user", user);
         } catch (IncorrectCredentialsException e) {
             e.printStackTrace();
-            return "";
+            return "error/404";
         }
-        return "";
+        return "bks_web/home";
 	}
 
 }

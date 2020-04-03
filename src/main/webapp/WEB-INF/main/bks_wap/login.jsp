@@ -43,6 +43,8 @@
 				</form>
 				<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 50px;">登陆</button></div>
 			</div>
+			<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信一键登陆" style="height: 50px;">微信一键登陆</button></div>
+			
 		</div>
 		<script>
 			//记住密码赋值	
@@ -70,9 +72,13 @@
 			    if(remember != null){
 			    	$("#remember").attr("checked","checked");
 			    }		    
-			}		
-
-	        
+			}	
+			
+			//微信一键登录
+			$("#wx_login").click(function() {
+				location.href = '${wechat_login_url}';
+			});
+			
 	        
 			$("#login").click(function() {
 					var account = $("input[name='idCard']").val();
