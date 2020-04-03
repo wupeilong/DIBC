@@ -15,23 +15,37 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 </head>
 	<body class="" style="background-color: #eee;">
-		<main class="container fc" style="height: 100%;">
-			<div class="" style="width: 300px;margin-bottom: 12em;">
-				<form action="" class="bingform">
+		<main class="">
+			<div class="bg-white fc">
+				<div class="" style="width: 100px; padding: 1.2em 0;">
+					<img src="../img/logo.png" class="img-responsive" style="widows: 200px;">
+					<p class="text-center">YourNickName</p>
+				</div>
+			</div>
+			<div class="container">
+				<div class="margin-top">
+					<div class="fonwei margin-bot">登录后该用户将获得以下权限</div>
+					<input type="checkbox" name="" id="confirm_login" value="" />
+					<label for="confirm_login" class="text-muted" style="font-weight: 400;">获得您的公开信息（昵称、头像等）</label>
+				</div>
+				<div class="margin-top2">
+					<a href="javascript:;" class="btn btn-success form-control login">确定登录</a>
+				</div>
+			</div>
+			<div class="roles" style="display: none;">
+				<div class="fc">
 					<div class="">
-						<label for="" class="text-muted"><i class="fa fa-mobile"></i></label>
-						<input type="text" class="border-bottom" name="" id="" value="" placeholder="请输入手机号"/>
+						<a href="binding.html"><img src="../img/logo.png" alt=""></a>
+						<a href="binding.html"><img src="../img/logo.png" alt=""></a>
+						<a href="binding.html"><img src="../img/logo.png" alt=""></a>
 					</div>
-					<div class="margin-top2">
-						<label for="" class="text-muted"><i class="fa fa-lock"></i></label>
-						<input type="password" class="border-bottom" name="" id="" value="" placeholder="请输入密码"/>
-					</div>
-				</form>
-				<div class="text-center margin-top4">
-					<a href="" class="btn btn-success form-control">确定绑定</a>
-					<p class="margin-top">绑定账号用以……</p>
 				</div>
 			</div>
 		</main>
+		<script type="text/javascript">
+			$(".login").click(function() {
+				showModel("请选择您的角色",$(".roles"),5);
+			})
+		</script>
 	</body>
 </html>
