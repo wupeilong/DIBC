@@ -64,8 +64,6 @@
 	-->
 	
 	
-	
-	
 	<!-- 持久层接口扫描 -->
 	<bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.dibcbks.mapper"/>
@@ -83,27 +81,20 @@
 	   <property name="cookie" ref="rememberMeCookie" />
 	</bean>
 	
+
+	<!-- 缓存管理器 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
+	
 	<bean id="myShiroRealm" class="cn.dibcbks.filter.MyShiroRealm" >
-		 <!-- 凭证匹配器(密码加密) -->
+		<!--  凭证匹配器(密码加密) -->
 	     <property name="credentialsMatcher">
-    		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+	     	<bean class="cn.dibcbks.filter.MyHashedCredentialsMatcher">
+    		<!-- <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher"> -->
     			<property name="hashAlgorithmName" value="MD5"/>
     			<property name="hashIterations" value="1024"/> 
     		</bean>
     	</property> 
 	</bean>
-	<!-- 缓存管理器 -->
-	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
-	
-	<!-- <bean id="myShiroRealm" class="cn.dibcbks.filter.MyShiroRealm" >
-		 凭证匹配器(密码加密)
-	     <property name="credentialsMatcher">
-    		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-    			<property name="hashAlgorithmName" value="MD5"/>
-    			<property name="hashIterations" value="1024"/> 
-    		</bean>
-    	</property> 
-	</bean> -->
 	<!-- 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="myShiroRealm" />		
@@ -121,7 +112,7 @@
 		<property name="unauthorizedUrl" value="/error" />
 		<property name="filterChainDefinitions">
 			<value>
-				/*/** = anon
+				/* = anon
 			</value>
 			<!-- <value>
 				/static/** = anon

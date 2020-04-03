@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.dibcbks.mapper.RoleMapper">
+	 <resultMap id="BaseResultMap" type="cn.dibcbks.entity.Role">
+	 	<id column="role_id" property="roleId" />
+	    <result column="department_id" property="departmentId" />
+	    <result column="department_name" property="departmentName" />
+	    <result column="role_name" property="roleName" />
+	 	<result column="role_description" property="roleDescription" />
+	 	<result column="role_authorization" property="departmroleAuthorizationent" />
+	</resultMap>
+
+	<insert id="insert" parameterType="cn.dibcbks.entity.Role" useGeneratedKeys="true" keyProperty="roleId">
+		INSERT INTO  role
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="roleId != null">
+	        role_id,
+	      </if>
+	      <if test="departmentId != null">
+	        department_id,
+	      </if>	      
+	      <if test="roleName != null">
+	        role_name,
+	      </if>
+	      <if test="roleDescription != null">
+	        role_description,
+	      </if>
+	      <if test="roleAuthorization != null">
+	        role_authorization,
+	      </if>	      
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="roleId != null">
+	         #{roleId},
+	      </if>
+	      <if test="departmentId != null">
+	         #{departmentId},
+	      </if>	      
+	      <if test="roleName != null">
+	         #{roleName},
+	      </if>
+	      <if test="roleDescription != null">
+	         #{roleDescription},
+	      </if>
+	      <if test="roleAuthorization != null">
+	         #{roleAuthorization},
+	      </if>
+	    </trim>
+	</insert>
+	
+	<!--查询用户 -->
+	<select id="select" resultMap="BaseResultMap"> 
+		SELECT
+			r.role_id,
+			r.department_id,
+			r.role_name,
+			r.role_description,
+			r.role_authorization,
+			d.department_name
+		FROM
+			role AS r
+		LEFT JOIN department AS d ON d.department_id = r.department_id
+		<if test="where != null">where ${where}</if>
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="offset != null">limit ${offset},${countPerPage}</if>
+	</select>
+	
+	<!-- 查询单个用户信息 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+			r.role_id,
+			r.department_id,
+			r.role_name,
+			r.role_description,
+			r.role_authorization,
+			d.department_name
+		FROM
+			role AS r
+		LEFT JOIN department AS d ON d.department_id = r.department_id
+		WHERE
+			r.role_id = #{roleId} 
+	</select>
+	 
+
+	<update id="updateById"  parameterType="cn.dibcbks.entity.Department">
+		update role
+	    <set>
+	      <if test="departmentId != null">
+	        department_id = #{departmentId},
+	      </if>	      
+	      <if test="roleName != null">
+	        role_name = #{roleName},
+	      </if>
+	      <if test="roleDescription != null">
+	        role_description = #{roleDescription},
+	      </if>
+	      <if test="roleAuthorization != null">
+	        role_authorization = #{roleAuthorization},
+	      </if>	      
+	    </set>
+	    where role_id = #{roleId}
+	</update>
+
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM role where role_id = #{roleId};
+	</delete>
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
