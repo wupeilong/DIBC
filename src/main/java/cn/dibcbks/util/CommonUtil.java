@@ -3,7 +3,11 @@ package cn.dibcbks.util;
 
 import java.util.UUID;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.session.InvalidSessionException;
+import org.apache.shiro.subject.Subject;
+
 import cn.dibcbks.entity.User;
 
 /**
@@ -52,6 +56,36 @@ public class CommonUtil {
 	public static User getSessionUser() {
 		return (User)SecurityUtils.getSubject().getSession().getAttribute("user");
 	}
+	
+	
+	
+	/**
+	 * 添加 key-value 到SESSION中
+	 * @param key
+	 * @param value
+	 */
+	public static void setAttribute(Object key, Object value){
+		SecurityUtils.getSubject().getSession().setAttribute(key, value);
+	};
+	
+	/**
+	 * 从SESSION中获取value
+	 * @param key
+	 * @param value
+	 */
+	public static Object getAttribute(Object key){
+		return SecurityUtils.getSubject().getSession().getAttribute(key);
+	};
+	
+
+	/**
+	 * 用户登陆
+	 * @param token
+	 */
+	public static void login(AuthenticationToken token){
+		SecurityUtils.getSubject().login(token);
+		
+	};
 	
 	
 	public static void main(String[] args) {

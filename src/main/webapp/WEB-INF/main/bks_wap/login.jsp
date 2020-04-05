@@ -48,9 +48,9 @@
 		</div>
 		<div id="roles" style="display: none;">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/wx_bind_public">我是大众</a></li>
-				<li><a href="javascript:void(0);" id="unit_banding">我是主体人员</a></li>
-				<li><a href="javascript:void(0);" id="supervise_banding">我是监管人员</a></li>
+				<li><a href="${pageContext.request.contextPath}/bind_public">我是大众</a></li>
+				<li><a href="javascript:void(0);" id="unit_bind">我是主体人员</a></li>
+				<li><a href="javascript:void(0);" id="supervise_bind">我是监管人员</a></li>
 			</ul>
 		</div>
 		<script type="text/javascript">
@@ -136,11 +136,20 @@
 		})
 		    
 		//主体
-		$("#unit_banding").click(function(){
-			console.log("主体");
+		$("#unit_bind").click(function(){
+			layer.open({
+		    	  title: ['请选择用户类型', 'font-size:18px;'],
+		    	  type: 1,
+		    	  content: $('#roles')
+		    });
+			layer.open({ 
+				type: 1, 
+				content: '<ul><li><a>绑定主体</a></li><li><a>创建主体</a></li></ul>' 
+			});
+			
 		})
 		//监管
-		$("#supervise_banding").click(function(){
+		$("#supervise_bind").click(function(){
 			console.log("监管");
 		})		
 		

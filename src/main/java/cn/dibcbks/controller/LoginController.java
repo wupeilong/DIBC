@@ -2,7 +2,6 @@ package cn.dibcbks.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +22,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * 登录控制器11
+ * 登录控制器
  * @author Administrator
  *
  */
@@ -202,9 +201,61 @@ public class LoginController {
 	
 	
 	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
-	@GetMapping("/wx_bind_public")
-	public String wxBangdingUserType(HttpServletRequest request,ModelMap modelMap) {
+	@GetMapping("/wap_bind_public")
+	public String bindUserType(HttpServletRequest request,ModelMap modelMap) {
 
-	   return iWxService.wxBangdingUserType(request,modelMap);
+	   return iWxService.bindPublic(request,modelMap);
+	}
+	
+	@ApiOperation(value = "绑定用户类型:主体人员", notes = "绑定用户类型:主体人员")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="businessLicenseCode",value="社会统一信用代码",dataType="String",example="91520103MA6J8XTN8E",required=true,paramType="query"),
+		@ApiImplicitParam(name="roleId",value="角色ID",dataType="Integer",example="110",required=false,paramType="query")
+	})
+	@GetMapping("/wap_bind_unit")
+	@ResponseBody
+	public ResponseResult<Void> bindUnit(String businessLicenseCode,Integer roleId, HttpServletRequest request,ModelMap modelMap) {
+
+	   return iWxService.bindUnit(businessLicenseCode,roleId,request,modelMap);
+	}
+	
+	
+	@ApiOperation(value = "绑定用户类型:进入创建主体页", notes = "绑定用户类型:进入创建主体页")
+	@GetMapping("/wap_create_unit_page")
+	public String createdUnitPage(HttpServletRequest request, ModelMap modelMap) {
+
+	   return iWxService.createUnitPage(request,modelMap);
+	}
+	
+	
+	@ApiOperation(value = "创建主体绑定用户类型:主体人员", notes = "创建主体绑定用户类型:主体人员")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="unitName",value="企业名称",dataType="String",example="贵州指上通科技有限责任公司",required=true,paramType="form"),
+		@ApiImplicitParam(name="businessLicenseCode",value="社会统一信用代码",dataType="String",example="91520103MA6J8XTN8E",required=true,paramType="form"),
+		@ApiImplicitParam(name="businessLicense",value="营业执照编码",dataType="MultipartFile",example="110",required=true,paramType="form"),
+		@ApiImplicitParam(name="productionLicense",value="许可证照图",dataType="MultipartFile",example="110",required=true,paramType="form"),
+		@ApiImplicitParam(name="unitType",value="企业类型：1-监管局 -2学校 3-餐饮业 4-其他",dataType="Integer",example="110",required=true,paramType="form")
+	})
+	@PostMapping("/wap_create_bind_unit")
+	@ResponseBody
+	public ResponseResult<Void> createBindUnit(
+			@RequestParam("unitName") String unitName,			
+			@RequestParam("businessLicenseCode") String businessLicenseCode,
+			@RequestParam("businessLicense")MultipartFile file,
+			@RequestParam("productionLicense")MultipartFile file1,			
+			@RequestParam("unitType") Integer unitType,
+			HttpServletRequest request,
+			ModelMap modelMap) {
+
+	   return iWxService.createBindUnit(unitName,businessLicenseCode,file,file1,unitType,request,modelMap);
+	}
+	
+	
+	@ApiOperation(value = "绑定用户类型:监管人员", notes = "绑定用户类型:监管人员")
+	@GetMapping("/wap_bind_supervise")
+	@ResponseBody
+	public ResponseResult<Void> bindSupervise(String phone, String password,HttpServletRequest request,ModelMap modelMap) {
+
+	   return iWxService.bindSupervise(phone,password,request,modelMap);
 	}
 }
