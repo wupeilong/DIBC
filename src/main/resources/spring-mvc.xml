@@ -19,13 +19,20 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
-  <context:component-scan base-package="cn.dibcbks.controller"/> 
-  <mvc:default-servlet-handler />  
-  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-  	<property name="prefix" value="/WEB-INF/main/"/>
-  	<property name="suffix" value=".jsp"/>
-  </bean>
-   <!--Shiro生命周期处理器-->
+  	<context:component-scan base-package="cn.dibcbks.controller"/> 
+  	<mvc:default-servlet-handler />  
+  	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  		<property name="prefix" value="/WEB-INF/main/"/>
+  		<property name="suffix" value=".jsp"/>
+ 	 </bean>
+   	
+   	<!-- 将 springSwaggerConfig加载到spring容器 -->
+    <!-- 将自定义的swagger配置类加载到spring容器 -->
+    <bean class="cn.dibcbks.filter.SwaggerConfig"/>
+    <mvc:resources mapping="/swagger/**" location="/swagger/"/>
+    
+    
+    <!--Shiro生命周期处理器-->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>	
 	<!--启用shiro注解权限检查(@RequestPermissions)-->
 	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>

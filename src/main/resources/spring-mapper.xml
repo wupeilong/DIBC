@@ -64,8 +64,6 @@
 	-->
 	
 	
-	
-	
 	<!-- 持久层接口扫描 -->
 	<bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.dibcbks.mapper"/>
@@ -121,7 +119,7 @@
 		<property name="unauthorizedUrl" value="/error" />
 		<property name="filterChainDefinitions">
 			<value>
-				/*/** = anon
+				/* = anon
 			</value>
 			<!-- <value>
 				/static/** = anon
