@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
+import cn.dibcbks.filter.MyUsernamePasswordToken;
 import cn.dibcbks.mapper.HygieneMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UserMapper;
@@ -126,8 +127,9 @@ public class IUserServiceImpl implements IUserService {
 				rr = new ResponseResult<Void>(ResponseResult.ERROR, "账户信息不存在！请重新输入...");
 				logger.error(Constants.ERROR_HEAD_INFO + "账户信息不存在 ，账号：" + idCard);
 			} else {				
-				UsernamePasswordToken token = new UsernamePasswordToken(idCard, password);
-				subject.login(token);
+//				UsernamePasswordToken token = new UsernamePasswordToken(idCard, password);
+//				subject.login(token);
+				subject.login(new MyUsernamePasswordToken(idCard, password));
 				Session session = subject.getSession();
 				JSONObject userJson = JSONObject.fromObject(user);				
 				session.setAttribute("userJson", userJson);

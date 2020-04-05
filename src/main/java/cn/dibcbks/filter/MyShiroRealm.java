@@ -49,14 +49,17 @@ public class MyShiroRealm extends AuthorizingRealm{
 	//登录执行
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {		
-		String idCard = (String)token.getPrincipal();
-		User user = userMapper.queryUser(idCard);
+		String account = (String)token.getPrincipal();
+		User user = userMapper.queryUser(account);
 		if(user == null){
-			user = userMapper.queryUserByPhone(idCard);
+			user = userMapper.queryUserByPhone(account);
+		}
+		if(user == null){
+			user = userMapper.queryUserByOpenid(account);
 		}
 		if(user != null){
 			ByteSource byteSource = ByteSource.Util.bytes(user.getUuid());
-			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(idCard,user.getPassword(),getName());
+			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account,user.getPassword(),getName());
 			info.setCredentialsSalt(byteSource);
 			return info;
 		}

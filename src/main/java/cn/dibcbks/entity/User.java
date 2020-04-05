@@ -20,6 +20,11 @@ public class User implements Serializable {
 	private String phone;//手机号
 	private Integer unitId;//单位ID
 	private String unitName;//单位名字
+	private Integer departmentId;//部门ID
+	private String departmentName;//部门名称
+	private Integer roleId;//角色ID
+	private Integer roleName;//角色名称
+	private String openid;//微信用户唯一标识	
 	private String deparment;//部门
 	private String duty;//职务
 	private Integer age;//年龄
@@ -30,16 +35,16 @@ public class User implements Serializable {
 	private Integer sex;//性别：0-女 1-男 2-未知
 	private Integer type;//用户类型：1-监管 2-企业
 	private String uuid;//唯一识别码
+	private String authorization;//用户授权
 	private Date createTime;//创建时间
-	private Hygiene hygiene;//当天体温信息表
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public User(Integer id, String idCard, String username, String password, String phone, Integer unitId,
-			String unitName, String deparment, String duty, Integer age, String healthCertificateCode,
+			String unitName, Integer departmentId, String departmentName, Integer roleId, Integer roleName,
+			String openid, String deparment, String duty, Integer age, String healthCertificateCode,
 			String healthCertificate, String headUrl, Integer parentId, Integer sex, Integer type, String uuid,
-			Hygiene hygiene, Date createTime) {
+			String authorization, Date createTime) {
 		super();
 		this.id = id;
 		this.idCard = idCard;
@@ -48,6 +53,11 @@ public class User implements Serializable {
 		this.phone = phone;
 		this.unitId = unitId;
 		this.unitName = unitName;
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.roleId = roleId;
+		this.roleName = roleName;
+		this.openid = openid;
 		this.deparment = deparment;
 		this.duty = duty;
 		this.age = age;
@@ -58,7 +68,7 @@ public class User implements Serializable {
 		this.sex = sex;
 		this.type = type;
 		this.uuid = uuid;
-		this.hygiene = hygiene;
+		this.authorization = authorization;
 		this.createTime = createTime;
 	}
 	public Integer getId() {
@@ -102,6 +112,36 @@ public class User implements Serializable {
 	}
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+	public Integer getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+	public Integer getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(Integer roleName) {
+		this.roleName = roleName;
+	}
+	public String getOpenid() {
+		return openid;
+	}
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 	public String getDeparment() {
 		return deparment;
@@ -163,11 +203,11 @@ public class User implements Serializable {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	public Hygiene getHygiene() {
-		return hygiene;
+	public String getAuthorization() {
+		return authorization;
 	}
-	public void setHygiene(Hygiene hygiene) {
-		this.hygiene = hygiene;
+	public void setAuthorization(String authorization) {
+		this.authorization = authorization;
 	}
 	public Date getCreateTime() {
 		return createTime;
@@ -175,17 +215,15 @@ public class User implements Serializable {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", idCard=" + idCard + ", username=" + username + ", password=" + password
-				+ ", phone=" + phone + ", unitId=" + unitId + ", unitName=" + unitName + ", deparment=" + deparment
-				+ ", duty=" + duty + ", age=" + age + ", healthCertificateCode=" + healthCertificateCode
-				+ ", healthCertificate=" + healthCertificate + ", headUrl=" + headUrl + ", parentId=" + parentId
-				+ ", sex=" + sex + ", type=" + type + ", uuid=" + uuid + ", hygiene=" + hygiene + ", createTime="
-				+ createTime + "]";
+				+ ", phone=" + phone + ", unitId=" + unitId + ", unitName=" + unitName + ", departmentId="
+				+ departmentId + ", departmentName=" + departmentName + ", roleId=" + roleId + ", roleName=" + roleName
+				+ ", openid=" + openid + ", deparment=" + deparment + ", duty=" + duty + ", age=" + age
+				+ ", healthCertificateCode=" + healthCertificateCode + ", healthCertificate=" + healthCertificate
+				+ ", headUrl=" + headUrl + ", parentId=" + parentId + ", sex=" + sex + ", type=" + type + ", uuid="
+				+ uuid + ", authorization=" + authorization + ", createTime=" + createTime + "]";
 	}
 	
 	

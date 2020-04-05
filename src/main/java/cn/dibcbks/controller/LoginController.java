@@ -1,8 +1,14 @@
 package cn.dibcbks.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+<<<<<<< HEAD
+=======
+import org.springframework.ui.ModelMap;
+>>>>>>> branch 'master' of https://github.com/wupeilong/DIBC.git
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.service.ILoginService;
 import cn.dibcbks.service.IUserService;
+import cn.dibcbks.service.IWxService;
 import cn.dibcbks.util.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,14 +37,15 @@ public class LoginController {
 	private IUserService iUserService;
 	@Autowired
 	private ILoginService iLoginService;
-	
+	@Autowired
+	private IWxService iWxService;
 	
 	/**
 	 * H5进入登录页
 	 * @return
 	 */	
 	@GetMapping("/wap_login")
-	public String loginPage(){		
+	public String loginPage(){
 		return "bks_wap/login";
 	}	
 	
@@ -175,5 +183,31 @@ public class LoginController {
 	public String webHome(){	
 		
 		return "bks_web/home";
+	}
+	
+
+
+	@ApiOperation(value = "微信登录获取网页授权地址页", notes = "微信登录获取网页授权地址页")
+	@GetMapping("/wx_login")
+	public String wxLogin(ModelMap modelMap) {
+
+	   return iWxService.wxLogin(modelMap);
+	}
+	
+	
+	@ApiOperation(value = "处理网页授权回调", notes = "处理网页授权回调")
+	@ApiImplicitParam(name = "code", value = "换取oauth2_token的票据")
+	@GetMapping("/wx_oauth2")
+	public String wxOauth2Redirect(String code,HttpServletRequest request,ModelMap modelMap) {
+
+	   return iWxService.wxOauth2Redirect(code,request,modelMap);
+	}
+	
+	
+	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
+	@GetMapping("/wx_bangd_public")
+	public String wxBangdingUserType(HttpServletRequest request,ModelMap modelMap) {
+
+	   return iWxService.wxBangdingUserType(request,modelMap);
 	}
 }

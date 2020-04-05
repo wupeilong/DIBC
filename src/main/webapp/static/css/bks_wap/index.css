@@ -351,3 +351,57 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 .forms form.cur{
 	display: block;
 }
+
+
+.selects li{
+	width: 33.3333%;
+	padding: 0 1em;
+	padding-bottom: .6em;
+}
+.selects li select{
+	width: 100%;
+	border: 0;
+}
+.cpn-search{
+	position: relative;
+}
+.cpn-search input{
+	width: 100%;
+	background-color: #eee;
+	border: 1px solid #ddd;
+	padding: .6em 2em;
+	border-radius: 2em;
+}
+.cpn-search i{
+	color: #999;
+	position: absolute;
+	left: .8em;
+	top: .8em;
+}
+.goodlist>li{
+	padding: 1em 0;
+}
+.roles{
+	padding: 1em 0;
+}
+.roles img{
+	width: 60px;
+}
+
+.bingform div{
+	position: relative;
+}
+.bingform label{
+	position: absolute;
+	top: 0;
+	left: .4em;
+}
+.bingform input{
+	width: 100%;
+	padding-left: 2em;
+	padding-right: 1em;
+	transition: all ease 1s;  
+}
+.bingform input:focus{
+	border-color: #5cb85c;
+}

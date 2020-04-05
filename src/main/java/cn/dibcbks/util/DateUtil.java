@@ -56,7 +56,7 @@ public class DateUtil {
 	 * @return
 	 * @throws ParseException
 	 */
-	public static String dateFormat(Date date, String pattern) throws ParseException{
+	public static String dateFormat(Date date, String pattern){
 		if(StringUtils.isEmpty(pattern)){
 			pattern = DateUtil.DATE_PATTERN;
 		}

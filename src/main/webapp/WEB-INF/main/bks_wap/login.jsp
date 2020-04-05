@@ -43,6 +43,15 @@
 				</form>
 				<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 50px;">登陆</button></div>
 			</div>
+			<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信一键登陆" style="height: 50px;">微信一键登陆</button></div>
+			
+		</div>
+		<div id="roles" style="display: none;">
+			<ul>
+				<li><a href="javascript:void(0);" id="public_banding">我是大众</a></li>
+				<li><a href="javascript:void(0);" id="unit_banding">我是主体人员</a></li>
+				<li><a href="javascript:void(0);" id="supervise_banding">我是监管人员</a></li>
+			</ul>
 		</div>
 		<script>
 			//记住密码赋值	
@@ -70,9 +79,13 @@
 			    if(remember != null){
 			    	$("#remember").attr("checked","checked");
 			    }		    
-			}		
-
-	        
+			}	
+			
+			//微信一键登录
+			$("#wx_login").click(function() {
+				location.href = '${wechat_login_url}';
+			});
+			
 	        
 			$("#login").click(function() {
 					var account = $("input[name='idCard']").val();
@@ -121,6 +134,44 @@
 						}); 
 					}				
 			})
+			//公众
+			$("#public_banding").click(function(){
+				var url="public_user_bangding"; 				 			  
+			    $.ajax({    	   
+				   "url":url,    	  
+				   "data":data,
+				   "type":"POST",
+				   "dataType":"json",
+				   "success":function(obj){  	  
+					   if (obj.state == 0) {
+							layer.msg(obj.message,{icon:2,time:1000});
+							return;				
+						}else{					
+							layer.msg(obj.message,{icon:1,time:1000},function(){location.href="${pageContext.request.contextPath}/wap_clean/clean_list"});
+						}  
+				   }
+			});
+			//主体
+			$("#unit_banding").click(function(){
+				console.log("主体");
+			})
+			//监管
+			$("#supervise_banding").click(function(){
+				console.log("监管");
+			})		
+			
+			//第一次进入系统 用户绑定角色
+			$(function(){
+				var type = '${isbind}';
+				if(type == 1){
+					layer.open({
+				    	  title: ['请选择用户类型', 'font-size:18px;'],
+				    	  type: 1,
+				    	  content: $('#roles')//这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+				    	});
+				}				
+			});
 		</script>
+		
 </body>
 </html>
