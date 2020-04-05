@@ -63,8 +63,6 @@
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/> 
 	-->
-	
-	
 	<!-- 持久层接口扫描 -->
 	<bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.dibcbks.mapper"/>

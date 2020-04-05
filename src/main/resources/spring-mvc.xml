@@ -53,35 +53,3 @@
 	<task:scheduler id="scheduler" pool-size="10" /> 
 	<task:annotation-driven executor="executor" scheduler="scheduler" />
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
