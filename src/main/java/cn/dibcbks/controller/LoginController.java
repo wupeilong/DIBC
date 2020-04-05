@@ -195,11 +195,16 @@ public class LoginController {
 	@ApiOperation(value = "处理网页授权回调", notes = "处理网页授权回调")
 	@ApiImplicitParam(name = "code", value = "换取oauth2_token的票据")
 	@GetMapping("/wx_oauth2")
-	public String wxOauth2Redirect(String code,HttpServletRequest request) {
+	public String wxOauth2Redirect(String code,HttpServletRequest request,ModelMap modelMap) {
 
-	   return iWxService.wxOauth2Redirect(code,request);
+	   return iWxService.wxOauth2Redirect(code,request,modelMap);
 	}
 	
 	
-	
+	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
+	@GetMapping("/wx_bangd_public")
+	public String wxBangdingUserType(HttpServletRequest request,ModelMap modelMap) {
+
+	   return iWxService.wxBangdingUserType(request,modelMap);
+	}
 }

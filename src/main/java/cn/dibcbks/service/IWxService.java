@@ -18,6 +18,14 @@ public interface IWxService {
 	 * @param request
 	 * @return
 	 */
-	String wxOauth2Redirect(String code, HttpServletRequest request);
+	String wxOauth2Redirect(String code, HttpServletRequest request,ModelMap modelMap);
+
+	/**
+	 * 绑定用户类型:大众
+	 * @param request
+	 * @param modelMap
+	 * @return
+	 */
+	String wxBangdingUserType(HttpServletRequest request, ModelMap modelMap);
 
 }

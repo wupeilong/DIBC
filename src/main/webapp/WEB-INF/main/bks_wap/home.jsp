@@ -84,15 +84,19 @@
 							<div><div class="padding-side icon_box"><i class="fa fa-crosshairs"></i></div></div>
 							<p class="padding-side05">不合格记录</p>
 						</a>
-					</li>
+					</li>									
 				</ul>
-			</div>
+			</div>			
+			
 		</main>
+		
 		<c:import url="public/footer.jsp"></c:import>
-		<script type="text/javascript">
+		<script type="text/javascript">		
 			$("#ai").click(function () {
 				alert("功能开发中……")
-			})
+			})			
 		</script>
+		
 </body>
+			
 </html>

@@ -71,39 +71,75 @@ public class IWxServiceImpl implements IWxService {
 	}
 
 	@Override
-	public String wxOauth2Redirect(String code, HttpServletRequest request) {
-		WxUserInfoOut wxUserInfo = WxApi.getWxUserInfo(WxApi.getOauth2Token(code));
-		Subject subject = SecurityUtils.getSubject();
-        if (wxUserInfo == null) {
-            logger.info("获取微信用户信息失败");           
-            return "error/404";
-        }        
-        User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
-        if (user == null) {
-            Date createTime = new Date();
-            user = new User();
-            String uuid = CommonUtil.getUUID();
-            user.setOpenid(wxUserInfo.getOpenId());
-            user.setUsername(wxUserInfo.getNickname());
-            user.setSex(wxUserInfo.getSex());
-            user.setHeadUrl(wxUserInfo.getHeadimgurl());
-            user.setUuid(uuid); 
-            user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
-            user.setCreateTime(createTime);
-            userMapper.insert(user);
-        }        
-        try {
+	public String wxOauth2Redirect(String code, HttpServletRequest request ,ModelMap modelMap) {
+		try {
         	//登录写入系统
-            subject.login(new MyUsernamePasswordToken(user.getOpenid()));
-            Session session = subject.getSession();
-            JSONObject userJson = JSONObject.fromObject(user);				
+			WxUserInfoOut wxUserInfo = WxApi.getWxUserInfo(WxApi.getOauth2Token(code));
+			Subject subject = SecurityUtils.getSubject();
+			Session session = subject.getSession();
+	        if (wxUserInfo == null) {
+	            logger.info("获取微信用户信息失败");           
+	            return "error/404";
+	        }        
+	        User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
+	        if (user == null) {
+	        	session.setAttribute("wx_user_info", wxUserInfo);
+	        	modelMap.addAttribute("isbind", 1);
+	        	return "bks_wap/login";
+	            /*Date createTime = new Date();
+	            user = new User();
+	            String uuid = CommonUtil.getUUID();
+	            user.setOpenid(wxUserInfo.getOpenId());
+	            user.setUsername(wxUserInfo.getNickname());
+	            user.setSex(wxUserInfo.getSex());
+	            user.setHeadUrl(wxUserInfo.getHeadimgurl());
+	            user.setUuid(uuid); 
+	            user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
+	            user.setCreateTime(createTime);
+	            userMapper.insert(user);*/
+	        }
+	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
+	        JSONObject userJson = JSONObject.fromObject(user);				
 			session.setAttribute("userJson", userJson);
 			session.setAttribute("user", user);
-        } catch (IncorrectCredentialsException e) {
-            e.printStackTrace();
-            return "error/404";
-        }
-        return "bks_web/home";
+	        if(user.getType() == 1){//进入大众端首页
+	        	return "bks_wap/public_home";
+	        }else{//进入主体、监管首页
+	        	return "bks_wap/home";
+	        }   
+		} catch (IncorrectCredentialsException e) {
+			e.printStackTrace();
+			return "error/404";
+	    }
+	}
+
+	@Override
+	public String wxBangdingUserType(HttpServletRequest request, ModelMap modelMap) {
+		try {
+			Subject subject = SecurityUtils.getSubject();
+			Session session = subject.getSession();
+			WxUserInfoOut wxUserInfo =  (WxUserInfoOut)session.getAttribute("wx_user_info");
+			Date createTime = new Date();
+	        User user = new User();
+	        String uuid = CommonUtil.getUUID();
+	        user.setOpenid(wxUserInfo.getOpenId());
+	        user.setUsername(wxUserInfo.getNickname());
+	        user.setSex(wxUserInfo.getSex());
+	        user.setHeadUrl(wxUserInfo.getHeadimgurl());
+	        user.setUuid(uuid); 
+	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
+	        user.setCreateTime(createTime);
+	        userMapper.insert(user);
+	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
+	        JSONObject userJson = JSONObject.fromObject(user);				
+			session.setAttribute("userJson", userJson);
+			session.setAttribute("user", user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			 logger.error("绑定用户类型错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+		}
+		//进入大众首页
+		return "";
 	}
 
 }

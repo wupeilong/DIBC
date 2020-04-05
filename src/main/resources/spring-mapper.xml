@@ -24,7 +24,8 @@
 	
 	
 	<!-- 异常统一处理类 HandlerExceptionResolver 注释 -->
-  	<bean id="handlerExceptionResolver" class="cn.dibcbks.exception.MyExceptionResolver" /> 
+  	<!-- <bean id="handlerExceptionResolver" class="cn.dibcbks.exception.MyExceptionResolver" />  -->
+  	
 	<util:properties id="dbConf" location="classpath:config.properties" />
 
 	<!-- 配置数据库的连接池 -->
@@ -44,7 +45,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="add*" isolation="REPEATABLE_READ" rollback-for="Exception" />
 			<tx:method name="update*" isolation="REPEATABLE_READ" rollback-for="Exception" />
@@ -56,7 +57,7 @@
 	<aop:config>
 		<aop:pointcut expression="execution(* cn.dibcbks.service..*(..))" id="point"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="point"/>
-	</aop:config>
+	</aop:config> -->
 	
 	<!-- 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
