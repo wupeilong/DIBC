@@ -48,130 +48,113 @@
 		</div>
 		<div id="roles" style="display: none;">
 			<ul>
-				<li><a href="javascript:void(0);" id="public_banding">我是大众</a></li>
+				<li><a href="${pageContext.request.contextPath}/wx_bind_public">我是大众</a></li>
 				<li><a href="javascript:void(0);" id="unit_banding">我是主体人员</a></li>
 				<li><a href="javascript:void(0);" id="supervise_banding">我是监管人员</a></li>
 			</ul>
 		</div>
-		<script>
-			//记住密码赋值	
-			if(!window.localStorage){
-			 	console.log("浏览器不支持localstorage");
-			}else{
-			    //主逻辑业务
-			    var storage = window.localStorage;
-			    var idCard = storage.getItem("idCard");
-			    var password = storage.getItem("password");
-			    var remember = storage.getItem("remember");
-			    //账户赋值
-			    if(idCard != null){
-			    	$("#idCard").val(idCard);
-			    }else{
-			    	$("#idCard").val("");
-			    }
-			    //密码赋值
-			    if(password != null){
-			    	 $("#password").val(password);
-			    }else{
-			    	 $("#password").val("");
-			    }
-			    //checkbox框赋值
-			    if(remember != null){
-			    	$("#remember").attr("checked","checked");
-			    }		    
-			}	
-			
-			//微信一键登录
-			$("#wx_login").click(function() {
-				location.href = '${wechat_login_url}';
-			});
-			
-	        
-			$("#login").click(function() {
-					var account = $("input[name='idCard']").val();
-					var password = $("input[name='password']").val();
-					var mobileReg = /(^1[3|4|5|7|8|9]\d{9}$)|(^09\d{8}$)/;
-					var idCardReg=/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-					var passwordReg= /[a-zA-Z0-9]{6,12}/;
-					//验证条件
-					//!idCardReg.test(account) && !mobileReg.test(account)
-					//$(!passwordReg.test(password))
-					if (account=='') {
-						layer.msg("账号或密码有误，请重新输入",{icon:2,time:1000});
-						$("input[name='idCard']").focus();		
-					}else if(password==''){
-						layer.msg("账号或密码有误，请重新输入",{icon:2,time:1000});
-						$("input[name='password']").focus();
-					}else{
-						var url = "${pageContext.request.contextPath}/wap_user_login";
-						var data = "idCard="+account+"&password="+password;	
-						$.ajax({
-							"url" : url,
-							"data" : data,
-							"type" : "POST",
-							"dataType" : "json",
-							"success" : function(obj) {
-								if (obj.state == 0) {
-									layer.msg(obj.message,{icon:2,time:1000});
-									return;
-								}else{
-									//选中记住密码 + 并且支持localStorage
-									if($('#remember').is(':checked') && window.localStorage){
-										var storage = window.localStorage;
-										storage.setItem("idCard",$("#idCard").val());
-										storage.setItem("password",$("#password").val());
-										storage.setItem("remember","1");
-									}else{
-										var storage = window.localStorage;
-										storage.removeItem("idCard");
-										storage.removeItem("password");
-										storage.removeItem("remember");
-									}
-									//location.reload();
-									layer.msg(obj.message,{icon:1,time:1000},function(){location.href = "wap_home";});
-								}					
-							}
-						}); 
-					}				
-			})
-			//公众
-			$("#public_banding").click(function(){
-				var url="public_user_bangding"; 				 			  
-			    $.ajax({    	   
-				   "url":url,    	  
-				   "data":data,
-				   "type":"POST",
-				   "dataType":"json",
-				   "success":function(obj){  	  
-					   if (obj.state == 0) {
-							layer.msg(obj.message,{icon:2,time:1000});
-							return;				
-						}else{					
-							layer.msg(obj.message,{icon:1,time:1000},function(){location.href="${pageContext.request.contextPath}/wap_clean/clean_list"});
-						}  
-				   }
-			});
-			//主体
-			$("#unit_banding").click(function(){
-				console.log("主体");
-			})
-			//监管
-			$("#supervise_banding").click(function(){
-				console.log("监管");
-			})		
-			
-			//第一次进入系统 用户绑定角色
-			$(function(){
-				var type = '${isbind}';
-				if(type == 1){
-					layer.open({
-				    	  title: ['请选择用户类型', 'font-size:18px;'],
-				    	  type: 1,
-				    	  content: $('#roles')//这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
-				    	});
-				}				
-			});
-		</script>
+		<script type="text/javascript">
+		//记住密码赋值	
+		if(!window.localStorage){
+		 	console.log("浏览器不支持localstorage");
+		}else{
+		    //主逻辑业务
+		    var storage = window.localStorage;
+		    var idCard = storage.getItem("idCard");
+		    var password = storage.getItem("password");
+		    var remember = storage.getItem("remember");
+		    //账户赋值
+		    if(idCard != null){
+		    	$("#idCard").val(idCard);
+		    }else{
+		    	$("#idCard").val("");
+		    }
+		    //密码赋值
+		    if(password != null){
+		    	 $("#password").val(password);
+		    }else{
+		    	 $("#password").val("");
+		    }
+		    //checkbox框赋值
+		    if(remember != null){
+		    	$("#remember").attr("checked","checked");
+		    }		    
+		}	
 		
+		//微信一键登录
+		$("#wx_login").click(function() {
+			location.href = '${wechat_login_url}';
+		});
+		
+        
+		$("#login").click(function() {
+				var account = $("input[name='idCard']").val();
+				var password = $("input[name='password']").val();
+				var mobileReg = /(^1[3|4|5|7|8|9]\d{9}$)|(^09\d{8}$)/;
+				var idCardReg=/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+				var passwordReg= /[a-zA-Z0-9]{6,12}/;
+				//验证条件
+				//!idCardReg.test(account) && !mobileReg.test(account)
+				//$(!passwordReg.test(password))
+				if (account=='') {
+					layer.msg("账号或密码有误，请重新输入",{icon:2,time:1000});
+					$("input[name='idCard']").focus();		
+				}else if(password==''){
+					layer.msg("账号或密码有误，请重新输入",{icon:2,time:1000});
+					$("input[name='password']").focus();
+				}else{
+					var url = "${pageContext.request.contextPath}/wap_user_login";
+					var data = "idCard="+account+"&password="+password;	
+					$.ajax({
+						"url" : url,
+						"data" : data,
+						"type" : "POST",
+						"dataType" : "json",
+						"success" : function(obj) {
+							if (obj.state == 0) {
+								layer.msg(obj.message,{icon:2,time:1000});
+								return;
+							}else{
+								//选中记住密码 + 并且支持localStorage
+								if($('#remember').is(':checked') && window.localStorage){
+									var storage = window.localStorage;
+									storage.setItem("idCard",$("#idCard").val());
+									storage.setItem("password",$("#password").val());
+									storage.setItem("remember","1");
+								}else{
+									var storage = window.localStorage;
+									storage.removeItem("idCard");
+									storage.removeItem("password");
+									storage.removeItem("remember");
+								}
+								//location.reload();
+								layer.msg(obj.message,{icon:1,time:1000},function(){location.href = "wap_home";});
+							}					
+						}
+					}); 
+				}				
+		})
+		    
+		//主体
+		$("#unit_banding").click(function(){
+			console.log("主体");
+		})
+		//监管
+		$("#supervise_banding").click(function(){
+			console.log("监管");
+		})		
+		
+		//第一次进入系统 用户绑定角色
+		$(function(){
+			var type = '${isbind}';
+			if(type == 1){
+				layer.open({
+			    	  title: ['请选择用户类型', 'font-size:18px;'],
+			    	  type: 1,
+			    	  content: $('#roles')
+			    	});
+			}				
+		});
+		</script>		
 </body>
 </html>

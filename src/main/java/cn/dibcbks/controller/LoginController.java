@@ -202,7 +202,7 @@ public class LoginController {
 	
 	
 	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
-	@GetMapping("/wx_bangd_public")
+	@GetMapping("/wx_bind_public")
 	public String wxBangdingUserType(HttpServletRequest request,ModelMap modelMap) {
 
 	   return iWxService.wxBangdingUserType(request,modelMap);

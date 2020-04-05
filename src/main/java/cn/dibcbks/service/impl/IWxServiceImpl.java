@@ -128,18 +128,21 @@ public class IWxServiceImpl implements IWxService {
 	        user.setHeadUrl(wxUserInfo.getHeadimgurl());
 	        user.setUuid(uuid); 
 	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
+	        user.setType(3);
 	        user.setCreateTime(createTime);
 	        userMapper.insert(user);
 	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);				
 			session.setAttribute("userJson", userJson);
 			session.setAttribute("user", user);
+			//进入大众首页
+			return "";
 		} catch (Exception e) {
 			e.printStackTrace();
-			 logger.error("绑定用户类型错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+			logger.error("绑定用户类型错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+			return "error/404";
 		}
-		//进入大众首页
-		return "";
+		
 	}
 
 }
