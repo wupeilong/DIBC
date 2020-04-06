@@ -1,43 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-<meta charset=utf-8>
-<meta name="viewport"	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<title>监控视频列表</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-<link href="${pageContext.request.contextPath}/static/css/bks_wap/video-js.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/static/css/bks_wap/video.css" rel="stylesheet">
-<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
-<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/video/video.min.js"></script>
-<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/video/videojs-contrib-hls.min.js"></script>
+	<head>
+	<meta charset="utf-8">
+	<title>Video.js 7.4.1</title>
+	<link href="css/video-js.min.css" rel="stylesheet">
+	<style>
+body {
+	background-color: #191919
+}
+.m {
+	width: 960px;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+}
+</style>
+	</head>
 
-</head>
-<body class="video_bodydetail">	
-	<div class="m" style="text-align: center;padding-bottom: 4em;">
-		<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
-			<div class="video_div" style="display: inline-block;">
-				<c:if test="${vs.index==0}">
-					<h4 style="font-size: 20px;font-weight: 600;padding: 25px 0 0 0;">贵州指上通科技有限责任公司</h4>
-				</c:if>
-				<p>位置：<span>${item.cameraPosition}</span></p>
-			    <video id="my-video${item.videoId}" class="video-js" controls preload="auto" width="340" height="200" poster="m.jpg" data-setup="{}">      	
-			    	<source src="${item.videoAddress}" type="application/x-mpegURL">
-			        <p class="vjs-no-js"> 111 <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
-			    </video>	
-			</div>			          
-	     </c:forEach>     
-    </div>
-	<c:import url="public/footer.jsp"></c:import>
-</body>
-<script src="${pageContext.request.contextPath}/static/js/bks_wap/video.min.js"></script> 
+	<body>
+    <div class="m">
+      <video id="my-video" class="video-js" controls preload="auto" width="960" height="400"
+		  poster="m.jpg" data-setup="{}">
+        <!-- <source src="http://wx19.sdvideo.cn:9999/3HKCA33014NU3ET_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810" type="video/mp4"> -->
+    	<!-- <source src="http://wx19.sdvideo.cn:9999/3HKCA33014NU3ET_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810" type="video/webm"> -->
+    	<source src="http://wx19.sdvideo.cn:9999/3HKCA33014NU3ET_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810" type="application/x-mpegURL">
+        <p class="vjs-no-js"> 111 <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
+      </video>
+      <script src="js/video.min.js"></script> 
       <script type="text/javascript">
 		  //设置中文
 		  videojs.addLanguage('zh-CN', {
@@ -124,17 +114,18 @@
 			  "End of dialog window.": "结束对话视窗"
 			});
 		  
-		  $('video').each (function () {
-			  var myPlayer = videojs($(this).id);
-				videojs($(this).id).ready(function(){
-					var myPlayer = this;
-					myPlayer.play();
-				});
-			});			
+		  
+		  
+		  
+		  
+		  
+			var myPlayer = videojs('my-video');
+			videojs("my-video").ready(function(){
+				var myPlayer = this;
+				myPlayer.play();
+			});
+			  
 		</script> 
-<!-- <script type="text/javascript">
-	var player = videojs('myvideo');
-		player.play();
-</script> -->
+    </div>
 </body>
 </html>

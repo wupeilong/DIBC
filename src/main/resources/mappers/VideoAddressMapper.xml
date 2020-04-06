@@ -4,6 +4,7 @@
 <mapper namespace="cn.dibcbks.mapper.VideoAddressMapper">
 	 <resultMap id="BaseResultMap" type="cn.dibcbks.entity.VideoAddress">
 	    <result column="unit_id" property="unitId" />
+	    <result column="unit_name" property="unitName" />
 	    <result column="video_address" property="videoAddress" />
 	    <result column="camera_position" property="cameraPosition" />
 	    <result column="video_type" property="videoType" />	
@@ -13,17 +14,35 @@
 	<!--查询视频流地址列表 -->
 	<select id="SelectVideoAddressById" resultMap="BaseResultMap"> 
 		SELECT
-			unit_id,
-			video_address,
-			camera_position,
-			video_type,
-			stream_type,
-			video_id
+			v.unit_id,
+			n.unit_name,
+			v.video_address,
+			v.camera_position,
+			v.video_type,
+			v.stream_type,
+			v.video_id
 		FROM
-			video_address 
+			video_address v 
+		LEFT JOIN unit n ON n.unit_id = v.unit_id
 		WHERE 
-			unit_id=#{id}
+			v.unit_id=#{id}
 	</select>
+	
+	<delete id="SelectAddressById" parameterType="java.lang.Integer">
+		SELECT
+			v.unit_id,
+			n.unit_name,
+			v.video_address,
+			v.camera_position,
+			v.video_type,
+			v.stream_type,
+			v.video_id
+		FROM
+			video_address v 
+		LEFT JOIN unit n ON n.unit_id = v.unit_id
+		WHERE 
+			v.unit_id=#{videoId}
+	</delete>
 	
 	<!--添加视频流地址列表 -->
 	<insert id="InsertAddress" parameterType="cn.dibcbks.entity.VideoAddress" useGeneratedKeys="true" keyProperty="videoId">
@@ -101,6 +120,7 @@
 	<delete id="DeleteAddressById" parameterType="java.lang.Integer">
 		DELETE FROM video_address where video_id = #{videId};
 	</delete>
+			
 </mapper>
 	
 	

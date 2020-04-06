@@ -7,6 +7,18 @@ header{
 footer{
 	padding: 1em 0;
 }
+.btn-primary{
+	background-color: #348dec;
+}
+.bg-primary{
+	background-color: #348dec;
+}
+.bg-defoult{
+	background-color: #eee;
+}
+.text-success{
+	color: #76d59b;
+}
 .fc{
 	display: flex;
 	justify-content: center;
@@ -31,6 +43,9 @@ footer{
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+}
+.margin_tb10{
+	margin: 10px 0;
 }
 .margin-top05{
 	margin-top: .5em;
@@ -127,7 +142,4 @@ a:hover{
 }
 img[src=""],img:not([src]){
   opacity:0;
-}
-.bg-white{
-	background-color: #fff;
 }

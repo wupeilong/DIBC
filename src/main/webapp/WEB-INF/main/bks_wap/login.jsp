@@ -18,38 +18,39 @@
 <body class="bg_body container">
 		<div class="container">
 			<div class="text-center margin-top">
-				<div class="logo"><img src="${pageContext.request.contextPath}/static/images/bks_wap/zlogin_logo.png" class="img-responsive"></div>
-				<h3>云岩食安监督管理系统</h3>
+				<div class="logo"><img src="${pageContext.request.contextPath}/static/images/bks_wap/wep_login.png" class="img-responsive"></div>
+				<!-- <h3>云岩食安监督管理系统</h3> -->
 				<%-- <a href="${pageContext.request.contextPath}/home">进入主页</a> --%>
 			</div>
 			<div class="margin-top3">
 				<form class="login_formIn">
 					<fieldset id="" class="margin-top margin-bot">
 						<div class="login_form">
-						<div>
-							<div class="login_form_top" style="">
-								<a class="active">微信登录</a>|<a>账号登录</a>
-							</div>
-							<div>
-								<div>
-									<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;"><span>登录后应用将获得以下权限</span></div>
-									<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
-									<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
-    border-color: #a9e895;">微信一键登陆</button></div>
-								</div> 
-								<!-- <div >
-									<div class="login_user">
-										<input type="text" class="login_input box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
-									</div>
-									<div class="login_pwd">
-										<input type="password" class="login_input box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
-									</div>
-									<div class="text-center margin-top2 margin-bot2">
-										<button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
+							<div class="login_switch tabbox">
+								<div class="login_form_top tabh">
+									<a class="cur">微信登录</a>|<a>账号登录</a>
+								</div>
+								<div class="tabb">
+									<div class="tab_type cur">
+										<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;"><span>登录后应用将获得以下权限</span></div>
+										<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
+										<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
+	    border-color: #a9e895;">微信一键登陆</button></div>
+	    							</div>
+									<div class="tab_type">
+										<div class="login_user">
+											<input type="text" class="login_input box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
 										</div>
-								</div>	 -->
+										<div class="login_pwd">
+											<input type="password" class="login_input box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
+										</div>
+										<div class="text-center margin-top2 margin-bot2">
+											<button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
+											</div>
+									</div>
+		
+								</div>
 							</div>
-						</div>
 													
 						</div>					
 						<!-- <div class="input-group input-group-lg form-group">
@@ -65,7 +66,10 @@
 				</form>
 				
 			</div>
-			
+			<div class="text-center text-white">
+				<p>Copyright&copy;2020 贵州科技</p>
+				<p>黔公网安备11000002000001号</p>
+			</div>	
 			
 		</div>
 		<div id="roles" style="display: none;">
@@ -76,6 +80,17 @@
 			</ul>
 		</div>
 		<script type="text/javascript">
+		//切换登陆方式
+		$(".tabbox").find(".tabh a").click(function(){
+			$(this).parent().children("a").removeClass("cur");
+			$(this).addClass("cur");
+			var index=$(this).index();
+			console.log(index);
+			$(this).parents(".tabbox").find(".tabb").children().removeClass("cur");
+			$(this).parents(".tabbox").find(".tabb").children().eq(index).addClass("cur");
+		})
+		
+		
 		//记住密码赋值	
 		if(!window.localStorage){
 		 	console.log("浏览器不支持localstorage");
