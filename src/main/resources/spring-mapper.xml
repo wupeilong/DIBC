@@ -106,13 +106,13 @@
 	</bean>
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />		
-		<property name="loginUrl" value="/login" />
+		<property name="loginUrl" value="/wap_login" />
 		<property name="successUrl" value="/hoem" />
-		<property name="unauthorizedUrl" value="/error" />
+		<property name="unauthorizedUrl" value="/error" />		
 		<property name="filterChainDefinitions">
-			<value>
+			 <value>
 				/* = anon
-			</value>
+			</value> 
 			<!-- <value>
 				/static/** = anon
 				/login = anon
@@ -123,10 +123,10 @@
 				/admin_add = anon
 				/is_exist = anon				
 				/*/** = authc
-   			</value> -->
+   			</value>  -->
    			<!-- /*/** = authc -->
 		</property>
-	</bean>	
+	</bean>		
 </beans>
 
 
