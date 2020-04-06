@@ -1,6 +1,6 @@
 .bg_body{
 	background-image: url("../../images/bks_wap/top_login.png");
-	background-size: 100% 100%;
+	background-size: cover;
 }
 .login_form{
 	background-image: url("../../images/bks_wap/zlogin.png");
@@ -37,17 +37,37 @@
     background-image: none;
     border: 0px solid #ccc;
     border-radius: 4px;     
-    margin-left: 65px;
+    margin-left: 70px;
 }
 .login_form_top{
-	text-align: center;padding-top: 25px;
-}
-.login_form_top a{
-	padding: 25px 25px 5px;
-	font-size: 17px;
-    font-weight: 600;
-    color: #11b71d; 
+	text-align: center;
+	padding-top: 25px;
 }
 .active{	
    border-bottom: 2px solid #39b90d;
 }
+
+.tabbox .tabh a.cur{
+	color:#11b71d;
+	border-bottom: 2px solid #11b71d;
+}
+.tabbox .tabh a{
+	color:#999;
+	padding: 25px 25px 5px;
+	font-size: 17px;
+    font-weight: 600;
+	border-bottom: 0;
+	cursor:pointer;
+}
+.tabb .tab_type{
+	display:none;
+}
+.tabb .tab_type.cur{
+	display:block;
+}
+.tabb input:focus{
+	background-color:#fff;
+}
+
+
+
