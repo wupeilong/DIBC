@@ -98,9 +98,14 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="myShiroRealm" />		
 		<property name="cacheManager" ref="cacheManager"/> 
-		<!--记住密码 remenberMe配置 -->
+		<!-- 记住密码 remenberMe配置 -->
    		<property name="rememberMeManager" ref="rememberMeManager" />
+   		
 	</bean>
+	
+	<!-- 自定义Shiro loginUrl重定向拦截器 -->
+	<bean id="myFormAuthenticationFilter" class="cn.dibcbks.filter.MyFormAuthenticationFilter"/>    
+	
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
 	</bean>
@@ -109,13 +114,22 @@
 		<property name="loginUrl" value="/wap_login" />
 		<property name="successUrl" value="/hoem" />
 		<property name="unauthorizedUrl" value="/error" />		
+		 <!-- 自定义filter配置 -->
+	    <property name="filters">    
+            <util:map>    
+                 <entry key="authc" value-ref="myFormAuthenticationFilter"/>    
+            </util:map>    
+        </property>
 		<property name="filterChainDefinitions">
 			 <value>
 				/* = anon
-			</value> 
+			</value> 			
 			<!-- <value>
 				/static/** = anon
-				/login = anon
+				/wap_login = anon
+				/wap_user_login = anon
+				/web_login = anon
+				/web_user_login = anon
 				/register = anon
 				/registeradd = anon
 				/userLogin = anon
@@ -123,7 +137,8 @@
 				/admin_add = anon
 				/is_exist = anon				
 				/*/** = authc
-   			</value>  -->
+   			</value> --> 
+   		
    			<!-- /*/** = authc -->
 		</property>
 	</bean>		

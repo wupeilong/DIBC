@@ -13,29 +13,34 @@ public class MyUsernamePasswordToken extends UsernamePasswordToken {
     /**
      * 登录类型
      */
-    private LoginType type;
+    private LoginType loginType;
     public MyUsernamePasswordToken() {
         super();
     }
-    public MyUsernamePasswordToken(String username, String password, LoginType type, boolean rememberMe,  String host) {
+    public MyUsernamePasswordToken(String username, String password, LoginType loginType, boolean rememberMe,  String host) {
         super(username, password, rememberMe,  host);
-        this.type = type;
+        this.loginType = loginType;
     }
-    /**免密登录*/
+    /**H5免密登录*/
     public MyUsernamePasswordToken(String username) {
         super(username, "", false, null);
-        this.type = LoginType.NOPASSWD;
+        this.loginType = LoginType.H5_NOPASSWD;
     }
-    /**账号密码登录*/
+    /**H5账号密码登录*/
     public MyUsernamePasswordToken(String username, String password) {
         super(username, password, false, null);
-        this.type = LoginType.PASSWORD;
+        this.loginType = LoginType.H5_PASSWORD;
     }
-    public LoginType getType() {
-        return type;
+    /**账号密码登录*/
+    public MyUsernamePasswordToken(String username, String password, LoginType loginType) {
+        super(username, password, false, null);
+        this.loginType = loginType;
     }
-    public void setType(LoginType type) {
-        this.type = type;
+    public LoginType getLoginType() {
+        return loginType;
+    }
+    public void setLoginType(LoginType loginType) {
+        this.loginType = loginType;
     }
 
 
