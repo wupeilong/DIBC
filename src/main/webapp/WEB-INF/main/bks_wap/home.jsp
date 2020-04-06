@@ -73,14 +73,14 @@
 					</c:if>
 					
 					<li class="">
-						<a href="javascript:alert('功能开发中……');">
+						<a href="${pageContext.request.contextPath}/wap_video/wap_videoscan">
 							<div><div class="padding-side icon_box"><i class="fa fa-crosshairs"></i></div></div>
 							<p class="padding-side05">视频监控</p>
 						</a>
 					</li>
 					
 					<li class="">
-						<a href="${pageContext.request.contextPath}/wap_unq/list_pag">
+						<a href="${pageContext.request.contextPath}/wap_videoscan">
 							<div><div class="padding-side icon_box"><i class="fa fa-crosshairs"></i></div></div>
 							<p class="padding-side05">不合格记录</p>
 						</a>
