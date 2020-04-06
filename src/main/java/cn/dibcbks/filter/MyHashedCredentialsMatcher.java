@@ -12,13 +12,13 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 public class MyHashedCredentialsMatcher extends HashedCredentialsMatcher{
 	 @Override
 	    public boolean doCredentialsMatch(AuthenticationToken authcToken, AuthenticationInfo info) {
-	        MyUsernamePasswordToken tk = (MyUsernamePasswordToken) authcToken;
+	        MyUsernamePasswordToken token = (MyUsernamePasswordToken) authcToken;
 	        //免密登录
-	        if(tk.getType().equals(LoginType.NOPASSWD)){
+	        if(token.getLoginType().equals(LoginType.NOPASSWD)){
 	            return true;
 	        }
 	       //不是免密登录，调用父类的方法
-	       return super.doCredentialsMatch(tk, info);
+	       return super.doCredentialsMatch(authcToken, info);
 	    }
 
 }

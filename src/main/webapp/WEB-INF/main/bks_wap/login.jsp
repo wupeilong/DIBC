@@ -36,7 +36,7 @@
 										<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
 										<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
 	    border-color: #a9e895;">微信一键登陆</button></div>
-									</div>
+	    							</div>
 									<div class="tab_type">
 										<div class="login_user">
 											<input type="text" class="login_input box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
@@ -48,7 +48,7 @@
 											<button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
 											</div>
 									</div>
-
+		
 								</div>
 							</div>
 													
