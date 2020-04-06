@@ -73,4 +73,7 @@
     <listener>
         <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
     </listener>
+    <session-config>
+    	<session-timeout>1</session-timeout>
+    </session-config>
 </web-app>

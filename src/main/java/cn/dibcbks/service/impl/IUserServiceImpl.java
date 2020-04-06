@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
+import cn.dibcbks.filter.LoginType;
 import cn.dibcbks.filter.MyUsernamePasswordToken;
 import cn.dibcbks.mapper.HygieneMapper;
 import cn.dibcbks.mapper.UnitMapper;
@@ -129,7 +130,7 @@ public class IUserServiceImpl implements IUserService {
 			} else {				
 //				UsernamePasswordToken token = new UsernamePasswordToken(idCard, password);
 //				subject.login(token);
-				subject.login(new MyUsernamePasswordToken(idCard, password));
+				subject.login(new MyUsernamePasswordToken(idCard, password,LoginType.H5_PASSWORD));
 				Session session = subject.getSession();
 				JSONObject userJson = JSONObject.fromObject(user);				
 				session.setAttribute("userJson", userJson);
@@ -485,6 +486,38 @@ public class IUserServiceImpl implements IUserService {
 		
 		modelMap.addAttribute("userDetail", userMapper.queryUser(CommonUtil.getSessionUser().getIdCard()));
 		return "bks_wap/workmens_update";
+	}
+
+	@Override
+	public ResponseResult<Void> weblogin(String idCard, String password) {
+		ResponseResult<Void> rr = null;
+		try {
+			System.out.println("用户：" + idCard + " " + password);
+			User user = userMapper.queryUser(idCard);
+			if(user == null){
+				user = userMapper.queryUserByPhone(idCard);
+			}
+			if (user == null) {
+				rr = new ResponseResult<Void>(ResponseResult.ERROR, "账户信息不存在！请重新输入...");
+				logger.error(Constants.ERROR_HEAD_INFO + "账户信息不存在 ，账号：" + idCard);
+			} else if(user.getType() == 3){
+				rr = new ResponseResult<Void>(ResponseResult.ERROR, "该账户信息没有权限！请重新输入...");
+				logger.error(Constants.ERROR_HEAD_INFO + "该账户信息没有权限 ，账号：" + idCard);
+			} else {
+				CommonUtil.login(new MyUsernamePasswordToken(idCard, password,LoginType.PC_PASSWORD));			
+				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
+				CommonUtil.setAttribute("user", user);
+				rr = new ResponseResult<Void>(ResponseResult.SUCCESS, "登录成功");
+				logger.info(Constants.SUCCESSU_HEAD_INFO + "账号登录成功，账号：" + idCard);
+			}
+		}catch(IncorrectCredentialsException e){			
+			rr = new ResponseResult<>(ResponseResult.ERROR,"密码错误！请重新输入...");
+			logger.error(Constants.ERROR_HEAD_INFO + "用户注册失败 原因：" + e.getMessage());
+		} catch (Exception e) {			
+			rr = new ResponseResult<Void>(ResponseResult.ERROR, "数据存在异常，请联系工作人员处理！");
+			logger.error(Constants.ERROR_HEAD_INFO + "账户登录失败，原因： " + e.getMessage());
+		}
+		return rr;
 	}
 
 }

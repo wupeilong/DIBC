@@ -12,7 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_web/style.css"/>
 		<script src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js" type="text/javascript" charset="utf-8"></script>
-		<title></title>
+		<title>云监食安系统管理后台首页</title>
 	</head>
 	<body><!-- style="overflow:hidden;" -->
 		<div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;display: none;">
@@ -26,13 +26,13 @@
 				<nav class="flexBet">
 					<div class="flexStart">
 						<a href="javascript:void(0);" class="switchIcon flexCenter padding-side05 text-white"><i class="fa fa-reorder fa-2x"></i></a>
-						<h3 class="margin0 padding-side systemName fontwei"><i class="fa fa-cog fa-spin fa-fw"></i>BTYJ 后台管理系统</h3>
+						<h3 class="margin0 padding-side systemName fontwei"><i class="fa fa-cog fa-spin fa-fw"></i>云监食安系统管理后台首页</h3>
 					</div>
 					<div class="flexStart">
 						<a href="" class="padding-side05 text-white"><i class="fa fa-envelope-o fa-fw fa-1x"></i></a>
 						<a href="" class="padding-side05 text-white"><i class="fa fa-bell-o fa-fw fa-1x"></i></a>
 						<a href="" class="padding-side05 text-white"><i class="fa fa-flag fa-fw fa-1x"></i></a>
-						<a href="" class="flexStart padding-side05 text-white"><i class="fa fa-user-circle-o fa-fw fa-2x"></i><span class="padding-side05">userName</span></a>
+						<a href="" class="flexStart padding-side05 text-white"><i class="fa fa-user-circle-o fa-fw fa-2x"></i><span class="padding-side05">${user.username}</span></a>
 					</div>
 				</nav>
 			</header>
@@ -41,12 +41,12 @@
 					<ul class="list-unstyled">
 						<li>
 							<a href="javascript:void(0);" class="nametext">
-								<i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">提案管理</span>
+								<i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">菜单管理</span>
 								<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i>
 							</a>
 							<ul class="subnav list-unstyled">
-								<li id="001" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询1</span></a>
+								<li id="001" data-src="${pageContext.request.contextPath}/web_auth/menu_list_pag">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">菜单列表</span></a>
 								</li>
 								<li id="002" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询2</span></a>

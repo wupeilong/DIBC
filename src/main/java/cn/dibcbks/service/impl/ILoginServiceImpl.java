@@ -59,7 +59,7 @@ public class ILoginServiceImpl implements ILoginService {
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			rr = new ResponseResult<>(ResponseResult.ERROR,"账户信息重复，注册失败");
+			rr = new ResponseResult<>(ResponseResult.ERROR,"注册失败！");
 		}
 		return rr;
 	}

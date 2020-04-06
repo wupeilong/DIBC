@@ -22,13 +22,13 @@ public class Unit implements Serializable {
 	 private String unitAddress;//单位地址
 	 private String expirationDate;//到期时间
 	 private Integer unitType;//企业类型：1-监管局 -2学校 3-餐饮业 4-其他
-	 private String createTime;//创建时间
+	 private Date createTime;//创建时间
 	public Unit() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Unit(Integer unitId, String unitName, String legalPerson, String businessLicenseCode, String businessLicense,
-			String productionLicense, String unitAddress, String expirationDate, Integer unitType, String createTime) {
+			String productionLicense, String unitAddress, String expirationDate, Integer unitType, Date createTime) {
 		super();
 		this.unitId = unitId;
 		this.unitName = unitName;
@@ -95,10 +95,10 @@ public class Unit implements Serializable {
 	public void setUnitType(Integer unitType) {
 		this.unitType = unitType;
 	}
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	@Override

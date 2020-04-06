@@ -2,18 +2,26 @@ package cn.dibcbks.filter;
 
 
 
+import java.io.IOException;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.service.IUserService;
+import cn.dibcbks.util.CommonUtil;
 
 
 
@@ -35,14 +43,14 @@ public class MyShiroRealm extends AuthorizingRealm{
 	//每次验证权限执行
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {		
-//		String[] ids=LoginSession.getSession().getUserAuthority().split(";");			
-//		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//		if(ids.length > 0){
-//			for(int i=0;i<ids.length;i++){
-//				info.addStringPermission(ids[i]);
-//			}			
-//			return info;
-//		}
+		String[] ids = CommonUtil.getSessionUser().getAuthorization().split(";");			
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		if(ids.length > 0){
+			for(int i=0;i<ids.length;i++){
+				info.addStringPermission(ids[i]);
+			}			
+			return info;
+		}
 		return null; 		
 	}
 
@@ -65,5 +73,5 @@ public class MyShiroRealm extends AuthorizingRealm{
 		}
 		return null;
 	}
-
+	
 }
