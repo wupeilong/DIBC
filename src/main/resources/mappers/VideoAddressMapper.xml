@@ -16,7 +16,8 @@
 			video_address,
 			camera_position,
 			video_type,
-			stream_type
+			stream_type,
+			video_id
 		FROM
 			video_address 
 		WHERE 

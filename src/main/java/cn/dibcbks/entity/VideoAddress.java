@@ -18,6 +18,13 @@ public class VideoAddress implements Serializable {
 	private String cameraPosition;//摄像机位
 	public String videoType;//视频类型
 	private String streamType;
+	private Integer videoId;
+	public Integer getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(Integer videoId) {
+		this.videoId = videoId;
+	}
 	public VideoAddress() {
 		super();
 		
@@ -54,20 +61,24 @@ public class VideoAddress implements Serializable {
 		this.streamType = streamType;
 	}
 	
-	public VideoAddress(Integer unitId, String videoAddress, String cameraPosition, String videoType,
-			String streamType) {
+	
+	public VideoAddress(Integer unitId, String videoAddress, String cameraPosition, String videoType, String streamType,
+			Integer videoId) {
 		super();
 		this.unitId = unitId;
 		this.videoAddress = videoAddress;
 		this.cameraPosition = cameraPosition;
 		this.videoType = videoType;
 		this.streamType = streamType;
+		this.videoId = videoId;
 	}
 	@Override
 	public String toString() {
 		return "VideoAddress [unitId=" + unitId + ", videoAddress=" + videoAddress + ", cameraPosition="
-				+ cameraPosition + ", videoType=" + videoType + ", streamType=" + streamType + "]";
+				+ cameraPosition + ", videoType=" + videoType + ", streamType=" + streamType + ", videoId=" + videoId
+				+ "]";
 	}
+	
 	
 	
 	
