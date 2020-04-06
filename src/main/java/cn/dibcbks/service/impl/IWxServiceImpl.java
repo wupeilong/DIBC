@@ -73,10 +73,13 @@ public class IWxServiceImpl implements IWxService {
                  token.setExpiresIn(accessTokenOut.getExpiresIn());
                  token.setCreateTime(new Date());
                  wxAccessTokenMapper.updateById(token);
+                 System.out.println("token : " + token);
                  logger.info("更新微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
              }
          }
+		
 		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
+		System.out.println("微信登陆地址：" + shortUrl);
 	    modelMap.addAttribute("wechat_login_url", shortUrl);
 	    return "bks_wap/login";
 	}
