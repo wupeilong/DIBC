@@ -81,16 +81,13 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	
 	@Override
 	public String selectMenuListPag(ModelMap modelMap) {
-		/*String where = "parent_id = '-1' ";
-		if(!CommonUtil.getSessionUser().getType().equals(1)){
-			//非监控人员有一些菜单没有权限
-			//where += " AND menu_id NOT IN (1,2,3)";
+		try {
+			List<Menu> menuList = menuMapper.select(null, null, null, null);
+			modelMap.addAttribute("menuList", menuList);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		List<Menu> menuList = menuMapper.select(where, null, null, null);*/
-		List<Menu> menuList = menuMapper.select(null, null, null, null);
-		modelMap.addAttribute("menuList", menuList);
-		//TODO 菜单列表页
-		return "";
+		return "bks_web/menu_list";
 	}
 	
 	

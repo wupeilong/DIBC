@@ -84,7 +84,7 @@ public class WebAuthorizationController {
 	
 	@ApiOperation(value = "删除菜单", notes = "删除菜单")
 	@ApiImplicitParam(name="menuId",value="菜单ID")
-	@GetMapping("/menu_delete")
+	@PostMapping("/menu_delete")
 	@ResponseBody
 	public ResponseResult<Void> deteleMenu(Integer menuId) {
 		
