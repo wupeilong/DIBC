@@ -125,7 +125,7 @@ public class LoginController {
 	 */
 	@ApiOperation("H5实现用户登录")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name="idCard",value="手机号/身份证号",dataType="String",example="13027837002/522601199210015432",required=true,paramType="query"),
+			@ApiImplicitParam(name="idCard",value="手机号/身份证号",dataType="String",example="13027837002",required=true,paramType="query"),
 			@ApiImplicitParam(name="password",value="密码",dataType="String",example="888888",required=true,paramType="query")
 	})
 	@PostMapping("/wap_user_login")
@@ -171,15 +171,7 @@ public class LoginController {
 	}
 	
 
-	/**
-	 * 进入首页
-	 * @return
-	 */
-	@RequestMapping("/web_home")
-	public String webHome(){	
-		
-		return "bks_web/home";
-	}
+	
 	
 
 
@@ -258,4 +250,47 @@ public class LoginController {
 
 	   return iWxService.bindSupervise(phone,password,request,modelMap);
 	}
+	
+	
+	
+	/**
+	 * PC端进入登录页
+	 * @return
+	 */	
+	@GetMapping("/web_login")
+	public String webloginPage(){
+		
+		return "bks_web/login";
+	}	
+	
+	/**
+	 * PC端实现用户登录
+	 * @param idCard
+	 * @param password
+	 * @return
+	 */
+	@ApiOperation("PC端实现用户登录")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name="idCard",value="手机号/身份证号",dataType="String",example="13027837002",required=true,paramType="query"),
+			@ApiImplicitParam(name="password",value="密码",dataType="String",example="888888",required=true,paramType="query")
+	})
+	@PostMapping("/web_user_login")
+	@ResponseBody
+	public ResponseResult<Void> weblogin(@RequestParam(value="idCard",required = true) String idCard,
+									  @RequestParam(value="password",required = true) String password){
+		
+		return iUserService.weblogin(idCard,password);
+	}
+	
+	
+	/**
+	 * PC端进入首页
+	 * @return
+	 */
+	@RequestMapping("/web_home")
+	public String webHome(){	
+		
+		return "bks_web/home";
+	}
+	
 }

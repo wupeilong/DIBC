@@ -22,7 +22,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 		http://www.springframework.org/schema/task
 		http://www.springframework.org/schema/task/spring-task-3.0.xsd">
-  	<context:component-scan base-package="cn.dibcbks.controller"/> 
+  	<context:component-scan base-package="cn.dibcbks.controller"/>
   	<mvc:default-servlet-handler />  
   	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
   		<property name="prefix" value="/WEB-INF/main/"/>

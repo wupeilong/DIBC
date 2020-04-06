@@ -107,5 +107,13 @@ public interface IUserService {
 	 */
 	String updateUserPage(ModelMap modelMap);
 
+	/**
+	 * PC端实现用户登录
+	 * @param idCard
+	 * @param password
+	 * @return
+	 */
+	ResponseResult<Void> weblogin(String idCard, String password);
+
 	
 }

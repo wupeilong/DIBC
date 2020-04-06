@@ -24,12 +24,15 @@ public class Menu implements Serializable {
 	private Integer isMenu;
 	@ApiModelProperty("父节点ID号：-1最顶层")
 	private Integer parentId;
+	@ApiModelProperty("所属企业")
+	private Integer unitId;
 	public Menu() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Menu(Integer menuId, String menuName, String menuUrl, String menuIcon, String authority, Integer isMenu,
-			Integer parentId) {
+			Integer parentId, Integer unitId) {
 		super();
 		this.menuId = menuId;
 		this.menuName = menuName;
@@ -38,7 +41,9 @@ public class Menu implements Serializable {
 		this.authority = authority;
 		this.isMenu = isMenu;
 		this.parentId = parentId;
+		this.unitId = unitId;
 	}
+
 	public Integer getMenuId() {
 		return menuId;
 	}
@@ -80,13 +85,21 @@ public class Menu implements Serializable {
 	}
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
+	}	
+	public Integer getUnitId() {
+		return unitId;
 	}
+
+	public void setUnitId(Integer unitId) {
+		this.unitId = unitId;
+	}
+
 	@Override
 	public String toString() {
 		return "Menu [menuId=" + menuId + ", menuName=" + menuName + ", menuUrl=" + menuUrl + ", menuIcon=" + menuIcon
-				+ ", authority=" + authority + ", isMenu=" + isMenu + ", parentId=" + parentId + "]";
+				+ ", authority=" + authority + ", isMenu=" + isMenu + ", parentId=" + parentId + ", unitId=" + unitId
+				+ "]";
 	}
-	 
-	
+
 
 }
