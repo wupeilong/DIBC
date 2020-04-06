@@ -4,7 +4,7 @@
 	margin: 0 auto;
 }
 .logo{
-	width: 180px;
+	width: 244px;
 	margin: 0 auto;
 }
 .finline{
@@ -405,3 +405,6 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 .bingform input:focus{
 	border-color: #5cb85c;
 }
+
+
+
