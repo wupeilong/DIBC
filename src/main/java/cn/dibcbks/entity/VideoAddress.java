@@ -16,19 +16,24 @@ public class VideoAddress implements Serializable {
 	private Integer unitId;//单位ID
 	private String videoAddress;//视频地址
 	private String cameraPosition;//摄像机位
-	public String videoType;//视频类型
+	public Integer videoType;//视频类型
 	private String streamType;
 	private Integer videoId;
-	public Integer getVideoId() {
-		return videoId;
-	}
-	public void setVideoId(Integer videoId) {
+	public VideoAddress(Integer unitId, String videoAddress, String cameraPosition, Integer videoType,
+			String streamType, Integer videoId) {
+		super();
+		this.unitId = unitId;
+		this.videoAddress = videoAddress;
+		this.cameraPosition = cameraPosition;
+		this.videoType = videoType;
+		this.streamType = streamType;
 		this.videoId = videoId;
 	}
-	public VideoAddress() {
-		super();
-		
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "VideoAddress [unitId=" + unitId + ", videoAddress=" + videoAddress + ", cameraPosition="
+				+ cameraPosition + ", videoType=" + videoType + ", streamType=" + streamType + ", videoId=" + videoId
+				+ "]";
 	}
 	public Integer getUnitId() {
 		return unitId;
@@ -48,10 +53,10 @@ public class VideoAddress implements Serializable {
 	public void setCameraPosition(String cameraPosition) {
 		this.cameraPosition = cameraPosition;
 	}
-	public String getVideoType() {
+	public Integer getVideoType() {
 		return videoType;
 	}
-	public void setVideoType(String videoType) {
+	public void setVideoType(Integer videoType) {
 		this.videoType = videoType;
 	}
 	public String getStreamType() {
@@ -60,26 +65,16 @@ public class VideoAddress implements Serializable {
 	public void setStreamType(String streamType) {
 		this.streamType = streamType;
 	}
-	
-	
-	public VideoAddress(Integer unitId, String videoAddress, String cameraPosition, String videoType, String streamType,
-			Integer videoId) {
-		super();
-		this.unitId = unitId;
-		this.videoAddress = videoAddress;
-		this.cameraPosition = cameraPosition;
-		this.videoType = videoType;
-		this.streamType = streamType;
+	public Integer getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(Integer videoId) {
 		this.videoId = videoId;
 	}
-	@Override
-	public String toString() {
-		return "VideoAddress [unitId=" + unitId + ", videoAddress=" + videoAddress + ", cameraPosition="
-				+ cameraPosition + ", videoType=" + videoType + ", streamType=" + streamType + ", videoId=" + videoId
-				+ "]";
+	public VideoAddress() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 	
 }
