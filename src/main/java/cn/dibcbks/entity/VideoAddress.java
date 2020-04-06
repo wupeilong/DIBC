@@ -10,31 +10,41 @@ import java.io.Serializable;
 public class VideoAddress implements Serializable {
 	
 	/**
-	 * 
+	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 5783696669214834316L;
 	private Integer unitId;//单位ID
+	private Integer unitName;//单位名称
 	private String videoAddress;//视频地址
 	private String cameraPosition;//摄像机位
 	public String videoType;//视频类型
 	private String streamType;
 	private Integer videoId;
-	public Integer getVideoId() {
-		return videoId;
-	}
-	public void setVideoId(Integer videoId) {
-		this.videoId = videoId;
-	}
 	public VideoAddress() {
 		super();
-		
-		// TODO Auto-generated constructor stub
+	}
+	public VideoAddress(Integer unitId, Integer unitName, String videoAddress, String cameraPosition, String videoType,
+			String streamType, Integer videoId) {
+		super();
+		this.unitId = unitId;
+		this.unitName = unitName;
+		this.videoAddress = videoAddress;
+		this.cameraPosition = cameraPosition;
+		this.videoType = videoType;
+		this.streamType = streamType;
+		this.videoId = videoId;
 	}
 	public Integer getUnitId() {
 		return unitId;
 	}
 	public void setUnitId(Integer unitId) {
 		this.unitId = unitId;
+	}
+	public Integer getUnitName() {
+		return unitName;
+	}
+	public void setUnitName(Integer unitName) {
+		this.unitName = unitName;
 	}
 	public String getVideoAddress() {
 		return videoAddress;
@@ -60,26 +70,18 @@ public class VideoAddress implements Serializable {
 	public void setStreamType(String streamType) {
 		this.streamType = streamType;
 	}
-	
-	
-	public VideoAddress(Integer unitId, String videoAddress, String cameraPosition, String videoType, String streamType,
-			Integer videoId) {
-		super();
-		this.unitId = unitId;
-		this.videoAddress = videoAddress;
-		this.cameraPosition = cameraPosition;
-		this.videoType = videoType;
-		this.streamType = streamType;
+	public Integer getVideoId() {
+		return videoId;
+	}
+	public void setVideoId(Integer videoId) {
 		this.videoId = videoId;
 	}
 	@Override
 	public String toString() {
-		return "VideoAddress [unitId=" + unitId + ", videoAddress=" + videoAddress + ", cameraPosition="
-				+ cameraPosition + ", videoType=" + videoType + ", streamType=" + streamType + ", videoId=" + videoId
-				+ "]";
+		return "VideoAddress [unitId=" + unitId + ", unitName=" + unitName + ", videoAddress=" + videoAddress
+				+ ", cameraPosition=" + cameraPosition + ", videoType=" + videoType + ", streamType=" + streamType
+				+ ", videoId=" + videoId + "]";
 	}
-	
-	
 	
 	
 }

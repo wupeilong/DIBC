@@ -1,5 +1,6 @@
 package cn.dibcbks.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -82,13 +83,18 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	@Override
 	public String selectMenuListPag(ModelMap modelMap) {
 		try {
-			List<Menu> menuList = menuMapper.select(null, null, null, null);
-			modelMap.addAttribute("menuList", menuList);
+			List<Menu> menuList = menuMapper.select(null, null, null, null);			
+			List<Menu> menus = new ArrayList<Menu>();
+			sort(-1, menuList, menus);			
+			for(Menu menu : menus){
+				System.out.println(menu);
+			}
+			modelMap.addAttribute("menuList", menus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "bks_web/menu_list";
-	}
+	}		
 	
 	
 	@Override
@@ -372,23 +378,16 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	}
 
 	
-	
-	
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
+	public List<Menu> sort(int parentId, List<Menu> listB, List<Menu> listA) {
+        for (Menu menu : listB) {
+            if (menu.getParentId().equals(parentId)) {
+                listA.add(menu);
+                sort(menu.getMenuId(), listB, listA);
+            }
+        }
+        return listA;
+    }
 	
 	
 }
