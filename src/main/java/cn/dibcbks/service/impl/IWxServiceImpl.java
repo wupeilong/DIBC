@@ -73,10 +73,13 @@ public class IWxServiceImpl implements IWxService {
                  token.setExpiresIn(accessTokenOut.getExpiresIn());
                  token.setCreateTime(new Date());
                  wxAccessTokenMapper.updateById(token);
+                 System.out.println("token : " + token);
                  logger.info("更新微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
              }
          }
+		
 		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
+		System.out.println("微信登陆地址：" + shortUrl);
 	    modelMap.addAttribute("wechat_login_url", shortUrl);
 	    return "bks_wap/login";
 	}
@@ -96,6 +99,7 @@ public class IWxServiceImpl implements IWxService {
 	        if (user == null) {
 	        	session.setAttribute("wx_user_info", wxUserInfo);
 	        	modelMap.addAttribute("isbind", 1);
+	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
 	        	return "bks_wap/login";
 	        }
 	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
@@ -116,9 +120,11 @@ public class IWxServiceImpl implements IWxService {
 	}
 
 	@Override
-	public String bindPublic(HttpServletRequest request, ModelMap modelMap) {
+	public ResponseResult<Void> bindPublic(HttpServletRequest request, ModelMap modelMap) {
+		ResponseResult<Void> rr = null;
 		try {
 			WxUserInfoOut wxUserInfo =  (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
+			System.out.println(wxUserInfo);
 			Date createTime = new Date();
 	        User user = new User();
 	        String uuid = CommonUtil.getUUID();
@@ -136,11 +142,11 @@ public class IWxServiceImpl implements IWxService {
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
 			//TODO 进入大众首页
-			return "bks_wap/home";
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("绑定用户类型:大众错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
-			return "error/404";
+			return null;
 		}
 	}
 

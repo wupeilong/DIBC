@@ -30,7 +30,7 @@ public interface IWxService {
 	 * @param modelMap
 	 * @return
 	 */
-	String bindPublic(HttpServletRequest request, ModelMap modelMap);
+	ResponseResult<Void> bindPublic(HttpServletRequest request, ModelMap modelMap);
 
 	/**
 	 * 绑定用户类型:主体人员
