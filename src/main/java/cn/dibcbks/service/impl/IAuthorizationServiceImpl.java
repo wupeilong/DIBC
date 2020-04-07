@@ -149,7 +149,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 		ResponseResult<Void> rr = null;
 		try {
 			if ( !menuMapper.select("parent_id = '" + menuId + "'", null, null, null).isEmpty()) {
-				rr = new ResponseResult<>(ResponseResult.SUCCESS,"当前菜单拥有子菜单，删除失败！"); 
+				rr = new ResponseResult<>(ResponseResult.ERROR,"当前菜单拥有子菜单，删除失败！"); 
 			}else {
 				menuMapper.deleteById(menuId);
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"菜单删除成功！");
