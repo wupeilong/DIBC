@@ -17,7 +17,7 @@ public interface VideoAddressMapper {
 	 * @return
 	 */
 	
-	String SelectAddressById(Integer videoId);
+	VideoAddress SelectAddressByVideoId(Integer videoId);
 	
 	
 	/**

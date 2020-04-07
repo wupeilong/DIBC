@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sun.jndi.cosnaming.IiopUrl.Address;
 
@@ -26,7 +27,7 @@ public class WapVideoAddressController {
 	 */
 	@RequestMapping("/wap_videoscan")
 	public String VideoScan(){
-		System.out.println("控制层=================================");
+		
 		return "bks_wap/video";
 		//return "bks_wap/monitor";
 	}
@@ -42,9 +43,24 @@ public class WapVideoAddressController {
 	}
 	
 	/**
+	 * 进入视频地址列表页
+	 * @return
+	 */
+	@RequestMapping("/wap_showaddresslist")
+	public String SHowVdieAddressList(ModelMap modelMap,Integer unitId){
+		
+		//调用视频详情控制层 因为业务,业务逻辑一样，前段渲染不同
+		this.CooprationDetal( modelMap, unitId);
+		
+		return  "bks_wap/video_peration";
+	}
+	
+	/**
 	 * 保存或者修改视频流地址
 	 * @return
 	 */
+	@RequestMapping("/wap_videosave")
+	@ResponseBody
 	public ResponseResult<?> VideoAdressSave( VideoAddress videoAddress){
 		
 		return iVideoAddressService.VideoAdressSave(videoAddress);
@@ -56,8 +72,28 @@ public class WapVideoAddressController {
 	 * @param videoId
 	 * @return
 	 */
+	@RequestMapping("/wap_videodelete")
+	@ResponseBody
 	public ResponseResult<?> DeleteVideoAddress(Integer videoId){
 		return iVideoAddressService.DeleteVideoAddress(videoId);
 	}
-
+	
+	/**
+	 * 视频地址维护
+	 */
+	@RequestMapping("/wap_videoCRUD")
+	public String VideoCRUD(){
+		return "bks_wap/video_crud";
+	}
+	
+	/**
+	 * 根据videoid查询视频流
+	 * 
+	 */
+	@RequestMapping("/wap_getAddresByid")
+	@ResponseBody
+	public VideoAddress getVideBeanByid(Integer videoId){
+		return iVideoAddressService.getVideAddressBeanById(videoId);
+	}
+	
 }
