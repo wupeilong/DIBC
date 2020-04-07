@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.dibcbks.mapper.AuthorizationMapper">
+	 <resultMap id="BaseResultMap" type="cn.dibcbks.entity.Authorization">
+	 	<id property="authorizationId" column="authorization_id" />
+	    <result property="authorizationName" column="authorization_name" />
+	    <result property="authorizationContent" column="authorization_content" />
+	    <result property="authorizationRemark" column="authorization_remark" />	 	
+	</resultMap>
+
+	<insert id="insert" parameterType="cn.dibcbks.entity.Authorization" useGeneratedKeys="true" keyProperty="authorizationId">
+		INSERT INTO  authorization
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="authorizationId != null">
+	        authorization_id,
+	      </if>
+	      <if test="authorizationName != null">
+	        authorization_name,
+	      </if>	      
+	      <if test="authorizationContent != null">
+	        authorization_content,
+	      </if>
+	      <if test="authorizationRemark != null">
+	        authorization_remark,
+	      </if>	         
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="authorizationId != null">
+	        #{authorizationId},
+	      </if>
+	      <if test="authorizationName != null">
+	        #{authorizationName},
+	      </if>	      
+	      <if test="authorizationContent != null">
+	        #{authorizationContent},
+	      </if>
+	      <if test="authorizationRemark != null">
+	        #{authorizationRemark},
+	      </if>	
+	    </trim>
+	</insert>
+	
+	<!--查询用户 -->
+	<select id="select" resultMap="BaseResultMap"> 
+		SELECT
+			authorization_id,
+			authorization_name,
+			authorization_content,
+			authorization_remark
+		FROM
+			authorization
+		<if test="where != null">where ${where}</if>
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="offset != null">limit ${offset},${countPerPage}</if>
+	</select>
+	
+	<!-- 查询单个用户信息 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+			authorization_id,
+			authorization_name,
+			authorization_content,
+			authorization_remark
+		FROM
+			authorization
+		WHERE
+			authorization_id = #{authorizationId} 
+	</select>
+	 
+
+	<update id="updateById"  parameterType="cn.dibcbks.entity.Department">
+		update authorization
+	    <set>      
+	        <if test="authorizationId != null">
+	        authorization_id = #{authorizationId},
+	      </if>
+	      <if test="authorizationName != null">
+	        authorization_name = #{authorizationName},
+	      </if>	      
+	      <if test="authorizationContent != null">
+	        authorization_content = #{authorizationContent},
+	      </if>
+	      <if test="authorizationRemark != null">
+	        authorization_remark = #{authorizationRemark},
+	      </if>	  
+	    </set>
+	    where authorization_id = #{authorizationId}
+	</update>
+
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM authorization where authorization_id = #{authorizationId};
+	</delete>
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

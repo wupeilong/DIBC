@@ -83,17 +83,14 @@
 	</select>
 	 
 
-	<update id="updateById"  parameterType="cn.dibcbks.entity.Department">
+	<update id="updateById"  parameterType="cn.dibcbks.entity.Role">
 		update role
-	    <set>
-	      <if test="departmentId != null">
-	        department_id = #{departmentId},
-	      </if>	      
+	    <set>	      	      
 	      <if test="roleName != null">
 	        role_name = #{roleName},
 	      </if>
 	      <if test="roleDescription != null">
-	        role_description = #{roleDescription},
+	        department_id = #{roleDescription},
 	      </if>
 	      <if test="roleAuthorization != null">
 	        role_authorization = #{roleAuthorization},

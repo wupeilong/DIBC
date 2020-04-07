@@ -206,22 +206,21 @@
 </body>
 <script type="text/javascript">
 	function getCheckstrt() {
-		var authority = ""
-		var id = "${id}";
-		var type = "${type}";
+		var authorizationContent = ""
+		var authorizationId = "${authorizationId}";
 		var len = $('input[type="checkbox"]:checked').length;
 		$('input[type="checkbox"]:checked').each(function(index, dom) {
 			if (index < len - 1) {
-				authority += $(this).val() + ";";
+				authorizationContent += $(this).val() + ";";
 			} else {
-				authority += $(this).val();
+				authorizationContent += $(this).val();
 			}
 		});
-		if (id != "" || type != "") {
+		console.log(authorizationContent);
+		if (authorizationId != "") {
 			$.ajax({
-				"url" : "updateAuthority",
-				"data" : "id=" + id + "&type=" + type + "&authority="
-						+ authority,
+				"url" : "authorization_update",
+				"data" : "authorizationId=" + authorizationId + "&authorizationContent=" + authorizationContent,
 				"type" : "POST",
 				"dataType" : "json",
 				"success" : function(obj) {
@@ -241,7 +240,7 @@
 					}
 				}
 			});
-		}
+		} 
 	}
 </script>
 </html>

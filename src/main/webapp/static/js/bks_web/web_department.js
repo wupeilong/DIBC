@@ -63,8 +63,8 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
                     var delBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-red" href="javascript:;"  onclick="'+strdel+'" >删除</a>';
                     var addBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-orange" href="javascript:;"  onclick="'+stradd+'" >添加</a>';
                     var url='menu_authority?type=admin&id=' + d.departmentId;
-                    var url1='admin_edit("'+url+'")';
-                    var addAuth ="<a class='layui-btn layui-btn-primary layui-btn-xs layui-bg-orange' href='javascript:;' onclick='"+url1+"' class='operation operation-add' style='text-decoration:none'><i class='Hui-iconfont' style='font-size: 1em;'>&#xe63c;</i>权限设置</a>";
+                    var url1= "admin_edit('" + url + "')";
+                    var addAuth ='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-orange" href="javascript:;" onclick="' + url1 + '" class="operation operation-add" style="text-decoration:none"><i class="Hui-iconfont" style="font-size: 1em;">&#xe63c;</i>权限设置</a>';
                 	return addBtn+editBtn+delBtn+addAuth;                	
                 }
             }

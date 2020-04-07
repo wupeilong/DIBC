@@ -1,5 +1,6 @@
 package cn.dibcbks.controller;
 
+import cn.dibcbks.entity.Authorization;
 import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Menu;
 import cn.dibcbks.entity.Role;
@@ -76,8 +77,8 @@ public class WebAuthorizationController {
     }
 	
 	@RequestMapping("/menu_authority")	
-	public String showMenuAuthoritylogin(ModelMap map){				
-			return IAuthorizationService.selectMenuAuthority(map);		 
+	public String showMenuAuthoritylogin(Integer authorizationId, ModelMap map){				
+			return IAuthorizationService.selectMenuAuthority(authorizationId, map);		 
 	}
 	//周结束
 	
@@ -223,7 +224,7 @@ public class WebAuthorizationController {
 	@ApiOperation(value = "编辑角色页", notes = "编辑角色页")
 	@ApiImplicitParam(name="roleId",value="角色ID",dataType="Integer")
 	@GetMapping("/role_update_pag")
-	public String  updateRolePag(Integer roleId,ModelMap modelMap) {
+	public String  updateRolePag(Integer roleId,ModelMap modelMap){
 		
 		return IAuthorizationService.updateRolePag(roleId,modelMap);
 	}
@@ -260,5 +261,50 @@ public class WebAuthorizationController {
 	public ResponseResult<List<Role>>  selectRoleList(Integer unitId, Integer departmentId) {
 		
 		return IAuthorizationService.selectRoleList(unitId,departmentId);
+	}
+	
+	
+	
+	@ApiOperation(value = "权限列表页", notes = "权限列表页")
+	@RequestMapping("/authorization_list_pag")
+	public String  selectAuthorizationListPag(ModelMap modelMap) {
+		
+		return IAuthorizationService.selectAuthorizationListPag(modelMap);
+		
+	}
+	
+	@ApiOperation(value = "权限添加", notes = "权限添加")
+	@RequestMapping("/authorization_add")
+	@ResponseBody
+	public ResponseResult<Void> addAuthorization(Authorization authorization) {
+		
+		return IAuthorizationService.addAuthorization(authorization);
+		
+	}
+	
+	@ApiOperation(value = "权限编辑", notes = "权限编辑")
+	@RequestMapping("/authorization_update")
+	@ResponseBody
+	public ResponseResult<Void> updateAuthorization(Authorization authorization) {         
+		
+		return IAuthorizationService.updateAuthorization(authorization);
+		
+	}
+	
+	@ApiOperation(value = "权限信息编辑页", notes = "权限信息编辑页")
+	@RequestMapping("/authorization_update_page")
+	public String updateAuthorizationPag(Integer authorizationId, ModelMap modelMap) {
+		
+		return IAuthorizationService.updateAuthorizationPag(authorizationId, modelMap);
+		
+	}
+	
+	@ApiOperation(value = "删除权限信息编辑", notes = "删除权限信息编辑")
+	@RequestMapping("/authorization_delete")
+	@ResponseBody
+	public ResponseResult<Void> deteleAuthorization(Integer authorizationId) {
+		
+		return IAuthorizationService.deteleAuthorization(authorizationId);
+		
 	}
 }
