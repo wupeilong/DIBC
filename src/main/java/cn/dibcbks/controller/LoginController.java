@@ -193,6 +193,15 @@ public class LoginController {
 	   return iWxService.wxOauth2Redirect(code,request,modelMap);
 	}
 	
+	/**
+	 * 角色绑定
+	 * @return
+	 */
+	@RequestMapping("/wap_bingding_role")
+	public String bingding_role(){	
+		
+		return "bks_wap/roles_choose";
+	}
 	
 	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
 	@PostMapping("/wap_bind_public")

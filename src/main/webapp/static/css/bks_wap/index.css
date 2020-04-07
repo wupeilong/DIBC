@@ -461,7 +461,8 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	width: 8em;
 }
 
-/*微信登陆样式修改 */
+
+/*登陆样式修改 */
 #roles{
 	width: 260px;
 	padding: 1em;
@@ -469,3 +470,99 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	background-color:#fff;
 }
  */
+ .formlist li span{
+	width: 8em;
+}
+.formlist li label{
+	width: 100%;
+}
+.layui-layer-content{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.bingform div{
+	position: relative;
+}
+.bingform div label{
+	position: absolute;
+	left: 1em;
+	bottom: 2px;
+}
+.bingform div input{
+	padding: 1.2em 0;
+	padding-left: 3em;
+	/* background-color: #eee; */
+	border: 1px solid #ddd;
+	box-shadow: 0 0 9px #0063ce 0;
+	-webkit-box-shadow: 0 0 9px #0063ce 0;
+	-webkit-appearance: none;
+}
+.bingform div input:focus{
+	background-color: #fff;
+}
+
+.roles_lis ul li{
+	padding: 1em;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 0 4px #ccc;
+	margin-bottom: 1em;
+	cursor: pointer;
+}
+.roles_lis ul li:active{
+	background-color: #f1861c;
+	color: white;
+}
+.roles_lis ul li:active a,
+.roles_lis ul li:active div{
+	color: #fff;
+}
+.roles_lis ul li>div img{
+	width: 80px;
+}
+.roles_lis ul li>div:last-child{
+	padding-right: 0;
+}
+.roles_lis ul li>div:last-child a{
+	font-size: 1.4em;
+}
+.tabbox .tabh li.cur{
+	color:#fff;
+	/* border-bottom: 2px solid #11b71d; */
+	background-color: #348dec;
+}
+.tabbox .tabh li{
+	color:#666;
+	font-size: 17px;
+    font-weight: 600;
+	border-bottom: 0;
+	cursor:pointer;
+}
+.tabb .tab_type{
+	display:none;
+}
+.tabb .tab_type.cur{
+	display:block;
+}
+.tabb input:focus{
+	background-color:#fff;
+}
+.modelbox{
+	position: relative;
+}
+.bingding_form{
+	padding: 1em 2em;
+	width: 100%;
+	position: absolute;
+	top: 3em;
+	left: 0;
+	background-color: rgba(255, 255, 255, 0.9);
+	margin-bottom: 2em;
+}
+.bingding_form select {
+	background-color: #eee;
+}
+/*/登陆样式修改 */
+
