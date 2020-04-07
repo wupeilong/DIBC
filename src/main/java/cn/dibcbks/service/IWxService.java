@@ -1,9 +1,12 @@
 package cn.dibcbks.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.dibcbks.entity.Unit;
 import cn.dibcbks.util.ResponseResult;
 import cn.dibcbks.util.wx.WxUserInfoOut;
 
@@ -72,6 +75,21 @@ public interface IWxService {
 	 * @return
 	 */
 	String createUnitPage(HttpServletRequest request, ModelMap modelMap);
+	
+	/**
+	 * 获取企业列表信息
+	 * @param modelMap
+	 * @return
+	 */
+	String getUnitList(ModelMap modelMap);
+	
+	/**
+	 * 根据企业id查询企业详细信息
+	 * @param modelMap
+	 * @param unitId
+	 * @return
+	 */
+	String selectUnitDetail(ModelMap modelMap,Integer unitId);
 
 	
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -149,7 +150,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 		ResponseResult<Void> rr = null;
 		try {
 			if ( !menuMapper.select("parent_id = '" + menuId + "'", null, null, null).isEmpty()) {
-				rr = new ResponseResult<>(ResponseResult.SUCCESS,"当前菜单拥有子菜单，删除失败！"); 
+				rr = new ResponseResult<>(ResponseResult.ERROR,"当前菜单拥有子菜单，删除失败！"); 
 			}else {
 				menuMapper.deleteById(menuId);
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"菜单删除成功！");
@@ -178,7 +179,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	public ResponseResult<Void> addDepartment(Department department) {
 		ResponseResult<Void> rr = null;
 		try {
-			if(!departmentMapper.select("p.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "' AND p.department_name = '" + department.getDepartmentName() +"'", null, null, null).isEmpty()){
+			if(!departmentMapper.select("n.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "' AND d.department_name = '" + department.getDepartmentName() +"'", null, null, null).isEmpty()){
 				rr = new ResponseResult<>(ResponseResult.ERROR,"部门名称重复，操作失败！");
 			}else {
 				department.setUnitId(CommonUtil.getSessionUser().getUnitId());
@@ -408,6 +409,23 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
         }
         return listA;
     }
+
+	@Override
+	public JSONObject getDepartment(ModelMap modelMap) {
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			System.out.println(" sql : d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'");
+			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);				
+			System.out.println("departmentList:" + departmentList);
+			JSONArray json = JSONArray.fromObject(departmentList);
+			JSONObject lan1 = new JSONObject();
+	        lan1.put("code", 0);
+	        lan1.put("msg", "");
+	        lan1.put("count",departmentList.size());
+	        lan1.put("data",json);
+			return lan1;
+		}
+		return null;
+	}
 	
 	
 }

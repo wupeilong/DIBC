@@ -36,6 +36,8 @@ public class LoginController {
 	private ILoginService iLoginService;
 	@Autowired
 	private IWxService iWxService;
+	@Autowired
+	private WapUnitController WapUnitController;
 	
 	/**
 	 * H5进入登录页
@@ -132,7 +134,7 @@ public class LoginController {
 	})
 	@PostMapping("/wap_user_login")
 	@ResponseBody
-	public ResponseResult<Void> login(@RequestParam(value="idCard",required = true) String idCard,
+	public ResponseResult<User> login(@RequestParam(value="idCard",required = true) String idCard,
 									  @RequestParam(value="password",required = true) String password){
 		
 		return iUserService.login(idCard,password);
@@ -203,10 +205,27 @@ public class LoginController {
 	}
 	
 	@ApiOperation(value = "进入大众端页面" ,notes = "进入大众端页面")
-	@GetMapping("/wap_public_home")
+	@RequestMapping("/wap_public_home")
 	public String userPulicPag(HttpServletRequest request,ModelMap modelMap) {
 
-		 return  "bks_wap/public_list";
+		//查询企业信息列表
+	
+		 return  iWxService.getUnitList(modelMap);
+	}
+	
+	/**
+	 * 查询企业详情
+	 * @param modelMap
+	 * @param unitid
+	 * @return
+	 */
+	@ApiOperation(value = "进入企业详情" ,notes = "进入企业详情")
+	@RequestMapping("/wap_public_uintdetail")
+	public String getUnitDetail(ModelMap modelMap,Integer unitid){
+		
+		String view=iWxService.selectUnitDetail(modelMap, unitid);
+		System.out.println(modelMap.get("unitDetail")+"=======================");
+		return view;
 	}
 	
 	

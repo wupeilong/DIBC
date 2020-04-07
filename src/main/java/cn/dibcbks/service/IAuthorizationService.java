@@ -184,6 +184,13 @@ public interface IAuthorizationService {
 	 */
 	ResponseResult<List<Role>> selectRoleList(Integer unitId, Integer departmentId);
 
+	/**
+	 * 部门信息
+	 * @param modelMap
+	 * @return
+	 */
+	JSONObject getDepartment(ModelMap modelMap);
+
 	
 
 	

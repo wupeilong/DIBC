@@ -10,12 +10,12 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
         ptable=treeGrid.render({
             id:tableId
             ,elem: '#'+tableId
-            ,url:'getMenu'
+            ,url:'get_department'
             ,cellMinWidth: 100
-            ,idField:'menuId'//必須字段
-            ,treeId:'menuId'//树形id字段名称
-            ,treeUpId:'parentId'//树形父id字段名称
-            ,treeShowName:'menuName'//以树形式显示的字段
+            ,idField:'departmentId'//必須字段
+            ,treeId:'departmentId'//树形id字段名称
+            ,treeUpId:'departmentParentId'//树形父id字段名称
+            ,treeShowName:'departmentName'//以树形式显示的字段
             ,heightRemove:[".dHead",10]//不计算的高度,表格设定的是固定高度，此项不生效
             ,height:'100%'
             ,isFilter:false
@@ -26,45 +26,51 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
             ,isPage:false
             ,cols: [[
             {type: 'numbers'},
-            {field: 'menuName', minWidth: 200, title: '权限名称'},
-            {field: 'authority', title: '权限标识'},
-            {field: 'menuUrl', title: '菜单url'},           
+            {field: 'departmentName', minWidth: 200, title: '部门名称'},
+            {field: 'departmentDescription', title: '部门描述'},
             {
-                field: 'isMenu', width: 80, align: 'center',templet: function (d) {
-                    if (d.isMenu == 3) {
-                        return '<span class="layui-badge layui-bg-gray">按钮</span>';
-                    }
-                    if (d.isMenu ==1) {
-                        return '<span class="layui-badge layui-bg-blue">目录</span>';
-                    } else if(d.isMenu ==2){
-                        return '<span class="layui-badge-rim">菜单</span>';
+                field: 'departmentType', width: 120, align: 'center',templet: function (d) {                	
+                    if (d.departmentType == 1) {
+                        return '<span class="layui-badge layui-bg-gray">市场监管局</span>';
+                    }else if (d.departmentType ==2) {
+                        return '<span class="layui-badge layui-bg-blue">市场监管分局</span>';
+                    } else if(d.departmentType ==3){
+                        return '<span class="layui-badge-rim">社区[街道办事处]</span>';
+                    } else if(d.departmentType ==4){
+                        return '<span class="layui-badge-rim">居委会</span>';
+                    } else if(d.departmentType ==5){
+                        return '<span class="layui-badge-rim">网格</span>';
+                    }else if(d.departmentType ==6){
+                    	return '<span class="layui-badge-rim">主体</span>';
                     }else{
-                    	return "";
+                    	return '<span class="layui-badge-rim">未配置</span>';
                     }
-                }, title: '类型'
-            },
+                }, title: '部门类型'
+            },     
+            {field: 'departmentAuthorization', title: '部门权限'},
             {width:300,title: '操作', align:'center'/*toolbar: '#barDemo'*/
-                ,templet: function(d){                	
-                	var name=d.menuName;
-                	var menuId=d.menuId;
-                	var menus=d.isMenu;
-                	var authority=d.authority;
-                	var menuUrl=d.menuUrl;
-                	var parentId=d.parentId;
-                	var strdel="del('"+name+"',"+menuId+","+menus+")";
-                	var stradd="add('"+name+"',"+menuId+","+menus+")";
-                	var stredit="edit('"+name+"',"+menuId+","+menus+",'"+authority+"','"+menuUrl+"',"+parentId+")";
+                ,templet: function(d){    
+                	var departmentId=d.departmentId;
+                	var departmentName=d.departmentName;                	
+                	var departmentDescription=d.departmentDescription;
+                	var departmentAuthorization=d.departmentAuthorization;
+                	var departmentType=d.departmentType;
+                	var departmentParentId=d.departmentParentId;
+                	var strdel="del('" + departmentName + "'," + departmentId + "," + departmentType + ")";
+                	var stradd="add('" + departmentName + "'," + departmentId + "," + departmentType + ")";
+                	var stredit="edit('" + departmentName + "'," + departmentId + "," + departmentType + ",'" + departmentDescription + "','" + departmentAuthorization + "'," + departmentParentId + ")";
                 	var editBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-green" href="javascript:;"  onclick="'+stredit+'" >编辑</a>';
                     var delBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-red" href="javascript:;"  onclick="'+strdel+'" >删除</a>';
                     var addBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-orange" href="javascript:;"  onclick="'+stradd+'" >添加</a>';
-                	if(menus <= 2){
-                		return addBtn+editBtn+delBtn;
-                	}                
-                    return editBtn+delBtn;
+                    var url='menu_authority?type=admin&id=' + d.departmentId;
+                    var url1='admin_edit("'+url+'")';
+                    var addAuth ="<a class='layui-btn layui-btn-primary layui-btn-xs layui-bg-orange' href='javascript:;' onclick='"+url1+"' class='operation operation-add' style='text-decoration:none'><i class='Hui-iconfont' style='font-size: 1em;'>&#xe63c;</i>权限设置</a>";
+                	return addBtn+editBtn+delBtn+addAuth;                	
                 }
             }
         ]]
             ,parseData:function (res) {//数据加载后回调
+            	console.log(res);
                 return res;
             }
             ,onClickRow:function (index, o) {
@@ -85,16 +91,28 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
             } 
         });        
     });
-    function addmain() {  
+    function admin_edit(url){	
+    	//layer_show(title,url,w,h);
+    	layer.open({
+    		type: 2,
+    		area: ['450px', '780px'],
+    		fix: false, //不固定
+    		maxmin: false,		
+    		shade:0.4,
+    		title: false ,	
+    		content: url
+    	});
+    }
+   function addmain() {  
     	var jsonObj = {};     	
-    	layer.prompt({title: '请输入主菜单的名称'}, function(pass, index){
-    		var time = new Date();
-    		jsonObj = { "menuId": null,"menuName": pass,"menuUrl": null,"menuIcon": null,"authority": null,"isMenu":null,"parentId": -1};
-    		var adminMenu = JSON.stringify(jsonObj);
+    	layer.prompt({title: '请输入部门的名称'}, function(pass, index){
+    		//var time = new Date();
+    		//jsonObj = { "menuId": null,"menuName": pass,"menuUrl": null,"menuIcon": null,"authority": null,"isMenu":null,"parentId": -1};
+    		//var adminMenu = JSON.stringify(jsonObj);
     		$.ajax({
     			//"url" : "${pageContext.request.contextPath}/web_auth/menu_add",
-    			"url" : "menu_add",
-    			"data" : "menuName=" + pass,
+    			"url" : "dep_add",
+    			"data" : "departmentName=" + pass,
     			"type" : "POST",
     			//"contentType" : "application/json",
     			"dataType" : "json",
@@ -111,8 +129,8 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	}); 
     	//location.replace(location.href);
     }
-    function del(name,menuId,menus){    	
-    	if(menus==1){
+    function del(departmentName,departmentId,departmentType){    	
+    	/*if(menus==1){
     		menus="目录";
     	}else if(menus==2){
     		menus="菜单";
@@ -136,9 +154,9 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
 					}	
 				}
 			});     
-        }); 
+        }); */
     }
-    function edit(name,menuId,menus,authority,menuUrl,parentId) {
+    function edit(departmentName,departmentId,departmentType,departmentDescription,departmentAuthorization,departmentParentId) {
     	var ismenus;    	
     	if(menus==1){
     		ismenus="目录";
@@ -146,7 +164,22 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		ismenus="菜单";
     	}else{
     		ismenus="按钮";
-    	}    		
+    	}  
+    	if (departmentType == 1) {
+            return '<span class="layui-badge layui-bg-gray">市场监管局</span>';
+        }else if (departmentType ==2) {
+            return '<span class="layui-badge layui-bg-blue">市场监管分局</span>';
+        } else if(departmentType ==3){
+            return '<span class="layui-badge-rim">社区[街道办事处]</span>';
+        } else if(departmentType ==4){
+            return '<span class="layui-badge-rim">居委会</span>';
+        } else if(departmentType ==5){
+            return '<span class="layui-badge-rim">网格</span>';
+        }else if(departmentType ==6){
+        	return '<span class="layui-badge-rim">主体</span>';
+        }else{
+        	return '<span class="layui-badge-rim">未配置</span>';
+        }
     	$("#ditmenuName").val(name);
     	$("#ditauthority").val(authority);
     	$("#ditmenuUrl").val(menuUrl);
@@ -157,10 +190,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  title: false, //不显示标题
     		  content: $('#layer_edit'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响   
     		  btn: ['提交'],
-    		  yes: function(index, layero){    			
-    			  //jsonObj = { "menuId": menuId, "menuName": $("#ditmenuName").val(), "menuUrl": $("#ditmenuUrl").val(), "menuIcon": null,      		  
-   	      		  //    	"authority": $("#ditauthority").val(), "isMenu": menus, "parentId": parentId };
-    			  //var adminMenu = JSON.stringify(jsonObj);  
+    		  yes: function(index, layero){    			  
     			  var data = "menuId=" + menuId + "&menuName=" + $("#ditmenuName").val() + "&menuUrl=" + $("#ditmenuUrl").val()
     			  		   + "&authority=" + $("#ditauthority").val() + "&isMenu=" + $("#ditismenus").val() + "&parentId=" + parentId;
     			  alert(data)
@@ -181,12 +211,12 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	    			}
     	    		});     		  
     		  }
-    	});  
+    	});
     	
     }
     
-    function add(name,menuId,menus) {
-    	$("#parentname").val(name);
+    function add(departmentName,departmentId,departmentType) {
+    	/*$("#parentname").val(name);
     	//$("#ismenus").val(ismenus);    	
     	layer.open({
     		  type: 1,
@@ -196,7 +226,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  btn: ['提交'],
     		  yes: function(index, layero){  
     			  var ismenus=$("#ismenus").val();
-    			  /*jsonObj = {
+    			  jsonObj = {
     	      			  "menuId": null,
     	      		      "menuName": $("#menuName").val(),      		      
     	      		      "menuUrl": $("#menuUrl").val(),
@@ -204,8 +234,8 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	      		      "authority": $("#authority").val(),      		     
     	      		      "isMenu": ismenus,
     	      		      "parentId": menuId
-    	      		    };    			  
-    			  var adminMenu = JSON.stringify(jsonObj);*/
+    	      		    };	  
+    			  var adminMenu = JSON.stringify(jsonObj);
     			  var data = "menuName=" + $("#menuName").val() +"&menuUrl=" + $("#menuUrl").val() 
     			  		   + "&authority=" + $("#authority").val() + "&isMenu=" + ismenus + "&parentId=" + menuId;
     	      	  alert(data);
@@ -226,10 +256,9 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	    			}
     	    		});     			  
     		  }
-    	});  
+    	});  */
     	
     }
-    
     function print() {
         console.log(treeGrid.cache[tableId]);
         msg("对象已打印，按F12，在控制台查看！");

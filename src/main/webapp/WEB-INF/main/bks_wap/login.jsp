@@ -31,10 +31,9 @@
 								</div>
 								<div class="tabb">
 									<div class="tab_type cur">
-										<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
 										<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;"><span>登录后应用将获得以下权限</span></div>
 										<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
-										<div class="text-center margin-top2 margin-bot2"><button type="button" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
+										<div class="text-center margin-top2 margin-bot2"><button type="button" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;  background-color: #15bb17;
 	    border-color: #a9e895;">微信一键登陆</button></div>
 	    							</div>
 									<div class="tab_type">
@@ -46,22 +45,12 @@
 										</div>
 										<div class="text-center margin-top2 margin-bot2">
 											<button type="button" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
-											</div>
+										</div>
 									</div>
 		
 								</div>
-							</div>
-													
-						</div>					
-						<!-- <div class="input-group input-group-lg form-group">
-						  <span class="input-group-addon" id="sizing-addon1">账号</span>
-						  <input type="text" class="form-control box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
+							</div>					
 						</div>
-						<div class="input-group input-group-lg form-group">
-						  <span class="input-group-addon" id="sizing-addon1">密码</span>
-						  <input type="password" class="form-control box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
-						</div>	 -->
-						
 					</fieldset>
 				</form>
 				
@@ -70,22 +59,10 @@
 				<p>Copyright&copy;2020 贵州科技</p>
 				<p>黔公网安备11000002000001号</p>
 			</div>	
-			
-		</div>
-		<div id="roles" style="display: block;">
-			<ul class="list-unstyled">
-				<li class="text-center"><a href="javascript:void(0);" id="public_bind">我是大众</a></li>
-				<li class="text-center"><a href="javascript:void(0);" id="unit_bind">我是主体人员</a></li>
-				<li class="text-center"><a href="javascript:void(0);" id="supervise_bind">我是监管人员</a></li>
-			</ul>
-		</div>
-		<div class="model_step2" style="">
-			<ul>
-				<li><a>绑定主体</a></li>
-				<li><a>创建主体</a></li>
-			</ul>
 		</div>
 		<script type="text/javascript">
+		
+		
 		//切换登陆方式
 		$(".tabbox").find(".tabh a").click(function(){
 			$(this).parent().children("a").removeClass("cur");
@@ -170,8 +147,13 @@
 									storage.removeItem("password");
 									storage.removeItem("remember");
 								}
-								//location.reload();
-								layer.msg(obj.message,{icon:1,time:1000},function(){location.href = "wap_home";});
+								layer.msg(obj.message,{icon:1,time:1000},function(){										
+										if(obj.data.type != 3){
+											location.href = "${pageContext.request.contextPath}/wap_home";
+										}else{
+											location.href = "${pageContext.request.contextPath}/wap_public_home";
+										}
+									});
 							}					
 						}
 					}); 
