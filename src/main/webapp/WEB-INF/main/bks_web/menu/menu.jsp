@@ -81,8 +81,12 @@
 	</label>
 	<label>
 		<span>菜单类型：</span>
-		<input id="ditismenus" type="text" value="" name="address" >
-		<div class="error-msg"></div>
+		<select id="ditismenus" >
+			<option value="0">请选择......</option>
+			<option value="1">目录</option>
+			<option value="2">菜单</option>
+			<option value="3">按钮</option>
+		</select>
 	</label>	
 </form>
 </div>

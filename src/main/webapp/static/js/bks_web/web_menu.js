@@ -90,14 +90,21 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	layer.prompt({title: '请输入主菜单的名称'}, function(pass, index){
     		var time = new Date();
     		jsonObj = { "menuId": null,"menuName": pass,"menuUrl": null,"menuIcon": null,"authority": null,"isMenu":null,"parentId": -1};
-    		var adminMenu = JSON.stringify(jsonObj);    		    				
+    		var adminMenu = JSON.stringify(jsonObj);
     		$.ajax({
-    			"url" : "addMenu",
-    			"data" : adminMenu,
+    			//"url" : "${pageContext.request.contextPath}/web_auth/menu_add",
+    			"url" : "menu_add",
+    			"data" : "menuName=" + pass,
     			"type" : "POST",
-    			"contentType" : "application/json",
+    			//"contentType" : "application/json",
+    			"dataType" : "json",
     			"success" : function(obj) {
-    				
+    				if (obj.state == 0) {
+						layer.msg(obj.message,{icon:2,time:1000});
+						return;
+					}else{
+						layer.msg(obj.message,{icon:1,time:1000},function(){location.reload()});
+					}
     			}
     		});   	
     		layer.close(index);
@@ -112,11 +119,12 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	}else{
     		menus="按钮";
     	}
-        layer.confirm("你确定删除<span class='layui-badge layui-bg-blue'>"+menus+"->"+name+"</span>的所有数据吗？如果存在下级节点则一并删除，此操作不能撤销！", {icon: 3, title:'提示'}, function (index) {
+        //layer.confirm("你确定删除<span class='layui-badge layui-bg-blue'>" + menus + "->"+name+"</span>的所有数据吗？如果存在下级节点则一并删除，此操作不能撤销！", {icon: 3, title:'提示'}, function (index) {
+        layer.confirm("你确定删除<span class='layui-badge layui-bg-blue'>" + menus + "->"+name+"</span>吗？", {icon: 3, title:'提示'}, function (index) {    
         	console.log(menuId);
         	$.ajax({
-				"url" : "deleteMenu",
-				"data" : "menuId="+menuId,
+				"url" : "menu_delete",
+				"data" : "menuId=" + menuId,
 				"type" : "POST",
 				"dataType":"json",
 				"success" : function(obj) {
@@ -142,7 +150,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	$("#ditmenuName").val(name);
     	$("#ditauthority").val(authority);
     	$("#ditmenuUrl").val(menuUrl);
-    	$("#ditismenus").val(ismenus);    	
+    	$("#ditismenus").val(menus);  	
     	layer.open({
     		  type: 1,
     		  shade: false,
@@ -150,14 +158,19 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  content: $('#layer_edit'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响   
     		  btn: ['提交'],
     		  yes: function(index, layero){    			
-    			  jsonObj = { "menuId": menuId, "menuName": $("#ditmenuName").val(), "menuUrl": $("#ditmenuUrl").val(), "menuIcon": null,      		  
-    	      		      "authority": $("#ditauthority").val(), "isMenu": menus, "parentId": parentId };
-    			  var adminMenu = JSON.stringify(jsonObj);    			 
+    			  //jsonObj = { "menuId": menuId, "menuName": $("#ditmenuName").val(), "menuUrl": $("#ditmenuUrl").val(), "menuIcon": null,      		  
+   	      		  //    	"authority": $("#ditauthority").val(), "isMenu": menus, "parentId": parentId };
+    			  //var adminMenu = JSON.stringify(jsonObj);  
+    			  var data = "menuId=" + menuId + "&menuName=" + $("#ditmenuName").val() + "&menuUrl=" + $("#ditmenuUrl").val()
+    			  		   + "&authority=" + $("#ditauthority").val() + "&isMenu=" + $("#ditismenus").val() + "&parentId=" + parentId;
+    			  alert(data)
     			 $.ajax({
-    	    			"url" : "updateMenu",
-    	    			"data" : adminMenu,
+    	    			"url" : "menu_update",
+    	    			//"data" : adminMenu,
+    	    			"data" : data,
     	    			"type" : "POST",
-    	    			contentType:"application/json",
+    	    			//contentType:"application/json",
+    	    			"dataType" : "json",
     	    			"success" : function(obj) {
     	    				if (obj.state == 0) {
     	    					layer.msg(obj.message,{icon:2,time:1000});
@@ -171,9 +184,8 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	});  
     	
     }
+    
     function add(name,menuId,menus) {
-    	
-    	
     	$("#parentname").val(name);
     	//$("#ismenus").val(ismenus);    	
     	layer.open({
@@ -184,7 +196,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  btn: ['提交'],
     		  yes: function(index, layero){  
     			  var ismenus=$("#ismenus").val();
-    			  jsonObj = {
+    			  /*jsonObj = {
     	      			  "menuId": null,
     	      		      "menuName": $("#menuName").val(),      		      
     	      		      "menuUrl": $("#menuUrl").val(),
@@ -193,12 +205,17 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	      		      "isMenu": ismenus,
     	      		      "parentId": menuId
     	      		    };    			  
-    			  var adminMenu = JSON.stringify(jsonObj);
+    			  var adminMenu = JSON.stringify(jsonObj);*/
+    			  var data = "menuName=" + $("#menuName").val() +"&menuUrl=" + $("#menuUrl").val() 
+    			  		   + "&authority=" + $("#authority").val() + "&isMenu=" + ismenus + "&parentId=" + menuId;
+    	      	  alert(data);
     			 $.ajax({
-    	    			"url" : "addMenu",
-    	    			"data" : adminMenu,
+    	    			"url" : "menu_add",
+    	    			//"data" : adminMenu,
+    	    			"data" : data,
     	    			"type" : "POST",
-    	    			contentType:"application/json",
+    	    			"dataType" : "json",
+    	    			//contentType:"application/json",
     	    			"success" : function(obj) {
     	    				if (obj.state == 0) {
     	    					layer.msg(obj.message,{icon:2,time:1000});

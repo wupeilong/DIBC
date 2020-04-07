@@ -67,11 +67,13 @@ public class WebAuthorizationController {
 	public String selectMenuListPag(ModelMap modelMap) {		
 		return "bks_web/menu/menu";
 	}
+	
 	@RequestMapping("/getMenu")
     @ResponseBody
     public JSONObject getMenu(ModelMap modelMap){				
         return IAuthorizationService.selectMenuListPag(modelMap);
     }
+	
 	@RequestMapping("/menu_authority")	
 	public String showMenuAuthoritylogin(ModelMap map){				
 			return IAuthorizationService.selectMenuAuthority(map);		 

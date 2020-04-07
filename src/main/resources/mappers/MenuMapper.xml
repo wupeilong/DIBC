@@ -13,7 +13,9 @@
 	    <result column="unit_id" property="unitId" />
   	</resultMap>
 
-	<insert id="insert" parameterType="cn.dibcbks.entity.Check" useGeneratedKeys="true" keyProperty="menuId">
+	<insert id="insert" parameterType="cn.dibcbks.entity.Menu" useGeneratedKeys="true" keyProperty="menuId">
+		<!-- INSERT INTO menu(menu_name, menu_url, menu_icon, authority, is_menu, parent_id, unit_id) 
+		VALUES (#{menuName}, #{menuUrl}, #{menuIcon}, #{authority}, #{isMenu}, #{parentId}, #{unitId}) -->
 		INSERT INTO  menu
 	    <trim prefix="(" suffix=")" suffixOverrides=",">
 	      <if test="menuId != null">
@@ -105,7 +107,7 @@
 	</select>
 	 
 
-	<update id="updateById"  parameterType="cn.dibcbks.entity.Check">
+	<update id="updateById"  parameterType="cn.dibcbks.entity.Menu">
 		update menu
 	    <set>	      
 	      <if test="menuName != null">
