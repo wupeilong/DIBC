@@ -130,7 +130,7 @@ public class IUserServiceImpl implements IUserService {
 			} else {				
 //				UsernamePasswordToken token = new UsernamePasswordToken(idCard, password);
 //				subject.login(token);
-				subject.login(new MyUsernamePasswordToken(idCard, password,LoginType.H5_PASSWORD));
+				subject.login(new MyUsernamePasswordToken(idCard, password));
 				Session session = subject.getSession();
 				JSONObject userJson = JSONObject.fromObject(user);				
 				session.setAttribute("userJson", userJson);
@@ -504,7 +504,7 @@ public class IUserServiceImpl implements IUserService {
 				rr = new ResponseResult<Void>(ResponseResult.ERROR, "该账户信息没有权限！请重新输入...");
 				logger.error(Constants.ERROR_HEAD_INFO + "该账户信息没有权限 ，账号：" + idCard);
 			} else {
-				CommonUtil.login(new MyUsernamePasswordToken(idCard, password,LoginType.PC_PASSWORD));			
+				CommonUtil.login(new MyUsernamePasswordToken(idCard, password));			
 				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
 				CommonUtil.setAttribute("user", user);
 				rr = new ResponseResult<Void>(ResponseResult.SUCCESS, "登录成功");

@@ -4,7 +4,6 @@ package cn.dibcbks.service.impl;
 
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-
 import cn.dibcbks.entity.Role;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
@@ -34,6 +32,7 @@ import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
 import cn.dibcbks.util.wx.AccessTokenOut;
 import cn.dibcbks.util.wx.WxApi;
+import cn.dibcbks.util.wx.WxApiAddressUtil;
 import cn.dibcbks.util.wx.WxUserInfoOut;
 import net.sf.json.JSONObject;
 
@@ -52,33 +51,34 @@ public class IWxServiceImpl implements IWxService {
 	
 	@Override
 	public String wxLogin(ModelMap modelMap) {
-		WxAccessToken token = wxAccessTokenMapper.selectById("1");
-		if(token == null){
-            //首次获取微信token存入数据库
-             AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
-             WxAccessToken insert = new WxAccessToken();
-             insert.setId("1");
-             insert.setAccessToken(accessTokenOut.getAccessToken());
-             insert.setExpiresIn(accessTokenOut.getExpiresIn());
-             insert.setCreateTime(new Date());
-             wxAccessTokenMapper.insert(insert);
-             token = insert;
-             logger.info("首次获取微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
-         } else {
-             //当前时间
-             if(DateUtil.dateCompare(DateUtil.dateAddMinutes(token.getCreateTime(),110),new Date()) < 0) {
-                 //超过有效期，重新获取
-                 AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
-                 token.setAccessToken(accessTokenOut.getAccessToken());
-                 token.setExpiresIn(accessTokenOut.getExpiresIn());
-                 token.setCreateTime(new Date());
-                 wxAccessTokenMapper.updateById(token);
-                 System.out.println("token : " + token);
-                 logger.info("更新微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
-             }
-         }
-		
-		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
+//		WxAccessToken token = wxAccessTokenMapper.selectById("1");
+//		if(token == null){
+//            //首次获取微信token存入数据库
+//             AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
+//             WxAccessToken insert = new WxAccessToken();
+//             insert.setId("1");
+//             insert.setAccessToken(accessTokenOut.getAccessToken());
+//             insert.setExpiresIn(accessTokenOut.getExpiresIn());
+//             insert.setCreateTime(new Date());
+//             wxAccessTokenMapper.insert(insert);
+//             token = insert;
+//             logger.info("首次获取微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+//         } else {
+//             //当前时间
+//             if(DateUtil.dateCompare(DateUtil.dateAddMinutes(token.getCreateTime(),110),new Date()) < 0) {
+//                 //超过有效期，重新获取
+//                 AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
+//                 token.setAccessToken(accessTokenOut.getAccessToken());
+//                 token.setExpiresIn(accessTokenOut.getExpiresIn());
+//                 token.setCreateTime(new Date());
+//                 wxAccessTokenMapper.updateById(token);
+//                 System.out.println("token : " + token);
+//                 logger.info("更新微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+//             }
+//         }
+//		
+//		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
+		String shortUrl = WxApi.getOAuth2Url(null);
 		System.out.println("微信登陆地址：" + shortUrl);
 	    modelMap.addAttribute("wechat_login_url", shortUrl);
 	    return "bks_wap/login";
