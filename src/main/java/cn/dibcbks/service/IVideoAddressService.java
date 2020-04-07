@@ -7,7 +7,20 @@ import cn.dibcbks.util.ResponseResult;
 
 public interface IVideoAddressService {
 	
-	 String SelectVideoAddress(ModelMap map,Integer id);
+		/**
+		 * 根据videoId查询一个视频流对象
+		 * @param videoId
+		 * @return
+		 */
+	    VideoAddress getVideAddressBeanById(Integer videoId);
+	    
+	    /**
+	     * 根据企业id查询视频流
+	     * @param map
+	     * @param id
+	     * @return
+	     */
+	 	String SelectVideoAddress(ModelMap map,Integer id);
 	 
 	 
 	 	/**
