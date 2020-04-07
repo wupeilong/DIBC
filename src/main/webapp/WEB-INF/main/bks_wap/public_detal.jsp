@@ -34,18 +34,18 @@
 			<div class="navigation"
 				style="position: relative; background-color: rgba(0, 0, 0, 0);">
 				<div class="fb padding-side">
-					<a href="javascript:history.go(-1)" class="text-white"><i
-						class="fa fa-angle-left"></i></a>
+					<!-- <a href="javascript:history.go(-1)" class="text-white"><i
+						class="fa fa-angle-left"></i></a> -->
 				</div>
 			</div>
 			<div class="fonwei text-white fonsi16">${unitDetail.unitName}</div>
 			<div class="text-white margin-top">
-				法人代表：${unitDetail.legalPerson}</div>
+				${unitDetail.businessLicenseCode}</div>
 		</div>
 		<div class="panel-body padding0">
 			<ul class="formlist list-group margin0">
 				<li class="list-group-item fs" style="border-radius: 0;"><span
-					class="padding-side text-muted">企业名称</span><label class="">${unitDetail.unitName}</label>
+					class="padding-side text-muted">法人代表</span><label class="">${unitDetail.legalPerson}</label>
 				</li>
 				<li class="list-group-item fs"><span
 					class="padding-side text-muted">营业地址</span><label class="">${unitDetail.unitAddress}</label>

@@ -61,7 +61,7 @@
 	<script type="text/javascript">	
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/wap_pro/list";
+			var url = "${pageContext.request.contextPath}/wap_unit/list";
 			var data = "unitId=" + $("#unit_list").val();
 			$.ajax({
 				"url" : url,
@@ -69,6 +69,7 @@
 				"type" : "POST",
 				"dataType" : "json",
 				"success" : function(obj) {
+					console.log(obj);
 					if (obj.state == 0) {
 						layer.msg(obj.message,{icon:2,time:1000});
 						return;
