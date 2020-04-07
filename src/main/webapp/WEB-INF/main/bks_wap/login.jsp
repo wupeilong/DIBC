@@ -31,11 +31,10 @@
 								</div>
 								<div class="tabb">
 									<div class="tab_type cur">
-										<div class="text-center">
-											<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;"><span>登录后应用将获得以下权限</span></div>
-											<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
-										</div>	
 										<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
+										<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;"><span>登录后应用将获得以下权限</span></div>
+										<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
+										<div class="text-center margin-top2 margin-bot2"><button type="button" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
 	    border-color: #a9e895;">微信一键登陆</button></div>
 	    							</div>
 									<div class="tab_type">
@@ -46,7 +45,7 @@
 											<input type="password" class="login_input box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
 										</div>
 										<div class="text-center margin-top2 margin-bot2">
-											<button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
+											<button type="button" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
 											</div>
 									</div>
 		
@@ -127,8 +126,7 @@
 		
 		//微信一键登录
 		$("#wx_login").click(function() {
-			console.log("123456");
-			location.href = '${wechat_login_url}';
+			window.location.href = '${wechat_login_url}';
 		});
 		
         
@@ -210,6 +208,8 @@
 			})
 			
 		});
+=======
+>>>>>>> branch 'master' of https://github.com/wupeilong/DIBC.git
 		</script>		
 </body>
 </html>
