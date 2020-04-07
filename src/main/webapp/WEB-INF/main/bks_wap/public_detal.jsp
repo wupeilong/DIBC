@@ -31,13 +31,11 @@
 	<main class="" style="padding-bottom: 46.5px;">
 	<div class="border0 bg0">
 		<div class="text-center bg-gradient" style="padding-bottom: 2em;">
-			<div class="navigation"
+			 <div class="navigation"
 				style="position: relative; background-color: rgba(0, 0, 0, 0);">
 				<div class="fb padding-side">
-					<!-- <a href="javascript:history.go(-1)" class="text-white"><i
-						class="fa fa-angle-left"></i></a> -->
 				</div>
-			</div>
+			</div> 
 			<div class="fonwei text-white fonsi16">${unitDetail.unitName}</div>
 			<div class="text-white margin-top">
 				${unitDetail.businessLicenseCode}</div>
