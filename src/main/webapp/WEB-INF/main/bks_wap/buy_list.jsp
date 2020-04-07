@@ -26,9 +26,9 @@
 						
 						<c:if test="${user.type == 1}">
 							<select id="unit_list">
-								<option value="">查询所有企业信息</option>
+								<option value="">查询333所有企业信息</option>
 								<c:forEach items="${unitList}" var="item">								
-									<option value="${item.unitId}">${item.unitName}</option>
+									<option value="${item.unitId}">${item.unitName}111</option>
 								</c:forEach>
 							</select>
 						</c:if>					
