@@ -19,6 +19,7 @@ import cn.dibcbks.entity.Role;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.entity.WxAccessToken;
+import cn.dibcbks.filter.LoginType;
 import cn.dibcbks.filter.MyUsernamePasswordToken;
 import cn.dibcbks.mapper.RoleMapper;
 import cn.dibcbks.mapper.UnitMapper;
@@ -78,14 +79,14 @@ public class IWxServiceImpl implements IWxService {
 //         }
 //		
 //		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
-		String shortUrl = WxApi.getOAuth2Url(null);
-		System.out.println("微信登陆地址：" + shortUrl);
+		String shortUrl = WxApi.getOAuth2Url(null);		
 	    modelMap.addAttribute("wechat_login_url", shortUrl);
 	    return "bks_wap/login";
 	}
 
 	@Override
 	public String wxOauth2Redirect(String code, HttpServletRequest request ,ModelMap modelMap) {
+		logger.info("微信回调信息 >>>>>>>" + code);
 		try {
         	//登录写入系统
 			WxUserInfoOut wxUserInfo = WxApi.getWxUserInfo(WxApi.getOauth2Token(code));
@@ -96,19 +97,19 @@ public class IWxServiceImpl implements IWxService {
 	            return "error/404";
 	        }        
 	        User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
-	        if (user == null) {
+	        if (user == null || user.getType() == null) {
 	        	session.setAttribute("wx_user_info", wxUserInfo);
 	        	modelMap.addAttribute("isbind", 1);
 	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
-	        	return "bks_wap/login";
+	        	return "bks_wap/binding";
 	        }
 	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);				
 			session.setAttribute("userJson", userJson);
 			session.setAttribute("user", user);
-	        if(user.getType() == 1){
+	        if(user.getType() == 3){
 	        	//TODO 进入大众首页
-	        	return "bks_wap/home";
+	        	return "bks_wap/public_list";
 	        }else{
 	        	//进入主体、监管首页
 	        	return "bks_wap/home";
@@ -132,7 +133,7 @@ public class IWxServiceImpl implements IWxService {
 	        user.setUsername(wxUserInfo.getNickname());
 	        user.setSex(wxUserInfo.getSex());
 	        user.setHeadUrl(wxUserInfo.getHeadimgurl());
-	        user.setUuid(uuid); 
+	        user.setUuid(uuid);
 	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
 	        user.setType(3);//公众
 	        user.setCreateTime(createTime);
