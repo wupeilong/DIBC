@@ -420,5 +420,52 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	border-color: #5cb85c;
 }
 
+.coinfoLis{
+	text-align: center;
+	overflow: hidden;
+	border: 2px solid #eee;
+	/* padding: 1em 0; */
+}
+.coinfoLis li {
+	width: 25%;
+	float: left;
+	/* background-color: #fff; */
+}
+.coinfoLis li>div{
+	background-color: #fff;
+	border: 2px solid #eee;
+	height: 22vw;
+	max-height: 142.55px;
+	min-height: 90px;
+}
+.coinfoLis li a{
+	color: #555;
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	border-radius: 10px;
+	padding: 0;
+	font-weight: bold;
+	position: relative;
+}
+.coinfoLis li a img{
+	width: 70px;
+}
+.coinfoLis li a p{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.formlist li span{
+	width: 8em;
+}
 
-
+/*微信登陆样式修改 */
+#roles{
+	width: 260px;
+	padding: 1em;
+	border-radius:1em;
+	background-color:#fff;
+}
+ */

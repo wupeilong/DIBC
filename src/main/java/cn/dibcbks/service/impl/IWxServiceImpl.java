@@ -4,7 +4,6 @@ package cn.dibcbks.service.impl;
 
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,11 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-
 import cn.dibcbks.entity.Role;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.entity.WxAccessToken;
+import cn.dibcbks.filter.LoginType;
 import cn.dibcbks.filter.MyUsernamePasswordToken;
 import cn.dibcbks.mapper.RoleMapper;
 import cn.dibcbks.mapper.UnitMapper;
@@ -34,6 +33,7 @@ import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
 import cn.dibcbks.util.wx.AccessTokenOut;
 import cn.dibcbks.util.wx.WxApi;
+import cn.dibcbks.util.wx.WxApiAddressUtil;
 import cn.dibcbks.util.wx.WxUserInfoOut;
 import net.sf.json.JSONObject;
 
@@ -52,40 +52,41 @@ public class IWxServiceImpl implements IWxService {
 	
 	@Override
 	public String wxLogin(ModelMap modelMap) {
-		WxAccessToken token = wxAccessTokenMapper.selectById("1");
-		if(token == null){
-            //首次获取微信token存入数据库
-             AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
-             WxAccessToken insert = new WxAccessToken();
-             insert.setId("1");
-             insert.setAccessToken(accessTokenOut.getAccessToken());
-             insert.setExpiresIn(accessTokenOut.getExpiresIn());
-             insert.setCreateTime(new Date());
-             wxAccessTokenMapper.insert(insert);
-             token = insert;
-             logger.info("首次获取微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
-         } else {
-             //当前时间
-             if(DateUtil.dateCompare(DateUtil.dateAddMinutes(token.getCreateTime(),110),new Date()) < 0) {
-                 //超过有效期，重新获取
-                 AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
-                 token.setAccessToken(accessTokenOut.getAccessToken());
-                 token.setExpiresIn(accessTokenOut.getExpiresIn());
-                 token.setCreateTime(new Date());
-                 wxAccessTokenMapper.updateById(token);
-                 System.out.println("token : " + token);
-                 logger.info("更新微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
-             }
-         }
-		
-		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
-		System.out.println("微信登陆地址：" + shortUrl);
+//		WxAccessToken token = wxAccessTokenMapper.selectById("1");
+//		if(token == null){
+//            //首次获取微信token存入数据库
+//             AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
+//             WxAccessToken insert = new WxAccessToken();
+//             insert.setId("1");
+//             insert.setAccessToken(accessTokenOut.getAccessToken());
+//             insert.setExpiresIn(accessTokenOut.getExpiresIn());
+//             insert.setCreateTime(new Date());
+//             wxAccessTokenMapper.insert(insert);
+//             token = insert;
+//             logger.info("首次获取微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+//         } else {
+//             //当前时间
+//             if(DateUtil.dateCompare(DateUtil.dateAddMinutes(token.getCreateTime(),110),new Date()) < 0) {
+//                 //超过有效期，重新获取
+//                 AccessTokenOut accessTokenOut = WxApi.getWxAccessToken();
+//                 token.setAccessToken(accessTokenOut.getAccessToken());
+//                 token.setExpiresIn(accessTokenOut.getExpiresIn());
+//                 token.setCreateTime(new Date());
+//                 wxAccessTokenMapper.updateById(token);
+//                 System.out.println("token : " + token);
+//                 logger.info("更新微信access_token信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+//             }
+//         }
+//		
+//		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
+		String shortUrl = WxApi.getOAuth2Url(null);		
 	    modelMap.addAttribute("wechat_login_url", shortUrl);
 	    return "bks_wap/login";
 	}
 
 	@Override
 	public String wxOauth2Redirect(String code, HttpServletRequest request ,ModelMap modelMap) {
+		logger.info("微信回调信息 >>>>>>>" + code);
 		try {
         	//登录写入系统
 			WxUserInfoOut wxUserInfo = WxApi.getWxUserInfo(WxApi.getOauth2Token(code));
@@ -96,19 +97,19 @@ public class IWxServiceImpl implements IWxService {
 	            return "error/404";
 	        }        
 	        User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
-	        if (user == null) {
+	        if (user == null || user.getType() == null) {
 	        	session.setAttribute("wx_user_info", wxUserInfo);
 	        	modelMap.addAttribute("isbind", 1);
 	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
-	        	return "bks_wap/login";
+	        	return "bks_wap/binding";
 	        }
 	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);				
 			session.setAttribute("userJson", userJson);
 			session.setAttribute("user", user);
-	        if(user.getType() == 1){
+	        if(user.getType() == 3){
 	        	//TODO 进入大众首页
-	        	return "bks_wap/home";
+	        	return "bks_wap/public_list";
 	        }else{
 	        	//进入主体、监管首页
 	        	return "bks_wap/home";
@@ -120,7 +121,7 @@ public class IWxServiceImpl implements IWxService {
 	}
 
 	@Override
-	public ResponseResult<Void> bindPublic(HttpServletRequest request, ModelMap modelMap) {
+	public ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {
 			WxUserInfoOut wxUserInfo =  (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
@@ -132,7 +133,7 @@ public class IWxServiceImpl implements IWxService {
 	        user.setUsername(wxUserInfo.getNickname());
 	        user.setSex(wxUserInfo.getSex());
 	        user.setHeadUrl(wxUserInfo.getHeadimgurl());
-	        user.setUuid(uuid); 
+	        user.setUuid(uuid);
 	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
 	        user.setType(3);//公众
 	        user.setCreateTime(createTime);
@@ -141,13 +142,13 @@ public class IWxServiceImpl implements IWxService {
 	        JSONObject userJson = JSONObject.fromObject(user);	
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
-			//TODO 进入大众首页
-			return null;
+	        rr = new ResponseResult<>(ResponseResult.SUCCESS,"绑定成功！"); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("绑定用户类型:大众错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
-			return null;
+			rr = new ResponseResult<>(ResponseResult.ERROR,"绑定失败！"); 
 		}
+		return rr;
 	}
 
 	@Override

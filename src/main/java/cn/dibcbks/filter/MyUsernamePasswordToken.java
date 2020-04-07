@@ -24,18 +24,14 @@ public class MyUsernamePasswordToken extends UsernamePasswordToken {
     /**H5免密登录*/
     public MyUsernamePasswordToken(String username) {
         super(username, "", false, null);
-        this.loginType = LoginType.H5_NOPASSWD;
+        this.loginType = LoginType.NOPASSWD;
     }
     /**H5账号密码登录*/
     public MyUsernamePasswordToken(String username, String password) {
         super(username, password, false, null);
-        this.loginType = LoginType.H5_PASSWORD;
+        this.loginType = LoginType.PASSWORD;
     }
-    /**账号密码登录*/
-    public MyUsernamePasswordToken(String username, String password, LoginType loginType) {
-        super(username, password, false, null);
-        this.loginType = loginType;
-    }
+    
     public LoginType getLoginType() {
         return loginType;
     }

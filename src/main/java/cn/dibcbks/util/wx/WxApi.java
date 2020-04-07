@@ -8,6 +8,8 @@ import cn.dibcbks.util.PropsUtil;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -226,8 +228,9 @@ public class WxApi {
         String requestUrl = WxApiAddressUtil.GET_OAUTH2_CODE_URL
                 .replace("APPID", PropsUtil.loadProps("config.properties").getProperty("wx_appid"))
                 .replace("REDIRECT_URI", PropsUtil.loadProps("config.properties").getProperty("oauth2_redirect_url"));
-
-        return requestUrl;
-        //return getWxShortUrl(requestUrl,accessToken);
+        if(StringUtils.isEmpty(accessToken)){
+        	return requestUrl;
+        }
+        return getWxShortUrl(requestUrl,accessToken);
     }
 }
