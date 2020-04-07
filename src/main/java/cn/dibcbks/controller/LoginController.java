@@ -206,7 +206,7 @@ public class LoginController {
 	@GetMapping("/wap_public_home")
 	public String userPulicPag(HttpServletRequest request,ModelMap modelMap) {
 
-		 return  "bks_wap/home";
+		 return  "bks_wap/public_list";
 	}
 	
 	
