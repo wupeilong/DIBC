@@ -177,37 +177,6 @@
 					}); 
 				}				
 		})
-		   
-		//大众
-		$("#public_bind").click(function(){
-			alert('${wx_user}');
-		});
-		
-		
-		//主体
-		$("#unit_bind").click(function(){			
-			layer.open({ 
-				type: 1, 
-				content: $(".model_step2"),
-				
-			});
-			
-		})
-		//监管
-		$("#supervise_bind").click(function(){
-			console.log("监管");
-		})		
-		
-		//第一次进入系统 用户绑定角色
-		$(function(){
-			openModel({
-				title:false,
-				type:1,
-				content:$('#roles'),
-				closeBtn:0,
-			})
-			
-		});
 		</script>		
 </body>
 </html>
