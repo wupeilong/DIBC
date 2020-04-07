@@ -197,16 +197,16 @@ public class LoginController {
 	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
 	@PostMapping("/wap_bind_public")
 	@ResponseBody
-	public ResponseResult<Void> bindUserType(WxUserInfoOut wxUserInfoOut ,HttpServletRequest request,ModelMap modelMap) {
+	public ResponseResult<Void> bindUserType(WxUserInfoOut wxUserInfoOut, HttpServletRequest request,ModelMap modelMap) {
 
-	   return iWxService.bindPublic(request,modelMap);
+	   return iWxService.bindPublic(wxUserInfoOut,request,modelMap);
 	}
 	
 	@ApiOperation(value = "进入大众端页面" ,notes = "进入大众端页面")
-	@GetMapping("/wap_public_pag")
+	@GetMapping("/wap_public_home")
 	public String userPulicPag(HttpServletRequest request,ModelMap modelMap) {
 
-		 return "";
+		 return  "bks_wap/home";
 	}
 	
 	
@@ -300,7 +300,7 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("/web_home")
-	public String webHome(){	
+	public String webHome(){
 		
 		return "bks_web/home";
 	}

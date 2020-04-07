@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.dibcbks.util.ResponseResult;
+import cn.dibcbks.util.wx.WxUserInfoOut;
 
 public interface IWxService {
 	
@@ -30,7 +31,7 @@ public interface IWxService {
 	 * @param modelMap
 	 * @return
 	 */
-	ResponseResult<Void> bindPublic(HttpServletRequest request, ModelMap modelMap);
+	ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, ModelMap modelMap);
 
 	/**
 	 * 绑定用户类型:主体人员

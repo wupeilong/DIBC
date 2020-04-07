@@ -120,7 +120,7 @@ public class IWxServiceImpl implements IWxService {
 	}
 
 	@Override
-	public ResponseResult<Void> bindPublic(HttpServletRequest request, ModelMap modelMap) {
+	public ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {
 			WxUserInfoOut wxUserInfo =  (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
@@ -141,13 +141,13 @@ public class IWxServiceImpl implements IWxService {
 	        JSONObject userJson = JSONObject.fromObject(user);	
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
-			//TODO 进入大众首页
-			return null;
+	        rr = new ResponseResult<>(ResponseResult.SUCCESS,"绑定成功！"); 
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("绑定用户类型:大众错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
-			return null;
+			rr = new ResponseResult<>(ResponseResult.ERROR,"绑定失败！"); 
 		}
+		return rr;
 	}
 
 	@Override
