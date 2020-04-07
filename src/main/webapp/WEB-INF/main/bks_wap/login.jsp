@@ -75,6 +75,7 @@
 		<div id="roles" style="display: none;">
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/wap_bind_public">我是大众</a></li>
+				<li><a href="javascript:void(0);" id="public_bind">我是大众</a></li>
 				<li><a href="javascript:void(0);" id="unit_bind">我是主体人员</a></li>
 				<li><a href="javascript:void(0);" id="supervise_bind">我是监管人员</a></li>
 			</ul>
@@ -172,7 +173,13 @@
 					}); 
 				}				
 		})
-		    
+		   
+		//大众
+		$("#public_bind").click(function(){
+			alert('${wx_user}');
+		});
+		
+		
 		//主体
 		$("#unit_bind").click(function(){			
 			layer.open({ 
