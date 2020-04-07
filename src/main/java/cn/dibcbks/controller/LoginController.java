@@ -132,7 +132,7 @@ public class LoginController {
 	})
 	@PostMapping("/wap_user_login")
 	@ResponseBody
-	public ResponseResult<Void> login(@RequestParam(value="idCard",required = true) String idCard,
+	public ResponseResult<User> login(@RequestParam(value="idCard",required = true) String idCard,
 									  @RequestParam(value="password",required = true) String password){
 		
 		return iUserService.login(idCard,password);
