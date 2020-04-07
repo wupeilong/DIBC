@@ -95,7 +95,10 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     			"url" : "addMenu",
     			"data" : adminMenu,
     			"type" : "POST",
-    			contentType:"application/json"
+    			"contentType" : "application/json",
+    			"success" : function(obj) {
+    				
+    			}
     		});   	
     		layer.close(index);
     	}); 

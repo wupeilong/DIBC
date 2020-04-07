@@ -84,35 +84,19 @@
 						
 					</script>
 				</div>
-				<ul class="list-group margin-top panel-body padding0">
-					<li class="list-group-item fb">
-						<div class="">
-							<div class="fonwei">中天世纪</div>
-						</div>
-						<div class="">
-							<a href=""><i class="fa fa-angle-right"></i></a>
-						</div>
-					</li>
-					<li class="list-group-item fb">
-						<div class="">
-							<div class="fonwei">贵州宏立城</div>
-						</div>
-						<div class="">
-							<a href=""><i class="fa fa-angle-right"></i></a>
-						</div>
-					</li>
+				<ul class="list-group margin-top panel-body padding0">					
 					<li class="list-group-item">
 						<div class="">
-							<h5 class="fonwei">贵州施工队有限公司</h5>
+							<h5 class="fonwei">贵州指上通科技有限责任公司</h5>							
 							<div class="text-muted bfrifRow">
-								贵州施工队有限公司,发噶是公司的风格俺是个队有限公司,发噶是公司的风格俺是个队有限公司,发噶是公司的风格俺是个
+								企业类型：餐饮业 								
 							</div>
 						</div>
 						<div class="fb margin-top" style="align-items: flex-end;">
-							<div class="">
-								<a href="" class="label label-warning">飞洒个你是对方</a>
+							<div class="">								
+								<a href="" class="label label-warning">法人代表：吴培龙</a>
 							</div>
-							<a href="http://192.168.2.2:8848/wap_MCLZ/public_detal.html" class="btn btn-primary">查看信息</a>
+							<a href="h${pageContext.request.contextPath}/wap_unit/coopration_detal？unitId=1" class="btn btn-primary">查看信息</a>
 						</div>
 					</li>
 					<li class="list-group-item">

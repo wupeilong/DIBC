@@ -147,8 +147,13 @@
 									storage.removeItem("password");
 									storage.removeItem("remember");
 								}
-								//location.reload();
-								layer.msg(obj.message,{icon:1,time:1000},function(){location.href = "wap_home";});
+								layer.msg(obj.message,{icon:1,time:1000},function(){										
+										if(obj.data.type != 3){
+											location.href = "${pageContext.request.contextPath}/wap_home";
+										}else{
+											location.href = "${pageContext.request.contextPath}/wap_public_home";
+										}
+									});
 							}					
 						}
 					}); 
