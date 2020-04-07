@@ -26,12 +26,12 @@ public class WebAuthorizationController {
 	@Autowired
 	private IAuthorizationService IAuthorizationService;
 	
-	@ApiOperation(value = "菜单添加页", notes = "菜单添加页")
+	/*@ApiOperation(value = "菜单添加页", notes = "菜单添加页")
 	@GetMapping("/menu_add_pag")
 	public String  addMenuPag(ModelMap modelMap) {
 		
 		return IAuthorizationService.addMenuPag(modelMap);
-	}
+	}*/
 	
 	@ApiOperation(value = "菜单添加", notes = "菜单添加")
 	@ApiImplicitParam(name="menu",value="菜单实体类",dataType="Menu")
@@ -42,13 +42,13 @@ public class WebAuthorizationController {
 		return IAuthorizationService.addMenu(menu);
 	}
 	
-	@ApiOperation(value = "菜单编辑页", notes = "菜单编辑页")
+	/*@ApiOperation(value = "菜单编辑页", notes = "菜单编辑页")
 	@ApiImplicitParam(name="menuId",value="菜单ID",dataType="Integer")
 	@GetMapping("/menu_update_pag")
 	public String updateMenuPag(Integer menuId, ModelMap modelMap) {
 		
 		return IAuthorizationService.updateMenuPag(menuId,modelMap);
-	}
+	}*/
 	
 	@ApiOperation(value = "菜单编辑", notes = "菜单编辑")
 	@ApiImplicitParam(name="menu",value="菜单实体类",dataType="Menu")
@@ -64,7 +64,8 @@ public class WebAuthorizationController {
 	//周修改
 	@ApiOperation(value = "菜单列表页", notes = "菜单列表页")
 	@GetMapping("/menu_list_pag")
-	public String selectMenuListPag(ModelMap modelMap) {		
+	public String selectMenuListPag(ModelMap modelMap) {
+		
 		return "bks_web/menu/menu";
 	}
 	
@@ -83,7 +84,7 @@ public class WebAuthorizationController {
 	
 	
 	
-	@ApiOperation(value = "子菜单列表", notes = "子菜单列表")
+	/*@ApiOperation(value = "子菜单列表", notes = "子菜单列表")
 	@ApiImplicitParam(name="menuId",value="父级菜单ID")
 	@PostMapping("/menu_list")
 	@ResponseBody
@@ -98,7 +99,7 @@ public class WebAuthorizationController {
 	public String selectMenuDetail(Integer menuId, ModelMap modelMap) {
 		
 		return IAuthorizationService.selectMenuDetail(menuId,modelMap);
-	}
+	}*/
 	
 	@ApiOperation(value = "删除菜单", notes = "删除菜单")
 	@ApiImplicitParam(name="menuId",value="菜单ID")
@@ -113,12 +114,12 @@ public class WebAuthorizationController {
 	
 	
 	
-	@ApiOperation(value = "添加部门信息页", notes = "添加部门信息页")
+	/*@ApiOperation(value = "添加部门信息页", notes = "添加部门信息页")
 	@GetMapping("/dep_add_pag")
 	public String  addDepartmentPag(ModelMap modelMap) {
 		
 		return IAuthorizationService.addDepartmentPag(modelMap);
-	}
+	}*/
 	
 	@ApiOperation(value = "添加部门信息", notes = "添加部门信息")
 	@ApiImplicitParam(name="department",value="部门信息实体类",dataType="Department")
@@ -130,12 +131,22 @@ public class WebAuthorizationController {
 	}
 	
 	@ApiOperation(value = "部门列表页", notes = "部门列表页")
-	@ApiImplicitParam(name="unitId",value="企业ID",dataType="Integer")
+	//@ApiImplicitParam(name="unitId",value="企业ID",dataType="Integer")
 	@GetMapping("/dep_list_pag")
 	public String  selectDepartmentListPag(Integer unitId,ModelMap modelMap) {
 		
-		return IAuthorizationService.selectDepartmentListPag(unitId,modelMap);
+		return "bks_web/department/department";
+		//return IAuthorizationService.selectDepartmentListPag(unitId,modelMap);
 	}
+	
+	@ApiOperation(value = "部门信息", notes = "部门信息")
+	@RequestMapping("/get_department")
+    @ResponseBody
+    public JSONObject getDepartment(ModelMap modelMap){
+		
+        return IAuthorizationService.getDepartment(modelMap);
+    }
+	
 	
 	@ApiOperation(value = "部门列表", notes = "部门列表")
 	@ApiImplicitParam(name="unitId",value="企业ID",dataType="Integer")
