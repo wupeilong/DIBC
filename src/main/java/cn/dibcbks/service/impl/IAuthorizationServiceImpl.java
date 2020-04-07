@@ -1,5 +1,6 @@
 package cn.dibcbks.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -81,17 +82,19 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	
 	@Override
 	public String selectMenuListPag(ModelMap modelMap) {
-		/*String where = "parent_id = '-1' ";
-		if(!CommonUtil.getSessionUser().getType().equals(1)){
-			//非监控人员有一些菜单没有权限
-			//where += " AND menu_id NOT IN (1,2,3)";
+		try {
+			List<Menu> menuList = menuMapper.select(null, null, null, null);			
+			List<Menu> menus = new ArrayList<Menu>();
+			sort(-1, menuList, menus);			
+			for(Menu menu : menus){
+				System.out.println(menu);
+			}
+			modelMap.addAttribute("menuList", menus);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		List<Menu> menuList = menuMapper.select(where, null, null, null);*/
-		List<Menu> menuList = menuMapper.select(null, null, null, null);
-		modelMap.addAttribute("menuList", menuList);
-		//TODO 菜单列表页
-		return "";
-	}
+		return "bks_web/menu_list";
+	}		
 	
 	
 	@Override
@@ -375,23 +378,16 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	}
 
 	
-	
-	
 
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
+	public List<Menu> sort(int parentId, List<Menu> listB, List<Menu> listA) {
+        for (Menu menu : listB) {
+            if (menu.getParentId().equals(parentId)) {
+                listA.add(menu);
+                sort(menu.getMenuId(), listB, listA);
+            }
+        }
+        return listA;
+    }
 	
 	
 }

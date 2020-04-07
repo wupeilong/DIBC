@@ -10,8 +10,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import cn.dibcbks.controller.WapVideoAddressController;
 import cn.dibcbks.entity.VideoAddress;
 import cn.dibcbks.mapper.VideoAddressMapper;
+import cn.dibcbks.util.ResponseResult;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring-mapper.xml","classpath:spring-mvc.xml"})
 @WebAppConfiguration
@@ -19,14 +21,24 @@ public class TestDemo {
 	@Autowired 
 	private VideoAddressMapper addressMapper;
 	
+	@Autowired
+	private  WapVideoAddressController ss;
 	
 
 	@Test
 	public void test(){
 		
-		List<VideoAddress> list = addressMapper.SelectVideoAddressById(1);
+		VideoAddress address =new VideoAddress();
+		address.setCameraPosition("卧室");
+		address.setStreamType("http");
+		address.setUnitId(10);
+		address.setVideoAddress("http://wx19.sdvideo.cn:9999/3HKCA33014CUQPC_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810");
+		address.setVideoId(5);
 		
-		System.out.println(list);
+		
+		ResponseResult<?> GG = ss.VideoAdressSave(address);
+		System.out.println(GG);
+		
 	
 		
 		

@@ -16,6 +16,7 @@ import cn.dibcbks.service.ILoginService;
 import cn.dibcbks.service.IUserService;
 import cn.dibcbks.service.IWxService;
 import cn.dibcbks.util.ResponseResult;
+import cn.dibcbks.util.wx.WxUserInfoOut;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -194,11 +195,21 @@ public class LoginController {
 	
 	
 	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
-	@GetMapping("/wap_bind_public")
-	public String bindUserType(HttpServletRequest request,ModelMap modelMap) {
+	@PostMapping("/wap_bind_public")
+	@ResponseBody
+	public ResponseResult<Void> bindUserType(WxUserInfoOut wxUserInfoOut, HttpServletRequest request,ModelMap modelMap) {
 
-	   return iWxService.bindPublic(request,modelMap);
+	   return iWxService.bindPublic(wxUserInfoOut,request,modelMap);
 	}
+	
+	@ApiOperation(value = "进入大众端页面" ,notes = "进入大众端页面")
+	@GetMapping("/wap_public_home")
+	public String userPulicPag(HttpServletRequest request,ModelMap modelMap) {
+
+		 return  "bks_wap/home";
+	}
+	
+	
 	
 	@ApiOperation(value = "绑定用户类型:主体人员", notes = "绑定用户类型:主体人员")
 	@ApiImplicitParams({
@@ -289,7 +300,7 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("/web_home")
-	public String webHome(){	
+	public String webHome(){
 		
 		return "bks_web/home";
 	}

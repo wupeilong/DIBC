@@ -44,14 +44,20 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 		
 		//根据videoId查看视频流地址是否已经存在,存在则修改，不存在则保存
 		try {
-			String videoId = videoAddressMapper.SelectAddressById(videoAddress.getVideoId());
-			if(videoId==""||videoId==null){
-			   videoAddressMapper.InsertAddress(videoAddress);
+			if (videoAddress.getVideoId()==null) {
+				videoAddressMapper.InsertAddress(videoAddress);
 				rs=new ResponseResult<>(1, "信息添加成功");
-			}else {
-				videoAddressMapper.UpdateAddress(videoAddress);
-				rs=new ResponseResult<>(1, "信息修改成功");
+			}else{
+				String videoId = videoAddressMapper.SelectAddressById(videoAddress.getVideoId());
+				if(videoId==""||videoId==null){
+				   videoAddressMapper.InsertAddress(videoAddress);
+					rs=new ResponseResult<>(1, "信息添加成功");
+				}else {
+					videoAddressMapper.UpdateAddress(videoAddress);
+					rs=new ResponseResult<>(1, "信息修改成功");
+				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			rs=new ResponseResult<>(0, e.getMessage());

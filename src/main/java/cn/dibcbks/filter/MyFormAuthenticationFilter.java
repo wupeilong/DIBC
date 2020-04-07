@@ -1,16 +1,10 @@
 package cn.dibcbks.filter;
 
 import java.io.IOException;
-import java.util.Locale;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.shiro.session.SessionException;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
-import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.util.WebUtils;
 
 /**
