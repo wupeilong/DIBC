@@ -90,7 +90,7 @@
 					}else{
 						var result = "";
 						for(var i=0;i<obj.data.length;i++){
-							result+='<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId='+obj.data[i].unitId+'">'+
+							result+='<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitid='+obj.data[i].unitId+'">'+
 									'<div class="video_bg"><span>'+obj.data[i].unitName+'</span><img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/video_1.png"></div></a>';
 						}
 						$("#tt").html(result);

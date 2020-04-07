@@ -3,6 +3,8 @@ package cn.dibcbks.service.impl;
 
 
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -293,6 +295,41 @@ public class IWxServiceImpl implements IWxService {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"绑定失败！");
 		}
 		return rr;
+	}
+
+	@Override
+	public String getUnitList(ModelMap modelMap) {
+		// 查询企业列表 企业类型不包括1
+		
+		String view=null;
+		try {
+			List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
+			modelMap.addAttribute("unitList", unitList);
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入企业信息列表页面成功！");
+			view="bks_wap/public_list";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(Constants.ERROR_HEAD_INFO+ "用户进入企业信息列表页面失败！原因："+e.getMessage());
+		}
+		
+		return view;
+	}
+
+	@Override
+	public String selectUnitDetail(ModelMap modelMap, Integer unitId) {
+		// TODO Auto-generated method stub
+		Unit unitDetail = null;
+		List<Unit> list = unitMapper.select(" unit_id = '" + unitId + "'", null, null, null);
+		try {
+			
+				unitDetail = list.get(0);
+				modelMap.addAttribute("unitDetail", unitDetail);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因："+e.getMessage());
+		}
+		return "bks_wap/public_detal";
 	}
 	
 }

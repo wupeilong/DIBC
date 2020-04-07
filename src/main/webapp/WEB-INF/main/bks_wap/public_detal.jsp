@@ -1,105 +1,119 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset=utf-8>
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>采购报送信息列表</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>	
+<meta charset=utf-8>
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title>采购报送信息列表</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
 </head>
-	<body class="contain" style="background-color: #eee;height: auto;">
-		
-		<main class="" style="padding-bottom: 46.5px;">
-			<div class="border0 bg0">
-				<div class="text-center bg-gradient" style="padding-bottom: 2em;">
-					<div class="navigation" style="position: relative;background-color: rgba(0,0,0,0);">
-						<div class="fb padding-side">
-							<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
-						</div>
-					</div>
-					<div class="fonwei text-white fonsi16">贵州老干妈老干爹合伙公司</div>
-					<div class="text-white margin-top">
-						(法人代表：老干妈)
-					</div>
-				</div>
-				<div class="panel-body padding0">
-					<ul class="formlist list-group margin0">
-						<li class="list-group-item fs" style="border-radius: 0;">
-							<span class="padding-side text-muted">企业名称</span><label class="">老干妈</label>
-						</li>
-						<li class="list-group-item fs">
-							<span class="padding-side text-muted">营业地址</span><label class="">贵阳市xx区</label>
-						</li>
-						<li class="list-group-item fs">
-							<span class="padding-side text-muted">企业类型</span><label class="">股份有限公司</label>
-						</li>
-						<li class="list-group-item fs">
-							<span class="padding-side text-muted">所属行业</span><label class="">卖辣子</label>
-						</li>
-						<li class="list-group-item fs ftop">
-							<span class="padding-side text-muted">经营范围</span><label class="">国家移民管理局禁止第三国人员从边境口岸出入境</label>
-						</li>
-						<li class="list-group-item">
-							<div class="fsa">
-								<div>
-									<img src="img/banner2.jpg" class="" style="width: 100px;height: 100px;border: 1px solid #555;">
-									<p class="text-center margin-top">营业执照</p>
-								</div>
-								<div>
-									<img src="img/banner2.jpg" class="" style="width: 100px;height: 100px;border: 1px solid #555;">
-									<p class="text-center margin-top">经营许可证</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<div class="" style="">
-						<ul class="coinfoLis list-unstyled">
-							<li class="text-center margin-bot">
-								<div class="fc">
-									<a href="workmens.html" class="">
-										<img src="img/icon2.png">
-										<p>从业人员</p>
-									</a>
-								</div>
-							</li>
-							<li class="text-center margin-bot">
-								<div class="fc">
-									<a href="workmens.html" class="">
-										<img src="img/icon6.png">
-										<p>清洗消毒</p>
-									</a>
-								</div>
-							</li>
-							<li class="text-center margin-bot">
-								<div class="fc">
-									<a href="workmens.html" class="">
-										<img src="img/icon8.png">
-										<p>监管检查</p>
-									</a>
-								</div>
-							</li>
-							<li class="text-center margin-bot">
-								<div class="fc">
-									<a href="workmens.html" class="">
-										<img src="img/icon9.png">
-										<p>实时监控</p>
-									</a>
-								</div>
-							</li>
-						</ul>
-					</div>
+<body class="contain" style="background-color: #eee; height: auto;">
+
+	<main class="" style="padding-bottom: 46.5px;">
+	<div class="border0 bg0">
+		<div class="text-center bg-gradient" style="padding-bottom: 2em;">
+			<div class="navigation"
+				style="position: relative; background-color: rgba(0, 0, 0, 0);">
+				<div class="fb padding-side">
+					<a href="javascript:history.go(-1)" class="text-white"><i
+						class="fa fa-angle-left"></i></a>
 				</div>
 			</div>
-		</main>
-		<c:import url="public/footer.jsp"></c:import>
-	</body>
+			<div class="fonwei text-white fonsi16">${unitDetail.unitName}</div>
+			<div class="text-white margin-top">
+				法人代表：${unitDetail.legalPerson}</div>
+		</div>
+		<div class="panel-body padding0">
+			<ul class="formlist list-group margin0">
+				<li class="list-group-item fs" style="border-radius: 0;"><span
+					class="padding-side text-muted">企业名称</span><label class="">${unitDetail.unitName}</label>
+				</li>
+				<li class="list-group-item fs"><span
+					class="padding-side text-muted">营业地址</span><label class="">${unitDetail.unitAddress}</label>
+				</li>
+				<li class="list-group-item fs"><span
+					class="padding-side text-muted">企业类型</span>
+				<label class="">
+						<c:if test="${unitDetail.unitType==1}">监管局</c:if> 	
+						<c:if test="${unitDetail.unitType==2}">学校</c:if> 
+						<c:if test="${unitDetail.unitType==3}">餐饮</c:if> 
+						<c:if test="${unitDetail.unitType==4}">其它</c:if>
+				</label></li>
+				<!-- <li class="list-group-item fs">
+							<span class="padding-side text-muted">所属行业</span><label class="">卖辣子</label>
+						</li> -->
+				<!-- <li class="list-group-item fs ftop">
+							<span class="padding-side text-muted">经营范围</span><label class="">国家移民管理局禁止第三国人员从边境口岸出入境</label>
+						</li> -->
+				<li class="list-group-item">
+					<div class="fsa">
+						<div>
+							<img src="${pageContext.request.contextPath}${unitDetail.businessLicense}" class=""
+								style="width: 100px; height: 100px; border: 1px solid #555;">
+							<p class="text-center margin-top">营业执照</p>
+						</div>
+						<div>
+							<img src="${pageContext.request.contextPath}${unitDetail.productionLicense}" class=""
+								style="width: 100px; height: 100px; border: 1px solid #555;">
+							<p class="text-center margin-top">经营许可证</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="" style="">
+				<ul class="coinfoLis list-unstyled">
+					<li class="text-center margin-bot">
+						<div class="fc">
+							<a href="${pageContext.request.contextPath}/workmens.jsp" class=""> <img src="img/icon2.png">
+								<p>从业人员</p>
+							</a>
+						</div>
+					</li>
+					<li class="text-center margin-bot">
+						<div class="fc">
+							<a href="workmens.html" class=""> <img src="img/icon6.png">
+								<p>清洗消毒</p>
+							</a>
+						</div>
+					</li>
+					<li class="text-center margin-bot">
+						<div class="fc">
+							<a href="workmens.html" class=""> <img src="img/icon8.png">
+								<p>监管检查</p>
+							</a>
+						</div>
+					</li>
+					<li class="text-center margin-bot">
+						<div class="fc">
+							<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitid=${unitDetail.unitId}" class=""> <img src="img/icon9.png">
+								<p>实时监控</p>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</main>
+	<c:import url="public/footer.jsp"></c:import>
+</body>
 </html>
