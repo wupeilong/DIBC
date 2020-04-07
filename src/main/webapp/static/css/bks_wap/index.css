@@ -420,5 +420,20 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	border-color: #5cb85c;
 }
 
-
+.coinfoLis{
+	text-align: center;
+}
+.coinfoLis li a{
+	color: #555;
+	display: inline-block;
+	width: 122px;
+	height: 122px;
+	line-height: 120px;
+	padding: 0;
+	background-color: #fff;
+	font-weight: bold;
+}
+.formlist li span{
+	width: 8em;
+}
 
