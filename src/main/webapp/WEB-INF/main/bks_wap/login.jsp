@@ -208,8 +208,6 @@
 			})
 			
 		});
-=======
->>>>>>> branch 'master' of https://github.com/wupeilong/DIBC.git
 		</script>		
 </body>
 </html>
