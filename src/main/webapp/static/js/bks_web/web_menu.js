@@ -86,7 +86,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
         });        
     });
     function addmain() {  
-    	var jsonObj = {};    	
+    	var jsonObj = {};     	
     	layer.prompt({title: '请输入主菜单的名称'}, function(pass, index){
     		var time=new Date();
     		jsonObj = { "menuId": null,"menuName": pass,"menuUrl": null,"menuIcon": null,"authority": null,"isMenu":null,"parentId": -1};
@@ -96,10 +96,10 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     			"data" : adminMenu,
     			"type" : "POST",
     			contentType:"application/json"
-    		});     	
+    		});   	
     		layer.close(index);
     	}); 
-    	location.replace(location.href);
+    	//location.replace(location.href);
     }
     function del(name,menuId,menus){    	
     	if(menus==1){
