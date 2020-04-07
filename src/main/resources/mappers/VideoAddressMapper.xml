@@ -8,9 +8,10 @@
 	    <result column="video_address" property="videoAddress" />
 	    <result column="camera_position" property="cameraPosition" />
 	    <result column="video_type" property="videoType" />	
-	    <result column="stream_type" property="streamType" />	
+	    <result column="stream_type" property="streamType" />
+	    <result column="video_id" property="videoId" />	
 	</resultMap>
-	<!--查询用户 -->
+	<!--查询视频流地址列表 -->
 	<select id="SelectVideoAddressById" resultMap="BaseResultMap"> 
 		SELECT
 			v.unit_id,
@@ -25,7 +26,101 @@
 		LEFT JOIN unit n ON n.unit_id = v.unit_id
 		WHERE 
 			v.unit_id=#{id}
-	</select>	
+	</select>
+	
+	<delete id="SelectAddressById" parameterType="java.lang.Integer">
+		SELECT
+			v.unit_id,
+			n.unit_name,
+			v.video_address,
+			v.camera_position,
+			v.video_type,
+			v.stream_type,
+			v.video_id
+		FROM
+			video_address v 
+		LEFT JOIN unit n ON n.unit_id = v.unit_id
+		WHERE 
+			v.unit_id=#{videoId}
+	</delete>
+	
+	<!--添加视频流地址列表 -->
+	<insert id="InsertAddress" parameterType="cn.dibcbks.entity.VideoAddress" useGeneratedKeys="true" keyProperty="videoId">
+		INSERT INTO  video_address
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="unitId != null">
+	        unit_id,
+	      </if>
+	      <if test="videoAddress != null">
+	        video_address,
+	      </if>
+	      <if test="cameraPosition != null">
+	        camera_position,
+	      </if>
+	      <if test="videoType != null">
+	        video_type,
+	      </if>
+	      <if test="streamType != null">
+	        stream_type,
+	      </if>
+	      <if test="videoId != null">
+	        video_id,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	     <if test="unitId != null">
+	        #{unitId},
+	      </if>
+	      <if test="videoAddress != null">
+	        #{videoAddress},
+	      </if>
+	      <if test="cameraPosition != null">
+	        #{cameraPosition},
+	      </if>
+	      <if test="videoType != null">
+	        #{videoType},
+	      </if>
+	      <if test="streamType != null">
+	        #{streamType},
+	      </if>
+	      <if test="videoId != null">
+	        #{videoId},
+	      </if>
+	    </trim>
+	</insert>	
+	
+	
+		<!--修改视频流地址列表 -->
+	<update id="UpdateAddress"  parameterType="cn.dibcbks.entity.VideoAddress">
+		update video_address
+	    <set>
+		  <if test="unitId != null">
+	       	unit_id =  #{unitId},
+	      </if>
+	      <if test="videoAddress != null">
+	        video_address = #{videoAddress},
+	      </if>
+	      <if test="cameraPosition != null">
+	        camera_position = #{cameraPosition},
+	      </if>
+	      <if test="videoType != null">
+	        video_type = #{videoType},
+	      </if>
+	      <if test="streamType != null">
+	        stream_type = #{streamType},
+	      </if>
+	      <if test="videoId != null">
+	        video_id = #{videoId},
+	      </if>
+	    </set>
+	    where video_id = #{videoId}
+	</update>
+	
+	<!--删除视频流地址列表 -->
+	<delete id="DeleteAddressById" parameterType="java.lang.Integer">
+		DELETE FROM video_address where video_id = #{videId};
+	</delete>
+			
 </mapper>
 	
 	
