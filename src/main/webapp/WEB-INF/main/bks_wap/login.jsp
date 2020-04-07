@@ -12,8 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zlogin.css"/>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-
-	
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layCommon.js"></script>
 </head>
 <body class="bg_body container">
 		<div class="container">
@@ -32,8 +31,10 @@
 								</div>
 								<div class="tabb">
 									<div class="tab_type cur">
-										<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;"><span>登录后应用将获得以下权限</span></div>
-										<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
+										<div class="text-center">
+											<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;"><span>登录后应用将获得以下权限</span></div>
+											<div style="padding: 10px 0 0 40px;"><span>获取你的公开信息（呢称、头像等）</span></div>
+										</div>	
 										<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;    background-color: #15bb17;
 	    border-color: #a9e895;">微信一键登陆</button></div>
 	    							</div>
@@ -72,12 +73,17 @@
 			</div>	
 			
 		</div>
-		<div id="roles" style="display: none;">
+		<div id="roles" style="display: block;">
+			<ul class="list-unstyled">
+				<li class="text-center"><a href="javascript:void(0);" id="public_bind">我是大众</a></li>
+				<li class="text-center"><a href="javascript:void(0);" id="unit_bind">我是主体人员</a></li>
+				<li class="text-center"><a href="javascript:void(0);" id="supervise_bind">我是监管人员</a></li>
+			</ul>
+		</div>
+		<div class="model_step2" style="">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/wap_bind_public">我是大众</a></li>
-				<li><a href="javascript:void(0);" id="public_bind">我是大众</a></li>
-				<li><a href="javascript:void(0);" id="unit_bind">我是主体人员</a></li>
-				<li><a href="javascript:void(0);" id="supervise_bind">我是监管人员</a></li>
+				<li><a>绑定主体</a></li>
+				<li><a>创建主体</a></li>
 			</ul>
 		</div>
 		<script type="text/javascript">
@@ -184,7 +190,8 @@
 		$("#unit_bind").click(function(){			
 			layer.open({ 
 				type: 1, 
-				content: '<ul><li><a>绑定主体</a></li><li><a>创建主体</a></li></ul>' 
+				content: $(".model_step2"),
+				
 			});
 			
 		})
@@ -195,14 +202,13 @@
 		
 		//第一次进入系统 用户绑定角色
 		$(function(){
-			var type = '${isbind}';			
-			if(type == 1){
-				layer.open({
-			    	  title: ['请选择用户类型', 'font-size:18px;'],
-			    	  type: 1,
-			    	  content: $('#roles')
-			    	});
-			}				
+			openModel({
+				title:false,
+				type:1,
+				content:$('#roles'),
+				closeBtn:0,
+			})
+			
 		});
 		</script>		
 </body>
