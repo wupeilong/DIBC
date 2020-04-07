@@ -23,7 +23,7 @@ public interface IUserService {
 	ResponseResult<Void> registeradd(String uuid,String idCard, String username, String password, String phone, String duty, Integer age,
 			String unitName, String legalPerson, String businessLicenseCode, String businessLicense, String productionLicense, String unitAddress, String expirationDate, Integer unitType);
 
-	ResponseResult<Void> login(String idCard, String password);
+	ResponseResult<User> login(String idCard, String password);
 
 	ResponseResult<Void> updateUser(User user);	
 

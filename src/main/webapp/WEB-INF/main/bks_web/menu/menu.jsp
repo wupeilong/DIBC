@@ -10,7 +10,7 @@
  	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/Hui-iconfont/1.0.8/iconfont.css" />
  	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-	
+	<script src="${pageContext.request.contextPath}/static/js/bks_web/web_menu.js"></script>
 </head>
 
 <body>
@@ -81,12 +81,16 @@
 	</label>
 	<label>
 		<span>菜单类型：</span>
-		<input id="ditismenus" type="text" value="" name="address" >
-		<div class="error-msg"></div>
+		<select id="ditismenus" >
+			<option value="0">请选择......</option>
+			<option value="1">目录</option>
+			<option value="2">菜单</option>
+			<option value="3">按钮</option>
+		</select>
 	</label>	
 </form>
 </div>
-<script src="${pageContext.request.contextPath}/static/js/bks_web/web_menu.js"></script>
+
 </body>
 </html>
 

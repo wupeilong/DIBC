@@ -12,60 +12,72 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
+	<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/> --%>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>	
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+	<style type="text/css">
+.searchable-select{
+	width: 80%;
+    float: right;  
+    margin: -30px 15px 0 0;  
+}
+.navxg{
+	padding:0;
+}
+	</style>	
 </head>
-	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
-				<div class="">
-					<div class="">
-						<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->
-						
-						<c:if test="${user.type == 1}">
+	<body class="" style="background-color: #f7f7f7;">
+		<div class="navigation bg-primary navxg" style="background: #2089b1;">
+			<div class="">
+				<a href="javascript:history.go(-1)" class="text-white video_fh"><!-- <i class="fa fa-angle-left"></i> --></a>				
+					<div class="" style="width: 100%;">						
+						<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->						
+						<c:if test="${user.type == 1}">  
 							<select id="unit_list">
 								<option value="">查询所有企业信息</option>
 								<c:forEach items="${unitList}" var="item">								
 									<option value="${item.unitId}">${item.unitName}</option>
 								</c:forEach>
 							</select>
-						</c:if>					
-				
+						</c:if>			
+					</div><br>			
+					<div class=""style="width: 100%;">
+						<ul id="menu">
+						  <li class="active" ><a href="" >全部</a></li><li ><a href="">未验收</a></li><li ><a href="">已验收</a></li><li>
+						</ul>
 					</div>
-				</div>
 				<c:if test="${user.type == 2 }">
 					<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
 				</c:if>				
 			</div>
 		</div>
-		<main class="main margin-top2 padding-side05">
-			<div class="">
-				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th>采购商</th><th width="60">状态</th><th width="100px">采购日期</th><th width="50px">操作</th></tr>
-					</thead>
-					<tbody id="result_list">
-						<c:forEach items="${procurementList}" var="item">
-							<tr><td>${item.unitName}</td>
-							<c:if test="${item.status == 0}">
-								<td>未验收</td>
-							</c:if>
-							<c:if test="${item.status == 1}">
-								<td>已验收</td>
-							</c:if>
-							<td><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></td>
-							<td><a href="${pageContext.request.contextPath}/wap_pro/buy_detal?id=${item.id}">详情</a></td>
-							</tr>
-						</c:forEach>						
-					</tbody>
-				</table>
-			</div>
+		
+		<main class="main margin-top2 padding-side05" style="padding-top: 78.4px;" id="result_list">
+			<c:forEach items="${procurementList}" var="item">
+				<div class="buy_list">
+					<div class="buy_top"><p>订单号：
+						<span class="buy_top_span">${item.id}</span>
+						<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id=${item.id}">详情</a>
+						<c:if test="${item.status == 0}">
+							<span class="buy_top_span1">未验收</span>	
+						</c:if>
+						<c:if test="${item.status == 1}">
+							<span class="buy_top_span1">已验收</span>
+						</c:if>											
+						</p>
+					</div>
+					<div class="buy_top1"><p>${item.unitName}									
+						<span class="buy_top1_span"><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></span>					
+						</p>
+					</div>				
+				</div>
+			</c:forEach>		
 		</main>	
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
-	<script type="text/javascript">
+	<script type="text/javascript">	
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
 			var url = "${pageContext.request.contextPath}/wap_pro/list";
@@ -82,17 +94,18 @@
 					}else{
 						var result = "";
 						for(var i=0;i<obj.data.length;i++){
-							result += "<tr>";
-							result += "<td>" + obj.data[i].unitName + "</td>";
-							if(obj.data[i].status == 0){
-								result += "<td>未验收</td>";
-							}
-							if(obj.data[i].status == 1){
-								result += "<td>已验收</td>";
-							}	
-							result += "<td>" + format(obj.data[i].purchasingTime, "yyyy-MM-dd") + "</td>";
-							result += "<td><a href='${pageContext.request.contextPath}/wap_pro/buy_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-							result += "</tr>";
+							result += '<div class="buy_list">'+
+									  '<div class="buy_top"><p>订单号:'+
+									'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+									'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+									if(obj.data[i].status == 0){
+										result += '<span class="buy_top_span1">未验收</span>';
+									}
+									if(obj.data[i].status == 1){
+										result += '<span class="buy_top_span1">已验收</span>';
+									}																		
+									result += '</p></div><div class="buy_top1"><p>'+obj.data[i].unitName+'<span class="buy_top1_span">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+											  '</p></div></div>';							
 						}
 						$("#result_list").html(result);							
 					}		
