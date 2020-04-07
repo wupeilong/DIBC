@@ -24,7 +24,7 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 		 * 根据企业id查询视频流地址
 		 */
 		List<VideoAddress> list = videoAddressMapper.SelectVideoAddressById(id);
-		System.out.println("http://localhost:8080/DIBC_BKS/wap_video/wap_videodetal:" + list);
+		System.out.println("http://localhost:8080/DIBC_BKS/wap_video/wap_videodetal:"+id + list);
 		try {
 			map.addAttribute("videoAddressList", list);
 		} catch (Exception e) {

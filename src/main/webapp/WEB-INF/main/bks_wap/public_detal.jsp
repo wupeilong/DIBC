@@ -83,28 +83,28 @@
 				<ul class="coinfoLis list-unstyled">
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="${pageContext.request.contextPath}/workmens.jsp" class=""> <img src="img/icon2.png">
+							<a href="${pageContext.request.contextPath}/workmens.jsp" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png">
 								<p>从业人员</p>
 							</a>
 						</div>
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="workmens.html" class=""> <img src="img/icon6.png">
+							<a href="workmens.html" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png">
 								<p>清洗消毒</p>
 							</a>
 						</div>
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="workmens.html" class=""> <img src="img/icon8.png">
+							<a href="workmens.html" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png">
 								<p>监管检查</p>
 							</a>
 						</div>
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitid=${unitDetail.unitId}" class=""> <img src="img/icon9.png">
+							<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=${unitDetail.unitId}" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png">
 								<p>实时监控</p>
 							</a>
 						</div>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sun.jndi.cosnaming.IiopUrl.Address;
 
@@ -59,6 +60,7 @@ public class WapVideoAddressController {
 	 * @return
 	 */
 	@RequestMapping("/wap_videosave")
+	@ResponseBody
 	public ResponseResult<?> VideoAdressSave( VideoAddress videoAddress){
 		
 		return iVideoAddressService.VideoAdressSave(videoAddress);
@@ -71,6 +73,7 @@ public class WapVideoAddressController {
 	 * @return
 	 */
 	@RequestMapping("/wap_videodelete")
+	@ResponseBody
 	public ResponseResult<?> DeleteVideoAddress(Integer videoId){
 		return iVideoAddressService.DeleteVideoAddress(videoId);
 	}
