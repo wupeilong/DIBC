@@ -1,6 +1,6 @@
 var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     layui.config({
-        base: 'static/layui/extend/'
+        base: '../static/js/layui/extend/'
     }).extend({
         treeGrid:'treeGrid'
     }).use(['jquery','treeGrid','layer'], function(){

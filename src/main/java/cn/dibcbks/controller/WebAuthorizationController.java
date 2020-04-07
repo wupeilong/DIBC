@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONObject;
 
 @Api(value="WebAuthorizationController",tags="权限控制器")
 @Controller
@@ -58,12 +59,27 @@ public class WebAuthorizationController {
 		return IAuthorizationService.updateMenu(menu);
 	}
 	
+	
+	
+	//周修改
 	@ApiOperation(value = "菜单列表页", notes = "菜单列表页")
 	@GetMapping("/menu_list_pag")
-	public String selectMenuListPag(ModelMap modelMap) {
-		
-		return IAuthorizationService.selectMenuListPag(modelMap);
+	public String selectMenuListPag(ModelMap modelMap) {		
+		return "bks_web/menu/menu";
 	}
+	@RequestMapping("/getMenu")
+    @ResponseBody
+    public JSONObject getMenu(ModelMap modelMap){				
+        return IAuthorizationService.selectMenuListPag(modelMap);
+    }
+	@RequestMapping("/menu_authority")	
+	public String showMenuAuthoritylogin(ModelMap map){				
+			return IAuthorizationService.selectMenuAuthority(map);		 
+	}
+	//周结束
+	
+	
+	
 	
 	@ApiOperation(value = "子菜单列表", notes = "子菜单列表")
 	@ApiImplicitParam(name="menuId",value="父级菜单ID")

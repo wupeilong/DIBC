@@ -86,7 +86,7 @@
 	</label>	
 </form>
 </div>
-<script src="${pageContext.request.contextPath}/static/js/web_menu.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/bks_web/web_menu.js"></script>
 </body>
 </html>
 
