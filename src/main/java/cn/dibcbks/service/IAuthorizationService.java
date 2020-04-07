@@ -8,6 +8,7 @@ import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Menu;
 import cn.dibcbks.entity.Role;
 import cn.dibcbks.util.ResponseResult;
+import net.sf.json.JSONObject;
 public interface IAuthorizationService {
 	
 	/**
@@ -43,7 +44,13 @@ public interface IAuthorizationService {
 	 * @param modelMap
 	 * @return
 	 */
-	String selectMenuListPag(ModelMap modelMap);
+	JSONObject selectMenuListPag(ModelMap modelMap);
+	/**
+	 * 权限列表页
+	 * @param modelMap
+	 * @return
+	 */
+	String selectMenuAuthority(ModelMap modelMap);
 	
 	/**
 	 * 子菜单列表

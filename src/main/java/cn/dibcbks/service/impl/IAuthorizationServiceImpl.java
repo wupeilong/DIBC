@@ -17,6 +17,8 @@ import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.service.IAuthorizationService;
 import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.ResponseResult;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Service
 public class IAuthorizationServiceImpl implements IAuthorizationService {
@@ -81,20 +83,40 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	}
 	
 	@Override
-	public String selectMenuListPag(ModelMap modelMap) {
+	public JSONObject selectMenuListPag(ModelMap modelMap) {
+		//try {
+//			List<Menu> menuList = menuMapper.select(null, null, null, null);			
+//			List<Menu> menus = new ArrayList<Menu>();
+//			sort(-1, menuList, menus);			
+//			
+//			modelMap.addAttribute("menuList", menus);
+		//} catch (Exception e) {
+			//e.printStackTrace();
+		//}
+			List<Menu> menulist=menuMapper.select(null, null, null, null);				
+			JSONArray json = JSONArray.fromObject(menulist);
+			JSONObject lan1 = new JSONObject();
+	        lan1.put("code", 0);
+	        lan1.put("msg", "");
+	        lan1.put("count",menulist.size());
+	        lan1.put("data",json);
+			return lan1;
+		//return "bks_web/menu/menu";
+	}		
+	
+	@Override
+	public String selectMenuAuthority(ModelMap modelMap) {
 		try {
 			List<Menu> menuList = menuMapper.select(null, null, null, null);			
 			List<Menu> menus = new ArrayList<Menu>();
-			sort(-1, menuList, menus);			
-			
-			modelMap.addAttribute("menuList", menus);
+			sort(-1, menuList, menus);				
+			modelMap.addAttribute("list", menus);
+			System.out.println("menus:"+menus);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		return "bks_web/web_menu";
-	}		
-	
-	
+		}			
+		return "bks_web/menu/menu_authority";
+	}
 	@Override
 	public ResponseResult<List<Menu>> selectMenuList(Integer menuId) {
 		ResponseResult<List<Menu>> rr = null;
