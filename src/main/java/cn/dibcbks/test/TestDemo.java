@@ -22,22 +22,26 @@ public class TestDemo {
 	private VideoAddressMapper addressMapper;
 	
 	@Autowired
-	private  WapVideoAddressController ss;
+	private  WapVideoAddressController sdf;
 	
 
 	@Test
 	public void test(){
 		
+		VideoAddress ss = addressMapper.SelectAddressByVideoId(6);
+		
+		System.out.println(ss);
+		
 		VideoAddress address =new VideoAddress();
-		address.setCameraPosition("卧室");
-		address.setStreamType("http");
-		address.setUnitId(10);
+		address.setCameraPosition("一个大卧室");
+		address.setStreamType("sss");
+		address.setUnitId(12);
 		address.setVideoAddress("http://wx19.sdvideo.cn:9999/3HKCA33014CUQPC_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810");
-		address.setVideoId(5);
+		address.setVideoId(7);
 		
 		
-		ResponseResult<?> GG = ss.VideoAdressSave(address);
-		System.out.println(GG);
+		ResponseResult<?> GG =sdf.DeleteVideoAddress(8);
+		System.out.println(GG.getMessage());
 		
 	
 		

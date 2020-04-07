@@ -11,8 +11,8 @@
 	    <result column="stream_type" property="streamType" />
 	    <result column="video_id" property="videoId" />	
 	</resultMap>
-	<!--查询视频流地址列表 -->
-	<select id="SelectVideoAddressById" resultMap="BaseResultMap"> 
+	<!--根据企业id查询视频流地址列表 -->
+	<select id="SelectVideoAddressById" resultMap="BaseResultMap" parameterType="java.lang.Integer"> 
 		SELECT
 			v.unit_id,
 			n.unit_name,
@@ -28,21 +28,22 @@
 			v.unit_id=#{id}
 	</select>
 	
-	<delete id="SelectAddressById" parameterType="java.lang.Integer">
+	<!--根据videoid查询视频流地址  -->
+	
+	<select id="SelectAddressByVideoId" resultMap="BaseResultMap" resultType="cn.dibcbks.entity.VideoAddress" parameterType="java.lang.Integer"> 
 		SELECT
-			v.unit_id,
-			n.unit_name,
-			v.video_address,
-			v.camera_position,
-			v.video_type,
-			v.stream_type,
-			v.video_id
+			unit_id,
+			video_address,
+			camera_position,
+			video_type,
+			stream_type,
+			video_id
 		FROM
-			video_address v 
-		LEFT JOIN unit n ON n.unit_id = v.unit_id
+			video_address
 		WHERE 
-			v.unit_id=#{videoId}
-	</delete>
+			video_id=#{videoId}
+	</select>
+	
 	
 	<!--添加视频流地址列表 -->
 	<insert id="InsertAddress" parameterType="cn.dibcbks.entity.VideoAddress" useGeneratedKeys="true" keyProperty="videoId">
@@ -116,7 +117,7 @@
 	    where video_id = #{videoId}
 	</update>
 	
-	<!--删除视频流地址列表 -->
+	<!--根据videoid删除视频流地址列表 -->
 	<delete id="DeleteAddressById" parameterType="java.lang.Integer">
 		DELETE FROM video_address where video_id = #{videId};
 	</delete>

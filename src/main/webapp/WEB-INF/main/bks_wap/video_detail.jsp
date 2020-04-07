@@ -25,7 +25,7 @@
 		<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
 			<div class="video_div" style="display: inline-block;">
 				<c:if test="${vs.index==0}">
-					<h4 style="font-size: 20px;font-weight: 600;padding: 25px 0 0 0;">贵州指上通科技有限责任公司</h4>
+					<h4 style="font-size: 20px;font-weight: 600;padding: 25px 0 0 0; text-align: center" >${item.unitName}</h4>
 				</c:if>
 				<p>位置：<span>${item.cameraPosition}</span></p>
 			    <video id="my-video${item.videoId}" class="video-js" controls preload="auto" width="340" height="200" poster="m.jpg" data-setup="{}">      	

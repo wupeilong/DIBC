@@ -36,38 +36,11 @@
 						</select>
 					</div>
 				</div>
-				<!-- <a href="http://192.168.1.106:8848/wap_MCLZ/check_add.html" class="btn bg-primary"><i class="fa fa-plus"></i></a> -->
 			</div>
 		</div>
 		<main class="main margin-top2 padding-side05">
 			<div class="" id="tt">
-				<c:forEach items="${unitList}" var="item" varStatus="vs">
-					<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=${item.unitId}">
-					<div class="video_bg">
-						<span>${item.unitName}</span>
-						<img alt="" src="${pageContext.request.contextPath}/images/bks_wap/video_1.png">
-					</div>
-					</a>
-							<%-- <tr>
-								 <td>${vs.count}</td> 
-								<td>${item.unitName}</td>
-								<td>${item.legalPerson}</td>
-								<td><a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=${item.unitId}">监控视频查看</a></td></tr> --%>
-				</c:forEach>	
-				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th>序号</th><th>企业名称</th><th>企业法人</th><th>操作</th></tr>
-					</thead>
-					<tbody id="result_list">
-						<c:forEach items="${unitList}" var="item" varStatus="vs">
-							<tr>
-								 <td>${vs.count}</td> 
-								<td>${item.unitName}</td>
-								<td>${item.legalPerson}</td>
-								<td><a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=${item.unitId}">监控视频查看</a></td></tr>
-						</c:forEach>						
-					</tbody>
-				</table> 
+				
 			</div>
 		</main>
 	<c:import url="public/footer.jsp"></c:import>
@@ -77,7 +50,6 @@
 		"afterSelectItem":function(){
 			var url = "${pageContext.request.contextPath}/wap_unit/list";
 			var data = "unitId=" + $("#unit_list").val();
-			console.log($("#unit_list").val()+"luomeng");
 			$.ajax({
 				"url" : url,
 				"data" : data,
@@ -90,7 +62,7 @@
 					}else{
 						var result = "";
 						for(var i=0;i<obj.data.length;i++){
-							result+='<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitid='+obj.data[i].unitId+'">'+
+							result+='<a href="${pageContext.request.contextPath}/wap_video/wap_showaddresslist?unitId='+obj.data[i].unitId+'">'+
 									'<div class="video_bg"><span>'+obj.data[i].unitName+'</span><img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/video_1.png"></div></a>';
 						}
 						$("#tt").html(result);
@@ -101,39 +73,5 @@
 			}); 
 		}
 	});
-	/* $('select').searchableSelect({
-		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/wap_unit/list";
-			var data = "unitId=" + $("#unit_list").val();
-			console.log($("#unit_list").val()+"luomeng");
-			$.ajax({
-				"url" : url,
-				"data" : data,
-				"type" : "POST",
-				"dataType" : "json",
-				"success" : function(obj) {
-					if (obj.state == 0) {
-						layer.msg(obj.message,{icon:2,time:1000});
-						return;
-					}else{
-						var result = "";
-						for(var i=0;i<obj.data.length;i++){
-							result += "<tr>";
-							result += "<td>" + (i+1) + "</td>";
-							result += "<td>" + obj.data[i].unitName + "</td>";
-							result += "<td>" + obj.data[i].legalPerson + "</td>";
-							result += "<td><a href='${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=" + obj.data[i].unitId + "'>监控视频查看</a></td>";
-							result += "</tr>";
-						}
-						$("#result_list").html(result);
-						console.log(obj.data);
-						
-					}				
-				}
-			}); 
-		}
-	});
-	 */
-	
 	</script>
 </html>
