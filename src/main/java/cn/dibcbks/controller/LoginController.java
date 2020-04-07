@@ -246,7 +246,7 @@ public class LoginController {
 			@RequestParam("unitName") String unitName,			
 			@RequestParam("businessLicenseCode") String businessLicenseCode,
 			@RequestParam("businessLicense")MultipartFile file,
-			@RequestParam("productionLicense")MultipartFile file1,			
+			@RequestParam("productionLicense")MultipartFile file1,		
 			@RequestParam("unitType") Integer unitType,
 			HttpServletRequest request,
 			ModelMap modelMap) {

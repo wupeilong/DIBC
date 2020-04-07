@@ -86,14 +86,12 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 			List<Menu> menuList = menuMapper.select(null, null, null, null);			
 			List<Menu> menus = new ArrayList<Menu>();
 			sort(-1, menuList, menus);			
-			for(Menu menu : menus){
-				System.out.println(menu);
-			}
+			
 			modelMap.addAttribute("menuList", menus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "bks_web/menu_list";
+		return "bks_web/web_menu";
 	}		
 	
 	
