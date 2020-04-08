@@ -37,7 +37,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 	//每次验证权限执行
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {		
-		String[] ids = CommonUtil.getSessionUser().getAuthorization().split(";");			
+		String[] ids = CommonUtil.getSessionUser().getAuthorization().split(";");
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		if(ids.length > 0){
 			for(int i=0;i<ids.length;i++){

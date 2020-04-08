@@ -36,8 +36,6 @@ public class LoginController {
 	private ILoginService iLoginService;
 	@Autowired
 	private IWxService iWxService;
-	@Autowired
-	private WapUnitController WapUnitController;
 	
 	/**
 	 * H5进入登录页
@@ -190,15 +188,8 @@ public class LoginController {
 	   return iWxService.wxOauth2Redirect(code,request,modelMap);
 	}
 	
-	/**
-	 * 角色绑定
-	 * @return
-	 */
-	@RequestMapping("/wap_bingding_role")
-	public String bingding_role(){	
-		
-		return "bks_wap/roles_choose";
-	}
+	
+	
 	
 	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
 	@PostMapping("/wap_bind_public")
@@ -234,7 +225,7 @@ public class LoginController {
 	
 	
 	
-	@ApiOperation(value = "绑定用户类型:主体人员", notes = "绑定用户类型:主体人员")
+	/*@ApiOperation(value = "绑定用户类型:主体人员", notes = "绑定用户类型:主体人员")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="businessLicenseCode",value="社会统一信用代码",dataType="String",example="91520103MA6J8XTN8E",required=true,paramType="query"),
 		@ApiImplicitParam(name="roleId",value="角色ID",dataType="Integer",example="110",required=false,paramType="query")
@@ -275,15 +266,15 @@ public class LoginController {
 			ModelMap modelMap) {
 
 	   return iWxService.createBindUnit(unitName,businessLicenseCode,file,file1,unitType,request,modelMap);
-	}
+	}*/
 	
 	
-	@ApiOperation(value = "绑定用户类型:监管人员", notes = "绑定用户类型:监管人员")
-	@GetMapping("/wap_bind_supervise")
+	@ApiOperation(value = "绑定用户类型:监管人员/主体人员", notes = "绑定用户类型:监管人员/主体人员")
+	@PostMapping("/wap_bind_supervise")
 	@ResponseBody
-	public ResponseResult<Void> bindSupervise(String phone, String password,HttpServletRequest request,ModelMap modelMap) {
+	public ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request,ModelMap modelMap) {
 
-	   return iWxService.bindSupervise(phone,password,request,modelMap);
+	   return iWxService.bindSupervise(phone,password,type,request,modelMap);
 	}
 	
 	

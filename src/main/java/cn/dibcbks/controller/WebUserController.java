@@ -5,8 +5,13 @@ package cn.dibcbks.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import cn.dibcbks.service.IUserService;
+import cn.dibcbks.util.ResponseResult;
 import io.swagger.annotations.ApiOperation;
 
 
@@ -24,9 +29,17 @@ public class WebUserController {
 	private IUserService iUserService;
 	
 	@ApiOperation("用户信息页")
-	@RequestMapping("/user_list")
+	@GetMapping("/user_list")
 	public String userList(ModelMap modelMap){
 		
 		return iUserService.selectUserList(modelMap);
+	}
+	
+	@ApiOperation("用户绑定部门")
+	@PostMapping("/bind_department")
+	@ResponseBody
+	public ResponseResult<Void> userBindDepartment(Integer userId,Integer departmentId){
+		
+		return iUserService.userBindDepartment(userId,departmentId);
 	}
 }

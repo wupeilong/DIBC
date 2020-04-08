@@ -234,19 +234,26 @@ public class IUserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public String workmens(ModelMap modelMap) {
-		Session session = SecurityUtils.getSubject().getSession();
-		User user = (User)session.getAttribute("user");
-		List<User> userList = new ArrayList<>();
-		if(user.getType().equals(1)){//市场监管局账户
-			List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
-			modelMap.addAttribute("unitList", unitList);
-			userList = userMapper.select(null, " u.create_time DESC", null, null);
-		}else {//企业用户
-			userList = userMapper.select(" u.unit_id = '" + user.getUnitId() + "'", " u.create_time DESC", null, null);
+	public String workmens(Integer unitId, ModelMap modelMap) {
+		try {
+			List<User> userList = new ArrayList<>();
+			User user = CommonUtil.getSessionUser();
+			if(user.getType().equals(1)){//市监管
+				List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
+				modelMap.addAttribute("unitList", unitList);
+				userList = userMapper.select(null, " u.create_time DESC", null, null);
+			}else if(user.getType().equals(2)){//主体
+				userList = userMapper.select(" u.unit_id = '" + user.getUnitId() + "'", " u.create_time DESC", null, null);
+			}else{//大众
+				userList = userMapper.select(" u.unit_id = '" + unitId + "'", " u.create_time DESC", null, null);
+			}
+			modelMap.addAttribute("userList", userList);		
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "进入从业人员信息页面成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(Constants.ERROR_HEAD_INFO + "进入从业人员信息页面失败！");
 		}
-		modelMap.addAttribute("userList", userList);		
-		logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入从业人员信息页面成功！");
+		
 		return "bks_wap/workmens";
 	}
 
@@ -530,4 +537,20 @@ public class IUserServiceImpl implements IUserService {
 		return "bks_web/user/user";
 	}
 
+	@Override
+	public ResponseResult<Void> userBindDepartment(Integer userId, Integer departmentId) {
+		ResponseResult<Void> rr = null;
+		try {
+			User update = new User();
+			update.setId(userId);
+			update.setDepartmentId(departmentId);
+			userMapper.updateById(update);
+			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}
+		return rr;
+	}
+		
 }
