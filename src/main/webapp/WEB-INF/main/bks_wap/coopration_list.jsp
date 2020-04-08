@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 
 </head>
 	<body class="contain o-page p-about">
@@ -71,7 +72,8 @@
 							search : true,
 							data :e.data,
 							eSelect : function(data){
-								if(data && data.length > 0){								
+								if(data && data.length > 0){
+									console.log(data[0].unitId);
 								selectunit(data[0].unitId)
 								}
 							}
@@ -83,7 +85,7 @@
 	});	
 	function selectunit(unitId) {
 		var url = "${pageContext.request.contextPath}/wap_unit/list";
-		var data = "unitId=" +unitId;
+		var data = "unitId=" +unitId+"&unitName=";
 		$.ajax({
 			"url" : url,
 			"data" : data,
@@ -94,6 +96,7 @@
 					layer.msg(obj.message,{icon:2,time:1000});
 					return;
 				}else{
+					console.log(obj.data);
 					var result = "";
 					for(var i=0;i<obj.data.length;i++){
 						result += "<tr>";

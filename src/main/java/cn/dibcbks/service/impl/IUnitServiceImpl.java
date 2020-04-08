@@ -110,7 +110,7 @@ public class IUnitServiceImpl implements IUnitService {
 			String where = null;
 			boolean addAnd = false;
 			if(unitId != null){
-				where += " n.unit_id = '" + unitId + "'";
+				where = " n.unit_id = '" + unitId + "'";
 				addAnd = true;
 			}
 			if(StringUtils.isNotEmpty(unitName)){
@@ -120,9 +120,9 @@ public class IUnitServiceImpl implements IUnitService {
 					where = " n.unit_name = '" + unitName + "'";
 				}				
  			}
-			if (CommonUtil.getSessionUser().getType() != 1 && StringUtils.isEmpty(where)) {
+			/*if (CommonUtil.getSessionUser().getType() != 1 && StringUtils.isEmpty(where)) {
 				where = " n.unit_type BETWEEN 2 AND 4 ";
-			}
+			}*/
 			List<Unit> unitList = unitMapper.select(where, null, null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功",unitList);
 		} catch (Exception e) {

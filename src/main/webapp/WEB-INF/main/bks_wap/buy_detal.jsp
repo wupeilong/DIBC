@@ -11,21 +11,32 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>	
 </head>
-	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+	<body class="contain o-page p-about">
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+				</div>
 			</div>
-		</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>					
+		</div>   
 		<main class="main margin-top2 padding-side05">
 			<div class="">
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">供&ensp;应&ensp;商</span>
-				  <div class="form-control box-shadow0 border0">${procurementDetail.supplier }</div>
+				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.supplier }</div>
 				</div>
 				<!-- <div class="input-group form-group fs border-bottom"> -->
 				  <!-- <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">供应商营业执照</span> -->
@@ -58,27 +69,27 @@
 					</div>
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">联&ensp;系&ensp;人</span>
-				  <div class="form-control box-shadow0 border0">${procurementDetail.supplierPerson }</div>
+				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.supplierPerson }</div>
 				</div>
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">联系电话</span>
-				  <div class="form-control box-shadow0 border0">${procurementDetail.supplierPhone }</div>
+				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.supplierPhone }</div>
 				</div>
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">订&ensp;单&ensp;号</span>
-				  <div class="form-control box-shadow0 border0">${procurementDetail.id }</div>
+				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.id }</div>
 				</div>
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">采购公司</span>
-				  <div class="form-control box-shadow0 border0">${procurementDetail.unitName }</div>
+				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.unitName }</div>
 				</div>
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">采&ensp;购&ensp;人</span>
-				  <div class="form-control box-shadow0 border0">${procurementDetail.username }</div>
+				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.username }</div>
 				</div>
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">验&ensp;收&ensp;人</span>
-				  <div class="form-control box-shadow0 border0">${procurementDetail.acceptanceUsername }</div>
+				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.acceptanceUsername }</div>
 				</div>
 				<div class="">
 					<table class="table table-striped table-bordered table-hover" cellspacing="" cellpadding="">

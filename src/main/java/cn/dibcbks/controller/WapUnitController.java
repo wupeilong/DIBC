@@ -84,8 +84,9 @@ public class WapUnitController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public ResponseResult<List<Unit>> queryUnitList(Integer unitId,String unitName){
-		
-		return iUnitService.queryUnitList(unitId,unitName);
+		System.out.println(unitName);
+		System.out.println(unitId);
+		return iUnitService.queryUnitList(unitId,null);
 	}
 	
 	//dfssssssssssfsddddddddddddd
