@@ -187,7 +187,7 @@ public class WebAuthorizationController {
 	
 	@ApiOperation(value = "部门删除", notes = "部门删除")
 	@ApiImplicitParam(name="departmentId",value="部门Id")
-	@GetMapping("/dep_delete")
+	@PostMapping("/dep_delete")
 	@ResponseBody
 	public ResponseResult<Void> deteleDepartment(Integer departmentId) {
 		

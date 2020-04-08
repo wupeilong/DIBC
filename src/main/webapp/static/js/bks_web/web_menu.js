@@ -73,30 +73,25 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
             }
             ,onDblClickRow:function (index, o) {
                 console.log(index,o,"双击");
-                msg("双击！,按F12，在控制台查看详细参数！");
+                //msg("双击！,按F12，在控制台查看详细参数！");
             }
             ,onCheck:function (obj,checked,isAll) {//复选事件
                 console.log(obj,checked,isAll,"复选");
-                msg("复选,按F12，在控制台查看详细参数！");
+                //msg("复选,按F12，在控制台查看详细参数！");
             }
             ,onRadio:function (obj) {//单选事件
                 console.log(obj,"单选");
-                msg("单选,按F12，在控制台查看详细参数！");
+               // msg("单选,按F12，在控制台查看详细参数！");
             } 
         });        
     });
     function addmain() {  
     	var jsonObj = {};     	
     	layer.prompt({title: '请输入主菜单的名称'}, function(pass, index){
-    		var time = new Date();
-    		jsonObj = { "menuId": null,"menuName": pass,"menuUrl": null,"menuIcon": null,"authority": null,"isMenu":null,"parentId": -1};
-    		var adminMenu = JSON.stringify(jsonObj);
     		$.ajax({
-    			//"url" : "${pageContext.request.contextPath}/web_auth/menu_add",
     			"url" : "menu_add",
     			"data" : "menuName=" + pass,
     			"type" : "POST",
-    			//"contentType" : "application/json",
     			"dataType" : "json",
     			"success" : function(obj) {
     				if (obj.state == 0) {
@@ -157,19 +152,13 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  title: false, //不显示标题
     		  content: $('#layer_edit'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响   
     		  btn: ['提交'],
-    		  yes: function(index, layero){    			
-    			  //jsonObj = { "menuId": menuId, "menuName": $("#ditmenuName").val(), "menuUrl": $("#ditmenuUrl").val(), "menuIcon": null,      		  
-   	      		  //    	"authority": $("#ditauthority").val(), "isMenu": menus, "parentId": parentId };
-    			  //var adminMenu = JSON.stringify(jsonObj);  
+    		  yes: function(index, layero){  
     			  var data = "menuId=" + menuId + "&menuName=" + $("#ditmenuName").val() + "&menuUrl=" + $("#ditmenuUrl").val()
     			  		   + "&authority=" + $("#ditauthority").val() + "&isMenu=" + $("#ditismenus").val() + "&parentId=" + parentId;
-    			  alert(data)
     			 $.ajax({
     	    			"url" : "menu_update",
-    	    			//"data" : adminMenu,
     	    			"data" : data,
     	    			"type" : "POST",
-    	    			//contentType:"application/json",
     	    			"dataType" : "json",
     	    			"success" : function(obj) {
     	    				if (obj.state == 0) {
@@ -186,8 +175,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     }
     
     function add(name,menuId,menus) {
-    	$("#parentname").val(name);
-    	//$("#ismenus").val(ismenus);    	
+    	$("#parentname").val(name);  	
     	layer.open({
     		  type: 1,
     		  shade: false,
@@ -196,26 +184,13 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  btn: ['提交'],
     		  yes: function(index, layero){  
     			  var ismenus=$("#ismenus").val();
-    			  /*jsonObj = {
-    	      			  "menuId": null,
-    	      		      "menuName": $("#menuName").val(),      		      
-    	      		      "menuUrl": $("#menuUrl").val(),
-    	      		      "menuIcon": null,      		  
-    	      		      "authority": $("#authority").val(),      		     
-    	      		      "isMenu": ismenus,
-    	      		      "parentId": menuId
-    	      		    };    			  
-    			  var adminMenu = JSON.stringify(jsonObj);*/
     			  var data = "menuName=" + $("#menuName").val() +"&menuUrl=" + $("#menuUrl").val() 
     			  		   + "&authority=" + $("#authority").val() + "&isMenu=" + ismenus + "&parentId=" + menuId;
-    	      	  alert(data);
     			 $.ajax({
     	    			"url" : "menu_add",
-    	    			//"data" : adminMenu,
     	    			"data" : data,
     	    			"type" : "POST",
     	    			"dataType" : "json",
-    	    			//contentType:"application/json",
     	    			"success" : function(obj) {
     	    				if (obj.state == 0) {
     	    					layer.msg(obj.message,{icon:2,time:1000});
@@ -258,16 +233,16 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     function getCheckData() {
         var checkStatus = treeGrid.checkStatus(tableId)
             ,data = checkStatus.data;
-        layer.alert(JSON.stringify(data));
+        //layer.alert(JSON.stringify(data));
     }
     function radioStatus() {
         var data = treeGrid.radioStatus(tableId)
-        layer.alert(JSON.stringify(data));
+        //layer.alert(JSON.stringify(data));
     }
     function getCheckLength() {
         var checkStatus = treeGrid.checkStatus(tableId)
             ,data = checkStatus.data;
-        layer.msg('选中了：'+ data.length + ' 个');
+        //layer.msg('选中了：'+ data.length + ' 个');
     }
 
     function reload() {

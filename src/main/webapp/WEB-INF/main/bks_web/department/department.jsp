@@ -12,8 +12,8 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/bks_web/web_department.js"></script>
 </head>
-
 <body>
+
 <div class="layui-container">
     <br><br>   
     <div class="layui-btn-group">    	
@@ -74,40 +74,46 @@
 </form>
 <form action="" method="" id="layer_edit" style="display: none;" class="smart-green layui-layer-wrap">
 	<h1>部门信息编辑
-		<span>请输入权限信息.</span>
+		<span>请输入部门信息.</span>
 	</h1>	
 	<label>
 		<span>部门名称：</span>
-		<input id="menuName" type="text" value="" name="menuName" >
+		<input id="editDepartmentName" type="text" value="" name="menuName" >
 		<div class="error-msg"></div>
 	</label>
 	<label>
-		<span>部门负责人：</span>
-		<input id="authority" type="text" value="" name="authority" >
+		<span>部门负责人:</span>
+		<input id="editDepartmentHead" type="text" name="name" class="error" >
+		<div class="error-msg"></div>
+	</label>
+	<label>
+		<span>部门描述：</span>
+		<input id="editDepartmentDescription" type="text" value="" name="authority" >
 		<div class="error-msg"></div>
 	</label>
 	<label>
 		<span>部门类型：</span>
-		<select id="ismenus" >
-			<c:if test="${user.type == 1}">
+		<select id="editDepartmentType" >
 				<option value="0">请选择......</option>
 				<option value="1">市场监管局</option>
 				<option value="2">市场监管分局</option>
 				<option value="3">社区[街道办事处]</option>
 				<option value="4">居委会</option>
 				<option value="5">网格</option>
-			</c:if>
-			<c:if test="${user.type == 2}">
 				<option value="6">主体</option>
-			</c:if>
 		</select>
 	</label>
 	<label>
-		<span>部门授权：</span>
-		<input id="authority" type="text" value="" name="authority" >
-		<div class="error-msg"></div>
+		<span>权限类型：</span>
+		<select id="edit_select" >
+			<option value="0">请选择</option>
+			<c:forEach items="${authorizationList}" var="item">
+				<option value="${item.authorizationId}">${item.authorizationName}</option>
+			</c:forEach>			
+		</select>
 	</label>
 </form>
+
 <form action="" method="" id="edit_auth" style="display: none;" class="smart-green layui-layer-wrap">
 	<h1>权限配置
 		<span>请选择...</span>
@@ -128,7 +134,8 @@
 	</label>	
 </form>
 </div>
-
+<div style="height:80px; width:150px;">
+</div>
 </body>
 </html>
 
