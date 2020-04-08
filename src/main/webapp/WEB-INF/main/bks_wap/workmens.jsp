@@ -45,8 +45,7 @@
 					<thead>
 						<tr><th>序号</th><th>员工姓名</th><th>职务</th><th>年龄</th><th>操作</th></tr>
 					</thead>
-					<tbody id="result_list">
-						
+					<tbody id="result_list">						
 						<c:forEach items="${userList}" var="item" varStatus="vs">
 							<tr><td>${vs.count }</td><td>${item.username }</td><td>${item.duty }</td><td>${item.age }</td><td><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
 						</c:forEach>

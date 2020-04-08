@@ -56,7 +56,12 @@
 				</table>
 			</div>
 		</main>	
-	<c:import url="public/footer.jsp"></c:import>
+	<c:if test="${user.type == 3}">
+		<c:import url="public/public_footer.jsp"></c:import>
+	</c:if>
+	<c:if test="${user.type != 3}">
+		<c:import url="public/footer.jsp"></c:import>
+	</c:if>	
 	</body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">

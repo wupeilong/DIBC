@@ -7,7 +7,7 @@
 <head>
 <meta charset=utf-8>
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<title>采购报送信息列表</title>
+<title>企业详情信息</title>
 <link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
@@ -23,7 +23,8 @@
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_public_home" class="p-link-back"><i class="fa fa-home"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -83,7 +84,7 @@
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="workmens.html" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png">
+							<a href="${pageContext.request.contextPath}/wap_clean/clean_list?unitId=${unitDetail.unitId}" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png">
 								<p>清洗消毒</p>
 							</a>
 						</div>

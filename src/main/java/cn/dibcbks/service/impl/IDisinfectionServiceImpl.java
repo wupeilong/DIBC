@@ -83,12 +83,20 @@ public class IDisinfectionServiceImpl implements IDisinfectionService {
 	
 	
 	@Override
-	public String selectDisinfectionListPag(ModelMap modelMap) {
+	public String selectDisinfectionListPag(Integer unitId, ModelMap modelMap) {
 		if(CommonUtil.getSessionUser().getType() == 1){
 			iUnitService.addUnitListToModelMap(modelMap);			
 		}
+		//检索30天内的清洗消毒记录
+		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time)";
+		if(CommonUtil.getSessionUser().getType() == 2){
+			where += " AND d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
+		}else if(CommonUtil.getSessionUser().getType() == 3){
+			where += " AND d.unit_id = '" + unitId + "'";
+		}			
+		List<Disinfection> disinfectionList = disinfectionMapper.select(where, " d.create_time DESC", null, null);
 		//清洗消毒记录列表
-		modelMap.addAttribute("disinfectionlist", getDisinfection());
+		modelMap.addAttribute("disinfectionlist", disinfectionList);
 		return "bks_wap/clean_list";
 	}
 
