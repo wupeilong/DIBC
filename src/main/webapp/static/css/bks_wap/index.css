@@ -407,7 +407,7 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 }
 .bingform label{
 	position: absolute;
-	top: 0;
+	//top: 0;
 	left: .4em;
 }
 .bingform input{
@@ -556,7 +556,7 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	padding: 1em 2em;
 	width: 100%;
 	position: absolute;
-	top: 3em;
+	top: 5em;
 	left: 0;
 	background-color: rgba(255, 255, 255, 0.9);
 	margin-bottom: 2em;

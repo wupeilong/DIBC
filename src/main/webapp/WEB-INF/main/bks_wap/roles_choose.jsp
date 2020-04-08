@@ -11,8 +11,9 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.all.js"></script>	
+	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script> --%>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.all.js"></script>
 </head>
 	<body class="contain">
 		<main class="bg-gradientfbot" style="height: 100%;background: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_roles.png) no-repeat;background-size: contain;">
@@ -51,14 +52,15 @@
 				<img src="${pageContext.request.contextPath}/static/images/bks_wap/binding.png" class="img-responsive">
 				<div class="bingding_form">
 					<div class="tabbox">
-						<ul class="tabh list-inline" style="border-bottom: 2px solid #348dec;">
+						<!-- <ul class="tabh list-inline" style="border-bottom: 2px solid #348dec;">
 							<li class="fonwei fonsi16 cur">绑定主体</li>
 							<li class="fonwei fonsi16">创建主体</li>
-						</ul>
+						</ul> -->
 						<div class="tabb">
 							<div class="tab_type cur">
 								<form action="" class="bingform">
-									<legend class="fonwei text-muted margin-top4 border0">*注： 系统将根据您所提交的执照编号分配您所属的企业主体信息</legend>
+									<legend class="fonsi16">主体绑定</legend>
+									<legend class="fonwei text-muted margin-top2 border0">*注： 系统将根据您所提交的执照编号分配您所属的企业主体信息</legend>
 									<div class="margin-top">
 										<label for="" class="text-muted"><i class="fa fa-vcard-o"></i></label>
 										<input type="text" class="border0 form-control" name="" id="" value="" placeholder="请输入营业执照编号"/>
@@ -69,7 +71,7 @@
 								</div>
 								<div class="fonwei text-danger margin-top2 border0 text-center"> 账号绑定后您将不需要频繁地登陆 </div>
 							</div>
-							<div class="tab_type">
+							<%-- <div class="tab_type">
 								<form action="" class="bingform">
 									<div class="margin-top">
 										<label for="" class="text-muted"><i class="fa fa-vcard-o"></i></label>
@@ -95,7 +97,7 @@
 								<div class="margin-top">
 									<a href="javascript:;" class="btn btn-primary form-control">创建主体</a>
 								</div>
-							</div>
+							</div> --%>
 						</div>
 					</div>
 				</div>
@@ -122,14 +124,14 @@
 		</main>
 		<script type="text/javascript">
 			//tab选项卡
-			$(".tabbox").find(".tabh").children().click(function(){
+			/* $(".tabbox").find(".tabh").children().click(function(){
 				$(this).parent().children().removeClass("cur");
 				$(this).addClass("cur");
 				var index=$(this).index();
 				console.log(index);
 				$(this).parents(".tabbox").find(".tabb").children().removeClass("cur");
 				$(this).parents(".tabbox").find(".tabb").children().eq(index).addClass("cur");
-			})
+			}) */
 			
 			function model(el) {
 				layer.open({
