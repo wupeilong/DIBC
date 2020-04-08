@@ -40,16 +40,6 @@
 			indent : 30
 		//每个分支缩进的像素数。
 		});
-		// Highlight a row when selected
-		$("#example-basic tbody").on("mousedown", "tr", function() {
-			$(".selected").not(this).removeClass("selected");
-			$(this).toggleClass("selected");
-		});
-		$("#example-basic input[type=checkbox]").click(function(e) {
-			$(".selected").not(e).removeClass("selected");
-			//$(this).toggleClass("selected");
-			//checkboxClickFn(this);
-		});
 	});	
 </script>
 </head>
@@ -64,14 +54,37 @@
 				</tr>
 			</thead>
 			<tbody>
+<<<<<<< HEAD
 				<c:forEach items="${list}" var="c">
 					<c:set var="counttt" value="2" />
 						<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
 							<td><span style="padding-left: 0px;"></span>
-									<input type="checkbox" name="${c.departmentParentId}"	value="${c.departmentId}" />${c.departmentName}
+									<input type="radio" name="name" value="${c.departmentId}" />${c.departmentName}
 							</td>
 							<%-- <td>${c.departmentDescription}</td> --%>
 						</tr>					
+=======
+				<c:forEach items="${list}" var="c" varStatus="rr">
+					<c:set var="counttt" value="2" />					
+					<c:if test="${!rr.last}">
+						<c:if test="${c.departmentId == list[rr.count].departmentParentId}">
+							<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
+								<td><span style="padding-left: 0px;"></span>
+									${c.departmentName} 
+								</td>
+								<td>${c.departmentDescription}</td>
+							</tr>		
+						</c:if>
+						<c:if test="${c.departmentId != list[rr.count].departmentParentId}">
+							<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
+								<td><span style="padding-left: 0px;"></span>
+										<input type="radio" name="33"	value="${c.departmentId}" />${c.departmentName}
+								</td>
+								<td>${c.departmentDescription}</td>
+							</tr>		
+						</c:if>
+					</c:if> 									
+>>>>>>> branch 'master' of https://github.com/wupeilong/DIBC.git
 				</c:forEach>
 			</tbody>
 		</table>
