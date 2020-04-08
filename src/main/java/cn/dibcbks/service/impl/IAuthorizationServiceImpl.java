@@ -114,7 +114,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	public String selectMenuAuthority(Integer authorizationId, ModelMap modelMap) {
 		try {
 			Authorization authorization = authorizationMapper.selectById(authorizationId);
-			if (StringUtils.isNotEmpty(authorization.getAuthorizationContent())) {
+			if (authorizationId != null && StringUtils.isNotEmpty(authorization.getAuthorizationContent())) {
 				String[] Authority = authorization.getAuthorizationContent().split(";");
 				modelMap.addAttribute("Authority", Authority);
 			}			
@@ -206,13 +206,13 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	@Override
 	public String selectDepartmentListPag(Integer unitId, ModelMap modelMap) {
 		try {
-			List<Department> departmentList = departmentMapper.select("unit_id = '" + unitId + "'", null, null, null);
-			modelMap.addAttribute("departmentList", departmentList);
+			List<Authorization> authorizationList = authorizationMapper.select(null, null, null, null);
+			modelMap.addAttribute("authorizationList", authorizationList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		//部门列表页
-		return "";
+		return "bks_web/department/department";
 	}
 
 	@Override
@@ -423,9 +423,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	@Override
 	public JSONObject getDepartment(ModelMap modelMap) {
 		if (SecurityUtils.getSubject().isAuthenticated()) {
-			System.out.println(" sql : d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'");
-			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);				
-			System.out.println("departmentList:" + departmentList);
+			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);
 			JSONArray json = JSONArray.fromObject(departmentList);
 			JSONObject lan1 = new JSONObject();
 	        lan1.put("code", 0);
