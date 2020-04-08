@@ -16,12 +16,12 @@
 	</head>
 	<body><!-- style="overflow:hidden;" -->
 		<div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;display: none;">
-			<img src="img/loading.gif" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;" />
+			<img src="${pageContext.request.contextPath}/static/images/bks_web/loading.gif" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;" />
 		</div>
 		<div class="mainbox">
 			<header class="clearfix bg-primary">
 				<a href="javascript:;" class="slogo switchLogo pull-left flexCenter text-white">
-					<img src="img/ic1.png" class="img-responsive"/>
+					<img src="${pageContext.request.contextPath}/static/images/bks_web/logo.png" class="img-responsive"/>
 				</a>
 				<nav class="flexBet">
 					<div class="flexStart">
@@ -41,29 +41,29 @@
 					<ul class="list-unstyled">
 						<li>
 							<a href="javascript:void(0);" class="nametext">
-								<i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">菜单管理</span>
+								<i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">权限管理</span>
 								<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i>
 							</a>
 							<ul class="subnav list-unstyled">
 								<li id="001" data-src="${pageContext.request.contextPath}/web_auth/menu_list_pag">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">菜单列表</span></a>
 								</li>
-								<li id="002" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询2</span></a>
+								<li id="002" data-src="${pageContext.request.contextPath}/web_auth/authorization_list_pag">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">权限列表</span></a>
 								</li>
-								<li id="003" data-src="https://www.hao123.com/">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询3</span></a>
+								<li id="003" data-src="${pageContext.request.contextPath}/web_auth/dep_list_pag">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">部门列表</span></a>
 								</li>
-								<li id="004" data-src="https://www.360.com/">
+								<!-- <li id="004" data-src="https://www.360.com/">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询4</span></a>
-								</li>
+								</li> -->
 							</ul>
 						</li>
 						<li>
 							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">社群民意</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<li id="005" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
+								<!-- <li id="005" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询11</span></a>
 								</li>
 								<li id="006" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
@@ -74,14 +74,14 @@
 								</li>
 								<li id="008" data-src="https://www.360.com/">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询41</span></a>
-								</li>
+								</li> -->
 							</ul>
 						</li>
 						<li>
 							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">通知管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<li id="009" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
+								<!-- <li id="009" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询111</span></a>
 								</li>
 								<li id="0010" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
@@ -92,14 +92,14 @@
 								</li>
 								<li id="0012" data-src="https://www.360.com/">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询411</span></a>
-								</li>
+								</li> -->
 							</ul>
 						</li>
 						<li>
 							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">下载管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<li id="0013" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
+								<!-- <li id="0013" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询1111</span></a>
 								</li>
 								<li id="0014" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
@@ -110,14 +110,14 @@
 								</li>
 								<li id="0016" data-src="https://www.360.com/">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询4111</span></a>
-								</li>
+								</li> -->
 							</ul>
 						</li>
 						<li>
-							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">个人管理</span>
+							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">用户管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<li id="0017" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
+								<!-- <li id="0017" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">1提案查询</span></a>
 								</li>
 								<li id="0018" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
@@ -128,7 +128,7 @@
 								</li>
 								<li id="0020" data-src="https://www.360.com/">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">4提案查询</span></a>
-								</li>
+								</li> -->
 							</ul>
 						</li>
 					</ul>

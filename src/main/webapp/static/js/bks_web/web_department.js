@@ -51,16 +51,18 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
             {width:300,title: '操作', align:'center'/*toolbar: '#barDemo'*/
                 ,templet: function(d){    
                 	var unitName = d.unitName;
-                	var departmentId=d.departmentId;
-                	var departmentName=d.departmentName;                	
-                	var departmentDescription=d.departmentDescription;
-                	var departmentAuthorization=d.departmentAuthorization;
-                	var departmentType=d.departmentType;
-                	var departmentParentId=d.departmentParentId;
-                	var authorizationId=d.authorizationId;
-                	var strdel="del('" + departmentName + "'," + departmentId + "," + departmentType + ")";
+                	var departmentId = d.departmentId;
+                	var departmentName = d.departmentName;   
+                	var departmentHead = d.departmentHead;   
+                	var departmentDescription = d.departmentDescription;
+                	var departmentAuthorization = d.departmentAuthorization;
+                	var departmentType = d.departmentType;
+                	var departmentParentId = d.departmentParentId;
+                	var authorizationId = d.authorizationId;
+                	var strdel="del(" + departmentId + ",'" + departmentName + "')";
                 	var stradd="add('" + unitName + "','" + departmentName + "'," + departmentId + "," + departmentType + ")";
-                	var stredit="edit('" + departmentName + "'," + departmentId + "," + departmentType + ",'" + departmentDescription + "','" + departmentAuthorization + "'," + departmentParentId + ")";
+                	var stredit="edit(" + departmentId + ",'" + departmentName + "','" + departmentHead + "','" + departmentDescription + "'," + departmentType + "," + authorizationId + ")";
+                	//var stredit="edit('" + departmentName + "'," + departmentId + "," + departmentType + ",'" + departmentDescription + "','" + departmentAuthorization + "'," + departmentParentId + ")";
                 	var strauth = "auth('" + departmentName + "'," + departmentId + "," + authorizationId + ")";
                 	var editBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-green" href="javascript:;"  onclick="'+stredit+'" >编辑</a>';
                     var delBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-red" href="javascript:;"  onclick="'+strdel+'" >删除</a>';
@@ -119,28 +121,18 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
 						layer.msg(obj.message,{icon:2,time:1000});
 						return;
 					}else{
-						layer.msg(obj.message,{icon:1,time:1000},function(){location.reload()});
+						layer.msg(obj.message,{icon:1,time:1000},function(){location.replace(location.href)});
 					}
     			}
     		});   	
     		layer.close(index);
     	}); 
-    	//location.replace(location.href);
     }
-    function del(departmentName,departmentId,departmentType){    	
-    	/*if(menus==1){
-    		menus="目录";
-    	}else if(menus==2){
-    		menus="菜单";
-    	}else{
-    		menus="按钮";
-    	}
-        //layer.confirm("你确定删除<span class='layui-badge layui-bg-blue'>" + menus + "->"+name+"</span>的所有数据吗？如果存在下级节点则一并删除，此操作不能撤销！", {icon: 3, title:'提示'}, function (index) {
-        layer.confirm("你确定删除<span class='layui-badge layui-bg-blue'>" + menus + "->"+name+"</span>吗？", {icon: 3, title:'提示'}, function (index) {    
-        	console.log(menuId);
+    function del(departmentId,departmentName){
+        layer.confirm("你确定删除<span class='layui-badge layui-bg-blue'>" + departmentName +"</span>部门吗？", {icon: 3, title:'提示'}, function (index) {    
         	$.ajax({
-				"url" : "menu_delete",
-				"data" : "menuId=" + menuId,
+				"url" : "dep_delete",
+				"data" : "departmentId=" + departmentId,
 				"type" : "POST",
 				"dataType":"json",
 				"success" : function(obj) {
@@ -152,7 +144,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
 					}	
 				}
 			});     
-        }); */
+        });
     }
     
    function auth( departmentName,departmentId,authorizationId){
@@ -188,26 +180,12 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
  	});
    }
     
-    function edit(departmentName,departmentId,departmentType,departmentDescription,departmentAuthorization,departmentParentId) {    	
-    	if (departmentType == 1) {
-            return '<span class="layui-badge layui-bg-gray">市场监管局</span>';
-        }else if (departmentType ==2) {
-            return '<span class="layui-badge layui-bg-blue">市场监管分局</span>';
-        } else if(departmentType ==3){
-            return '<span class="layui-badge-rim">社区[街道办事处]</span>';
-        } else if(departmentType ==4){
-            return '<span class="layui-badge-rim">居委会</span>';
-        } else if(departmentType ==5){
-            return '<span class="layui-badge-rim">网格</span>';
-        }else if(departmentType ==6){
-        	return '<span class="layui-badge-rim">主体</span>';
-        }else{
-        	return '<span class="layui-badge-rim">未配置</span>';
-        }
-    	$("#ditmenuName").val(name);
-    	$("#ditauthority").val(authority);
-    	$("#ditmenuUrl").val(menuUrl);
-    	$("#ditismenus").val(menus);  	
+    function edit(departmentId,departmentName,departmentHead,departmentDescription,departmentType,authorizationId) {    	
+    	$("#editDepartmentName").val(departmentName);
+    	$("#editDepartmentHead").val(departmentHead);    	
+    	$("#editDepartmentDescription").val(departmentDescription);
+    	$("#editDepartmentType").val(departmentType);
+    	//$("#edit_select").val(authorizationId);	
     	layer.open({
     		  type: 1,
     		  shade: false,
@@ -215,10 +193,10 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  content: $('#layer_edit'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响   
     		  btn: ['提交'],
     		  yes: function(index, layero){    			  
-    			  var data = "menuId=" + menuId + "&menuName=" + $("#ditmenuName").val() + "&menuUrl=" + $("#ditmenuUrl").val()
-    			  		   + "&authority=" + $("#ditauthority").val() + "&isMenu=" + $("#ditismenus").val() + "&parentId=" + parentId;
+    			  var data = "departmentId=" + departmentId + "&departmentName=" + $("#editDepartmentName").val() + "&departmentHead=" + $("#editDepartmentHead").val()
+    			  		   + "&departmentDescription=" + $("#editDepartmentDescription").val() + "&departmentType=" + $("#editDepartmentType").val() + "&authorizationId=" + $("#edit_select").val();
     			 $.ajax({
-    	    			"url" : "menu_update",    	    			
+    	    			"url" : "dep_update",    	    			
     	    			"data" : data,
     	    			"type" : "POST",
     	    			"dataType" : "json",
@@ -241,7 +219,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	$("#parentDepartmentName").val(departmentName);	
     	layer.open({    		  
     		  type: 1,
-    		  area: ['450px', '780px'],
+    		  //area: ['300px', '400px'],
     		  shade: false,
     		  title: false, //不显示标题
     		  content: $('#layer_add'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响   
@@ -250,7 +228,6 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     			  var data = "departmentName=" + $("#addDepartmentName").val() +"&departmentHead=" + $("#addDepartmentHead").val() 
     			  		   + "&departmentDescription=" + $("#addDepartmentDescription").val() + "&departmentType=" + $("#addDepartmentType").val()
     			  		   + "&authorizationId=" + $("#add_select").val() + "&departmentParentId=" + departmentId;
-    	      	  alert(data);
     			 $.ajax({
     	    			"url" : "dep_add",
     	    			"data" : data,
