@@ -62,14 +62,15 @@
 									<legend class="fonsi16">主体绑定</legend>
 									<legend class="fonwei text-muted margin-top2 border0">*注： 系统将根据您所提交的执照编号分配您所属的企业主体信息</legend>
 									<div class="margin-top">
-										<label for="" class="text-muted"><i class="fa fa-vcard-o"></i></label>
-										<input type="text" class="border0 form-control" name="" id="" value="" placeholder="请输入营业执照编号"/>
+										<label for="xydm" class="text-muted"><i class="fa fa-vcard-o"></i></label>
+										<input type="text" class="border0 form-control" name="xydm" id="xydm" value="" placeholder="请输入营业执照编号"/>
 									</div>
 								</form>
-								<div class="margin-top4">
-									<a href="javascript:;" class="btn btn-primary form-control">提交绑定</a>
+								<div class="tips text-danger text-center margin-top" style="height:1em"></div>
+								<div class="margin-top2">
+									<a href="javascript:;" class="btn btn-primary form-control" onclick="binding_submit(this)">提交绑定</a>
 								</div>
-								<div class="fonwei text-danger margin-top2 border0 text-center"> 账号绑定后您将不需要频繁地登陆 </div>
+								<div class="fonwei text-info margin-top2 border0 text-center"> 账号绑定后您将不需要频繁地登陆 </div>
 							</div>
 							<%-- <div class="tab_type">
 								<form action="" class="bingform">
@@ -108,21 +109,59 @@
 					<form action="" class="bingform">
 						<legend class="fonsi16">监管人员绑定</legend>
 						<div class="">
-							<label for="" class="text-muted"><i class="fa fa-mobile"></i></label>
-							<input type="text" class="border0 form-control" name="" id="" value="" placeholder="请输入手机号"/>
+							<label for="mobile" class="text-muted"><i class="fa fa-mobile"></i></label>
+							<input type="text" class="border0 form-control" name="mobile" id="mobile" value="" placeholder="请输入手机号"/>
 						</div>
 						<div class="margin-top">
-							<label for="" class="text-muted"><i class="fa fa-key"></i></label>
-							<input type="password" class="border0 form-control" name="" id="" value="" placeholder="请输入密码"/>
+							<label for="password" class="text-muted"><i class="fa fa-key"></i></label>
+							<input type="password" class="border0 form-control" name="password" id="" value="" placeholder="请输入密码"/>
 						</div>
 					</form>
-					<div class="margin-top3">
-						<a href="javascript:;" class="btn btn-primary form-control">提交绑定</a>
+					<div class="tips text-danger text-center margin-top" style="height:1em"></div>
+					<div class="margin-top2">
+						<a href="javascript:;" class="btn btn-primary form-control" onclick="binding_submit1(this)">提交绑定</a>
 					</div>
 				</div>
 			</div>
 		</main>
 		<script type="text/javascript">
+			function binding_submit(e) {
+				var xydm=$(e).parents(".bingding_form").find("form input[name=xydm]").val();
+				var reg_xydm=/^([0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}|[1-9]\d{14})$/;
+				var tips=$(e).parents(".bingding_form").find(".tips");
+				if (!reg_xydm.test(xydm)) {
+					console.log("您输入的统一社会信用代码不合法，请重新输入！")
+				}else{
+					var url="";
+					$.ajax({
+						url:url,
+						type:"post",
+						data:{'xydm':xydm},
+						dataType:"json",
+						success:function() {
+							
+						}
+					})
+				}
+				console.log(xydm);
+			}
+			function binding_submit1(e) {
+				var mobile=$(e).parents(".bingding_form").find("form input[name=mobile]").val();
+				var pwd=$(e).parents(".bingding_form").find("form input[name=password]").val();
+				var mobileReg = /(^1[3|4|5|7|8|9]\d{9}$)|(^09\d{8}$)/;
+				var pwd_reg=/[a-zA-Z0-9]{6,12}/;
+				var tips=$(e).parents(".bingding_form").find(".tips");
+				
+				if (!mobileReg.test(mobile)||mobile=='') {
+					console.log("您输入的手机号或密码错误，请重新输入！")
+				}
+				
+				if (!pwd_reg.test(pwd)||mobile=='') {
+					console.log("您输入的手机号或密码错误，请重新输入！")
+				}
+				
+				console.log(pwd);
+			}
 			//tab选项卡
 			/* $(".tabbox").find(".tabh").children().click(function(){
 				$(this).parent().children().removeClass("cur");
