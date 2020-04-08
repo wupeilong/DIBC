@@ -1,9 +1,7 @@
 package cn.dibcbks.service;
 
 import java.util.List;
-
 import org.springframework.ui.ModelMap;
-
 import cn.dibcbks.entity.Authorization;
 import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Menu;
@@ -226,6 +224,13 @@ public interface IAuthorizationService {
 	 * @return
 	 */
 	ResponseResult<Void> deteleAuthorization(Integer authorizationId);
+
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String userBindDepartment(Integer userId, ModelMap modelMap);
 
 	
 

@@ -13,6 +13,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import cn.dibcbks.entity.User;
+import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.util.CommonUtil;
 
@@ -31,7 +32,7 @@ import cn.dibcbks.util.CommonUtil;
 public class MyShiroRealm extends AuthorizingRealm{
 	
 	@Autowired
-	public UserMapper userMapper;
+	private UserMapper userMapper;
 	
 	//每次验证权限执行
 	@Override
