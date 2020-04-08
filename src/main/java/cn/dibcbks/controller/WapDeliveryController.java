@@ -47,7 +47,7 @@ public class WapDeliveryController {
 	@RequestMapping("/deliveryList")
 	@ResponseBody
 	public ResponseResult<List<Distribution>> deliveryList(String unitName){
-		
+		System.out.println(unitName);
 		return iDistributionService.selectDistributionList(unitName);
 	}
 	

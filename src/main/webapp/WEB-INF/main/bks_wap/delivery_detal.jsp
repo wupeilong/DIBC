@@ -12,24 +12,38 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>	
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<c:if test="${user.type == 2}">
+						<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+					</c:if>						
+				</div>
 			</div>
-		</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>						
+		</div>		
 		<main class="main margin-top2 padding-side05">
 			<div class="forms">
 				<form action="" method="post" class="form1 cur">
 					<fieldset>
 						<div class="input-group form-group fs border-bottom">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">食品类型</span>
-						  <div class="form-control box-shadow0 border0">
+						  <div class="form-control box-shadow0 border0" style="z-index: 1;">
 							  <c:if test="${distributionDetial.type == 1}">
 							  		早餐
 							  </c:if>
@@ -43,19 +57,19 @@
 						</div>
 						<div class="input-group form-group fs border-bottom">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">配餐单位</span>
-						  <div class="form-control box-shadow0 border0">${distributionDetial.mealsUnitName }</div>
+						  <div class="form-control box-shadow0 border0" style="z-index: 1;">${distributionDetial.mealsUnitName }</div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">送餐人</span>
-						  <div class="form-control box-shadow0 border0">${distributionDetial.mealsUserName }</div>
+						  <div class="form-control box-shadow0 border0" style="z-index: 1;">${distributionDetial.mealsUserName }</div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">启送时间</span>
-						  <div class="form-control box-shadow0 border0"><fmt:formatDate value="${distributionDetial.startTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
+						  <div class="form-control box-shadow0 border0" style="z-index: 1;"><fmt:formatDate value="${distributionDetial.startTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">送达时间</span>
-						  <div class="form-control box-shadow0 border0"><fmt:formatDate value="${distributionDetial.endTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
+						  <div class="form-control box-shadow0 border0" style="z-index: 1;"><fmt:formatDate value="${distributionDetial.endTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
 						</div>						
 						<div class="fsa margin-bot2">
 							<div class="">

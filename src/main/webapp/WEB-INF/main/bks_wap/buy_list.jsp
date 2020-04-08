@@ -8,42 +8,38 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<title>采购报送信息列表</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
-	<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/> --%>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 	<style type="text/css">
-.searchable-select{
-	width: 80%;
-    float: right;  
-    margin: -30px 15px 0 0;  
-}
+
 .navxg{
 	padding:0;
 }
 	</style>	
 </head>
-	<body class="" style="background-color: #f7f7f7;">
-		<div class="navigation bg-primary navxg">
-			<div class="">
-				<a href="javascript:history.go(-1)" class="text-white video_fh" style="margin-left:1em"><!-- <i class="fa fa-angle-left"></i> --></a>				
-					<div class="" style="width: 100%;">						
-						<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->						
-						<c:if test="${user.type == 1}">  
-							<select id="unit_list">
-								<option value="">查询333所有企业信息</option>
-								<c:forEach items="${unitList}" var="item">								
-									<option value="${item.unitId}">${item.unitName}111</option>
-								</c:forEach>
-							</select>
-						</c:if>
-					</div><br>
-					<div class="bg-gradient">
+	<body class="o-page p-about" style="background-color: #f7f7f7;">
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+				</div>
+			</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>
+			<div class="bg-gradient" style="margin-top: 89px;">
 						<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
 						  <li class="active pull-left" ><div class="getall text-center">全部</div></li>
 						  <li class="pull-left"><div class="getUn text-center">未验收</div></li>
@@ -52,11 +48,11 @@
 					</div>
 				<c:if test="${user.type == 2 }">
 					<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
-				</c:if>
-			</div>
-		</div>
+				</c:if>			
+		</div>   			
 		
-		<main class="main margin-top padding-side05" style="padding-top: 115px;" id="result_list">
+		
+		<main class="main margin-top padding-side05" style="padding-top: 0px;" id="result_list">
 			<c:forEach items="${procurementList}" var="item">
 				<div class="buy_list">
 					<div class="buy_top"><p>订单号：
@@ -80,6 +76,73 @@
 		</main>	
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
+    <script type="text/javascript">
+	$(function(){	
+		selectunit("");
+		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
+		$.ajax({
+			"url" : url,			
+			"type" : "POST",
+			"dataType" : "json",
+			"success" : function(e) {				
+				if (e.state == 0) {layer.msg(e.message,{icon:2,time:1000});
+					return;
+				}else{					
+					 $('#demoSingle').click(function(){
+						$(this).selectMenu({
+							title : '<i class="fa fa-fw fa-thumbs-o-up"></i> 请选择市场主体',
+							arrow : true,
+							showField : 'unitName',
+							keyField : 'unitId',
+							 position : 'center',
+							search : true,
+							data :e.data,
+							eSelect : function(data){
+								if(data && data.length > 0){								
+								selectunit(data[0].unitId)
+								}
+							}
+						});
+					});
+				}
+			}
+		});		 
+	});	
+	function selectunit(unitId) {
+		var url = "${pageContext.request.contextPath}/wap_pro/list";
+		var data = "unitId=" + unitId;
+		$.ajax({
+			"url" : url,
+			"data" : data,
+			"type" : "POST",
+			"dataType" : "json",
+			"success" : function(obj) {
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += '<div class="buy_list">'+
+								  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
+								'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+								'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+								if(obj.data[i].status == 0){
+									result += '<span class="buy_top_span1">未验收</span>';
+								}
+								if(obj.data[i].status == 1){
+									result += '<span class="buy_top_span1">已验收</span>';
+								}																		
+								result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+										  '</div></div></div>';							
+					}
+					$("#result_list").html(result);							
+				}		
+			}
+		});
+	}
+    </script>	
 	<script type="text/javascript">
 	$(".getall").click(function(){
 		console.log("1111")
@@ -117,41 +180,7 @@
 		$(this).addClass("active");
 		
 	})
-	$('select').searchableSelect({
-		"afterSelectItem":function(){
-			var url = "${pageContext.request.contextPath}/wap_pro/list";
-			var data = "unitId=" + $("#unit_list").val();
-			$.ajax({
-				"url" : url,
-				"data" : data,
-				"type" : "POST",
-				"dataType" : "json",
-				"success" : function(obj) {
-					if (obj.state == 0) {
-						layer.msg(obj.message,{icon:2,time:1000});
-						return;
-					}else{
-						var result = "";
-						for(var i=0;i<obj.data.length;i++){
-							result += '<div class="buy_list">'+
-									  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
-									'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
-									'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
-									if(obj.data[i].status == 0){
-										result += '<span class="buy_top_span1">未验收</span>';
-									}
-									if(obj.data[i].status == 1){
-										result += '<span class="buy_top_span1">已验收</span>';
-									}																		
-									result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
-											  '</div></div></div>';							
-						}
-						$("#result_list").html(result);							
-					}		
-				}
-			});
-		}
-	});
+	
 	
 	var format = function(time, format) {
 	    var t = new Date(time);

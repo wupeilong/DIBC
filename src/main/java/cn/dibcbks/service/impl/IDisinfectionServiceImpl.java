@@ -73,7 +73,7 @@ public class IDisinfectionServiceImpl implements IDisinfectionService {
 	public ResponseResult<List<Disinfection>> selectDisinfectionList(Integer unitId) {
 		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time)";
 		if (unitId != null) {
-			where = " AND unit_id = '" + unitId + "'";
+			where += " AND unit_id = '" + unitId + "'";
 		}		
 		List<Disinfection> disinfectionList = disinfectionMapper.select(where, " d.create_time DESC", null, null);		
 		return new ResponseResult<List<Disinfection>>(ResponseResult.SUCCESS,disinfectionList);	

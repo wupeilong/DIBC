@@ -66,7 +66,7 @@ public class IDistributionServiceImpl implements IDistributionService {
 		try {
 			String where ="date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time) ";
 			if(StringUtils.isNotEmpty(unitName)){
-				where += " ADN d.meals_unit_name = '" + unitName + "' or d.acceptance_unit_name = '" + unitName + "'";
+				where += " and d.meals_unit_name = '" + unitName + "' or d.acceptance_unit_name = '" + unitName + "'";
 			}
 			List<Distribution> distributionList = distributionMapper.select(where, " d.create_time DESC", null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！",distributionList);
