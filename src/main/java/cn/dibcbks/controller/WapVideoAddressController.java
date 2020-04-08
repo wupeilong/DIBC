@@ -3,6 +3,7 @@ package cn.dibcbks.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,7 +62,8 @@ public class WapVideoAddressController {
 	 */
 	@RequestMapping("/wap_videosave")
 	@ResponseBody
-	public ResponseResult<?> VideoAdressSave( VideoAddress videoAddress){
+	public ResponseResult<?> VideoAdressSave(VideoAddress videoAddress){
+		System.out.println("++++++++++++"+videoAddress+"===============================");
 		
 		return iVideoAddressService.VideoAdressSave(videoAddress);
 	}
@@ -94,6 +96,20 @@ public class WapVideoAddressController {
 	@ResponseBody
 	public VideoAddress getVideBeanByid(Integer videoId){
 		return iVideoAddressService.getVideAddressBeanById(videoId);
+	}
+	
+	/**
+	 * 控制视频流地址修改的跳转
+	 * 
+	 */
+	
+	@RequestMapping("/updateVideoInfo")
+	public  String updateVideoAddress(ModelMap modelMap,Integer unitId,Integer videoId){
+		
+		iVideoAddressService.getVideoAddressBeanById(modelMap,unitId, videoId);
+		System.out.println("========================");
+		
+		return "bks_wap/videoInfoUpdate";
 	}
 	
 }

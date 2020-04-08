@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import com.sun.istack.internal.logging.Logger;
+
 import cn.dibcbks.entity.VideoAddress;
 import cn.dibcbks.mapper.VideoAddressMapper;
 import cn.dibcbks.service.IVideoAddressService;
@@ -35,7 +37,7 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 	}
 	
 	/**
-	 * 根据企业id查询视频流地址对象
+	 * 根据视频流id查询视频流地址对象
 	 */
 	public VideoAddress getVideAddressBeanById(Integer videoId){
 		
@@ -43,6 +45,23 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 		
 		return va;
 	}
+	
+	/**
+	 * 根据视频流id和企业id查询视频流地址对象
+	 */
+	public void getVideoAddressBeanById(ModelMap modelMap,Integer unitId,Integer videoId){
+		
+		try {
+			VideoAddress va = videoAddressMapper.SelectAddressByVUId(unitId, videoId);
+			modelMap.addAttribute("videoInfo", va);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	/**
 	 * 视频流地址的保存或者修改
 	 */
@@ -100,5 +119,6 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 		}
 		return rs;
 	}
+
 
 }
