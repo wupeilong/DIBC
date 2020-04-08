@@ -31,7 +31,7 @@
 	<body class="" style="background-color: #f7f7f7;">
 		<div class="navigation bg-primary navxg" style="background: #2089b1;">
 			<div class="">
-				<a href="javascript:history.go(-1)" class="text-white video_fh"><!-- <i class="fa fa-angle-left"></i> --></a>				
+				<a href="javascript:history.go(-1)" class="text-white video_fh" style="margin-left:1em"><!-- <i class="fa fa-angle-left"></i> --></a>				
 					<div class="" style="width: 100%;">						
 						<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->						
 						<c:if test="${user.type == 1}">  
@@ -43,7 +43,7 @@
 							</select>
 						</c:if>			
 					</div><br>			
-					<div class=""style="width: 100%;">
+					<div class="bg-gradient"style="width: 100%;">
 						<ul id="menu">
 						  <li class="active" ><a href="" >全部</a></li><li ><a href="">未验收</a></li><li ><a href="">已验收</a></li><li>
 						</ul>
@@ -69,7 +69,7 @@
 						</p>
 					</div>
 					<div class="buy_top1"><p>${item.unitName}									
-						<span class="buy_top1_span"><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></span>					
+						<span class="buy_top1_span text-muted"><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></span>					
 						</p>
 					</div>				
 				</div>
