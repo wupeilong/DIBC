@@ -2,10 +2,18 @@ package cn.dibcbks.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.dibcbks.entity.VideoAddress;
-import cn.dibcbks.util.ResponseResult;
+
 
 public interface VideoAddressMapper {
+	
+	/**
+	 * 根据视频id和企业id联合查询视频对象
+	 */
+	VideoAddress SelectAddressByVUId(@Param("unitId")Integer unitId,@Param("videoId")Integer videoId);
+	
 	/**
 	 * 根据企业id查看监控视频
 	 */

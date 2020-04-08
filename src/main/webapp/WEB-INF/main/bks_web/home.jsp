@@ -48,7 +48,7 @@
 								<li id="001" data-src="${pageContext.request.contextPath}/web_auth/menu_list_pag">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">菜单列表</span></a>
 								</li>
-								<li id="002" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
+								<li id="002" data-src="${pageContext.request.contextPath}/wap_video/wap_videoCRUD">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询2</span></a>
 								</li>
 								<li id="003" data-src="https://www.hao123.com/">
