@@ -37,7 +37,7 @@ public interface IUserService {
 	
 	String queryUserPcenter(ModelMap modelMap,String id);
 
-	String workmens(ModelMap modelMap);
+	String workmens(Integer unitId, ModelMap modelMap);
 
 	String workmensHealth(ModelMap modelMap,Integer userId);
 
@@ -121,6 +121,14 @@ public interface IUserService {
 	 * @return
 	 */
 	String selectUserList(ModelMap modelMap);
+
+	/**
+	 * 
+	 * @param userId
+	 * @param departmentId
+	 * @return
+	 */
+	ResponseResult<Void> userBindDepartment(Integer userId, Integer departmentId);
 
 	
 }
