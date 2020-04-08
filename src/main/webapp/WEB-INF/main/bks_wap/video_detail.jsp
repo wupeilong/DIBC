@@ -132,9 +132,5 @@
 				});
 			});			
 		</script> 
-<!-- <script type="text/javascript">
-	var player = videojs('myvideo');
-		player.play();
-</script> -->
 </body>
 </html>
