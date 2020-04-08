@@ -19,7 +19,7 @@
 		<main class="bg-gradientfbot" style="height: 100%;background: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_roles.png) no-repeat;background-size: contain;">
 			<div class="text-center">
 				<div class="circle bg-gradient margin-top2" style="width: 80px;height: 80px;"> </div>
-				<p class="margin-top fonwei text-white">用户：航天员</p>
+				<p class="margin-top fonwei text-muted">用户：航天员</p>
 			</div>
 			<div class="roles_lis width100 padding-side margin-top4 margin-bot2">
 				<div class="margin-bot fonwei" style="border-left: 4px solid #fe722d;padding-left: 1em;color: #666;font-size: 1.2em;"> 请选择用户角色 </div>
@@ -28,7 +28,7 @@
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role1.png" class="" alt=""> </div>
 						<div class="padding-side">
 							<a href="${pageContext.request.contextPath}/wap_public_home" class="fonwei">大众用户</a>
-							<div class="text-muted bfrifRows  " style="margin-top: 0.4em;    font-size: 10px;">大众用户。既是消费者又是监督者，可查看食品安全相关过程。</div>
+							<div class="text-muted bfrifRows  " style="margin-top: 0.4em;    font-size: 10px;">大众用户。既是消费者又是监督者，可查看食品安全相关过程，齐抓共管食品安全。</div>
 						</div>
 					</li>
 					<li class="fs" onclick="model($('.model_step2'))">
