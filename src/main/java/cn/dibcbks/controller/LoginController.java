@@ -173,10 +173,6 @@ public class LoginController {
 		
 		return iLoginService.registerAdminUser(user);
 	}
-	
-
-	
-	
 
 
 	@ApiOperation(value = "微信登录获取网页授权地址页", notes = "微信登录获取网页授权地址页")
