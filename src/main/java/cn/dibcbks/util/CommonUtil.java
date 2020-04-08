@@ -94,5 +94,11 @@ public class CommonUtil {
 		System.out.println("密码: " + getEncrpytedPassword(Constants.MD5,"1",uuid,1024));
 	}
 	
-
+	/**
+	 * 用户是否登陆
+	 * @return
+	 */
+	public static boolean isLogin(){
+		return SecurityUtils.getSubject().isAuthenticated();
+	}
 }
