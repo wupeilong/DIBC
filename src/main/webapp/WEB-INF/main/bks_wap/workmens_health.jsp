@@ -34,7 +34,11 @@
 				</table>
 			</div>
 		</main>
-	<c:import url="public/footer.jsp"></c:import>
+		<c:if test="${user.type == 3}">
+			<c:import url="public/public_footer.jsp"></c:import>
+		</c:if>
+		<c:if test="${user.type != 3}">
+			<c:import url="public/footer.jsp"></c:import>
+		</c:if>
 	</body>
-
 </html>

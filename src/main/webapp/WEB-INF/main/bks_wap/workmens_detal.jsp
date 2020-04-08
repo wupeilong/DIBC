@@ -68,7 +68,12 @@
 			</div>
 		</main>		
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
-	<c:import url="public/footer.jsp"></c:import>
+		<c:if test="${user.type == 3}">
+			<c:import url="public/public_footer.jsp"></c:import>
+		</c:if>
+		<c:if test="${user.type != 3}">
+			<c:import url="public/footer.jsp"></c:import>
+		</c:if>
 	</body>
 <script type="text/javascript">
 var $current = $("form");		

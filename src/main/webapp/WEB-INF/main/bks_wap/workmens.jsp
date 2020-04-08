@@ -23,7 +23,6 @@
 			<div class="fb padding-side">
 				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
 				<div class="">
-					<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->
 					<c:if test="${user.type == 1}">
 						<select id="unit_list"">
 							<option value="">查询所有从业人员信息</option>
@@ -33,8 +32,10 @@
 						</select>		
 					</c:if>								
 				</div>
-				<c:if test="${user.parentId == 0 && user.type == 2 }">user_add
-					<a href="${pageContext.request.contextPath}/wap_user/workmens_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+				<c:if test="${user.type == 2}"><!-- 禁主体有权限人员可添加 -->
+					<shiro:hasPermission name="user_add">
+						<a href="${pageContext.request.contextPath}/wap_user/workmens_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+					</shiro:hasPermission>
 				</c:if>
 			</div>
 		</div>
@@ -54,9 +55,14 @@
 				</table>
 			</div>
 		</main>
-	<c:import url="public/footer.jsp"></c:import>
+		<c:if test="${user.type == 3}">
+			<c:import url="public/public_footer.jsp"></c:import>
+		</c:if>
+		<c:if test="${user.type != 3}">
+			<c:import url="public/footer.jsp"></c:import>
+		</c:if>	
 	</body>
-	<script type="text/javascript">
+<script type="text/javascript">
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
 			var url = "${pageContext.request.contextPath}/wap_user/unitUserList";
@@ -87,8 +93,7 @@
 				}
 			}); 
 		}
-	});
+	});	
 	
-	
-	</script>
+</script>
 </html>

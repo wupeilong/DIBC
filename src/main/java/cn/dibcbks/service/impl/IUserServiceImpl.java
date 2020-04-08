@@ -247,7 +247,7 @@ public class IUserServiceImpl implements IUserService {
 			}else{//大众
 				userList = userMapper.select(" u.unit_id = '" + unitId + "'", " u.create_time DESC", null, null);
 			}
-			modelMap.addAttribute("userList", userList);		
+			modelMap.addAttribute("userList", userList);
 			logger.info(Constants.SUCCESSU_HEAD_INFO + "进入从业人员信息页面成功！");
 		} catch (Exception e) {
 			e.printStackTrace();

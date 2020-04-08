@@ -101,9 +101,8 @@
 	</c:if>
 	<c:if test="${user.type != 3}">
 		<c:import url="public/footer.jsp"></c:import>
-	</c:if>
-	
-	</body>
+	</c:if>	
+</body>
 <script type="text/javascript">
 var $current = $("form");		
 $current.find("img").bind("click",function(){

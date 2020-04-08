@@ -55,13 +55,7 @@
 						<c:if test="${unitDetail.unitType==2}">学校</c:if> 
 						<c:if test="${unitDetail.unitType==3}">餐饮</c:if> 
 						<c:if test="${unitDetail.unitType==4}">其它</c:if>
-				</label></li>
-				<!-- <li class="list-group-item fs">
-							<span class="padding-side text-muted">所属行业</span><label class="">卖辣子</label>
-						</li> -->
-				<!-- <li class="list-group-item fs ftop">
-							<span class="padding-side text-muted">经营范围</span><label class="">国家移民管理局禁止第三国人员从边境口岸出入境</label>
-						</li> -->
+				</label></li>				
 				<li class="list-group-item">
 					<div class="fsa">
 						<div>
@@ -81,7 +75,7 @@
 				<ul class="coinfoLis list-unstyled">
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="${pageContext.request.contextPath}/workmens.jsp" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png">
+							<a href="${pageContext.request.contextPath}/wap_user/workmens?unitId=${unitDetail.unitId}" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png">
 								<p>从业人员</p>
 							</a>
 						</div>
