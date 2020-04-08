@@ -58,7 +58,7 @@
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户授权</span></a>
 								</li>
 								<li id="005" data-src="${pageContext.request.contextPath}/wap_video/wap_videoCRUD">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户授权</span></a>
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">监控管理</span></a>
 								</li>
 								
 							</ul>
