@@ -149,6 +149,12 @@ public class WebAuthorizationController {
         return IAuthorizationService.getDepartment(modelMap);
     }
 	
+	@ApiOperation("用户绑定部门列表页")
+	@RequestMapping("/department_bind")	
+	public String userBindDepartment(Integer userId,ModelMap modelMap){				
+			return IAuthorizationService.userBindDepartment(userId,modelMap);		 
+	}
+	
 	
 	@ApiOperation(value = "部门列表", notes = "部门列表")
 	@ApiImplicitParam(name="unitId",value="企业ID",dataType="Integer")

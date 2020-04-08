@@ -115,5 +115,12 @@ public interface IUserService {
 	 */
 	ResponseResult<Void> weblogin(String idCard, String password);
 
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String selectUserList(ModelMap modelMap);
+
 	
 }

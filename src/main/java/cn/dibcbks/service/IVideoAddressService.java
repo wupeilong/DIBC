@@ -8,6 +8,14 @@ import cn.dibcbks.util.ResponseResult;
 public interface IVideoAddressService {
 	
 		/**
+		 * **
+		 * 根据videoId查询一个视频流对象
+		 * @param videoId
+		 * @return
+		 */
+		void getVideoAddressBeanById(ModelMap modelMap,Integer unitId, Integer vidoeId);
+	
+		/**
 		 * 根据videoId查询一个视频流对象
 		 * @param videoId
 		 * @return
