@@ -185,6 +185,7 @@
 		         }
 				});    
 			}
+			document.body.addEventListener('touchstart', function () {});
 		</script>
 	</body>
 </html>
