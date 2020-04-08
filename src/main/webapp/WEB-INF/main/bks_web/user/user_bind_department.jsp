@@ -46,7 +46,13 @@
 			$(this).toggleClass("selected");
 		});
 		$("#example-basic input[type=checkbox]").click(function(e) {
-			$(".selected").not(e).removeClass("selected");
+			/* if ($(this).is(':checked')) {
+		         // 先把所有的checkbox 都设置为不选种
+		        $('input .mybox').prop('checked', false);
+		        // 把自己设置为选中
+		        $(this).prop('checked',true);
+		    } */
+			//.removeClass("selected");
 			//$(this).toggleClass("selected");
 			//checkboxClickFn(this);
 		});
@@ -68,7 +74,7 @@
 					<c:set var="counttt" value="2" />
 						<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
 							<td><span style="padding-left: 0px;"></span>
-									<input type="checkbox" name="${c.departmentParentId}"	value="${c.departmentId}" />${c.departmentName}
+									<input type="radio" name="name" value="${c.departmentId}" />${c.departmentName}
 							</td>
 							<%-- <td>${c.departmentDescription}</td> --%>
 						</tr>					
