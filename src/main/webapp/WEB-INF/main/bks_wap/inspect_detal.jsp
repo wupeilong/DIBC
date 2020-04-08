@@ -46,12 +46,12 @@
 								<div class="fs margin-top05 padding-side">
 									<div class="form_title">类型：</div>
 									<div class="">
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="大学" />大学</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="高职高专" />高职高专</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="中学" />中学</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="小学" />小学</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="幼儿园" />幼儿园</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="餐饮企业" />餐饮企业</label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="大学" /> <span>大学</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="高职高专" /> <span>高职高专</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="中学" /> <span>中学</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="小学" /> <span>小学</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="幼儿园" /> <span>幼儿园</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="餐饮企业" /> <span>餐饮企业</span></label>
 									</div>
 									<input type="hidden" value="${checkListbyid.unitType}" id="unitType">
 									<script type="text/javascript">
