@@ -6,28 +6,18 @@
 <html>
 <head>
 <meta charset=utf-8>
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<title>采购报送信息列表</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title>企业详情信息</title>
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
+<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
 </head>
 <body class="contain" style="background-color: #eee; height: auto;">
-
 	<main class="" style="padding-bottom: 46.5px;">
 	<div class="border0 bg0">
 		<div class="text-center bg-gradient" style="padding-bottom: 2em;">
@@ -82,7 +72,7 @@
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="workmens.html" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png">
+							<a href="${pageContext.request.contextPath}/wap_clean/clean_list?unitId=${unitDetail.unitId}" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png">
 								<p>清洗消毒</p>
 							</a>
 						</div>

@@ -29,9 +29,9 @@ public class WapCleanController {
 	 * @return
 	 */
 	@RequestMapping("/clean_list")
-	public String cleanList(ModelMap map){	
+	public String cleanList(Integer unitId, ModelMap map){	
 		
-		return iDisinfectionService.selectDisinfectionListPag(map);		
+		return iDisinfectionService.selectDisinfectionListPag(unitId,map);		
 	}
 	
 	

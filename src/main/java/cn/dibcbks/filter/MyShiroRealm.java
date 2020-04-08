@@ -38,6 +38,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {		
 		String[] ids = CommonUtil.getSessionUser().getAuthorization().split(";");
+		System.out.println("登陆用户权限：" + CommonUtil.getSessionUser().getAuthorization());
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		if(ids.length > 0){
 			for(int i=0;i<ids.length;i++){
