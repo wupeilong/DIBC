@@ -515,4 +515,19 @@ public class IUserServiceImpl implements IUserService {
 		return rr;
 	}
 
+	@Override
+	public String selectUserList(ModelMap modelMap) {
+		try {
+			String where = null;
+			if(CommonUtil.isLogin()){
+				where = "u.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
+			}
+			modelMap.addAttribute("userList", userMapper.select(where, "u.create_time DESC", null, null));			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "bks_web/user/user";
+	}
+
 }

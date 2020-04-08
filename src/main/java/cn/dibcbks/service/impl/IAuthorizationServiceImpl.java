@@ -499,6 +499,32 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 		}
 		return rr;
 	}
+
+	@Override
+	public String userBindDepartment(Integer userId, ModelMap modelMap) {
+		try {
+			String where = null;
+			if(CommonUtil.isLogin()){
+				where = "d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
+			}
+			List<Department> menuList = departmentMapper.select(where, null, null, null);		
+			List<Department> menus = new ArrayList<>();
+			sortDepartment(0, menuList, menus);
+			modelMap.addAttribute("userId", userId);
+			modelMap.addAttribute("list", menus);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}			
+		return "bks_web/user/user_bind_department";
+	}
 	
-	
+	public List<Department> sortDepartment(int parentId, List<Department> listB, List<Department> listA) {
+        for (Department department : listB) {
+            if (department.getDepartmentParentId().equals(parentId)) {
+                listA.add(department);
+                sortDepartment(department.getDepartmentId(), listB, listA);
+            }
+        }
+        return listA;
+    }
 }
