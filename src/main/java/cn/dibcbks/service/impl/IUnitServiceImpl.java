@@ -110,7 +110,7 @@ public class IUnitServiceImpl implements IUnitService {
 			String where = null;
 			boolean addAnd = false;
 			if(unitId != null){
-				where += " n.unit_id = '" + unitId + "'";
+				where = " n.unit_id = '" + unitId + "'";
 				addAnd = true;
 			}
 			if(StringUtils.isNotEmpty(unitName)){
@@ -253,4 +253,6 @@ public class IUnitServiceImpl implements IUnitService {
 				return view;
 	}
 
+	
+	
 }
