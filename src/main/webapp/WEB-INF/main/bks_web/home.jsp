@@ -54,9 +54,9 @@
 								<li id="003" data-src="${pageContext.request.contextPath}/web_auth/dep_list_pag">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">部门列表</span></a>
 								</li>
-								<!-- <li id="004" data-src="https://www.360.com/">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询4</span></a>
-								</li> -->
+								<li id="004" data-src="https://www.360.com/">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户授权</span></a>
+								</li>
 							</ul>
 						</li>
 						<li>
