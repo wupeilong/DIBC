@@ -1,3 +1,11 @@
+*{
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
 .contain{
 	max-width: 640px;
 	min-width: 320px;
@@ -505,15 +513,17 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 .roles_lis ul li{
 	padding: 1em;
 	background-color: #fff;
-	border: 1px solid #ddd;
 	border-radius: 8px;
 	box-shadow: 0 0 4px #ccc;
 	margin-bottom: 1em;
 	cursor: pointer;
+	border-bottom: 4px solid #ddd;
 }
 .roles_lis ul li:active{
 	background-color: #f1861c;
 	color: white;
+	box-shadow: 0 0 11px #999 inset;
+	border-bottom: 4px solid rgba(0,0,0,.3);
 }
 .roles_lis ul li:active a,
 .roles_lis ul li:active div{

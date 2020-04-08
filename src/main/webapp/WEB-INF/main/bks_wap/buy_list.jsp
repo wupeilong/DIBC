@@ -134,7 +134,7 @@
 						var result = "";
 						for(var i=0;i<obj.data.length;i++){
 							result += '<div class="buy_list">'+
-									  '<div class="buy_top"><p class="text-muted">订单号:'+
+									  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
 									'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
 									'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
 									if(obj.data[i].status == 0){
@@ -143,7 +143,7 @@
 									if(obj.data[i].status == 1){
 										result += '<span class="buy_top_span1">已验收</span>';
 									}																		
-									result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow"><i class="fa fa-bookmark-o text-danger"></i> '+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+									result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
 											  '</div></div></div>';							
 						}
 						$("#result_list").html(result);							
