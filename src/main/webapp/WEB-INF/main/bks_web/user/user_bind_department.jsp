@@ -46,7 +46,8 @@
 			$(this).toggleClass("selected");
 		});
 		$("#example-basic input[type=checkbox]").click(function(e) {
-			$(".selected").not(e).removeClass("selected");
+			console.log($(this).parents("tr"));
+			$(".selected").removeClass("selected");
 			//$(this).toggleClass("selected");
 			//checkboxClickFn(this);
 		});
@@ -64,14 +65,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${list}" var="c">
-					<c:set var="counttt" value="2" />
-						<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
-							<td><span style="padding-left: 0px;"></span>
-									<input type="checkbox" name="${c.departmentParentId}"	value="${c.departmentId}" />${c.departmentName}
-							</td>
-							<%-- <td>${c.departmentDescription}</td> --%>
-						</tr>					
+				<c:forEach items="${list}" var="c" varStatus="rr">
+					<c:set var="counttt" value="2" />					
+					<c:if test="${!rr.last}">
+						<c:if test="${c.departmentId == list[rr.count].departmentParentId}">
+							<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
+								<td><span style="padding-left: 0px;"></span>
+									${c.departmentName} 
+								</td>
+								<td>${c.departmentDescription}</td>
+							</tr>		
+						</c:if>
+						<c:if test="${c.departmentId != list[rr.count].departmentParentId}">
+							<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
+								<td><span style="padding-left: 0px;"></span>
+										<input type="radio" name="33"	value="${c.departmentId}" />${c.departmentName}
+								</td>
+								<td>${c.departmentDescription}</td>
+							</tr>		
+						</c:if>
+					</c:if> 									
 				</c:forEach>
 			</tbody>
 		</table>
