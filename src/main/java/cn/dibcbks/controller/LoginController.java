@@ -44,8 +44,7 @@ public class LoginController {
 	 * @return
 	 */	
 	@GetMapping("/wap_login")
-	public String loginPage(HttpServletRequest request){
-		String url=request.getRequestURI();		
+	public String loginPage(HttpServletRequest request){		
 		return "bks_wap/login";
 	}	
 	
@@ -173,10 +172,6 @@ public class LoginController {
 		
 		return iLoginService.registerAdminUser(user);
 	}
-	
-
-	
-	
 
 
 	@ApiOperation(value = "微信登录获取网页授权地址页", notes = "微信登录获取网页授权地址页")

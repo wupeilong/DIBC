@@ -136,9 +136,10 @@ public class WebAuthorizationController {
 	@GetMapping("/dep_list_pag")
 	public String  selectDepartmentListPag(Integer unitId,ModelMap modelMap) {
 		
-		return "bks_web/department/department";
-		//return IAuthorizationService.selectDepartmentListPag(unitId,modelMap);
+		
+		return IAuthorizationService.selectDepartmentListPag(unitId,modelMap);
 	}
+	
 	
 	@ApiOperation(value = "部门信息", notes = "部门信息")
 	@RequestMapping("/get_department")
