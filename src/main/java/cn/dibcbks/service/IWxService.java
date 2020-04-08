@@ -53,7 +53,7 @@ public interface IWxService {
 	 * @param modelMap
 	 * @return
 	 */
-	ResponseResult<Void> bindSupervise(String phone, String password, HttpServletRequest request, ModelMap modelMap);
+	ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request, ModelMap modelMap);
 
 	/**
 	 * 创建主体绑定用户类型:主体人员

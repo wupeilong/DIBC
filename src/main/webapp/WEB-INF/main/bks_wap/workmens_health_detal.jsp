@@ -21,11 +21,9 @@
 			<div class="fb padding-side">
 				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
 			</div>
-		</div>
-		
+		</div>		
 		<main class="main padding-side05 workmen_health_detal">
-			<form action="" method="" class="clearfix margin-top">
-			
+			<form action="" method="" class="clearfix margin-top">			
 				<div class="margin-bot2">
 					<div class="input-group form-group border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">姓名</span>
@@ -71,61 +69,15 @@
 					  	</div>
 					  </div>
 					</div>
-					<!-- <div class="layui-upload input-group form-group">
-					  <label for="demo1" class="input-group-addon border0 clear-bg" id="test1">健康码图片</label>
-					  <div class="layui-upload-list">
-					    <img class="layui-upload-img" id="demo1">
-					    <p id="demoText"></p>
-					  </div>
-					</div> -->
 				</div>
 			</form>
-			
-			<!-- <div class="margin-top2 margin-bot2">
-				<button type="button" class="btn btn-primary form-control">保存</button>
-			</div> -->
 		</main>
-		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>		
-		<script type="text/javascript">
-			/* console.log('${hygieneDetail}'); */
-			var $current = $("form");		
-			$current.find("img").bind("click",function(){
-				var path=$(this).attr('src');			
-				layerImg(path);
-			});	
-			layui.use('upload', function(){
-			  var $ = layui.jquery
-			  ,upload = layui.upload;
-			  
-			  //普通图片上传
-			  var uploadInst = upload.render({
-			    elem: '#test1'
-			    ,url: 'https://httpbin.org/post' //改成您自己的上传接口
-			    ,before: function(obj){
-			      //预读本地文件示例，不支持ie8
-			      obj.preview(function(index, file, result){
-			        $('#demo1').attr('src', result); //图片链接（base64）
-			      });
-			    }
-			    ,done: function(res){
-			      //如果上传失败
-			      if(res.code > 0){
-			        return layer.msg('上传失败');
-			      }
-			      //上传成功
-			    }
-			    ,error: function(){
-			      //演示失败状态，并实现重传
-			      var demoText = $('#demoText');
-			      demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-			      demoText.find('.demo-reload').on('click', function(){
-			        uploadInst.upload();
-			      });
-			    }
-			  });
-			  });
-		</script>	
-	<c:import url="public/footer.jsp"></c:import>
+		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
+	<c:if test="${user.type == 3}">
+		<c:import url="public/public_footer.jsp"></c:import>
+	</c:if>
+	<c:if test="${user.type != 3}">
+		<c:import url="public/footer.jsp"></c:import>
+	</c:if>
 	</body>
-
 </html>

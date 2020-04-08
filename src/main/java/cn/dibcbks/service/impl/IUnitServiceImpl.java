@@ -107,22 +107,22 @@ public class IUnitServiceImpl implements IUnitService {
 	public ResponseResult<List<Unit>> queryUnitList(Integer unitId, String unitName) {
 		ResponseResult<List<Unit>> rr = null;
 		try {
-			String where = "";
-			if(unitId == null && StringUtils.isEmpty(unitName)){
-				where = null;
-			}
+			String where = null;
 			boolean addAnd = false;
 			if(unitId != null){
 				where += " n.unit_id = '" + unitId + "'";
-				addAnd =true;
+				addAnd = true;
 			}
 			if(StringUtils.isNotEmpty(unitName)){
 				if (addAnd) {
 					where += " AND n.unit_name = '" + unitName + "'";
 				}else {
-					where += " n.unit_name = '" + unitName + "'";
+					where = " n.unit_name = '" + unitName + "'";
 				}				
  			}
+			if (CommonUtil.getSessionUser().getType() != 1 && StringUtils.isEmpty(where)) {
+				where = " n.unit_type BETWEEN 2 AND 4 ";
+			}
 			List<Unit> unitList = unitMapper.select(where, null, null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功",unitList);
 		} catch (Exception e) {

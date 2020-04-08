@@ -51,6 +51,8 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 				rr = new ResponseResult<>(ResponseResult.ERROR,"菜单名称重复，添加失败！");
 			}else if(StringUtils.isNotEmpty(menu.getMenuUrl()) && !menuMapper.select("menu_url = '" + menu.getMenuUrl() + "'", null, null, null).isEmpty()){
 				rr = new ResponseResult<>(ResponseResult.ERROR,"菜单路径重复，添加失败！");
+			}else if(StringUtils.isEmpty(menu.getAuthority())){
+				rr = new ResponseResult<>(ResponseResult.ERROR,"权限标识不能为空，添加失败！");
 			}else{
 				menuMapper.insert(menu);
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"菜单添加成功！");
@@ -58,7 +60,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			rr = new ResponseResult<>(ResponseResult.ERROR,"菜单添加失败！");
-		}		
+		}	
 		return rr;
 	}
 	
@@ -507,11 +509,11 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 			if(CommonUtil.isLogin()){
 				where = "d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
 			}
-			List<Department> menuList = departmentMapper.select(where, null, null, null);		
-			List<Department> menus = new ArrayList<>();
-			sortDepartment(0, menuList, menus);
+			List<Department> departmentList = departmentMapper.select(where, null, null, null);		
+			List<Department> list = new ArrayList<>();
+			sortDepartment(0, departmentList, list);
 			modelMap.addAttribute("userId", userId);
-			modelMap.addAttribute("list", menus);
+			modelMap.addAttribute("list", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			

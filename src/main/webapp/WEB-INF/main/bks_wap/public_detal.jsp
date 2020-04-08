@@ -76,7 +76,7 @@
 				<ul class="coinfoLis list-unstyled">
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="${pageContext.request.contextPath}/workmens.jsp" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png">
+							<a href="${pageContext.request.contextPath}/wap_user/workmens?unitId=${unitDetail.unitId}" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png">
 								<p>从业人员</p>
 							</a>
 						</div>
@@ -107,6 +107,6 @@
 		</div>
 	</div>
 	</main>
-	<c:import url="public/footer.jsp"></c:import>
+	<c:import url="public/public_footer.jsp"></c:import>
 </body>
 </html>

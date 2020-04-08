@@ -54,12 +54,12 @@
 								<li id="003" data-src="${pageContext.request.contextPath}/web_auth/dep_list_pag">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">部门列表</span></a>
 								</li>
-								<li id="004" data-src="https://www.360.com/">
+								<%-- <li id="004" data-src="https://www.360.com/">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户授权</span></a>
 								</li>
 								<li id="005" data-src="${pageContext.request.contextPath}/wap_video/wap_videoCRUD">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">监控管理</span></a>
-								</li>
+								</li> --%>
 								
 							</ul>
 						</li>
@@ -121,10 +121,10 @@
 							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">用户管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<!-- <li id="0017" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">1提案查询</span></a>
+								<li id="0017" data-src="${pageContext.request.contextPath}web_user/user_list">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户部门信息</span></a>
 								</li>
-								<li id="0018" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
+								<!-- <li id="0018" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">2提案查询</span></a>
 								</li>
 								<li id="0019" data-src="https://www.hao123.com/">

@@ -40,17 +40,6 @@
 			indent : 30
 		//每个分支缩进的像素数。
 		});
-		// Highlight a row when selected
-		$("#example-basic tbody").on("mousedown", "tr", function() {
-			$(".selected").not(this).removeClass("selected");
-			$(this).toggleClass("selected");
-		});
-		$("#example-basic input[type=checkbox]").click(function(e) {
-			console.log($(this).parents("tr"));
-			$(".selected").removeClass("selected");
-			//$(this).toggleClass("selected");
-			//checkboxClickFn(this);
-		});
 	});	
 </script>
 </head>
@@ -65,15 +54,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${list}" var="c" varStatus="rr">
-					<c:set var="counttt" value="2" />					
+				<c:forEach items="${list}" var="c" varStatus="rr">									
 					<c:if test="${!rr.last}">
 						<c:if test="${c.departmentId == list[rr.count].departmentParentId}">
 							<tr data-tt-id="${c.departmentId}" data-tt-parent-id="${c.departmentParentId}">
 								<td><span style="padding-left: 0px;"></span>
-									${c.departmentName} 
+									${c.departmentName}
 								</td>
-								<td>${c.departmentDescription}</td>
+								<%-- <td>${c.departmentDescription}</td> --%>
 							</tr>		
 						</c:if>
 						<c:if test="${c.departmentId != list[rr.count].departmentParentId}">
@@ -81,7 +69,7 @@
 								<td><span style="padding-left: 0px;"></span>
 										<input type="radio" name="33"	value="${c.departmentId}" />${c.departmentName}
 								</td>
-								<td>${c.departmentDescription}</td>
+								<%-- <td>${c.departmentDescription}</td> --%>
 							</tr>		
 						</c:if>
 					</c:if> 									
@@ -93,29 +81,20 @@
 </body>
 <script type="text/javascript">
 	function getCheckstrt() {
-		/* var authorizationContent = ""
-		var authorizationId = "${authorizationId}";
-		var len = $('input[type="checkbox"]:checked').length;
-		$('input[type="checkbox"]:checked').each(function(index, dom) {
-			if (index < len - 1) {
-				authorizationContent += $(this).val() + ";";
-			} else {
-				authorizationContent += $(this).val();
-			}
-		});
-		console.log(authorizationContent);
-		if (authorizationId != "") {
+		var userId = '${userId}';
+		var departmentId = $("input[name='33']:checked").val();
+		if(typeof(departmentId) == "undefined"){
+			layer.msg("请选择一个部门！", {icon : 2,time : 1000});
+			
+		}else{
 			$.ajax({
-				"url" : "authorization_update",
-				"data" : "authorizationId=" + authorizationId + "&authorizationContent=" + authorizationContent,
+				"url" : "${pageContext.request.contextPath}/web_user/bind_department",
+				"data" : "userId=" + userId + "&departmentId=" + departmentId,
 				"type" : "POST",
 				"dataType" : "json",
 				"success" : function(obj) {
 					if (obj.state == 0) {
-						layer.msg(obj.message, {
-							icon : 2,
-							time : 1000
-						});
+						layer.msg(obj.message, {icon : 2,time : 1000});
 						return;
 					} else {
 						layer.msg(obj.message, {
@@ -126,8 +105,8 @@
 						});
 					}
 				}
-			});
-		}  */
+			});			
+		}
 	}
 </script>
 </html>

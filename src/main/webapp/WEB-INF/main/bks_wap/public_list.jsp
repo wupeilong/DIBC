@@ -6,7 +6,7 @@
 <head>
 	<meta charset=utf-8>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>采购报送信息列表</title>
+	<title>企业信息列表</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
@@ -43,7 +43,7 @@
 				<ul class="list-group  panel-body padding0" id="result_list"></ul>
 			</div>
 		</main>	
-	<c:import url="public/footer.jsp"></c:import>
+	<c:import url="public/public_footer.jsp"></c:import>
 	</body>
 	 <script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">
