@@ -234,4 +234,23 @@ public class IUnitServiceImpl implements IUnitService {
 		}
 	}
 
+
+	@Override
+	public String selectUnit(ModelMap modelMap) {
+		// 查询企业列表 企业类型不包括1
+		
+				String view=null;
+				try {
+					List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
+					modelMap.addAttribute("unitList", unitList);
+					logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入企业信息列表页面成功！");
+					view="bks_wap/indexcs";
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.info(Constants.ERROR_HEAD_INFO+ "用户进入企业信息列表页面失败！原因："+e.getMessage());
+				}
+				
+				return view;
+	}
+
 }

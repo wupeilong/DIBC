@@ -23,7 +23,7 @@ public interface IUnitService {
 	List<Unit> CooprationList();
 
 	String CooprationDetal(ModelMap modelMap, Integer unitId);
-	
+	String selectUnit(ModelMap modelMap);
 	/**
 	 * 添加企业列表到ModelMap
 	 * @param modelMap
