@@ -1,7 +1,6 @@
 package cn.dibcbks.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 /**
@@ -26,13 +25,14 @@ public class Department implements Serializable {
 	private Integer departmentType;//管辖部门类型：1-市场监管局 2-市场监管分局 3-社区 4-居委会 5-网格
 	private String departmentAuthorization;//管辖部门授权
 	private Integer authorizationId;//权限 ID
-	private Integer authorizatioName;//权限名称
+	private String authorizationName;//权限名称
 	public Department() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	public Department(Integer unitId, String unitName, Integer departmentId, String departmentName,
 			String departmentHead, String departmentDescription, Integer departmentParentId, Integer departmentType,
-			String departmentAuthorization, Integer authorizationId, Integer authorizatioName) {
+			String departmentAuthorization, Integer authorizationId, String authorizationName) {
 		super();
 		this.unitId = unitId;
 		this.unitName = unitName;
@@ -44,7 +44,7 @@ public class Department implements Serializable {
 		this.departmentType = departmentType;
 		this.departmentAuthorization = departmentAuthorization;
 		this.authorizationId = authorizationId;
-		this.authorizatioName = authorizatioName;
+		this.authorizationName = authorizationName;
 	}
 	public Integer getUnitId() {
 		return unitId;
@@ -106,11 +106,11 @@ public class Department implements Serializable {
 	public void setAuthorizationId(Integer authorizationId) {
 		this.authorizationId = authorizationId;
 	}
-	public Integer getAuthorizatioName() {
-		return authorizatioName;
+	public String getAuthorizationName() {
+		return authorizationName;
 	}
-	public void setAuthorizatioName(Integer authorizatioName) {
-		this.authorizatioName = authorizatioName;
+	public void setAuthorizationName(String authorizationName) {
+		this.authorizationName = authorizationName;
 	}
 	@Override
 	public String toString() {
@@ -118,7 +118,7 @@ public class Department implements Serializable {
 				+ ", departmentName=" + departmentName + ", departmentHead=" + departmentHead
 				+ ", departmentDescription=" + departmentDescription + ", departmentParentId=" + departmentParentId
 				+ ", departmentType=" + departmentType + ", departmentAuthorization=" + departmentAuthorization
-				+ ", authorizationId=" + authorizationId + ", authorizatioName=" + authorizatioName + "]";
+				+ ", authorizationId=" + authorizationId + ", authorizationName=" + authorizationName + "]";
 	}
 	
 }
