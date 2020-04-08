@@ -28,15 +28,15 @@
 }
 .buy_top_a{
 	float: right;
-    color: #1b2ae0;   
+    color: #348dec;   
     padding: 0px 5px 0 15px;
     border-radius: 5px;
     font-size: 14px;
     font-weight: 600;
 }
 .buy_top_span1{
-	    float: right;
-    color: #0719ec;
+	float: right;
+    color: #08c66d;
     background: #e9eaea;
     padding: 3px 5px 0 5px;
     border-radius: 5px;
@@ -79,10 +79,23 @@ background:rgba(154, 109, 26, 0.2784313725490196);
 
 }
 
-#menu li a:hover,#menu li.current
-
-{
-
-background:#fff url(b.png) 0 0 repeat-x;
-
+#menu li a:hover,#menu li.current{
+	background:#ddd url(b.png) 0 0 repeat-x;
+}
+.public_list_h5{
+	border-bottom: 1px solid #f9f6f6;
+    border-left: 4px solid #348dec;
+    border-radius: 3px;
+    padding: 5px;
+    margin-left: 5px;
+    color: #e07a14;
+   /*  background: #f1f1f1; */
+}
+.public_list_li{
+margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid  #bce8f1;
+    list-style: none;
+    margin: 0;
+}
 }

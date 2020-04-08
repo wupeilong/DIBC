@@ -85,4 +85,15 @@ public class WapVideoAddressController {
 	public String VideoCRUD(){
 		return "bks_wap/video_crud";
 	}
+	
+	/**
+	 * 根据videoid查询视频流
+	 * 
+	 */
+	@RequestMapping("/wap_getAddresByid")
+	@ResponseBody
+	public VideoAddress getVideBeanByid(Integer videoId){
+		return iVideoAddressService.getVideAddressBeanById(videoId);
+	}
+	
 }

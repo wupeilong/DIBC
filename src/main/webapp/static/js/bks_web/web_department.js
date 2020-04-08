@@ -47,25 +47,26 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
                     }
                 }, title: '部门类型'
             },     
-            {field: 'departmentAuthorization', title: '部门权限'},
+            {field: 'authorizationName', title: '部门权限'},
             {width:300,title: '操作', align:'center'/*toolbar: '#barDemo'*/
                 ,templet: function(d){    
+                	var unitName = d.unitName;
                 	var departmentId=d.departmentId;
                 	var departmentName=d.departmentName;                	
                 	var departmentDescription=d.departmentDescription;
                 	var departmentAuthorization=d.departmentAuthorization;
                 	var departmentType=d.departmentType;
                 	var departmentParentId=d.departmentParentId;
+                	var authorizationId=d.authorizationId;
                 	var strdel="del('" + departmentName + "'," + departmentId + "," + departmentType + ")";
-                	var stradd="add('" + departmentName + "'," + departmentId + "," + departmentType + ")";
+                	var stradd="add('" + unitName + "','" + departmentName + "'," + departmentId + "," + departmentType + ")";
                 	var stredit="edit('" + departmentName + "'," + departmentId + "," + departmentType + ",'" + departmentDescription + "','" + departmentAuthorization + "'," + departmentParentId + ")";
+                	var strauth = "auth('" + departmentName + "'," + departmentId + "," + authorizationId + ")";
                 	var editBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-green" href="javascript:;"  onclick="'+stredit+'" >编辑</a>';
                     var delBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-red" href="javascript:;"  onclick="'+strdel+'" >删除</a>';
                     var addBtn='<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-orange" href="javascript:;"  onclick="'+stradd+'" >添加</a>';
-                    var url='menu_authority?type=admin&id=' + d.departmentId;
-                    var url1='admin_edit("'+url+'")';
-                    var addAuth ="<a class='layui-btn layui-btn-primary layui-btn-xs layui-bg-orange' href='javascript:;' onclick='"+url1+"' class='operation operation-add' style='text-decoration:none'><i class='Hui-iconfont' style='font-size: 1em;'>&#xe63c;</i>权限设置</a>";
-                	return addBtn+editBtn+delBtn+addAuth;                	
+                    var addAuth= '<a class="layui-btn layui-btn-primary layui-btn-xs layui-bg-orange operation operation-add" href="javascript:;" onclick="' + strauth + '" style="text-decoration:none"><i class="Hui-iconfont" style="font-size: 1em;">&#xe63c;</i>权限设置</a>';
+                    return addBtn+editBtn+delBtn+addAuth;           	
                 }
             }
         ]]
@@ -103,18 +104,15 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		content: url
     	});
     }
+   
+    
    function addmain() {  
     	var jsonObj = {};     	
-    	layer.prompt({title: '请输入部门的名称'}, function(pass, index){
-    		//var time = new Date();
-    		//jsonObj = { "menuId": null,"menuName": pass,"menuUrl": null,"menuIcon": null,"authority": null,"isMenu":null,"parentId": -1};
-    		//var adminMenu = JSON.stringify(jsonObj);
-    		$.ajax({
-    			//"url" : "${pageContext.request.contextPath}/web_auth/menu_add",
+    	layer.prompt({title: '请输入部门的名称'}, function(pass, index){    		
+    		$.ajax({    			
     			"url" : "dep_add",
     			"data" : "departmentName=" + pass,
     			"type" : "POST",
-    			//"contentType" : "application/json",
     			"dataType" : "json",
     			"success" : function(obj) {
     				if (obj.state == 0) {
@@ -156,15 +154,41 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
 			});     
         }); */
     }
-    function edit(departmentName,departmentId,departmentType,departmentDescription,departmentAuthorization,departmentParentId) {
-    	var ismenus;    	
-    	if(menus==1){
-    		ismenus="目录";
-    	}else if(menus==2){
-    		ismenus="菜单";
-    	}else{
-    		ismenus="按钮";
-    	}  
+    
+   function auth( departmentName,departmentId,authorizationId){
+	   $("#auth_department_name").val(departmentName);
+	   if(authorizationId != "" && authorizationId != null){
+		   $("#auth_select").val(departmentName);
+	   }	   
+	   layer.open({
+ 		  type: 1,
+ 		  shade: false,
+ 		  title: false, //不显示标题
+ 		  content: $('#edit_auth'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响   
+ 		  btn: ['提交'],
+ 		  yes: function(index, layero){    			  
+ 			 var data = "departmentId=" + departmentId + "&authorizationId=" + $("#auth_select").val() ;
+ 			 var url = "dep_update";
+ 			 console.log(data);
+ 			 $.ajax({
+ 	    			"url" : url,    	    			
+ 	    			"data" : data,
+ 	    			"type" : "POST",
+ 	    			"dataType" : "json",
+ 	    			"success" : function(obj) {
+ 	    				if (obj.state == 0) {
+ 	    					layer.msg(obj.message,{icon:2,time:1000});
+ 	    					return;
+ 	    				}else{
+ 	    					layer.msg(obj.message,{icon:1,time:1000},function(){location.replace(location.href);layer.close(index);});
+ 	    				}	
+ 	    			}
+ 	    		});     		  
+ 		  }
+ 	});
+   }
+    
+    function edit(departmentName,departmentId,departmentType,departmentDescription,departmentAuthorization,departmentParentId) {    	
     	if (departmentType == 1) {
             return '<span class="layui-badge layui-bg-gray">市场监管局</span>';
         }else if (departmentType ==2) {
@@ -193,13 +217,10 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     		  yes: function(index, layero){    			  
     			  var data = "menuId=" + menuId + "&menuName=" + $("#ditmenuName").val() + "&menuUrl=" + $("#ditmenuUrl").val()
     			  		   + "&authority=" + $("#ditauthority").val() + "&isMenu=" + $("#ditismenus").val() + "&parentId=" + parentId;
-    			  alert(data)
     			 $.ajax({
-    	    			"url" : "menu_update",
-    	    			//"data" : adminMenu,
+    	    			"url" : "menu_update",    	    			
     	    			"data" : data,
     	    			"type" : "POST",
-    	    			//contentType:"application/json",
     	    			"dataType" : "json",
     	    			"success" : function(obj) {
     	    				if (obj.state == 0) {
@@ -215,37 +236,26 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	
     }
     
-    function add(departmentName,departmentId,departmentType) {
-    	/*$("#parentname").val(name);
-    	//$("#ismenus").val(ismenus);    	
-    	layer.open({
+    function add(unitName,departmentName,departmentId,departmentType) {
+    	$("#unitName").val(unitName);
+    	$("#parentDepartmentName").val(departmentName);	
+    	layer.open({    		  
     		  type: 1,
+    		  area: ['450px', '780px'],
     		  shade: false,
     		  title: false, //不显示标题
     		  content: $('#layer_add'), //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响   
     		  btn: ['提交'],
-    		  yes: function(index, layero){  
-    			  var ismenus=$("#ismenus").val();
-    			  jsonObj = {
-    	      			  "menuId": null,
-    	      		      "menuName": $("#menuName").val(),      		      
-    	      		      "menuUrl": $("#menuUrl").val(),
-    	      		      "menuIcon": null,      		  
-    	      		      "authority": $("#authority").val(),      		     
-    	      		      "isMenu": ismenus,
-    	      		      "parentId": menuId
-    	      		    };	  
-    			  var adminMenu = JSON.stringify(jsonObj);
-    			  var data = "menuName=" + $("#menuName").val() +"&menuUrl=" + $("#menuUrl").val() 
-    			  		   + "&authority=" + $("#authority").val() + "&isMenu=" + ismenus + "&parentId=" + menuId;
+    		  yes: function(index, layero){    			  
+    			  var data = "departmentName=" + $("#addDepartmentName").val() +"&departmentHead=" + $("#addDepartmentHead").val() 
+    			  		   + "&departmentDescription=" + $("#addDepartmentDescription").val() + "&departmentType=" + $("#addDepartmentType").val()
+    			  		   + "&authorizationId=" + $("#add_select").val() + "&departmentParentId=" + departmentId;
     	      	  alert(data);
     			 $.ajax({
-    	    			"url" : "menu_add",
-    	    			//"data" : adminMenu,
+    	    			"url" : "dep_add",
     	    			"data" : data,
     	    			"type" : "POST",
     	    			"dataType" : "json",
-    	    			//contentType:"application/json",
     	    			"success" : function(obj) {
     	    				if (obj.state == 0) {
     	    					layer.msg(obj.message,{icon:2,time:1000});
@@ -256,7 +266,7 @@ var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
     	    			}
     	    		});     			  
     		  }
-    	});  */
+    	});
     	
     }
     function print() {

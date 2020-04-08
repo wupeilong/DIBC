@@ -33,7 +33,16 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 
 		return "bks_wap/video_detail";
 	}
-
+	
+	/**
+	 * 根据企业id查询视频流地址对象
+	 */
+	public VideoAddress getVideAddressBeanById(Integer videoId){
+		
+		VideoAddress va = videoAddressMapper.SelectAddressByVideoId(videoId);
+		
+		return va;
+	}
 	/**
 	 * 视频流地址的保存或者修改
 	 */

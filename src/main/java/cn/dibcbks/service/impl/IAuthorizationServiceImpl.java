@@ -8,9 +8,12 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+
+import cn.dibcbks.entity.Authorization;
 import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Menu;
 import cn.dibcbks.entity.Role;
+import cn.dibcbks.mapper.AuthorizationMapper;
 import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.MenuMapper;
 import cn.dibcbks.mapper.RoleMapper;
@@ -31,6 +34,8 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	private RoleMapper roleMapper;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private AuthorizationMapper authorizationMapper;
 	
 	@Override
 	public String addMenuPag(ModelMap modelMap) {
@@ -106,13 +111,18 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	}		
 	
 	@Override
-	public String selectMenuAuthority(ModelMap modelMap) {
+	public String selectMenuAuthority(Integer authorizationId, ModelMap modelMap) {
 		try {
-			List<Menu> menuList = menuMapper.select(null, null, null, null);			
+			Authorization authorization = authorizationMapper.selectById(authorizationId);
+			if (authorizationId != null && StringUtils.isNotEmpty(authorization.getAuthorizationContent())) {
+				String[] Authority = authorization.getAuthorizationContent().split(";");
+				modelMap.addAttribute("Authority", Authority);
+			}			
+			List<Menu> menuList = menuMapper.select(null, null, null, null);		
 			List<Menu> menus = new ArrayList<Menu>();
-			sort(-1, menuList, menus);				
+			sort(-1, menuList, menus);
+			modelMap.addAttribute("authorizationId", authorizationId);
 			modelMap.addAttribute("list", menus);
-			System.out.println("menus:"+menus);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}			
@@ -196,13 +206,13 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	@Override
 	public String selectDepartmentListPag(Integer unitId, ModelMap modelMap) {
 		try {
-			List<Department> departmentList = departmentMapper.select("unit_id = '" + unitId + "'", null, null, null);
-			modelMap.addAttribute("departmentList", departmentList);
+			List<Authorization> authorizationList = authorizationMapper.select(null, null, null, null);
+			modelMap.addAttribute("authorizationList", authorizationList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 		//部门列表页
-		return "";
+		return "bks_web/department/department";
 	}
 
 	@Override
@@ -393,7 +403,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！",roleList);
 		} catch (Exception e) {
 			e.printStackTrace();
-			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作失败！");
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
 		}		
 		return rr;
 	}
@@ -413,9 +423,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	@Override
 	public JSONObject getDepartment(ModelMap modelMap) {
 		if (SecurityUtils.getSubject().isAuthenticated()) {
-			System.out.println(" sql : d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'");
-			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);				
-			System.out.println("departmentList:" + departmentList);
+			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);
 			JSONArray json = JSONArray.fromObject(departmentList);
 			JSONObject lan1 = new JSONObject();
 	        lan1.put("code", 0);
@@ -425,6 +433,71 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 			return lan1;
 		}
 		return null;
+	}
+
+	@Override
+	public String selectAuthorizationListPag(ModelMap modelMap) {
+		List<Authorization> authorizationList = authorizationMapper.select(null, null, null, null);
+		modelMap.addAttribute("authorizationList", authorizationList);
+		return "bks_web/authorization/authorization";
+	}
+
+	@Override
+	public ResponseResult<Void> addAuthorization(Authorization authorization) {
+		ResponseResult<Void> rr = null;
+		try {
+			if(!authorizationMapper.select("authorization_name='" + authorization.getAuthorizationName() + "'", null, null, null).isEmpty()){
+				rr = new ResponseResult<>(ResponseResult.ERROR,"权限名重复，操作失败！");
+			}else{
+				authorizationMapper.insert(authorization);
+				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}
+		return rr;
+	}
+
+	@Override
+	public ResponseResult<Void> updateAuthorization(Authorization authorization) {
+		ResponseResult<Void> rr = null;
+		try {			
+			if(StringUtils.isNotEmpty(authorization.getAuthorizationName()) && !authorizationMapper.select(" authorization_name = '" + authorization.getAuthorizationName() + "' AND authorization_id != '" + authorization.getAuthorizationId() +"'", null, null, null).isEmpty()){
+				rr = new ResponseResult<>(ResponseResult.ERROR,"权限名称重复，操作失败！");
+			}else{
+				authorizationMapper.updateById(authorization);
+				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}
+		return rr;
+	}
+
+	@Override
+	public String updateAuthorizationPag(Integer authorizationId, ModelMap modelMap) {
+		Authorization authorizationDetail = authorizationMapper.selectById(authorizationId);
+		modelMap.addAttribute("authorizationDetail", authorizationDetail);
+		return "bks_web/authorization/authorization_update";
+	}
+
+	@Override
+	public ResponseResult<Void> deteleAuthorization(Integer authorizationId) {
+		ResponseResult<Void> rr = null;
+		try {
+//			if(StringUtils.isNotEmpty(authorization.getAuthorizationName()) && !authorizationMapper.select(" authorization_name = '" + authorization.getAuthorizationName() + "' AND authorization_id != '" + authorization.getAuthorizationId() +"'", null, null, null).isEmpty()){
+//				rr = new ResponseResult<>(ResponseResult.ERROR,"权限名称重复，操作失败！");
+//			}else{
+				authorizationMapper.deleteById(authorizationId);
+				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");	
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}
+		return rr;
 	}
 	
 	

@@ -520,13 +520,13 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	color: #fff;
 }
 .roles_lis ul li>div img{
-	width: 80px;
+	width: 60px;
 }
 .roles_lis ul li>div:last-child{
 	padding-right: 0;
 }
 .roles_lis ul li>div:last-child a{
-	font-size: 1.4em;
+	font-size: 1.2em;
 }
 .tabbox .tabh li.cur{
 	color:#fff;
@@ -556,7 +556,7 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	padding: 1em 2em;
 	width: 100%;
 	position: absolute;
-	top: 3em;
+	top: 5em;
 	left: 0;
 	background-color: rgba(255, 255, 255, 0.9);
 	margin-bottom: 2em;

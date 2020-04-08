@@ -69,8 +69,8 @@
 						<td style="text-align: cnter">${item.videoType}</td>
 						<td style="text-align: cnter">${item.streamType}</td>
 						<td style="text-align: cnter">
-							<button id="address_update"  unitid=${item.videoId} type="button" onclick="addressUpdate(this)">修改</button>
-							<button id="address_delete" unitid=${item.videoId}  onclick="addressDelete()">删除</button>
+							<button id="address_update"  videoId=${item.videoId} type="button" onclick="addressUpdate(this)">修改</button>
+							<button id="address_delete" videoId=${item.videoId} type="button"  onclick="addressDelete(this)">删除</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -84,20 +84,20 @@
 			bgcolor="#cccccc" class="tabtop13" align="center">
 			</tr>
 			<td width="70%" class="btbg font-center">企业名称</td>
-			<td><input type="text" name="top_menu_name" value=""></td>
+			<td><input type="text" name="unitname" value=""></td>
 			</tr>
 			<tr>
 				<td width="70%" class="btbg font-center">监控位置</td>
-				<td><input type="text" name="top_menu_url" value=""></td>
+				<td><input type="text" name="location" value=""></td>
 			</tr>
 			<tr>
 				<td width="70%" class="btbg font-center">视频流地址</td>
-				<td><input type="text" name="top_menu_icon" value=""></td>
+				<td><input type="text" name="videoaddress" value=""></td>
 			</tr>
 			<tr>
 				<td width="70%" class="btbg font-center">监控类型</td>
 				<td>
-				<select id="top_is_menu">
+				<select id="videotype">
 						<option value="1">实时监控</option>
 						<option value="2">视频回放</option>
 				</select>
@@ -106,7 +106,7 @@
 			<tr>
 				<td width="70%" class="btbg font-center">视频流类型</td>
 				<td>
-				<select id="top_is_menu">
+				<select id="videoaddresstype">
 						<option value="1">RTMP</option>
 						<option value="2">TRSP</option>
 						<option value="2">FLV</option>
@@ -124,82 +124,53 @@
 		</table>
 	</div>
 	
-	
-	
-	
-	
-	<button id="add_is_menu" type="button" onclick="add_is_menu()">asdasdasdas</button>
-	<div style="display: none;" id="menu_add">
-		<table width="100%" border="2" cellspacing="1" cellpadding="4"
-			bgcolor="#cccccc" class="tabtop13" align="center">
-			</tr>
-			<td width="70%" class="btbg font-center">菜单名称</td>
-			<td><input type="text" name="top_menu_name" value=""></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">响应路径</td>
-				<td><input type="text" name="top_menu_url" value=""></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">菜单图标</td>
-				<td><input type="text" name="top_menu_icon" value=""></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">权限值</td>
-				<td><input type="text" name="top_menu_authority" value=""></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">菜单类型</td>
-				<td><select id="top_is_menu">
-						<option value="0">目 录</option>
-						<option value="1">菜 单</option>
-						<option value="2">按 钮</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td width="18%" class="btbg font-center" colspan="2" align="center"><button
-						type="button" class="btn btn-default" onclick="add_top()">
-						<i class="fa fa-edit" />提交
-					</button></td>
-			</tr>
-		</table>
-	</div>
 	<c:import url="public/footer.jsp"></c:import>
 </body>
 
 <script type="text/javascript">
-	function add_is_menu() {
-		layer.open({
-			type : 1,
-			content : $('#menu_add')
-		});
-	}
-	
+
 	function addressUpdate(e) {
-		var id=e.getAttribute("unitid");
-		alert(id);
-		layer.open({
-			type : 1,
-			content : $('#update_content')
-		});
-	}
-	
-	function addressDelete(e) {
-		var id=e.getAttribute("unitid");
 		
+	
+		var id=e.getAttribute("videoId");
+		var url="${pageContext.request.contextPath}/wap_video/wap_getAddresByid";
+		var data="videoId="+id;
 		$.ajax({
 			"url" : url,
 			"data" : data,
 			"type" : "POST",
 			"dataType" : "json",
 			"success" : function(obj) {
-				if (obj.state == 0) {
-					layer.msg(obj.message,{icon:2,time:1000});						
-				}else{
-					layer.msg(obj.message,{icon:1,time:1000},function(){location.reload()});											
-				}					
+				console.log(obj);
+				/* layer.msg(obj.message,{icon:1,time:1000},function(){location.reload()}); */
+				
 			}
 		}); 
+		
+
+		
+	 	layer.open({
+			type: 1,
+			content: $('#menu_update')
+		});
+	}
+	
+	function addressDelete(e) {
+		alert(e.getAttribute("videoId"));
+		var id=e.getAttribute("videoId");
+		var url="${pageContext.request.contextPath}/wap_video/wap_videodelete";
+		var data="videoId="+id;
+		$.ajax({
+			"url" : url,
+			"data" : data,
+			"type" : "POST",
+			"dataType" : "json",
+			"success" : function(obj) {
+				layer.msg(obj.message,{icon:1,time:1000},function(){location.reload()});
+				
+			}
+		}); 
+		
 	}
 </script>
 

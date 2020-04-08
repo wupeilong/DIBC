@@ -12,26 +12,37 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>	
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+	<style type="text/css">
+.searchable-select{
+	width: 80%;
+    float: right;  
+    margin: -30px 15px 0 0;  
+}
+.navxg{
+	padding:0;
+}
+	</style>	
 </head>
-	<body class="contain">
+	<body class="">
 		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+			<div class="padding-side">
+				<a href="javascript:history.go(-1)" class="text-white video_fh" style=" margin-top: 0px"><!-- <i class="fa fa-angle-left"></i> --></a>
 				<div class="">
 					<div class="">
 						<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->
 						
-						<c:if test="${user.type == 1}">
+						<%-- <c:if test="${user.type == 1}"> --%>
 							<select id="unit_list">
 								<option value="">查询所有企业信息</option>
 								<c:forEach items="${unitList}" var="item">								
 									<option value="${item.unitId}">${item.unitName}</option>
 								</c:forEach>
 							</select>
-						</c:if>					
+						<%-- </c:if> --%>					
 				
 					</div>
 				</div>
@@ -40,74 +51,65 @@
 				</c:if>				
 			</div>
 		</div>
-		<main class="main margin-top padding-side">
-			<div class="panel panel-info">
-				<div class="panel-heading fb" style="background-image: linear-gradient(22deg,#61e0fd,#328fe1);">
-					<div></div>
-					<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->
-					<select id="psType">
-						<option value="device">device</option>
-						<option value="with">with</option>
-						<option value="entertainment">entertainment</option>
-						<option value="and">and</option>
-						<option value="social">social</option>
-						<option value="networking">networking</option>
-						<option value="apps">apps</option>
-						<option value="or">or</option>
-						<option value="apps">apps</option>
-						<option value="that">that</option>
-						<option value="will">will</option>
-						<option value="boost">boost</option>
-						<option value="your">your</option>
-						<option value="productivity">productivity</option>
-						<option value="Download">Download</option>
-						<option value="or">or</option>
-						<option value="buy">buy</option>
-						<option value="apps">apps</option>
-						<option value="from">from</option>
-						<option value="Afbb">Afbb</option>
-						<option value="Akademie">Akademie</option>
-						<option value="Berlin">Berlin</option>
-						<option value="reviews">reviews</option>
-						<option value="by">by</option>
-						<option value="real">real</option>
-					</select>
-					<script type="text/javascript">
-						$(function(){
-							$('select').searchableSelect();
-							// $('#psType').searchableSelect({
-							//     "afterSelectItem": function() {
-							//         alert($('#psType').val());
-							//     }
-							// });
-						});
-						
-					</script>
-				</div>
-				<ul class="list-group margin-top panel-body padding0">	
-				<c:forEach items="${unitList}" var="item">
-					<li class="list-group-item">
-						<div class="">
-							<h5 class="fonwei">${item.unitName}</h5>							
-							<div class="text-muted bfrifRow">
-								企业类型:
-								<c:if test="${item.unitType==1}">监管局</c:if>
-								 <c:if test="${item.unitType==2}">学校</c:if>
-								 <c:if test="${item.unitType==3}">餐饮</c:if>
-								 <c:if test="${item.unitType==4}">其它</c:if>								
-							</div>
-						</div>
-						<div class="fb margin-top" style="align-items: flex-end;">
-							<div class="">								
-								<a href="" class="label label-warning">法人代表:${item.legalPerson}</a>
-							</div>
-							<a href="${pageContext.request.contextPath}/wap_public_uintdetail?unitid=${item.unitId}" class="btn btn-primary">查看信息</a>
-						</div>
-					</li>
-				</c:forEach>						
-				</ul>
+		<main class="main margin-top padding-side" style="    padding: 50.4px 0.1em;">
+			<div class="panel panel-info" style="border-radius: 0px;">				
+				<ul class="list-group  panel-body padding0" id="result_list"></ul>
 			</div>
 		</main>	
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
+	<script type="text/javascript">	
+	$('select').searchableSelect({
+		"afterSelectItem":function(){
+			var url = "${pageContext.request.contextPath}/wap_unit/list";
+			var data = "unitId=" + $("#unit_list").val();
+			$.ajax({
+				"url" : url,
+				"data" : data,
+				"type" : "POST",
+				"dataType" : "json",
+				"success" : function(obj) {
+					console.log(obj);
+					if (obj.state == 0) {
+						layer.msg(obj.message,{icon:2,time:1000});
+						return;
+					}else{
+						var result = "";
+						console.log(obj.data);
+						for(var i=0;i<obj.data.length;i++){
+							result +='<li class="public_list_li">'+
+									'<a href="${pageContext.request.contextPath}/wap_public_uintdetail?unitid='+obj.data[i].unitId+'">'+
+									'<div class="">'+
+									'<h5 class="fonwei public_list_h5">'+obj.data[i].unitName+'</h5>'+							
+									'<div class="text-muted bfrifRow" style="    padding: 7px 0px 7px 17px;">'+
+									'<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/qylx.png" style="width: 20px;">企业类型:';
+									if(obj.data[i].unitType == 1){
+										result += '<span>监管局</span>';
+									}
+									if(obj.data[i].unitType == 2){
+										result += '<span>学校</span>';
+									}
+									if(obj.data[i].unitType == 3){
+										result += '<span>餐饮</span>';
+									}
+									if(obj.data[i].unitType == 4){
+										result += '<span>其它</span>';
+									}																
+							 result +='</div></div>'+
+										'<div class="fb" >'+
+										'<div class="text-muted bfrifRow"style="    padding: 0px 0px 7px 17px;">'+
+										'<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/frdb.png" style="width: 20px;">法人代表:'+								
+										'<span>'+obj.data[i].legalPerson+'</span>'+
+										'</div>'+
+										'<a href="${pageContext.request.contextPath}/wap_public_uintdetail?unitid='+obj.data[i].unitId+'">'+
+										'<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/public_xq.png" style="width: 40px;margin-top: -15px;"></a>'+							
+										'</div></a></li>';																			
+						}
+						$("#result_list").html(result);							
+					}		
+				}
+			});
+		}
+	}); 
+	</script>
 </html>

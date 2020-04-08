@@ -44,8 +44,7 @@ public class LoginController {
 	 * @return
 	 */	
 	@GetMapping("/wap_login")
-	public String loginPage(HttpServletRequest request){
-		String url=request.getRequestURI();		
+	public String loginPage(HttpServletRequest request){		
 		return "bks_wap/login";
 	}	
 	
