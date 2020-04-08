@@ -576,3 +576,33 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 }
 /*/登陆样式修改 */
 
+
+/* 监管采集 */
+.inspect_lis{
+	width: 100%;
+	border-radius: 1em;
+	padding: 2em 1em;
+	margin-bottom: 6em;
+	background-color:rgba(251, 251, 251, 0.9);
+	box-shadow: 0 0 10px #168cf4 inset;
+	border: 1px solid #00F7DE;
+}
+.inspect_lis li{
+	width: 33.333%;
+}
+.inspect_lis li div{
+	position: relative;
+	border-radius: 8px;
+	border-bottom: 3px solid #ccc;
+	box-shadow: 0 2px 6px #999;
+}
+.inspect_lis li div:active{
+	border-bottom: 3px solid rgba(0,0,0,0);
+	box-shadow: 0 0 0 #fff;
+}
+.inspect_lis li div p{
+	position: absolute;
+	width: 100%;
+	bottom: .6em;
+}
+/* /监管采集 */
