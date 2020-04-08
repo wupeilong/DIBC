@@ -6,42 +6,43 @@
 <html>
 <head>
 <meta charset=utf-8>
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 <title>采购报送信息列表</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
-</head>
-<body class="contain" style="background-color: #eee; height: auto;">
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
+<link rel="stylesheet" type="text/css"	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
+<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
 
-	<main class="" style="padding-bottom: 46.5px;">
-	<div class="border0 bg0">
-		<div class="text-center bg-gradient" style="padding-bottom: 2em;">
-			 <div class="navigation"
-				style="position: relative; background-color: rgba(0, 0, 0, 0);">
-				<div class="fb padding-side">
+</head>
+<body class="contain o-page p-about" style="background-color: #eee; height: auto;">
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_public_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
-			</div> 
-			<div class="fonwei text-white fonsi16">${unitDetail.unitName}</div>
-			<div class="text-white margin-top">
-				${unitDetail.businessLicenseCode}</div>
-		</div>
+			</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>			
+		</div> 
+	<main class="" style="padding-bottom: 46.5px;padding:89px 0;">
+	<div class="border0 bg0">		
 		<div class="panel-body padding0">
 			<ul class="formlist list-group margin0">
+				<li class="list-group-item fs" style="border-radius: 0;"><span
+					class="padding-side text-muted">企业名称</span><label class="">${unitDetail.unitName}</label>
+				</li>
+				<li class="list-group-item fs" style="border-radius: 0;"><span
+					class="padding-side text-muted">信用代码</span><label class="">${unitDetail.businessLicenseCode}</label>
+				</li>
 				<li class="list-group-item fs" style="border-radius: 0;"><span
 					class="padding-side text-muted">法人代表</span><label class="">${unitDetail.legalPerson}</label>
 				</li>
@@ -55,13 +56,7 @@
 						<c:if test="${unitDetail.unitType==2}">学校</c:if> 
 						<c:if test="${unitDetail.unitType==3}">餐饮</c:if> 
 						<c:if test="${unitDetail.unitType==4}">其它</c:if>
-				</label></li>
-				<!-- <li class="list-group-item fs">
-							<span class="padding-side text-muted">所属行业</span><label class="">卖辣子</label>
-						</li> -->
-				<!-- <li class="list-group-item fs ftop">
-							<span class="padding-side text-muted">经营范围</span><label class="">国家移民管理局禁止第三国人员从边境口岸出入境</label>
-						</li> -->
+				</label></li>				
 				<li class="list-group-item">
 					<div class="fsa">
 						<div>

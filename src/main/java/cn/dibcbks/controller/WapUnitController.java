@@ -88,7 +88,28 @@ public class WapUnitController {
 		return iUnitService.queryUnitList(unitId,unitName);
 	}
 	
-
+	//dfssssssssssfsddddddddddddd
+	/**
+	 * 查询企业select查询
+	 * @return
+	 */
+	@RequestMapping("/select_unit")
+	@ResponseBody
+	public ResponseResult<List<Unit>> queryUnitListr(Integer unitId,String unitName){
+		
+		return iUnitService.queryUnitList(unitId,unitName);
+	}
+	/**
+	 * 进入企业信息修改页
+	 * @return
+	 */
+	@RequestMapping("/indexcs")
+	public String indexcs(ModelMap modelMap){		
+		return iUnitService.selectUnit(modelMap);
+	}
+	
+	
+	
 	/**
 	 * 查询单位信息详情
 	 * @param unitId
