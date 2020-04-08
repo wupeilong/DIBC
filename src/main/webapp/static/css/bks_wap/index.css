@@ -520,13 +520,13 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	color: #fff;
 }
 .roles_lis ul li>div img{
-	width: 80px;
+	width: 60px;
 }
 .roles_lis ul li>div:last-child{
 	padding-right: 0;
 }
 .roles_lis ul li>div:last-child a{
-	font-size: 1.4em;
+	font-size: 1.2em;
 }
 .tabbox .tabh li.cur{
 	color:#fff;

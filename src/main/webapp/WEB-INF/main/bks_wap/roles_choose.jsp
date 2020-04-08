@@ -27,22 +27,22 @@
 					<li class="fs" onclick="return location.href='wap_public_home';">
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role1.png" class="" alt=""> </div>
 						<div class="padding-side">
-							<a href="javascript:location.href='./public_list.html';" class="fonwei">我是大众</a>
-							<div class="text-muted bfrifRows margin-top fonwei">大众用户。既是消费者又是监督者，点击可无障碍查看食品生产相关过程。</div>
+							<a href="${pageContext.request.contextPath}/wap_public_home" class="fonwei">大众用户</a>
+							<div class="text-muted bfrifRows  " style="margin-top: 0.4em;    font-size: 10px;">大众用户。既是消费者又是监督者，可查看食品安全相关过程。</div>
 						</div>
 					</li>
 					<li class="fs" onclick="model($('.model_step2'))">
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role.png" class="" alt=""> </div>
 						<div class="padding-side">
-							<a href="javascript:;" class="fonwei">我是主体人员</a>
-							<div class="text-muted bfrifRows margin-top fonwei">主体人员。作为食品生产的主体，诚信生产经营，根据相关法律，接受相关部门的监督。</div>
+							<a href="javascript:;" class="fonwei">主体人员</a>
+							<div class="text-muted bfrifRows  " style="margin-top: 0.4em;font-size: 10px;">主体人员。作为食品生产的主体，诚信生产经营，根据相关法律，接受相关部门的监督。</div>
 						</div>
 					</li>
 					<li class="fs" onclick="model($('.model_step3'))">
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role2.png" class="" alt=""> </div>
 						<div class="padding-side">
-							<a href="javascript:;" class="fonwei bfrifRows">我是监管人员</a>
-							<div class="text-muted margin-top fonwei">监管人员。市场监管部门人员，严格监督和执法，保障人民群众的饮食安全。</div>
+							<a href="javascript:;" class="fonwei bfrifRows">监管人员</a>
+							<div class="text-muted  " style="margin-top: 0.4em;font-size: 10px;">监管人员。黔灵毓秀，贵中云岩，保障人民群众的饮食安全。</div>
 						</div>
 					</li>
 				</ul>
@@ -141,6 +141,9 @@
 				  content: el,
 				  closeBtn:2,
 				  shadeClose:true,
+				  end: function(index){
+					  $(el).css('display','none');		               
+		         }
 				});    
 			}
 		</script>
