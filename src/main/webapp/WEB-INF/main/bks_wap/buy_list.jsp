@@ -29,9 +29,9 @@
 	</style>	
 </head>
 	<body class="" style="background-color: #f7f7f7;">
-		<div class="navigation bg-primary navxg" style="background: #2089b1;">
+		<div class="navigation bg-primary navxg">
 			<div class="">
-				<a href="javascript:history.go(-1)" class="text-white video_fh"><!-- <i class="fa fa-angle-left"></i> --></a>				
+				<a href="javascript:history.go(-1)" class="text-white video_fh" style="margin-left:1em"><!-- <i class="fa fa-angle-left"></i> --></a>				
 					<div class="" style="width: 100%;">						
 						<!-- <a href="" class="btn bg-primary padding-side"><i class="fa fa-search"></i></a> -->						
 						<c:if test="${user.type == 1}">  
@@ -41,20 +41,22 @@
 									<option value="${item.unitId}">${item.unitName}111</option>
 								</c:forEach>
 							</select>
-						</c:if>			
-					</div><br>			
-					<div class=""style="width: 100%;">
-						<ul id="menu">
-						  <li class="active" ><a href="" >全部</a></li><li ><a href="">未验收</a></li><li ><a href="">已验收</a></li><li>
+						</c:if>
+					</div><br>
+					<div class="bg-gradient">
+						<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
+						  <li class="active pull-left" ><div class="getall text-center">全部</div></li>
+						  <li class="pull-left"><div class="getUn text-center">未验收</div></li>
+						  <li class="pull-left"><div class="geted text-center">已验收</div></li><li>
 						</ul>
 					</div>
 				<c:if test="${user.type == 2 }">
 					<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
-				</c:if>				
+				</c:if>
 			</div>
 		</div>
 		
-		<main class="main margin-top2 padding-side05" style="padding-top: 78.4px;" id="result_list">
+		<main class="main margin-top padding-side05" style="padding-top: 115px;" id="result_list">
 			<c:forEach items="${procurementList}" var="item">
 				<div class="buy_list">
 					<div class="buy_top"><p>订单号：
@@ -68,16 +70,53 @@
 						</c:if>											
 						</p>
 					</div>
-					<div class="buy_top1"><p>${item.unitName}									
-						<span class="buy_top1_span"><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></span>					
-						</p>
+					<div class="buy_top1">
+						<div>${item.unitName}
+							<span class="buy_top1_span text-muted"><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></span>					
+						</div>
 					</div>				
 				</div>
 			</c:forEach>		
 		</main>	
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
-	<script type="text/javascript">	
+	<script type="text/javascript">
+	$(".getall").click(function(){
+		console.log("1111")
+		$.ajax({
+			url:'',
+			data:"",
+			dataType:"json",
+			success:function(res){
+				
+			}
+		})
+	})
+	$(".getUn").click(function(){
+		$.ajax({
+			url:'',
+			data:"",
+			dataType:"json",
+			success:function(res){
+				
+			}
+		})
+	})
+	$(".geted").click(function(){
+		$.ajax({
+			url:'',
+			data:"",
+			dataType:"json",
+			success:function(res){
+				
+			}
+		})
+	})
+	$(".menu").children().click(function(){
+		$(this).parent().children().removeClass("active")
+		$(this).addClass("active");
+		
+	})
 	$('select').searchableSelect({
 		"afterSelectItem":function(){
 			var url = "${pageContext.request.contextPath}/wap_pro/list";
@@ -95,7 +134,7 @@
 						var result = "";
 						for(var i=0;i<obj.data.length;i++){
 							result += '<div class="buy_list">'+
-									  '<div class="buy_top"><p>订单号:'+
+									  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
 									'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
 									'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
 									if(obj.data[i].status == 0){
@@ -104,8 +143,8 @@
 									if(obj.data[i].status == 1){
 										result += '<span class="buy_top_span1">已验收</span>';
 									}																		
-									result += '</p></div><div class="buy_top1"><p>'+obj.data[i].unitName+'<span class="buy_top1_span">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
-											  '</p></div></div>';							
+									result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+											  '</div></div></div>';							
 						}
 						$("#result_list").html(result);							
 					}		

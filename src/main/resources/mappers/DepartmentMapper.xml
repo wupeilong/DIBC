@@ -11,41 +11,11 @@
 	    <result column="department_description" property="departmentDescription" />
 	    <result column="department_parent_id" property="departmentParentId" />
 	    <result column="department_type" property="departmentType" />
-	    <result column="department_authorization" property="departmentAuthorization" />	    
-	 
+	    <result column="department_authorization" property="departmentAuthorization" />
+	    <result column="authorization_id" property="authorizationId" />
+	    <result column="authorization_name" property="authorizationName" />
 	</resultMap>
 	
-	<resultMap id="DetailResultMap" type="cn.dibcbks.entity.Department">
-	    <id column="department_id" property="departmentId" />
-	    <result column="department_name" property="departmentName" />
-	    <result column="unit_id" property="unitId" />
-	     <result column="unit_name" property="unitName" />
-	    <result column="department_head" property="departmentHead" />
-	    <result column="department_description" property="departmentDescription" />
-	    <result column="department_parent_id" property="departmentParentId" />
-	    <result column="department_type" property="departmentType" />
-	    <result column="department_authorization" property="departmentAuthorization" />	    
-	 	<collection property="userList" ofType="cn.dibcbks.entity.User">
-			<id column="id" property="id" />
-	    	<result column="id_card" property="idCard" />
-		    <result column="username" property="username" />		   
-		    <result column="phone" property="phone" />		    
-		    <result column="unit_name" property="unitName" />
-		    <result column="role_id" property="roleId" />
-		    <result column="role_name" property="roleName" />
-		    <result column="department_name" property="departmentName" />
-		    <result column="openid" property="openid" />	    
-		    <result column="deparment" property="deparment" />
-		    <result column="duty" property="duty" />
-		    <result column="age" property="age" />
-		    <result column="health_certificate_code" property="healthCertificateCode" />
-			<result column="health_certificate" property="healthCertificate" />
-			<result column="head_url" property="headUrl" />
-			<result column="parent_id" property="parentId" />
-			<result column="sex" property="sex" />
-			<result column="type" property="type" />
-		</collection>
-	</resultMap>
 
 
 
@@ -76,6 +46,9 @@
 	      <if test="departmentAuthorization != null">
 	        department_authorization,
 	      </if>
+	      <if test="authorizationId != null">
+	        authorization_id,
+	      </if>
 	    </trim>
 	    <trim prefix="values (" suffix=")" suffixOverrides=",">	     
 	      <if test="departmentId != null">
@@ -102,6 +75,9 @@
 	      <if test="departmentAuthorization != null">
 	        #{departmentAuthorization},
 	      </if>
+	      <if test="authorizationId != null">
+	        #{authorizationId},
+	      </if>
 	    </trim>
 	</insert>
 	
@@ -116,9 +92,12 @@
 			d.department_description,
 			d.department_parent_id,
 			d.department_type,
+			d.authorization_id,
+			a.authorization_name,
 			d.department_authorization
 		FROM
 			department AS d
+		LEFT JOIN authorization AS a ON a.authorization_id = d.authorization_id
 		LEFT JOIN unit AS n ON n.unit_id = d.unit_id
 		<if test="where != null">where ${where}</if>
 		<if test="orderBy != null">order by ${orderBy}</if>
@@ -126,45 +105,30 @@
 	</select>
 	
 	<!-- 查询单个用户信息 -->
-	<select id="selectById" resultMap="DetailResultMap" parameterType="java.lang.Integer">		
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">		
 		SELECT
-			d.department_id,
 			d.unit_id,
 			n.unit_name,
+			d.department_id,
 			d.department_name,
 			d.department_head,
 			d.department_description,
 			d.department_parent_id,
 			d.department_type,
-			d.department_authorization,
-			r.role_id,
-			r.role_name,
-			u.phone,
-			u.username,
-			u.id_card,
-			u.id,
-			u.deparment,
-			u.duty,
-			u.age,
-			u.health_certificate_code,
-			u.health_certificate,
-			u.head_url,
-			u.openid,
-			u.parent_id,
-			u.sex,
-			u.type
+			d.authorization_id,
+			a.authorization_name,
+			d.department_authorization
 		FROM
 			department AS d
-		LEFT JOIN unit AS n ON n.unit_id = d.unit_id
-		LEFT JOIN role AS r ON r.department_id = d.department_id
-		LEFT JOIN `user` AS u ON u.role_id = r.role_id		
+		LEFT JOIN authorization AS a ON a.authorization_id = d.authorization_id
+		LEFT JOIN unit AS n ON n.unit_id = d.unit_id		
 		WHERE
 			d.department_id = #{departmentId} 
 	</select>
 	 
 
 	<update id="updateById"  parameterType="cn.dibcbks.entity.Department">
-		update user
+		update department
 	    <set>    
 	      <if test="unitId != null">
 	        unit_id = #{unitId},
@@ -186,6 +150,9 @@
 	      </if>	
 	      <if test="departmentAuthorization != null">
 	        department_authorization = #{departmentAuthorization},
+	      </if>
+	      <if test="authorizationId != null">
+	        authorization_id = #{authorizationId},
 	      </if>
 	    </set>
 	    where department_id = #{departmentId}

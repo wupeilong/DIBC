@@ -1,3 +1,11 @@
+*{
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
 .contain{
 	max-width: 640px;
 	min-width: 320px;
@@ -407,7 +415,7 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 }
 .bingform label{
 	position: absolute;
-	top: 0;
+	/* top: 0; */
 	left: .4em;
 }
 .bingform input{
@@ -505,28 +513,30 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 .roles_lis ul li{
 	padding: 1em;
 	background-color: #fff;
-	border: 1px solid #ddd;
 	border-radius: 8px;
 	box-shadow: 0 0 4px #ccc;
 	margin-bottom: 1em;
 	cursor: pointer;
+	border-bottom: 4px solid #ddd;
 }
 .roles_lis ul li:active{
 	background-color: #f1861c;
 	color: white;
+	box-shadow: 0 0 11px #999 inset;
+	border-bottom: 4px solid rgba(0,0,0,.3);
 }
 .roles_lis ul li:active a,
 .roles_lis ul li:active div{
 	color: #fff;
 }
 .roles_lis ul li>div img{
-	width: 80px;
+	width: 60px;
 }
 .roles_lis ul li>div:last-child{
 	padding-right: 0;
 }
 .roles_lis ul li>div:last-child a{
-	font-size: 1.4em;
+	font-size: 1.2em;
 }
 .tabbox .tabh li.cur{
 	color:#fff;
@@ -556,7 +566,7 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	padding: 1em 2em;
 	width: 100%;
 	position: absolute;
-	top: 3em;
+	top: 5em;
 	left: 0;
 	background-color: rgba(255, 255, 255, 0.9);
 	margin-bottom: 2em;

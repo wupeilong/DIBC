@@ -11,8 +11,9 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/common.js"></script>
 </head>
 	<body class="" style="background-color: #eee;">
 		<main class="">
@@ -41,11 +42,12 @@
 					</div>
 				</div>
 			</div>
-		</main>
-		<script type="text/javascript">
+			<script type="text/javascript">
 			$(".login").click(function() {
 				showModel("请选择您的角色",$(".roles"),5);
 			})
 		</script>
+		</main>
+		
 	</body>
 </html>

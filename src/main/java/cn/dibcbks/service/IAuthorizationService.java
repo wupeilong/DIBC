@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.ui.ModelMap;
 
+import cn.dibcbks.entity.Authorization;
 import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Menu;
 import cn.dibcbks.entity.Role;
@@ -50,7 +51,7 @@ public interface IAuthorizationService {
 	 * @param modelMap
 	 * @return
 	 */
-	String selectMenuAuthority(ModelMap modelMap);
+	String selectMenuAuthority(Integer authorizationId, ModelMap modelMap);
 	
 	/**
 	 * 子菜单列表
@@ -190,6 +191,41 @@ public interface IAuthorizationService {
 	 * @return
 	 */
 	JSONObject getDepartment(ModelMap modelMap);
+
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String selectAuthorizationListPag(ModelMap modelMap);
+
+	/**
+	 * 
+	 * @param authorization
+	 * @return
+	 */
+	ResponseResult<Void> addAuthorization(Authorization authorization);
+
+	/**
+	 * 
+	 * @param authorization
+	 * @return
+	 */
+	ResponseResult<Void> updateAuthorization(Authorization authorization);
+
+	/**
+	 * 
+	 * @param authorizationId
+	 * @return
+	 */
+	String updateAuthorizationPag(Integer authorizationId, ModelMap modelMap);
+
+	/**
+	 * 删除权限信息编辑页
+	 * @param authorizationId
+	 * @return
+	 */
+	ResponseResult<Void> deteleAuthorization(Integer authorizationId);
 
 	
 

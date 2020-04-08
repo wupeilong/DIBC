@@ -32,7 +32,7 @@
 	</h1>
 	<label>
 		<span>父菜单名称:</span>
-		<input id="parentname" type="text" name="name" class="error" >
+		<input id="parentname" type="text" readonly="readonly" name="name" class="error" >
 		<div class="error-msg"></div>
 	</label>
 	<label>
