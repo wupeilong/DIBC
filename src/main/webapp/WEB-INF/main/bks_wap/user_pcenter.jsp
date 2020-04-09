@@ -44,8 +44,7 @@
 						</div>
 					</div>
 				</div> --%>
-				<div class="workmens_info_top margin-bot">
-					
+				<div class="workmens_info_top margin-bot">					
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属单位</span>
 					  <div class="form-control box-shadow0 border0">${userPcenter.unitName}</div>
@@ -83,13 +82,7 @@
 					  </div>
 					  <div class="text-center">从业人员健康证</div>
 				</div>
-			</form>
-			
-			<%-- <div class="margin-top2 margin-bot2">
-				<a href="${pageContext.request.contextPath}/unit/coopration_detal?unitId=${userPcenter.unitId}" class="btn btn-primary margin-bot form-control">企业信息查询</a>
-				<a href="${pageContext.request.contextPath}/user/workmens_health?userId=${user.id}" class="btn btn-primary margin-bot form-control">健康状况查询</a>
-				<a href="${pageContext.request.contextPath}/user/workmens_health_add" class="btn btn-primary margin-bot form-control">健康状况录入</a>
-			</div> --%>
+			</form>		
 		<script type="text/javascript">
 			$(".munulist").click(function() {
 				$(this).find("ul").toggle()

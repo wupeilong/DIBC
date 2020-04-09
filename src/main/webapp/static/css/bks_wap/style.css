@@ -64,6 +64,9 @@ a{
 .fbot{
 	align-items: flex-end !important;
 }
+.fend{
+	justify-content: flex-end;
+}
 .margin_tb10{
 	margin: 10px 0;
 }
