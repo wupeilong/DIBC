@@ -143,10 +143,7 @@
 									<td colspan="2" style="width: 15em;">
 										<div class="">
 											<input readonly="" class="form-control" type="text" id="date-group1-6" value="<fmt:formatDate value="${disinfectionbyid.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" placeholder="hh:mm">
-										</div>
-										<!-- <select name="">
-											<option value="">请选择时间</option>
-										</select> -->
+										</div>										
 									</td>
 								</tr>
 							</tbody>
@@ -154,11 +151,15 @@
 					</div>
 				  </fieldset>
 			</form>
-			<div class="margin-top2 margin-bot2">
-				<!-- <button type="button" class="btn btn-primary form-control">提交</button> -->
+			<div class="margin-top2 margin-bot2">				
 			</div>
 		</main>			
-	<c:import url="public/footer.jsp"></c:import>
+	<c:if test="${user.type == 3}">
+		<c:import url="public/public_footer.jsp"></c:import>
+	</c:if>
+	<c:if test="${user.type != 3}">
+		<c:import url="public/footer.jsp"></c:import>
+	</c:if>	
 	</body>
 
 </html>

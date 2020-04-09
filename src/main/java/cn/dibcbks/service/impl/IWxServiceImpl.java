@@ -136,6 +136,7 @@ public class IWxServiceImpl implements IWxService {
 	        user.setSex(wxUserInfo.getSex());
 	        user.setHeadUrl(wxUserInfo.getHeadimgurl());
 	        user.setUuid(uuid);
+	        user.setDepartmentId(220);//默认消费者
 	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
 	        user.setType(3);//公众
 	        user.setCreateTime(createTime);

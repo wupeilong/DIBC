@@ -50,7 +50,7 @@
 						<p class="text-center text-white fonwei">管局专检</p>
 					</div>
 				</li>
-				<li class="padding-side hide">
+				<li class="padding-side">
 					<div class="check_prof">
 						<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj2.png" class="img-responsive">
 						<p class="text-center text-white fonwei">督察专检</p>
@@ -66,16 +66,17 @@
 		</div>
 		<script type="text/javascript">
 			$(".check_info").click(function() {
-				location.href="check_detal.html"
+				location.href= "${pageContext.request.contextPath}/wap_ins/inspect_list";
+					// /wap_ins/inspect_list
 			})
 			$(".check_self").click(function() {
-				location.href="check_detal.html"
+				location.href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=1";
 			})
 			$(".check_gov").click(function() {
-				location.href="check_detal.html"
+				location.href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=2";
 			})
 			$(".check_prof").click(function() {
-				location.href="check_detal.html"
+				location.href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=3";
 			})
 			document.body.addEventListener('touchstart', function () {});
 		</script>
