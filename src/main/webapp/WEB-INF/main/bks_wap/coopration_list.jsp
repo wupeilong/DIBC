@@ -28,6 +28,16 @@
 			</div>
 		</div>
 		<main class="main margin-top">
+			<div class="" style="padding-top: 27px;">
+				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
+					<thead>
+						<tr><th>序号</th><th>企业名字</th><th>企业法人</th><th>操作</th></tr>
+					</thead>
+					<tbody id="result_list">				
+						
+					</tbody>
+				</table>
+			</div>
 			<div class="bannerPane">
 				<div class="overlay"></div>
 				<div class="s-banner-content">

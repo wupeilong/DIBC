@@ -84,7 +84,7 @@ public class WapUserController {
 	@RequestMapping("/workmens_add")
 	public String workmensAdd(ModelMap modelMap){	
 		
-		return "bks_wap/workmens_add";
+		return iUserService.workmensAdd(modelMap);		
 	}
 	
 	
@@ -104,15 +104,15 @@ public class WapUserController {
 	@PostMapping("/workmens_reg")
 	@ResponseBody
 	public ResponseResult<Void> allocateAccount(@RequestParam(value="unimg",required=false)MultipartFile file,
-												String duty,
+												Integer departmentId,
 												String username,
-												String password, 
+												String password,
 												String phone, 
 												String idCard,
 												Integer age,
 												String healthCertificateCode){
 		
-		return 	iUserService.allocateAccount(duty, idCard, username, password, phone, age, healthCertificateCode, file);	
+		return 	iUserService.allocateAccount(departmentId, idCard, username, password, phone, age, healthCertificateCode, file);	
 	}
 	
 	
