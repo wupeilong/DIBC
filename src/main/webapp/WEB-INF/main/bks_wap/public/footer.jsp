@@ -34,7 +34,7 @@
 		<ul class="list-unstyled clearfix margin0">				
 			<li style="width: 43%;    font-size:1.5em;"><a href="${pageContext.request.contextPath}/wap_home"><div><i class="fa fa-home"></i></div></a></li>
 			<li style="width: 14%;"><a href="javascript:;" class="toggle" id="sidenav-toggle"><div class="footer_dh_bj" style="width: 54px;"><div class="footer_dh" style="width: 54px;"></div></div></a></li>
-			<li style="width: 43%;    font-size: 1.5em;"><a href="${pageContext.request.contextPath}/wap_user/user_pcenter?id=${user.id}"><div><i class="fa fa-user-circle"></i></div></a></li>
+			<li style="width: 43%;    font-size: 1.5em;"><a href="${pageContext.request.contextPath}/wap_user/user_home"><div><i class="fa fa-user-circle"></i></div></a></li>
 		</ul>
 	</div>
 	<script src="${pageContext.request.contextPath}/static/js/bks_wap/sidenav.min.js"></script>

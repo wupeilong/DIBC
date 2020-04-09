@@ -34,11 +34,17 @@ public class WapUserController {
 	 * @return
 	 */
 	@RequestMapping("/user_pcenter")
-	public String userPcenter(ModelMap modelMap,String id){
-		
+	public String userPcenter(ModelMap modelMap,String id){		
 		return iUserService.queryUserPcenter(modelMap, id);	
 	}
-	
+	/**
+	 * 进入个人中心页
+	 * @return
+	 */
+	@RequestMapping("/user_home")
+	public String userHome(ModelMap modelMap){		
+		return "bks_wap/user_home";	
+	}
 	
 	/**
 	 * 进入从业人员信息列表页
