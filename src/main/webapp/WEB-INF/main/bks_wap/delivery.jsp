@@ -16,11 +16,11 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
-	<body class="contain">
+	<body class="contain" style="background-color: #eee;">
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<c:if test="${user.type == 1}">
 						<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					</c:if>	
@@ -40,24 +40,32 @@
 				</div>
 			</div>						
 		</div>		
-		<main class="main margin-top2 padding-side05">
-			<div class="">
-				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th width="45px">序号</th><th width="45px">配送单号</th><th>供应商</th><th>验收单位</th><th width="45px">操作</th></tr>
-					</thead>
-					<tbody id="result_list">
-						<c:forEach items="${distributionList}" var="item" varStatus="vs">
-							<tr>
-							<td>${vs.count}</td>
-							<td>${item.id }</td>
-							<td>${item.mealsUnitName}</td>
-							<td>${item.acceptanceUnitName}</td>
-							<td><a href="${pageContext.request.contextPath}/wap_dry/delivery_detal?id=${item.id}">详情</a></td>
-							</tr>
-						</c:forEach>				
-					</tbody>
-				</table>
+		<main class="main padding-side05">
+			<div class="margin-top">
+				
+				<c:forEach items="${distributionList}" var="item" varStatus="vs">
+				<div class="delivery_li fb margin-bot" style="height: 100px;">
+					<div class="" style="width: 90%;">
+						<div class="margin-bot">
+							<div class="fonwei"><i class="fa fa-address-card-o text-primary"></i> 供应商：${item.mealsUnitName}</div>
+						</div>
+						<div class="fb ftop" style="font-size: 12px;">
+							<div class="">
+								<div class="text-muted"><i class="fa fa-calendar-minus-o text-danger"></i> 配送单号：</div>
+								<span class="padding-side">${item.id }</span>
+							</div>
+							<div class="padding-side border-left yanshou" style="border-left: 1px solid #ddd;">
+								<div class="text-muted"><i class="fa fa-cart-arrow-down text-success"></i> 验收单位：</div>
+								<span class="">${item.acceptanceUnitName}</span>
+							</div>
+						</div>
+					</div>
+					<div class="fc fend" style="width: 10%;height: 100%;border-left: 1px solid #ddd;">
+						<a href="${pageContext.request.contextPath}/wap_dry/delivery_detal?id=${item.id}"><i class="fa fa-angle-right fa-3x text-muted"></i></a>
+					</div>
+				</div>
+				</c:forEach>
+				
 			</div>
 		</main>	
 	<c:import url="public/footer.jsp"></c:import>
