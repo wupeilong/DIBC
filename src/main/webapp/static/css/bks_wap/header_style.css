@@ -1,39 +1,8 @@
 
-@import url("foundation.css");
-@import url("f-awesome/font-awesome.min.css");
-
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(../../../../../themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(../../../../../themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
-}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-body #header {
+#header {
     width: 100%;
     background: url(../../images/bks_wap/menu-bg.png) no-repeat center bottom !important;
     background-size: 100% !important;
@@ -90,13 +59,16 @@ a.p-link-back {
     text-align: center;
     overflow: hidden;
     height: 89px;
-   z-index: 3;
+   	z-index: 3;
     background: url(../../images/bks_wap/2.jpg) no-repeat center center;
     background-size: cover;
     width: 100%;
     top: -5px;
     top: 0px;
     position: fixed !important;
+}
+.public_list .bannerPane{
+	background: url(../../images/bks_wap/bg-pub.jpg) no-repeat center center;
 }
 .bannerPane .overlay {
     background: #000;

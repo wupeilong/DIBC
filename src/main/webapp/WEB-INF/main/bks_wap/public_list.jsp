@@ -17,14 +17,14 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<style type="text/css">
-.navxg{
-	padding:0;
-}
+		.navxg{
+			padding:0;
+		}
 	</style>	
 </head>
 	<body class="o-page p-about">
-		<div id="page">
-			<div id="header">
+		<div id="page" class="public_list">
+			<div id="header"  style="background: url(${pageContext.request.contextPath}/static/images/bks_wap/menu-bg.svg) no-repeat center bottom !important;">
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_public_home" class="p-link-back"><i class="fa fa-home"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>

@@ -26,25 +26,13 @@
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
 			</div>
+		</div>
+		<main class="main margin-top">
 			<div class="bannerPane">
 				<div class="overlay"></div>
 				<div class="s-banner-content">
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
-			</div>			
-		</div>   		
-		<main class="main margin-top2 padding-side05">
-			<div class="">
-				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th>序号</th><th>企业名称</th><th>企业法人</th><th>操作</th></tr>
-					</thead>
-					<tbody id="result_list">
-						<c:forEach items="${unitList}" var="item" varStatus="vs">
-							<tr><td>${vs.count}</td><td>${item.unitName}</td><td>${item.legalPerson}</td><td><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td></tr>
-						</c:forEach>						
-					</tbody>
-				</table>
 			</div>
 		</main>
 	<c:import url="public/footer.jsp"></c:import>
