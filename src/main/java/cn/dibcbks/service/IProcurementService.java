@@ -15,7 +15,7 @@ public interface IProcurementService {
 	 * @param unitId
 	 * @return
 	 */
-	ResponseResult<List<Procurement>> selectProcurementList(Integer unitId);
+	ResponseResult<List<Procurement>> selectProcurementList(Integer unitId,Integer status);
 
 	/**
 	 * 进入采购列表页

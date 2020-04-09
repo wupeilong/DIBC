@@ -44,12 +44,21 @@ public class IProcurementServiceImpl implements IProcurementService {
 	
 
 	@Override
-	public ResponseResult<List<Procurement>> selectProcurementList(Integer unitId) {
+	public ResponseResult<List<Procurement>> selectProcurementList(Integer unitId,Integer status) {
 		ResponseResult<List<Procurement>> rr = null;
 		try {
 			String where = null;
+			boolean isAnd = false;
 			if (unitId != null) {
 				where = "n.unit_id = '" + unitId + "'";
+				isAnd = true;
+			}
+			if (status != null) {
+				if (isAnd) {
+					where += " AND p.status = ’" + status + "'";
+				}else {
+					where = " p.status = ’" + status + "'";
+				}
 			}
 			List<Procurement> list = procurementMapper.select(where, " p.purchasing_time DESC", null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！",list);
