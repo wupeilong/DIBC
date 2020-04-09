@@ -15,7 +15,7 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 </head>
 	<body class="contain">
-		<main class="main" style="padding-top:120px;">
+		<main class="main">
 			<!-- <div class="navigation bg-primary">
 				<div class="fb padding-side">
 					<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
@@ -38,7 +38,7 @@
 			</div>
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
+					<thead class="bg-primary">
 						<tr><th>编号</th><th>姓名</th><th>体温状况℃</th><th>测温日期</th><th>操作</th></tr>
 					</thead>
 					<tbody>

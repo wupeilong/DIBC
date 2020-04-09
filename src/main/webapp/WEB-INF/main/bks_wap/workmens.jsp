@@ -41,10 +41,10 @@
 					</shiro:hasPermission>
 				</c:if>			
 		</div> 		
-		<main class="main margin-top4 padding-side05">
+		<main class="main">
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
+					<thead class="bg-primary">
 						<tr><th>序号</th><th>员工姓名</th><th>职务</th><th>年龄</th><th>操作</th></tr>
 					</thead>
 					<tbody id="result_list">						

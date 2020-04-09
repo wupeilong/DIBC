@@ -17,22 +17,22 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 </head>
 	<body class="contain">
-		<div id="page" class="">
-			<div id="header">
-				<div class="header-content">
-					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+		<main class="main" style="padding-top:100px;">
+			<div id="page" class="">
+				<div id="header">
+					<div class="header-content">
+						<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+						<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					</div>
 				</div>
-			</div>
-			<div class="bannerPane">
-				<div class="overlay"></div>
-				<div class="s-banner-content">
-					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
-				</div>
-			</div>			
-		</div>   		
-		<main class="main padding-side" style="padding-top: 120px;">
+				<div class="bannerPane">
+					<div class="overlay"></div>
+					<div class="s-banner-content">
+						<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+					</div>
+				</div>			
+			</div>   	
 			<form action="" method="" class="clearfix">
 				<div class="workmens_info_top margin-bot">
 					<div class="input-group form-group fs">
@@ -74,7 +74,7 @@
 				</div>
 			</form>
 			
-			<div class="margin-top2 margin-bot2">
+			<div class="margin-top2 margin-bot2 padding-side">
 				<a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${userDetail.id}" class="btn btn-primary form-control">健康状况查询</a>
 			</div>
 		</main>		
