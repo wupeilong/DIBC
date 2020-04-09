@@ -66,6 +66,7 @@ a.p-link-back {
     top: -5px;
     top: 0px;
     position: fixed !important;
+    box-shadow: 0 2px 6px #999;
 }
 .public_list .bannerPane{
 	background: url(../../images/bks_wap/bg-pub.jpg) no-repeat center center;
