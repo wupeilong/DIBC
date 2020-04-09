@@ -15,7 +15,10 @@ footer{
 	background-image: linear-gradient(22deg,#61e0fd,#328fe1);
 }
 .btn-primary{
-	background-color: #348dec;
+	/* background-color: #348dec; */
+	background-color: rgba(0,0,0,0);
+	background-image: linear-gradient(22deg,#328fe1,#61e0fd);
+	border:0;
 }
 .bg-primary{
 	background-color: #348dec;
