@@ -39,7 +39,7 @@
 								<td class="vertical-mid">${vs.count}</td>
 								<td class="vertical-mid td-left">${item.unitName}</td>
 								<td class="vertical-mid">${item.legalPerson}</td>
-								<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td>
+								<td class="vertical-mid fonwei"><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

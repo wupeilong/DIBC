@@ -26,14 +26,14 @@
 					<div class="header-btn text-right">
 						<c:if test="${procurementDetail.status == 0}">
 						<c:if test="${user.type  == 1 }">
-							<a href="javascript:;" class="btn btn-primary form-control">未验收</a>
+							<a href="javascript:;" class="btn btn-primary">未验收</a>
 						</c:if>
 						<c:if test="${user.type  == 2 }">
-							<a href="javascript:;" class="btn btn-primary form-control" id="acceptance">确认验收</a>
+							<a href="javascript:;" class="btn btn-primary" id="acceptance">确认验收</a>
 						</c:if>
 						</c:if>
 						<c:if test="${procurementDetail.status == 1}">
-							<a href="javascript:;" class="btn btn-primary form-control">已验收</a>
+							<a href="javascript:;" class="btn btn-primary">已验收</a>
 						</c:if>
 					</div>				
 				</div>
