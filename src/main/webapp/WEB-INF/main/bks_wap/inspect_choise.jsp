@@ -47,7 +47,7 @@
 					</li>
 				</c:if>
 				
-				<c:if test="${user.type == 2}">
+				<c:if test="${user.type == 1}">
 					<li class="padding-side">
 						<div class="check_gov">
 							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj4.png" class="img-responsive">
