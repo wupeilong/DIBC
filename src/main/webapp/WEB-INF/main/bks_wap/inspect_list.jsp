@@ -91,7 +91,7 @@
 							eSelect : function(data){
 								if(data && data.length > 0){
 									console.log(data[0].unitId);
-								selectunit(data[0].unitId)
+									selectunit(data[0].unitId)
 								}
 							}
 						});
