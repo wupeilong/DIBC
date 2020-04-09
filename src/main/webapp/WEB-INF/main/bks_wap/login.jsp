@@ -29,14 +29,14 @@
 							<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/zlogin.png" class="img-responsive">
 							<div class="login_switch tabbox">
 								<div class="login_form_top tabh margin-bot">
-									<a class="cur">微信登录</a>|<a>账号登录</a>
+									<a>微信登录</a>|<a class="cur">账号登录</a>
 								</div>
 								<div class="tabb">
-									<div class="tab_type cur">
+									<div class="tab_type">
 										<div class="padding-side fc margin-bot2">
-											<div>
-												<h5 class="fonwei">登录后系统将获得以下权限</h5>
-												<p class=""> 获取你的公开信息（呢称、头像等） </p>
+											<div style="margin-top: 45px;">
+												<h5 class="fonwei" style="margin-left: -15px;">登录后系统将获得以下权限</h5>
+												<p class="" style="    margin-left: 10px;"> 获取你的公开信息（呢称、头像等） </p>
 											</div>
 										</div>
 										<div class="text-center">
@@ -44,12 +44,12 @@
 		    border-color: #a9e895;background-image: inherit;">微信一键登陆</button>
 	    								</div>
 	    							</div>
-									<div class="tab_type">
+									<div class="tab_type cur">
 										<div class="login_user">
 											<input type="text" class="login_input box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
 										</div>
 										<div class="login_pwd">
-											<input type="password" class="login_input box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
+											<input type="password" class="login_input bg-pwd box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
 										</div>
 										<div class="text-center margin-top2 margin-bot2">
 											<button type="button" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>

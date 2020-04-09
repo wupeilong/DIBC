@@ -101,7 +101,7 @@ button.btn{
 	color: #fff;
 }
 .tabBar ul li i {
-    font-size: 1.4em;
+  font-size: 1.4em; 
 }
 .navigation{
 	width: 100%;
@@ -112,7 +112,7 @@ button.btn{
 	z-index: 99;
 }
 .navigation i{
-	font-size: 1.6em;
+	 font-size: 1.6em;
 }
 .main{
 	/* height: 100%; */
@@ -605,4 +605,15 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	right: 10px;
 	bottom: -1em;
 	z-index: 99;
+}
+
+.delivery_li{
+	padding: 12px;
+	border-radius: .4em;
+	background-color: #fff;
+	box-shadow: 0 0 4px #ddd;
+}
+.yanshou{
+	width: 155px;
+}
 }
