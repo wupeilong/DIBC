@@ -178,3 +178,11 @@ img[src=""],img:not([src]){
 	-webkit-line-clamp:2;
 	-webkit-box-orient: vertical;
 }
+.table > tbody > tr > td.td-left{
+	text-align: left;
+	height: 44px;
+}
+.coopration_list .table > tbody > tr > td{
+	padding:2px;
+	font-size:12px;
+}

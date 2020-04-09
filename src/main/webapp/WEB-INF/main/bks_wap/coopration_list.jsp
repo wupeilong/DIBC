@@ -21,25 +21,25 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
 			</div>
 		</div>
-		<main class="main margin-top">
-			<div class="" style="padding-top: 27px;">
+		<main class="main">
+			<div class="coopration_list">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th>序号</th><th>企业名字</th><th>企业法人</th><th>操作</th></tr>
+					<thead class="bg-primary">
+						<tr><th style="width:3.2em">序号</th><th>企业名字</th><th style="width:5.2em">企业法人</th><th style="width:3.2em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">
 						<c:forEach items="${unitList}" var="item" varStatus="vs">
 							<tr>
-								<td>${vs.count}</td>
-								<td>${item.unitName}</td>
-								<td>${item.legalPerson}</td>
-								<td><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td>
+								<td class="vertical-mid">${vs.count}</td>
+								<td class="vertical-mid td-left">${item.unitName}</td>
+								<td class="vertical-mid">${item.legalPerson}</td>
+								<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

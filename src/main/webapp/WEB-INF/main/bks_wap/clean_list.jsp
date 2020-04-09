@@ -55,7 +55,7 @@
 					</div>
 					<div class="buy_top1">
 						<div class="fb">
-							<span class="text-muted bfrifRow" style="font-size: 10px;"><!--  消毒日期 ：-->${f.dailyTime}</span>
+							<span class="text-muted bfrifRow"><!--  消毒日期 ：-->${f.dailyTime}</span>
 							<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">详情</a>
 						</div>
 					</div>				
