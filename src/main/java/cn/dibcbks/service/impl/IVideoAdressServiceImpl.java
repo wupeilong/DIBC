@@ -135,5 +135,11 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 		return "bks_wap/video";
 	}
 
+	@Override
+	public String selectTimeInterval(ModelMap modelMap) {
+		
+		return "bks_web/video/video_time";
+	}
+
 
 }

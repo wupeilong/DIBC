@@ -53,13 +53,13 @@
 								</li>
 								<li id="003" data-src="${pageContext.request.contextPath}/web_auth/dep_list_pag">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">部门列表</span></a>
-								</li>
-								<%-- <li id="004" data-src="https://www.360.com/">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户授权</span></a>
-								</li>--%>
+								</li>								
 								<li id="005" data-src="${pageContext.request.contextPath}/wap_video/wap_videoCRUD">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">监控管理</span></a>
 								</li> 
+								<li id="004" data-src="${pageContext.request.contextPath}/web_video/time_Interval">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">视频时间</span></a>
+								</li>
 								
 							</ul>
 						</li>
