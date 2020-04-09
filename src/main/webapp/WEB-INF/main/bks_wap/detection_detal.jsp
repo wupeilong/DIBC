@@ -21,7 +21,7 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
@@ -33,8 +33,8 @@
 				</div>
 			</div>			
 		</div>   		
-		<main class="main margin-top2 padding-side05">
-			<form action="" method="post">
+		<main class="main padding-side05">
+			<form action="" method="post" class="margin-top">
 				<fieldset>
 				    <!-- <legend class="text-center">检测详情:</legend> -->
 					<div class="input-group form-group fs border-bottom">

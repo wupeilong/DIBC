@@ -20,7 +20,7 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
@@ -32,7 +32,8 @@
 				</div>
 			</div>					
 		</div>  
-		<main class="main margin-top2 padding-side05">
+		<main class="main padding-side05">
+			<div class="margin-top"></div>
 			<form action="" method="post">
 				<fieldset>
 				    <legend class="text-center border0">餐饮具、工具及保洁设施清洗消毒记录</legend>
@@ -151,7 +152,6 @@
 					</div>
 				  </fieldset>
 			</form>
-			<div class="margin-top2 margin-bot2">				
 			</div>
 		</main>			
 	<c:if test="${user.type == 3}">

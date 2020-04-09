@@ -20,8 +20,13 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a class="menubtn" href="javascript:history.go(0)" class="p-link-back"><i class="homefa fa-refresh"></i></a>					
+					<c:if tesg="${user.type == 1}">					
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					</c:if>				
+					<c:if tesg="${user.type != 1}">
+						<a class="menu-btn" id="" href="#menu"></a>																		
+					</c:if>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<c:if test="${user.type == 2}">
 						<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
@@ -106,16 +111,20 @@
 				}else{
 					var result = "";
 					for(var i=0;i<obj.data.length;i++){
-						result += "<tr>";
-						result += "<td>" + (i+1) + "</td>";
-						result += "<td>" + obj.data[i].id + "</td>";
-						result += "<td>" + obj.data[i].mealsUnitName + "</td>";
-						result += "<td>" + obj.data[i].acceptanceUnitName + "</td>";
-						result += "<td><a href='${pageContext.request.contextPath}/wap_dry/delivery_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-						result += "</tr>";
+						result += '<div class="buy_list">'+
+								  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
+								'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+								'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+								<!-- if(obj.data[i].status == 0){
+									result += '<span class="buy_top_span1">未验收</span>';
+								}
+								if(obj.data[i].status == 1){
+									result += '<span class="buy_top_span1">已验收</span>';
+								}			 -->															
+								result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+										  '</div></div></div>';						
 					}
-					$("#result_list").html(result);
-					console.log(obj.data);									
+					$("#result_list").html(result);							
 				}				
 			}
 		});

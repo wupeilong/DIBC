@@ -8,23 +8,44 @@
 	<title>添加清洗消毒记录</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>	
-	<script src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js" type="text/javascript" charset="utf-8"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
+		<%-- <div class="navigation bg-primary">
 			<div class="fb padding-side">
 				<c:if test="${user.type == 2}">
 					<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
 				</c:if>				
 			</div>
+		</div> --%>
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					
+					<div class="header-btn text-right">
+						<button type="button" class="btn btn-primary" onclick="diskinput()">提交</button>
+					</div>
+				</div>
+			</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>						
 		</div>
-		<main class="main margin-top2 padding-side05">
+		<main class="main padding-side05">
+			<div class="margin-top"></div>
 			<form action="" method="post">
 				<legend class="text-center border0">餐饮具、工具及保洁设施清洗消毒记录</legend>
 				<fieldset>
@@ -90,9 +111,6 @@
 					</div>
 				  </fieldset>
 			</form>
-			<div class="margin-top2 margin-bot2">
-				<button type="button" class="btn btn-primary form-control" onclick="diskinput()">提交</button>
-			</div>
 		</main>		
 		<script type="text/javascript">
 			// var query = new Array();

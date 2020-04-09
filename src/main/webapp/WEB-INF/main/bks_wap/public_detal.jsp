@@ -90,7 +90,7 @@
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="workmens.html" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png">
+							<a href="${pageContext.request.contextPath}/wap_ins/inspect_list?unitId=${unitDetail.unitId}" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png">
 								<p>监管检查</p>
 							</a>
 						</div>

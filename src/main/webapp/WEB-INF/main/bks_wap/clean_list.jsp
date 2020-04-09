@@ -7,23 +7,33 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<title>清洗消毒记录</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-	
 </head>
-	<body class="contain">
+	<body class="contain" style="background-color: #f7f7f7;">
 		<div id="page">
 			<div id="header">
-				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+				<div class="header-content">							
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<c:if test="${user.type == 1}">
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					</c:if>	
+					<c:if test="${user.type != 1}">
+						<a class="menu-btn" href="#menu"></a>
+					</c:if>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${user.type == 2}">
+							<a href="${pageContext.request.contextPath}/wap_clean/clean_add" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+						</c:if>
+					</div>
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -31,31 +41,30 @@
 				<div class="s-banner-content">
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
-			</div>
-			<c:if test="${user.type == 2}">
-					<a href="${pageContext.request.contextPath}/wap_clean/clean_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
-				</c:if>			
-		</div>  
+			</div>						
+		</div>
+		<main class="delivery main padding-side05"">
+			<div class="margin-top"></div>
+			<c:forEach items="${disinfectionlist}" var="f" varStatus="vs">
+				<div class="buy_list">
+					<div class="buy_top">
+						<p class="fb">
+							<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+							<span class="bfrifRow"></span>
+						</p>
+					</div>
+					<div class="buy_top1">
+						<div class="fb">
+							<span class="text-muted bfrifRow" style="font-size: 10px;"><!--  消毒日期 ：-->${f.dailyTime}</span>
+							<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">查看详情</a>
+						</div>
+					</div>				
+				</div>
+			</c:forEach>
+			<!--序号 vs.count -->		
+		</main>
 		
-		<main class="main margin-top2 padding-side05">
-			<div class="">
-				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th width="45">序号</th><th>学校名称</th><th>消毒日期</th><th width="45">操作</th></tr>
-					</thead>
-					<tbody id="datvarbody">
-						<c:forEach items="${disinfectionlist}" var="f" varStatus="vs">
-							<tr>
-								<td>${vs.count}</td>
-								<td>${f.unitName}</td>
-								<td>${f.dailyTime}</td>
-								<td><a href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">详情</a></td>
-							</tr>
-						</c:forEach>						
-					</tbody>
-				</table>
-			</div>
-		</main>	
+		
 	<c:if test="${user.type == 3}">
 		<c:import url="public/public_footer.jsp"></c:import>
 	</c:if>
@@ -65,8 +74,8 @@
 	</body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">
-	$(function(){	
-		selectunit("");
+	$(function(){
+		//selectunit("");	
 		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
 		$.ajax({
 			"url" : url,			
@@ -111,10 +120,19 @@
 				}else{							
 					var datvar="";							
 					for(var i=0;i<obj.data.length;i++){
-						datvar +='<tr><td>' + (i+1) + '</td>'+
-								'<td>'+obj.data[i].unitName+'</td>'+
-								'<td>'+obj.data[i].dailyTime+'</td>'+
-								'<td><a href="${pageContext.request.contextPath}/wap_clean/clean_detal?id='+obj.data[i].id+'">详情</a></td></tr>';							
+						datvar += '<div class="buy_list">'+
+						  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
+						'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+						'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+						<!-- if(obj.data[i].status == 0){
+							result += '<span class="buy_top_span1">未验收</span>';
+						}
+						if(obj.data[i].status == 1){
+							result += '<span class="buy_top_span1">已验收</span>';
+						}			 -->															
+						datvar += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+								  '</div></div></div>';
+													
 					}
 					$("#datvarbody").html(datvar);													
 				}				
@@ -122,11 +140,5 @@
 		}); 				
 	}
     </script>	
-<script type="text/javascript">
-	$('#unit_list').searchableSelect({
-		"afterSelectItem":function(){			
-				
-		}
-	});	
-</script>
+
 </html>

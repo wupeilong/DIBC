@@ -25,12 +25,12 @@
 /* #login{
 	height: 40px;
 	font-size: 22px;
-} */
+} 
 button.btn{
 	height: 40px;
 	font-size: 22px;
 	line-height: 22px;
-}
+}*/
 .home_menu{
 	border-top: 1px solid #ddd;
 	background-color: #F1F1F1;
@@ -124,7 +124,7 @@ button.btn{
 .main{
 	/* height: 100%; */
 	padding-bottom: 48px;
-	padding-top: 48.4px;
+	padding-top: 92.4px;
 }
 .tab_heading{
 	border-bottom: 1px solid #337ab7;
@@ -606,3 +606,10 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	bottom: .6em;
 }
 /* /¼à¹Ü²É¼¯ */
+
+.header-btn{
+	position: absolute;
+	right: 10px;
+	bottom: -1em;
+	z-index: 99;
+}

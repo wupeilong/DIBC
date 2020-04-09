@@ -39,7 +39,7 @@
 					</div>
 				</div>			
 			</div>
-			<form action="" method="" class="clearfix margin-top">			
+			<form action="" method="" class="clearfix">			
 				<div class="margin-bot2">
 					<div class="input-group form-group border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">姓名</span>

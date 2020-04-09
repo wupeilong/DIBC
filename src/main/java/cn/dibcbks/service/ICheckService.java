@@ -14,7 +14,7 @@ public interface ICheckService {
 	 * @param unitType
 	 * @return
 	 */
-	ResponseResult<List<Check>> selectCheckList(String unitId, Integer unitType);
+	ResponseResult<List<Check>> selectCheckList(Integer unitId,Integer checkType);
 	
 	List<Check> getCheckList(ModelMap modelMap);
 	
@@ -31,7 +31,7 @@ public interface ICheckService {
 	 * @param modelMap
 	 * @return
 	 */
-	String selectCheckListPag(ModelMap modelMap);
+	String selectCheckListPag(ModelMap modelMap, Integer unitId);
 
 	/**
 	 * 进入监管采集记录表添加页
