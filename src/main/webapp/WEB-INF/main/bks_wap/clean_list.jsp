@@ -106,6 +106,7 @@
 		});		 
 	});	
 	function selectunit(unitId) {
+		console.log("qqqqqqqq");
 		var url = "${pageContext.request.contextPath}/wap_clean/clean_alllist";
 		var data = "unitId=" + unitId;
 		$.ajax({
@@ -120,21 +121,14 @@
 				}else{							
 					var datvar="";							
 					for(var i=0;i<obj.data.length;i++){
-						datvar += '<div class="buy_list">'+
-						  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
-						'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
-						'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
-						<!-- if(obj.data[i].status == 0){
-							result += '<span class="buy_top_span1">未验收</span>';
-						}
-						if(obj.data[i].status == 1){
-							result += '<span class="buy_top_span1">已验收</span>';
-						}			 -->															
-						datvar += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
-								  '</div></div></div>';
-													
+						datvar += '<div class="buy_list">'
+							   +  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i>'
+							   +  '订单号:<span class="buy_top_span">'+obj.data[i].id+'</span>'
+							   +  '<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+						datvar += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">' +obj.data[i].unitName+'</span>'							  
+							   +  '<span class="buy_top1_span text-muted">format(' + obj.data[i].purchasingTime + ',yyyy-MM-dd)"</span></div></div></div>';													
 					}
-					$("#datvarbody").html(datvar);													
+					$(".buy_list").html(datvar);											
 				}				
 			}
 		}); 				
