@@ -16,7 +16,7 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
+		<div class="navigation bg-gradient">
 			<div class="fb padding-side">
 				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
 				<div class="">
@@ -33,11 +33,11 @@
 				<!-- <a href="http://192.168.1.106:8848/wap_MCLZ/check_add.html" class="btn bg-primary"><i class="fa fa-plus"></i></a> -->
 			</div>
 		</div>
-		<main class="main margin-top2 padding-side05">
+		<main class="main margin-top">
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th>序号</th><th>企业名称</th><th>企业法人</th><th>操作</th></tr>
+					<thead class="bg-primary">
+						<tr><th class="text-white">序号</th><th class="text-white">企业名称</th><th class="text-white">企业法人</th><th class="text-white">操作</th></tr>
 					</thead>
 					<tbody id="result_list">
 						<c:forEach items="${unitList}" var="item" varStatus="vs">

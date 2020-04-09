@@ -18,7 +18,7 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
 	<style type="text/css">
 .searchable-select{
-	width: 80%;
+	width: 80%; 
     float: right;  
     margin: -30px 15px 0 0;  
 }
