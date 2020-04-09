@@ -50,7 +50,7 @@
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead class="bg-primary">
-						<tr><th>序号</th><th>员工姓名</th><th>职务</th><th>年龄</th><th>操作</th></tr>
+						<tr><th style="width:4em">序号</th><th style="width:6em">员工姓名</th><th>职务</th><th style="width:4em">年龄</th><th style="width:4em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">						
 						<c:forEach items="${userList}" var="item" varStatus="vs">

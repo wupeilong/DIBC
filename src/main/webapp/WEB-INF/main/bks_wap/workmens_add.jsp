@@ -24,7 +24,9 @@
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
-					
+					<div class="header-btn">
+						<button type="button" class="btn btn-primary form-control" id="register">保存</button>
+					</div>
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -92,9 +94,6 @@
 				</div>			 -->	
 			</form>
 			
-			<div class="margin-top2 margin-bot2">
-				<button type="button" class="btn btn-primary form-control" id="register">保存</button>
-			</div>
 		</main>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>		
 		<script type="text/javascript">
