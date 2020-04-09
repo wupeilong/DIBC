@@ -11,6 +11,7 @@ import com.sun.istack.internal.logging.Logger;
 import cn.dibcbks.entity.VideoAddress;
 import cn.dibcbks.mapper.VideoAddressMapper;
 import cn.dibcbks.service.IVideoAddressService;
+import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.ResponseResult;
 
 @Service
@@ -118,6 +119,20 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 
 		}
 		return rs;
+	}
+
+	@Override
+	public String selectUnitVideoList(ModelMap modelMap) {
+		if (CommonUtil.getSessionUser().getType().equals(2)) {
+			try {
+				List<VideoAddress> videoList = videoAddressMapper.SelectVideoAddressById(CommonUtil.getSessionUser().getUnitId());
+				modelMap.addAttribute("videoAddressList", videoList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+			return "bks_wap/video_detail";
+		}
+		return "bks_wap/video";
 	}
 
 

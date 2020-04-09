@@ -21,10 +21,15 @@
 			<div id="header">
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<c:if test="${user.type == 1}">
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					</c:if>	
+					<c:if test="${user.type != 1}">
+						<a class="menu-btn" href="#menu"></a>
+					</c:if>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<c:if test="${user.type == 2}">
-						<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+						<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn bg-primary" style="position: absolute; right: 5px;top: 50px;"><i class="fa fa-plus"></i></a>
 					</c:if>						
 				</div>
 			</div>
@@ -39,7 +44,7 @@
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead>
-						<tr><th width="45px">序号</th><th>配送单号</th><th>供应商</th><th>验收单位</th><th width="45px">操作</th></tr>
+						<tr><th width="45px">序号</th><th width="45px">配送单号</th><th>供应商</th><th>验收单位</th><th width="45px">操作</th></tr>
 					</thead>
 					<tbody id="result_list">
 						<c:forEach items="${distributionList}" var="item" varStatus="vs">
@@ -59,8 +64,8 @@
 	</body>
 	 <script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">
-	$(function(){	
-		selectunit("");
+	$(function(){
+		//selectunit("");		
 		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
 		$.ajax({
 			"url" : url,			

@@ -382,6 +382,7 @@ public class IUserServiceImpl implements IUserService {
 				insert.setUuid(uuid);
 				insert.setUnitId(CommonUtil.getSessionUser().getUnitId());
 				insert.setParentId(CommonUtil.getSessionUser().getId());
+				insert.setDepartmentId(departmentId);
 				insert.setType(CommonUtil.getSessionUser().getType());
 				insert.setCreateTime(new Date());
 				userMapper.insert(insert);

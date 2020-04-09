@@ -33,8 +33,15 @@
 					<thead>
 						<tr><th>序号</th><th>企业名字</th><th>企业法人</th><th>操作</th></tr>
 					</thead>
-					<tbody id="result_list">				
-						
+					<tbody id="result_list">
+						<c:forEach items="${unitList}" var="item" varStatus="vs">
+							<tr>
+								<td>${vs.count}</td>
+								<td>${item.unitName}</td>
+								<td>${item.legalPerson}</td>
+								<td><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -50,7 +57,7 @@
 	 <script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">
 	$(function(){	
-		selectunit("");
+		//selectunit("");
 		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
 		$.ajax({
 			"url" : url,			

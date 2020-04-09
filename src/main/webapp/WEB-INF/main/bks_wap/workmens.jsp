@@ -25,7 +25,12 @@
 			<div id="header">
 				<div class="header-content">
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>				
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<c:if test="${user.type == 1}">
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					</c:if>	
+					<c:if test="${user.type != 1}">
+						<a class="menu-btn" href="#menu"></a>
+					</c:if>				
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					 <c:if test="${user.type == 2}"><!-- 禁主体有权限人员可添加 -->
 						<shiro:hasPermission name="user_add"> 
@@ -49,7 +54,7 @@
 					</thead>
 					<tbody id="result_list">						
 						<c:forEach items="${userList}" var="item" varStatus="vs">
-							<tr><td>${vs.count }</td><td>${item.username }</td><td>${item.duty }</td><td>${item.age }</td><td><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
+							<tr><td>${vs.count }</td><td>${item.username }</td><td>${item.departmentName }</td><td>${item.age }</td><td><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
 						</c:forEach>
 						
 					</tbody>
@@ -65,8 +70,8 @@
 	</body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">
-	$(function(){	
-		selectunit("");
+	$(function(){
+		//selectunit("");				
 		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
 		$.ajax({
 			"url" : url,			
@@ -126,12 +131,4 @@
 		}); 
 	}
     </script>	
-<script type="text/javascript">
-	$('select').searchableSelect({
-		"afterSelectItem":function(){
-			
-		}
-	});	
-	
-</script>
 </html>
