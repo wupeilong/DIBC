@@ -18,15 +18,15 @@
     margin-top: 25px;
 }
 .login_pwd{
-	/* background-image: url("../../images/bks_wap/zloginpwd.png");
-	background-size: 100% 100%; */
+	background-image: url("../../images/bks_wap/zloginpwd.png");
+	background-size: 100% 100%; 
 	width: 90%;
     height: 50px;
     padding: 7px;
     margin: 15px;
 }
 .login_input{
-	background-image: url("../../images/bks_wap/zloginpwd.png");
+	
 	background-size: 100% 100%;
 	display: block;
     width: 100%;
@@ -68,7 +68,7 @@
 	display:block;
 }
 .tabb input:focus{
-	background-color:#f9ebeb7a;
+	background-color:rgba(0,0,0,0);
 }
 
 .wap_login{

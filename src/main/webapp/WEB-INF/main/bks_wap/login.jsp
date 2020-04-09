@@ -33,7 +33,7 @@
 								</div>
 								<div class="tabb">
 									<div class="tab_type cur">
-										<div class="padding-side fc margin-bot2">
+										<div class="padding-side fc margin-bot2" style="padding-top:1em;">
 											<div>
 												<h5 class="fonwei">登录后系统将获得以下权限</h5>
 												<p class=""> 获取你的公开信息（呢称、头像等） </p>
@@ -49,7 +49,7 @@
 											<input type="text" class="login_input box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
 										</div>
 										<div class="login_pwd">
-											<input type="password" class="login_input box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
+											<input type="password" class="login_input bg-pwd box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
 										</div>
 										<div class="text-center margin-top2 margin-bot2">
 											<button type="button" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
