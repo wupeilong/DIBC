@@ -101,7 +101,7 @@ button.btn{
 	color: #fff;
 }
 .tabBar ul li i {
-    font-size: 1.4em;
+  font-size: 1.4em; 
 }
 .navigation{
 	width: 100%;
@@ -112,7 +112,7 @@ button.btn{
 	z-index: 99;
 }
 .navigation i{
-	font-size: 1.6em;
+	 font-size: 1.6em;
 }
 .main{
 	/* height: 100%; */
