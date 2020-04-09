@@ -29,29 +29,28 @@
 			<div id="header">
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a class="menu-btn" id="demoSingle" href="#menu" ></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
 			</div>
 			<div class="bannerPane">
 				<div class="overlay"></div>
 				<div class="s-banner-content">
+					<input type="hidden" id="select_uint_id" value="">
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
 			</div>
 			<div class="bg-gradient" style="margin-top: 89px;">
 						<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
-						  <li class="active pull-left" ><div class="getall text-center">全部</div></li>
-						  <li class="pull-left"><div class="getUn text-center">未验收</div></li>
-						  <li class="pull-left"><div class="geted text-center">已验收</div></li><li>
+						  <li class="active pull-left" id="whole"><div class="getall text-center">全部</div></li>
+						  <li class="pull-left" id="no_acceptance"><div class="getUn text-center">未验收</div></li>
+						  <li class="pull-left" id=" "><div class="geted text-center">已验收</div></li><li>
 						</ul>
 					</div>
 				<c:if test="${user.type == 2 }">
 					<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
 				</c:if>			
-		</div>   			
-		
-		
+		</div>
 		<main class="main margin-top padding-side05" style="padding-top: 0px;" id="result_list">
 			<c:forEach items="${procurementList}" var="item">
 				<div class="buy_list">
@@ -73,7 +72,7 @@
 					</div>				
 				</div>
 			</c:forEach>		
-		</main>	
+		</main>			
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
@@ -85,11 +84,11 @@
 			"url" : url,			
 			"type" : "POST",
 			"dataType" : "json",
-			"success" : function(e) {				
+			"success" : function(e) {
 				if (e.state == 0) {layer.msg(e.message,{icon:2,time:1000});
 					return;
 				}else{					
-					 $('#demoSingle').click(function(){
+					 $('#demoSingle').click(function(){						 
 						$(this).selectMenu({
 							title : '<i class="fa fa-fw fa-thumbs-o-up"></i> 请选择市场主体',
 							arrow : true,
@@ -99,9 +98,9 @@
 							search : true,
 							data :e.data,
 							eSelect : function(data){
-								if(data && data.length > 0){								
-								selectunit(data[0].unitId)
-								}
+								if(data && data.length > 0){
+									selectunit(data[0].unitId)									
+								}								
 							}
 						});
 					});
@@ -110,6 +109,7 @@
 		});		 
 	});	
 	function selectunit(unitId) {
+		$("#select_uint_id").val(unitId);
 		var url = "${pageContext.request.contextPath}/wap_pro/list";
 		var data = "unitId=" + unitId;
 		$.ajax({
@@ -135,7 +135,7 @@
 									result += '<span class="buy_top_span1">已验收</span>';
 								}																		
 								result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
-										  '</div></div></div>';							
+										  '</div></div></div>';						
 					}
 					$("#result_list").html(result);							
 				}		
@@ -145,33 +145,113 @@
     </script>	
 	<script type="text/javascript">
 	$(".getall").click(function(){
-		console.log("1111")
+		var url = "${pageContext.request.contextPath}/wap_pro/list";
+		var data = "";
+		var unitId = $("#select_uint_id").val();
+		if(unitId != ""){
+			data = "unitId=" + unitId; 
+		}
 		$.ajax({
-			url:'',
-			data:"",
+			url:url,
+			data:data,
+			type : "POST",
 			dataType:"json",
-			success:function(res){
-				
+			success:function(obj){
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += '<div class="buy_list">'+
+								  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
+								  '<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+								  '<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+						if(obj.data[i].status == 0){
+							result += '<span class="buy_top_span1">未验收</span>';
+						}
+						if(obj.data[i].status == 1){
+							result += '<span class="buy_top_span1">已验收</span>';
+						}																		
+						result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+										  '</div></div></div>';						
+					}
+					$("#result_list").html(result);
+				}	
 			}
 		})
 	})
 	$(".getUn").click(function(){
+		var url = "${pageContext.request.contextPath}/wap_pro/list";
+		var data = "status=0";
+		var unitId = $("#select_uint_id").val();
+		if(unitId != ""){
+			data += "&unitId=" + unitId; 
+		}
 		$.ajax({
-			url:'',
-			data:"",
+			url:url,
+			data:data,
+			type : "POST",
 			dataType:"json",
-			success:function(res){
-				
+			success:function(obj){
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += '<div class="buy_list">'+
+								  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
+								  '<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+								  '<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+						if(obj.data[i].status == 0){
+							result += '<span class="buy_top_span1">未验收</span>';
+						}
+						if(obj.data[i].status == 1){
+							result += '<span class="buy_top_span1">已验收</span>';
+						}																		
+						result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+										  '</div></div></div>';						
+					}
+					$("#result_list").html(result);
+				}	
 			}
 		})
 	})
 	$(".geted").click(function(){
+		var url = "${pageContext.request.contextPath}/wap_pro/list";
+		var data = "status=1";
+		var unitId = $("#select_uint_id").val();
+		if(unitId != ""){
+			data += "&unitId=" + unitId; 
+		}
 		$.ajax({
-			url:'',
-			data:"",
+			url:url,
+			data:data,
+			type : "POST",
 			dataType:"json",
-			success:function(res){
-				
+			success:function(obj){
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += '<div class="buy_list">'+
+								  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
+								  '<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+								  '<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+						if(obj.data[i].status == 0){
+							result += '<span class="buy_top_span1">未验收</span>';
+						}
+						if(obj.data[i].status == 1){
+							result += '<span class="buy_top_span1">已验收</span>';
+						}																		
+						result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+										  '</div></div></div>';						
+					}
+					$("#result_list").html(result);
+				}	
 			}
 		})
 	})
