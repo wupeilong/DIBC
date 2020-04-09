@@ -28,8 +28,13 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
-					<a class="menu-btn" id="demoSingle" href="#menu" ></a>
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<c:if test="${user.type == 1}">
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					</c:if>	
+					<c:if test="${user.type != 1}">
+						<a class="menu-btn" href="#menu"></a>
+					</c:if>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
 						<c:if test="${user.type == 2 }">
@@ -80,8 +85,8 @@
 	</body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">
-	$(function(){	
-		selectunit("");
+	$(function(){
+		//selectunit("");
 		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
 		$.ajax({
 			"url" : url,			

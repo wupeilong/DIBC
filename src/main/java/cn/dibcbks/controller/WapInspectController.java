@@ -40,9 +40,9 @@ public class WapInspectController {
 	 * @return
 	 */
 	@RequestMapping("/inspect_list")
-	public String InspectList(ModelMap modelMap,Integer start){
+	public String InspectList(ModelMap modelMap, Integer unitId){
 		
-		return iCheckService.selectCheckListPag(modelMap);
+		return iCheckService.selectCheckListPag(modelMap, unitId);
 	}
 	
 	
@@ -76,9 +76,9 @@ public class WapInspectController {
 	 */
 	@RequestMapping("/queryList")
 	@ResponseBody
-	public ResponseResult<List<Check>> queryCheckListInfo(String unitId,Integer unitType){
+	public ResponseResult<List<Check>> queryCheckListInfo(Integer unitId,Integer checkType){
 		
-		return iCheckService.selectCheckList(unitId,unitType);
+		return iCheckService.selectCheckList(unitId,checkType);
 	}
 	
 	

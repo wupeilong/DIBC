@@ -23,13 +23,32 @@
 			<div id="header" >
 				<div class="header-content">
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<c:if test="${user.type == 1}">
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					</c:if>	
+					<c:if test="${user.type != 1}">
+						<a class="menu-btn" href="#menu"></a>
+					</c:if>						
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+				</div>
+				<div class="bg-gradient" style="margin-top: 89px;">
+					<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
+					  <li class="active pull-left" id=""><div class="getall text-center">全部</div></li>
+					  <li class="pull-left" id=""><div class="getS text-center">商家自检</div></li>
+					  <li class="pull-left" id=""><div class="getJ text-center">监管专检</div></li><li>
+					  <li class="pull-left" id=""><div class="getD text-center">督察专检</div></li><li>
+					</ul>
 				</div>
 			</div>
 			<div class="bannerPane">
 				<div class="overlay"></div>
 				<div class="s-banner-content">
+					<c:if test="${user.type != 3}">
+						<input type="hidden" id="select_uint_id" value="">
+					</c:if>
+					<c:if test="${user.type == 3}">
+						<input type="hidden" id="select_uint_id" value="${checkList[0].unitId}">
+					</c:if>
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
 			</div>			
@@ -48,14 +67,6 @@
 						<div class="fb">
 							<span class="text-muted">
 								<c:if test="${f.checkType==1}">
-										单位自检
-									</c:if>
-									<c:if test="${f.checkType==2}">
-										市监局专监
-									</c:if>
-									<c:if test="${f.checkType==3}">
-										督查组检查
-									</c:if>
 							</span>
 							<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->${f.dailyTime}</span>					
 						</div>
@@ -64,12 +75,17 @@
 			</c:forEach>
 			<div class="margin-bot"></div>
 		</main>
-	<c:import url="public/footer.jsp"></c:import>
+		<c:if test="${user.type == 3}">
+			<c:import url="public/public_footer.jsp"></c:import>
+		</c:if>
+		<c:if test="${user.type != 3}">
+			<c:import url="public/footer.jsp"></c:import>
+		</c:if>	
 	</body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
     <script type="text/javascript">
-	$(function(){	
-		selectunit("");
+	$(function(){		
+		//selectunit("");
 		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
 		$.ajax({
 			"url" : url,			
@@ -101,6 +117,7 @@
 		});		 
 	});	
 	function selectunit(unitId) {
+		$("#select_uint_id").val(unitId);
 		var url = "${pageContext.request.contextPath}/wap_ins/queryList";
 		var data = "unitId=" +unitId;
 		$.ajax({
@@ -123,20 +140,181 @@
 							result += "<td>单位自检</td>";
 						}
 						if(obj.data[i].checkType == 2){
-							result += "<td>市监局专监</td>";
+							result += "<td>监管专检</td>";
 						}
 						if(obj.data[i].checkType == 3){
 							result += "<td>督查组检查</td>";
 						}												
 						result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
 								  '</div></div></div>';
-													
 					}
-					
 					$("#result_list").html(result);							
 				}		
 			}
 		});	
 	}
+	$(".menu").children().click(function(){
+		$(this).parent().children().removeClass("active")
+		$(this).addClass("active");
+		
+	})
+	
+	$(".getall").click(function(){
+		var url = "${pageContext.request.contextPath}/wap_ins/queryList";
+		var data = "";
+		var unitId = $("#select_uint_id").val();
+		if(unitId != ""){
+			data = "unitId=" + unitId; 
+		}
+		$.ajax({
+			url:url,
+			data:data,
+			type : "POST",
+			dataType:"json",
+			success:function(obj){
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += "<tr>";
+						result += "<td>" + obj.data[i].unitName + "</td>";
+						if(obj.data[i].checkType == 1){
+							result += "<td>单位自检</td>";
+						}
+						if(obj.data[i].checkType == 2){
+							result += "<td>监管专检</td>";
+						}
+						if(obj.data[i].checkType == 3){
+							result += "<td>督查专检</td>";
+						}							
+						result += "<td>" + obj.data[i].dailyTime + "</td>";
+						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+						result += "</tr>";				
+					}
+					$("#result_list").html(result);
+				}	
+			}
+		})
+	})
+	
+	$(".getS").click(function(){
+		var url = "${pageContext.request.contextPath}/wap_ins/queryList";
+		var data = "checkType=1";
+		var unitId = $("#select_uint_id").val();
+		if(unitId != ""){
+			data += "&unitId=" + unitId; 
+		}
+		$.ajax({
+			url:url,
+			data:data,
+			type : "POST",
+			dataType:"json",
+			success:function(obj){
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += "<tr>";
+						result += "<td>" + obj.data[i].unitName + "</td>";
+						if(obj.data[i].checkType == 1){
+							result += "<td>单位自检</td>";
+						}
+						if(obj.data[i].checkType == 2){
+							result += "<td>监管专检</td>";
+						}
+						if(obj.data[i].checkType == 3){
+							result += "<td>督查专检</td>";
+						}							
+						result += "<td>" + obj.data[i].dailyTime + "</td>";
+						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+						result += "</tr>";				
+					}
+					$("#result_list").html(result);
+				}	
+			}
+		})
+	})
+	$(".getJ").click(function(){
+		var url = "${pageContext.request.contextPath}/wap_ins/queryList";
+		var data = "checkType=2";
+		var unitId = $("#select_uint_id").val();
+		if(unitId != ""){
+			data += "&unitId=" + unitId; 
+		}
+		$.ajax({
+			url:url,
+			data:data,
+			type : "POST",
+			dataType:"json",
+			success:function(obj){
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += "<tr>";
+						result += "<td>" + obj.data[i].unitName + "</td>";
+						if(obj.data[i].checkType == 1){
+							result += "<td>单位自检</td>";
+						}
+						if(obj.data[i].checkType == 2){
+							result += "<td>监管专检</td>";
+						}
+						if(obj.data[i].checkType == 3){
+							result += "<td>督查专检</td>";
+						}							
+						result += "<td>" + obj.data[i].dailyTime + "</td>";
+						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+						result += "</tr>";				
+					}
+					$("#result_list").html(result);
+				}	
+			}
+		})
+	})
+	$(".getD").click(function(){
+		var url = "${pageContext.request.contextPath}/wap_ins/queryList";
+		var data = "checkType=3";
+		var unitId = $("#select_uint_id").val();
+		if(unitId != ""){
+			data += "&unitId=" + unitId; 
+		}
+		$.ajax({
+			url:url,
+			data:data,
+			type : "POST",
+			dataType:"json",
+			success:function(obj){
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						result += "<tr>";
+						result += "<td>" + obj.data[i].unitName + "</td>";
+						if(obj.data[i].checkType == 1){
+							result += "<td>单位自检</td>";
+						}
+						if(obj.data[i].checkType == 2){
+							result += "<td>监管专检</td>";
+						}
+						if(obj.data[i].checkType == 3){
+							result += "<td>督查专检</td>";
+						}							
+						result += "<td>" + obj.data[i].dailyTime + "</td>";
+						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+						result += "</tr>";				
+					}
+					$("#result_list").html(result);
+				}	
+			}
+		})
+	})
     </script>		
 </html>

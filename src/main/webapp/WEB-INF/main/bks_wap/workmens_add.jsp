@@ -153,8 +153,10 @@
 									layer.msg(obj.message,{icon:2,time:1000});
 									return;				
 								}else{					
-									layer.msg(obj.message,{icon:1,time:1000});
-									location.href = "${pageContext.request.contextPath}/wap_user/workmens_add";
+									layer.msg(obj.message,{icon:1,time:1000},function(){
+										location.href = "${pageContext.request.contextPath}/wap_user/workmens_add";										
+									});
+									
 								}				
 							}
 						}); 
