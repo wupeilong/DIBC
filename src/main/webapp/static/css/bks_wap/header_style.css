@@ -1,19 +1,5 @@
 
-@import url("foundation.css");
-@import url("f-awesome/font-awesome.min.css");
 
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(../../../../../themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(../../../../../themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
-}
 
 
 #header {
@@ -42,9 +28,6 @@
     width: 30px;
     height: 40px;
     position: relative;
-}
-div#header.pub{
-	 background: url(../../images/bks_wap/menu-bg.svg) no-repeat -21px -303px;
 }
 a.p-link-home {
     color: #FFF;

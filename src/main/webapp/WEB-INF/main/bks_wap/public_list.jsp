@@ -24,7 +24,7 @@
 </head>
 	<body class="o-page p-about">
 		<div id="page" class="public_list">
-			<div id="header" class="pub">
+			<div id="header"  style="background: url(${pageContext.request.contextPath}/static/images/bks_wap/menu-bg.svg) no-repeat center bottom !important;">
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_public_home" class="p-link-back"><i class="fa fa-home"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>

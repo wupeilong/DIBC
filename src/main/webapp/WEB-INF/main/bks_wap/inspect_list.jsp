@@ -21,7 +21,7 @@
 </head>
 	<body class="contain">
 		<div id="page">
-			<div id="header">
+			<div id="header" >
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
