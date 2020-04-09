@@ -34,7 +34,7 @@
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					 <c:if test="${user.type == 2}"><!-- 禁主体有权限人员可添加 -->
 						<shiro:hasPermission name="user_add"> 
-						<a href="${pageContext.request.contextPath}/wap_user/workmens_add" class="btn bg-primary" style="position: absolute; right: 5px;top: 50px;"><i class="fa fa-plus"></i></a>					
+						<a href="${pageContext.request.contextPath}/wap_user/workmens_add" class="btn btn-primary" style="position: absolute; right: 5px;top: 50px;"><i class="fa fa-plus"></i></a>					
 						</shiro:hasPermission>
 					</c:if>
 				</div>
@@ -50,7 +50,7 @@
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead class="bg-primary">
-						<tr><th>序号</th><th>员工姓名</th><th>职务</th><th>年龄</th><th>操作</th></tr>
+						<tr><th style="width:4em">序号</th><th style="width:6em">员工姓名</th><th>职务</th><th style="width:4em">年龄</th><th style="width:4em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">						
 						<c:forEach items="${userList}" var="item" varStatus="vs">
