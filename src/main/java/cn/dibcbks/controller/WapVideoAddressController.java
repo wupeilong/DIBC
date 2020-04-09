@@ -16,6 +16,7 @@ import io.swagger.annotations.Api;
 /*
  * 视屏流控制器
  */
+import io.swagger.annotations.ApiOperation;
 @Api(value="VideoController",tags="视频流控制器")
 @Controller
 @RequestMapping("/wap_video")
@@ -110,4 +111,11 @@ public class WapVideoAddressController {
 		return "bks_wap/videoInfoUpdate";
 	}
 	
+	@ApiOperation("公众是否可以查看监控")
+	@RequestMapping("/monitoring")
+	@ResponseBody
+	public ResponseResult<Void> viweMonitoring(){
+		
+		return iVideoAddressService.viweMonitoring();
+	}
 }

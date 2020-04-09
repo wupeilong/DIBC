@@ -37,23 +37,23 @@
 				<div class="workmens_info_top margin-bot">
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.unitName}</div>
+					  <div class="width100">${userDetail.unitName}</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>职&ensp;&ensp;&ensp;&ensp;务</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.duty }</div>
+					  <div class="width100">${userDetail.duty }</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>姓&ensp;&ensp;&ensp;&ensp;名</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.username }</div>
+					  <div class="width100">${userDetail.username }</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>身份证号</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.idCard }</div>
+					  <div class="width100">${userDetail.idCard }</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>年&ensp;&ensp;&ensp;&ensp;龄</span>
-					  <div class="form-control box-shadow0 border0">
+					  <div class="width100">
 					  	<c:if test=" ${userDetail.age != null}">
 					  	  ${userDetail.age }岁
 					  	</c:if>					

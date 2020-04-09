@@ -4,28 +4,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset=utf-8>
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>采购信息添加</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
-	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
-	<style type="text/css">
-		.table>tbody>tr>td {
-			padding: 0;
-		}
-	</style>
+<meta charset=utf-8>
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+<title>采购信息添加</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css" />
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js"
+	type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+<style type="text/css">
+.table>tbody>tr>td {
+	padding: 0;
+}
+</style>
 </head>
 <body class="contain">
 	<!-- <div class="navigation bg-primary">
@@ -37,37 +53,39 @@
 	<div id="page">
 		<div id="header">
 			<div class="header-content">
-				<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
-				<a class="menu-btn" id="demoSingle" href="#menu"></a>
-				<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+				<a href="javascript:history.go(0)" class="p-link-back"><i
+					class="fa fa-refresh"></i></a> <a class="menu-btn" id="demoSingle"
+					href="#menu"></a> <a href="javascript:history.go(-1)"
+					class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 				<div class="header-btn text-right">
 					<button type="button" class="btn btn-primary form-control" id="add">提交</button>
-				</div>				
+				</div>
 			</div>
 		</div>
 		<div class="bannerPane">
 			<div class="overlay"></div>
 			<div class="s-banner-content">
-				<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				<div>
+					<img width="100"
+						src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" />
+				</div>
 			</div>
-		</div>					
+		</div>
 	</div>
 	<main class="main margin-top padding-side05">
 	<form action="" method="post" class="padding-side login_formc">
 		<fieldset>
 			<div class="input-group form-group fs">
 				<span class="input-group-addon border0 clear-bg fonwei">供&ensp;应&ensp;商</span>
-				<span id="unitspan"> 
-					<select id="unit_list">
+				<span id="unitspan"> <select id="unit_list">
 						<!-- class="form-control box-shadow0 border-bottom" -->
 						<option value="">查询所有企业信息</option>
 						<c:forEach items="${unitList}" var="item">
 							<option value="${item.unitId}">${item.unitName}</option>
 						</c:forEach>
-					</select>
-				</span>
-				<input type="text" style="display: none" id="inputType"  placeholder="请输入商家名称"> 
-				<input type="button"
+				</select>
+				</span> <input type="text" style="display: none" id="inputType"
+					placeholder="请输入商家名称"> <input type="button"
 					class="swh switchsucess" id="swithcButton" onclick="swhBtn()"
 					value="+">
 
@@ -164,7 +182,7 @@
 					<td class="vertical-mid" name="good_scount" contenteditable></td>
 					<td name="good_stime"><input readonly=""
 						class="el_time form-control border0" type="text" id="date"
-						placeholder="请选择日期" style="border-radius:0;"></td>
+						placeholder="请选择日期" style="border-radius: 0;"></td>
 					<td class="vertical-mid" contenteditable="false"><a
 						href="javascript:;" onclick="del_tr(this)"
 						class="del_tr text-danger">删除</ a></td>
@@ -172,7 +190,8 @@
 			</tbody>
 		</table>
 		<div class="text-right padding-side">
-			<input type="button" onclick="add_tr(this)" class="btn btn-success" id="add_tr" value="新增商品">
+			<input type="button" onclick="add_tr(this)" class="btn btn-success"
+				id="add_tr" value="新增商品">
 		</div>
 	</div>
 
@@ -194,7 +213,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="margin-top2 margin-bot2"> </div>
+	<div class="margin-top2 margin-bot2"></div>
 	</main>
 	<c:import url="public/footer.jsp"></c:import>
 </body>
@@ -203,19 +222,31 @@
 <script type="text/javascript">
 	/* 切换按钮事件 */
 	function swhBtn() {
-		$("#unit_list").val(12);
+
 		console.log($("#unit_list").val());
+		console.log($("#inputType").val());
+		$("#unit_list").val("");
+		$("#inputType").val("");
+
 		$("#inputType").toggle();
 		$("#unitspan").toggle();
+
+		$("#preview").attr("src", "");
+		$("#preview1").attr("src", "");
+		$("#preview2").attr("src", "");
+		//展示上传功能
+		$("#fileinput").css("display", "block");
+		$("#fileinput1").css("display", "block");
+
 	}
 
-	$('select')
-			.searchableSelect(
-					{
-
-						"afterSelectItem" : function() {
-
+	$('select').searchableSelect({"afterSelectItem" : function() {
 							
+							
+							//展示上传功能
+							$("#fileinput").css("display", "block");
+							$("#fileinput1").css("display", "block");
+
 							var url = "${pageContext.request.contextPath}/wap_unit/list";
 							var data = "unitId=" + $("#unit_list").val();
 
@@ -251,6 +282,9 @@
 																	"src",
 																	"${pageContext.request.contextPath}/"
 																			+ obj.data[0].businessLicense);
+													//已有证件  禁止更改
+													$("#fileinput").css(
+															"display", "none");
 
 												}
 												if (obj.data[0].productionLicense == ""
@@ -265,6 +299,9 @@
 																	"src",
 																	"${pageContext.request.contextPath}/"
 																			+ obj.data[0].productionLicense);
+													//已有证件  禁止更改
+													$("#fileinput1").css(
+															"display", "none");
 												}
 
 											}
@@ -279,17 +316,19 @@
 
 	$("#add")
 			.click(
-			
+
 					function() {
-						
-						console.log($("#unit_list").find("option:selected").text())
-						
-						
+						if ($("#unit_list").val()) {
+
+						}
+						console.log($("#unit_list").find("option:selected")
+								.text())
+
 						var detailList = new Array();
 						var tr = document.querySelectorAll("tbody tr");
 						for (var i = 0; i < tr.length; i++) {
 							detailList[i] = new Array();
-							
+
 							detailList[i][0] = tr[i].cells[1].innerText;
 
 							if (tr[i].cells[1].innerText == "") {
@@ -318,8 +357,9 @@
 							}
 						}
 						//供货商名字不能为空
-						
-						if ($("#unit_list").val()=="" && $("#inputType").val()=="") {
+
+						if ($("#unit_list").val() == ""
+								&& $("#inputType").val() == "") {
 							layer.msg("请录入供货商", {
 								icon : 2,
 								time : 1000
@@ -352,27 +392,37 @@
 						} else {
 							var we1 = layerloadingOpen();
 							var formData = new FormData();
-							
-							
+
 							//若供货id不为空 传入供货商id
-							if($("#unit_list").val()!=""){
-								formData.append('supplierUnitId', $("#unit_list")
-										.val());//供货商ID
+							if ($("#unit_list").val() != "") {
+								formData.append('supplierUnitId', $(
+										"#unit_list").val());//供货商ID
 							}
-							
+
 							//传入供货商名称
-							formData.append('supplier', 
-									$("#unit_list").val()=="" ? $("#inputType").val():$("#unit_list").find("option:selected").text()
-									);//供货商ID
+							formData.append('supplier',
+									$("#unit_list").val() == "" ? $(
+											"#inputType").val() : $(
+											"#unit_list").find(
+											"option:selected").text());//供货商ID
+											
+								//若企业不存在  必须上传 y营业执照和许可证
+							if ($("#unit_list").val()=="") {
 							
-							formData.append('supplierBusinessLicense',
-									dataURLtoFile($("#preview").attr('src'),
-											"we.jpg"));//营业执照
-							if ($("#preview1").attr('src') != "") {
-								formData.append('supplierproductionLicense',
+								formData.append('supplierBusinessLicense',
+										dataURLtoFile($("#preview").attr('src'),
+												"we.jpg"));//营业执照
+												
+								if ($("#preview1").attr('src') != "") {
+										formData.append('supplierproductionLicense',
 										dataURLtoFile($("#preview1")
-												.attr('src'), "we.jpg"));//许可证
+										.attr('src'), "we.jpg"));//许可证
+												
+								}
+											
 							}
+
+							
 							if ($("#preview2").attr('src') != "") {
 								formData.append('supplierQualification',
 										dataURLtoFile($("#preview2")
@@ -387,8 +437,7 @@
 							formData.append('detailList', JSON
 									.stringify(detailList));//采购详情
 							console.log(formData);
-							$
-									.ajax({
+							$.ajax({
 										url : "${pageContext.request.contextPath}/wap_pro/add",
 										type : 'POST',
 										cache : false,
@@ -397,6 +446,7 @@
 										contentType : false,
 										"success" : function(obj) {
 											layer.close(we1);
+											console.log(obj);
 											if (obj.state == 0) {
 												layer.msg(obj.message, {
 													icon : 2,
@@ -484,7 +534,6 @@
 </script>
 <style>
 .swh {
-
 	position: absolute;
 	padding: 5px 12px;
 	margin-bottom: 0;
@@ -495,11 +544,10 @@
 	width: 58px;
 	height: 29px;
 	margin-left: 289px;
-	
 	user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
 }
 
 .switchsucess {
@@ -511,10 +559,11 @@
 #unitspan {
 	text-align: center;
 }
-#inputType{
-    height: 34px;
-    text-align: center;
- 	border-radius: 4px;
+
+#inputType {
+	height: 34px;
+	text-align: center;
+	border-radius: 4px;
 }
 </style>
 </html>

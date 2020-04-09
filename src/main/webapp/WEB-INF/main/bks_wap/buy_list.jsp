@@ -38,7 +38,7 @@
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
 						<c:if test="${user.type == 2 }">
-							<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+							<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn btn-primary"><i class="fa fa-plus"></i></a>
 						</c:if>
 					</div>
 				</div>

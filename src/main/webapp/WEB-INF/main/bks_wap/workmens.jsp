@@ -47,16 +47,19 @@
 			</div>			 	
 		</div> 		
 		<main class="main">
-			<div class="">
+			<div class="coopration_list">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead class="bg-primary">
-						<tr><th style="width:4em">序号</th><th style="width:6em">员工姓名</th><th>职务</th><th style="width:4em">年龄</th><th style="width:4em">操作</th></tr>
+						<tr><th style="width:3.4em">序号</th><th style="width:5.4em">员工姓名</th><th>职务</th><th style="width:3.4em">年龄</th><th style="width:3.4em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">						
 						<c:forEach items="${userList}" var="item" varStatus="vs">
-							<tr><td>${vs.count }</td><td>${item.username }</td><td>${item.departmentName }</td><td>${item.age }</td><td><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
+							<tr><td class="vertical-mid">${vs.count }</td>
+							<td class="vertical-mid"><span class="" style="">${item.username }</span></td>
+							<td class="vertical-mid td-left">${item.departmentName }</td>
+							<td class="vertical-mid">${item.age }</td>
+							<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
 						</c:forEach>
-						
 					</tbody>
 				</table>
 			</div>

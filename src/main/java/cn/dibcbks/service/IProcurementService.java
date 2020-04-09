@@ -59,7 +59,9 @@ public interface IProcurementService {
 	 * @param detailList
 	 * @return
 	 */
-	ResponseResult<Void> addProcurement(Integer supplierUnitId, 
+	ResponseResult<Void> addProcurement(
+										String supplier,
+										Integer supplierUnitId, 
 										MultipartFile supplierBusinessLicense,
 										MultipartFile supplierproductionLicense, 
 										MultipartFile supplierQualification, 

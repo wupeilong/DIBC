@@ -20,14 +20,14 @@
 	<body class="contain" style="background-color: #f7f7f7;">
 		<div id="page">
 			<div id="header">
-				<div class="header-content">							
+				<div class="header-content">					
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
-					<c:if test="${user.type == 1}">
+					<%-- <c:if test="${user.type == 1}"> --%>
 						<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					</c:if>	
+					<%-- </c:if>	
 					<c:if test="${user.type != 1}">
 						<a class="menu-btn" href="#menu"></a>
-					</c:if>
+					</c:if> --%>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
 						<c:if test="${user.type == 2}">
@@ -55,7 +55,7 @@
 					</div>
 					<div class="buy_top1">
 						<div class="fb">
-							<span class="text-muted bfrifRow" style="font-size: 10px;"><!--  消毒日期 ：-->${f.dailyTime}</span>
+							<span class="text-muted bfrifRow"><!--  消毒日期 ：-->${f.dailyTime}</span>
 							<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">详情</a>
 						</div>
 					</div>				

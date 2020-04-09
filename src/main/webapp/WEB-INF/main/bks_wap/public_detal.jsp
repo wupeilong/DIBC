@@ -15,7 +15,7 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
 <script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-
+<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
 <body class="contain o-page p-about" style="background-color: #eee; height: auto;">
 		<div id="page" class="public_list">
@@ -97,7 +97,7 @@
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=${unitDetail.unitId}" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png">
+							<a id="monitoring" href="javascript:;" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png">
 								<p>实时监控</p>
 							</a>
 						</div>
@@ -107,6 +107,27 @@
 		</div>
 	</div>
 	</main>
+	<script type="text/javascript">
+			$("#monitoring").click(function(){
+				  var url = "${pageContext.request.contextPath}/wap_video/monitoring";
+				  $.ajax({
+		   			"url" : url,    	    			
+		   			"data" : '',
+		   			"type" : "POST",
+		   			"dataType" : "json",
+		   			"success" : function(obj) {
+		   				if (obj.state == 0) {
+		   					layer.msg(obj.message,{icon:2,time:1000});
+		   					return;
+		   				}else{
+		   					/* layer.msg(obj.message,{icon:1,time:1000},function(){ */
+		   						location.href = "${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=${unitDetail.unitId}";
+		   					/* }); */
+		   				}
+		   			}	
+		   		});
+			});
+	</script>
 	<c:import url="public/public_footer.jsp"></c:import>
 </body>
 </html>
