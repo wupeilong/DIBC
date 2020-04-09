@@ -55,9 +55,9 @@ public class IProcurementServiceImpl implements IProcurementService {
 			}
 			if (status != null) {
 				if (isAnd) {
-					where += " AND p.status = ’" + status + "'";
+					where += " AND p.status = '" + status + "'";
 				}else {
-					where = " p.status = ’" + status + "'";
+					where = " p.status = '" + status + "'";
 				}
 			}
 			List<Procurement> list = procurementMapper.select(where, " p.purchasing_time DESC", null, null);

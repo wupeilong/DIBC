@@ -177,7 +177,6 @@
 										  '</div></div></div>';						
 					}
 					$("#result_list").html(result);
-					console.log(result);
 				}	
 			}
 		})
@@ -187,7 +186,7 @@
 		var data = "status=0";
 		var unitId = $("#select_uint_id").val();
 		if(unitId != ""){
-			data = "&unitId=" + unitId; 
+			data += "&unitId=" + unitId; 
 		}
 		$.ajax({
 			url:url,
@@ -224,7 +223,7 @@
 		var data = "status=1";
 		var unitId = $("#select_uint_id").val();
 		if(unitId != ""){
-			data = "&unitId=" + unitId; 
+			data += "&unitId=" + unitId; 
 		}
 		$.ajax({
 			url:url,
