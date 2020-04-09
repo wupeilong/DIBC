@@ -2,6 +2,7 @@ package cn.dibcbks.service;
 
 import org.springframework.ui.ModelMap;
 
+import cn.dibcbks.entity.TimeInterval;
 import cn.dibcbks.entity.VideoAddress;
 import cn.dibcbks.util.ResponseResult;
 
@@ -59,5 +60,18 @@ public interface IVideoAddressService {
 		 * @return
 		 */
 		String selectTimeInterval(ModelMap modelMap);
+
+		/**
+		 * 
+		 * @param tInterval
+		 * @return
+		 */
+		ResponseResult<Void> updateTimeInterval(TimeInterval timeInterval);
+
+		/**
+		 * 
+		 * @return
+		 */
+		ResponseResult<Void> viweMonitoring();
 
 }

@@ -1,17 +1,18 @@
 package cn.dibcbks.service.impl;
 
-import java.util.List;
 
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
-
-import com.sun.istack.internal.logging.Logger;
-
+import cn.dibcbks.entity.TimeInterval;
 import cn.dibcbks.entity.VideoAddress;
+import cn.dibcbks.mapper.TimeIntervalMapper;
 import cn.dibcbks.mapper.VideoAddressMapper;
 import cn.dibcbks.service.IVideoAddressService;
 import cn.dibcbks.util.CommonUtil;
+import cn.dibcbks.util.DateUtil;
 import cn.dibcbks.util.ResponseResult;
 
 @Service
@@ -19,16 +20,20 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 
 	@Autowired
 	VideoAddressMapper videoAddressMapper;
+	@Autowired
+	private TimeIntervalMapper timeIntervalMapper;
+	
 
 	@Override
 	public String SelectVideoAddress(ModelMap map, Integer id) {
-
-		/**
-		 * 根据企业id查询视频流地址
-		 */
-		List<VideoAddress> list = videoAddressMapper.SelectVideoAddressById(id);
-		System.out.println("unitId: " + id + " list: " + list);
 		try {
+			/**
+			 * 根据企业id查询视频流地址
+			 */
+			List<VideoAddress> list = videoAddressMapper.SelectVideoAddressById(id);
+			TimeInterval timeInterval = timeIntervalMapper.selectById(1);
+			String endTime = DateUtil.dateFormat(new Date(),DateUtil.DATE_PATTERN) + " " + timeInterval.getEndTime();
+			map.addAttribute("endTime", endTime);
 			map.addAttribute("videoAddressList", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,8 +142,47 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 
 	@Override
 	public String selectTimeInterval(ModelMap modelMap) {
-		
+		try {
+			TimeInterval timeInterval = timeIntervalMapper.selectById(1);
+			modelMap.addAttribute("timeInterval", timeInterval);
+		} catch (Exception e) {
+			e.printStackTrace();			
+		}
 		return "bks_web/video/video_time";
+	}
+
+	@Override
+	public ResponseResult<Void> updateTimeInterval(TimeInterval timeInterval) {
+		ResponseResult<Void> rr = null;
+		try {
+			timeIntervalMapper.updateById(timeInterval);
+			rr = new ResponseResult<>(ResponseResult.SUCCESS, "操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR, "操作失败！");
+		}
+		return rr;
+	}
+
+	@Override
+	public ResponseResult<Void> viweMonitoring() {
+		ResponseResult<Void> rr = null;
+		try {
+			TimeInterval timeInterval = timeIntervalMapper.selectById(1);
+			Date currentTime = new Date();			
+			Date stratTime = DateUtil.dateParse(DateUtil.dateFormat(currentTime,DateUtil.DATE_PATTERN) + " " + timeInterval.getStartTime(),DateUtil.DATE_TIME_PATTERN);
+			Date endTime = DateUtil.dateParse(DateUtil.dateFormat(currentTime,DateUtil.DATE_PATTERN) + " " + timeInterval.getEndTime(),DateUtil.DATE_TIME_PATTERN) ;			
+			if(DateUtil.dateCompare(currentTime, stratTime) < 1){ ///未到监控开放时间
+				rr = new ResponseResult<>(ResponseResult.ERROR,"未到监控开放时间！");
+			}else if(DateUtil.dateCompare(currentTime, endTime) > 0){ //已过监控放时间
+				rr = new ResponseResult<>(ResponseResult.ERROR,"已过监控开放时间！");
+			}else {
+				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+			}
+		} catch (Exception e) {
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}		
+		return rr;
 	}
 
 

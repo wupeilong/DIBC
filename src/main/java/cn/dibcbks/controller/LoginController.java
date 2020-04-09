@@ -203,8 +203,6 @@ public class LoginController {
 	@RequestMapping("/wap_public_home")
 	public String userPulicPag(HttpServletRequest request,ModelMap modelMap) {
 
-		//查询企业信息列表
-	
 		 return  iWxService.getUnitList(modelMap);
 	}
 	
