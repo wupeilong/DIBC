@@ -22,25 +22,31 @@
 	background-size: 100% 100%; 
 	width: 90%;
     height: 50px;
-    padding: 7px;
     margin: 15px;
+    margin-top: 25px;
 }
 .login_input{
-	
 	background-size: 100% 100%;
 	display: block;
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 95%;
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
     color: #555;
-    background-color: inherit;
-    background-image: none;
-    border: 0px solid #ccc;
-    border-radius: 4em;     
-    padding-left: 24%;
+    /* background-color: inherit; */
+    background-color: #f0eeee82;
+	background-image: none;
+	border: 0px solid #ccc;
+	border-radius: 9em;
+	padding-left: 24%;
+	margin-left: 9px;
 }
+.tabb input:focus{
+	background-color:rgba(0,0,0,0);
+	background-color:#736c6c0f;
+}
+
 .login_form_top{
 	text-align: center;
 	padding-top: 25px;
@@ -66,9 +72,6 @@
 }
 .tabb .tab_type.cur{
 	display:block;
-}
-.tabb input:focus{
-	background-color:rgba(0,0,0,0);
 }
 
 .wap_login{
