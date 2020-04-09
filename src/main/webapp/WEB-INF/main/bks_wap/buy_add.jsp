@@ -51,21 +51,20 @@
 		<fieldset>
 			<div class="input-group form-group fs">
 				<span class="input-group-addon border0 clear-bg fonwei">供&ensp;应&ensp;商</span>
-				 <span id="unitspan">
-					<select id="unit_list" >
-					<!-- class="form-control box-shadow0 border-bottom" -->
-					<option value="">查询所有企业信息</option>
-					<c:forEach items="${unitList}" var="item">
-						<option value="${item.unitId}">${item.unitName}</option>
-					</c:forEach>
-				</select>
-				</span> 
-				<input type="text" style="display: none" 
-					id="inputType" placeholder="请输入商家名称">
-					
-				<input type="button" class="swh switchsucess"
-				id="swithcButton"  onclick="swhBtn()" value="+">
-				
+				<span id="unitspan"> 
+					<select id="unit_list">
+						<!-- class="form-control box-shadow0 border-bottom" -->
+						<option value="">查询所有企业信息</option>
+						<c:forEach items="${unitList}" var="item">
+							<option value="${item.unitId}">${item.unitName}</option>
+						</c:forEach>
+					</select>
+				</span>
+				<input type="text" style="display: none" id="inputType"
+					placeholder="请输入商家名称"> <input type="button"
+					class="swh switchsucess" id="swithcButton" onclick="swhBtn()"
+					value="+">
+
 				<!-- <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>供&ensp;应&ensp;商</span>
 						  <input type="text" class="form-control box-shadow0 border-bottom" name="account"  aria-describedby="sizing-addon1"> -->
 			</div>
@@ -199,70 +198,97 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 <script type="text/javascript">
-   /* 切换按钮事件 */
-   function swhBtn(){
-	 
-	   
-	   $("#inputType").toggle();
-	   $("#unitspan").toggle();
-	   $("#unit_list").val($("#inputType").val());
-	   console.log($("#unit_list").val())
-   }
-		
-	$('select').searchableSelect({
-
-		"afterSelectItem" : function() {
-
-			console.log("565555555");
-			var url = "${pageContext.request.contextPath}/wap_unit/list";
-			var data = "unitId=" + $("#unit_list").val();
-			
-			$.ajax({
-				"url" : url,
-				"data" : data,
-				"type" : "POST",
-				"dataType" : "json",
-				"success" : function(obj) {
-					console.log(obj);
-					$("#supplierPerson").val(obj.data[0].legalPerson);
-					if($("#unit_list").val()==""){
-						return;
-					}else{
-						console.log("${pageContext.request.contextPath}/"+obj.data[0].businessLicense);
-						console.log("${pageContext.request.contextPath}/"+obj.data[0].productionLicense);
-						if(obj.data[0].businessLicense==""||obj.data[0].businessLicense==null){
-							layer.msg("未保存该企业的营业执照", {icon : 1,time : 1000});
-							
-						}else{
-							$("#preview").attr("src","${pageContext.request.contextPath}/"+obj.data[0].businessLicense);
-					
-						}
-						if(obj.data[0].productionLicense==""||obj.data[0].productionLicense==null){
-							layer.msg("未保存该企业的食品许可证", {icon : 1,time : 1000});
-						}else{
-							$("#preview1").attr("src","${pageContext.request.contextPath}/"+obj.data[0].productionLicense);
-						}
-							
-						}	
-					}
-					
-					
-				}
-			);
-			
-		}
+	/* 切换按钮事件 */
+	function swhBtn() {
+		$("#unit_list").val(12);
+		console.log($("#unit_list").val());
+		$("#inputType").toggle();
+		$("#unitspan").toggle();
 	}
 
-	);
+	$('select')
+			.searchableSelect(
+					{
+
+						"afterSelectItem" : function() {
+
+							
+							var url = "${pageContext.request.contextPath}/wap_unit/list";
+							var data = "unitId=" + $("#unit_list").val();
+
+							$
+									.ajax({
+										"url" : url,
+										"data" : data,
+										"type" : "POST",
+										"dataType" : "json",
+										"success" : function(obj) {
+											console.log(obj);
+											$("#supplierPerson").val(
+													obj.data[0].legalPerson);
+											if ($("#unit_list").val() == "") {
+												return;
+											} else {
+												console
+														.log("${pageContext.request.contextPath}/"
+																+ obj.data[0].businessLicense);
+												console
+														.log("${pageContext.request.contextPath}/"
+																+ obj.data[0].productionLicense);
+												if (obj.data[0].businessLicense == ""
+														|| obj.data[0].businessLicense == null) {
+													layer.msg("未保存该企业的营业执照", {
+														icon : 1,
+														time : 1000
+													});
+
+												} else {
+													$("#preview")
+															.attr(
+																	"src",
+																	"${pageContext.request.contextPath}/"
+																			+ obj.data[0].businessLicense);
+
+												}
+												if (obj.data[0].productionLicense == ""
+														|| obj.data[0].productionLicense == null) {
+													layer.msg("未保存该企业的食品许可证", {
+														icon : 1,
+														time : 1000
+													});
+												} else {
+													$("#preview1")
+															.attr(
+																	"src",
+																	"${pageContext.request.contextPath}/"
+																			+ obj.data[0].productionLicense);
+												}
+
+											}
+										}
+
+									});
+
+						}
+					}
+
+			);
 
 	$("#add")
 			.click(
+			
 					function() {
+						
+						console.log($("#unit_list").find("option:selected").text())
+						
+						
 						var detailList = new Array();
 						var tr = document.querySelectorAll("tbody tr");
 						for (var i = 0; i < tr.length; i++) {
 							detailList[i] = new Array();
+							
 							detailList[i][0] = tr[i].cells[1].innerText;
+
 							if (tr[i].cells[1].innerText == "") {
 								layer.msg("请完善供货明细！", {
 									icon : 2,
@@ -288,8 +314,10 @@
 								return;
 							}
 						}
-						if ($("#unit_list").val() == "") {
-							layer.msg("请选择供货商", {
+						//供货商名字不能为空
+						
+						if ($("#unit_list").val()=="" && $("#inputType").val()=="") {
+							layer.msg("请录入供货商", {
 								icon : 2,
 								time : 1000
 							});
@@ -321,8 +349,19 @@
 						} else {
 							var we1 = layerloadingOpen();
 							var formData = new FormData();
-							formData.append('supplierUnitId', $("#unit_list")
-									.val());//供货商ID
+							
+							
+							//若供货id不为空 传入供货商id
+							if($("#unit_list").val()!=""){
+								formData.append('supplierUnitId', $("#unit_list")
+										.val());//供货商ID
+							}
+							
+							//传入供货商名称
+							formData.append('supplier', 
+									$("#unit_list").val()=="" ? $("#inputType").val():$("#unit_list").find("option:selected").text()
+									);//供货商ID
+							
 							formData.append('supplierBusinessLicense',
 									dataURLtoFile($("#preview").attr('src'),
 											"we.jpg"));//营业执照
@@ -345,7 +384,8 @@
 							formData.append('detailList', JSON
 									.stringify(detailList));//采购详情
 							console.log(formData);
-							$.ajax({
+							$
+									.ajax({
 										url : "${pageContext.request.contextPath}/wap_pro/add",
 										type : 'POST',
 										cache : false,
@@ -441,29 +481,32 @@
 </script>
 <style>
 .swh {
-	position:absolute;
-    padding: 5px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    width: 61px;
-    height: 29px;
-    margin-left: 276px;
-    }
-	
-	
-.switchsucess {
-    color: #fff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;}
-#unitspan{
-	text-align: center;
 
+	position: absolute;
+	padding: 5px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	width: 58px;
+	height: 29px;
+	margin-left: 289px;
+	
+	user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 
+.switchsucess {
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}
 
-
+#unitspan {
+	text-align: center;
+}
 </style>
 </html>
