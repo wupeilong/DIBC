@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
+import cn.dibcbks.exception.MyRuntimeException;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.service.IUnitService;
 import cn.dibcbks.util.CommonUtil;
@@ -120,6 +121,12 @@ public class IUnitServiceImpl implements IUnitService {
 					where = " n.unit_name = '" + unitName + "'";
 				}				
  			}
+			
+			if(CommonUtil.getSessionUser()==null){
+				throw new MyRuntimeException("未登录或者登录过期");
+			}
+			
+			
 			if (CommonUtil.getSessionUser().getType() != 1 && StringUtils.isEmpty(where)) {
 				where = " n.unit_type BETWEEN 2 AND 4 ";
 			}
@@ -127,7 +134,7 @@ public class IUnitServiceImpl implements IUnitService {
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功",unitList);
 		} catch (Exception e) {
 			e.printStackTrace();
-			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败");
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败,原因:"+e.getMessage());
 		}
 		return rr;
 	}
