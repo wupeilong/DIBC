@@ -42,15 +42,19 @@ public class ICheckServiceImpl implements ICheckService {
 	
 	
 	@Override
-	public ResponseResult<List<Check>> selectCheckList(String unitId, Integer unitType) {
+	public ResponseResult<List<Check>> selectCheckList(Integer unitId,Integer checkType) {
 		ResponseResult<List<Check>> rr = null;
 		try {
 			String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(c.create_time) ";
-			if(StringUtils.isNotEmpty(unitId)){
-				where += " AND c.unit_id = '" + unitId + "'";
-			}
-			if (unitType != null) {				
-				where += " AND c.unit_type = '" + unitType + "'";				
+			if(CommonUtil.getSessionUser().getType().equals(2)){
+				where += " AND c.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
+			}else{
+				if(unitId != null){
+					where += " AND c.unit_id = '" + unitId + "'";
+				}
+			}			
+			if (checkType != null) {				
+				where += " AND c.check_type = '" + checkType + "'";		
 			}
 			List<Check> list = checkMapper.select(where, " c.create_time DESC", null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！",list);
@@ -130,17 +134,17 @@ public class ICheckServiceImpl implements ICheckService {
 	}
 
 	@Override
-	public String selectCheckListPag(ModelMap modelMap) {
-		User user = CommonUtil.getSessionUser();
-		List<Check> checkList = new ArrayList<>();
+	public String selectCheckListPag(ModelMap modelMap, Integer unitId) {
 		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(c.create_time) ";
-		if (user.getType().equals(1)) {
-			checkList = checkMapper.select(where, " c.create_time DESC", null, null);			
+		if (CommonUtil.getSessionUser().getType().equals(1)) {
 			iUnitService.addUnitListToModelMap(modelMap);
+			
+		}else if(CommonUtil.getSessionUser().getType().equals(2)){
+			where += " AND c.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";		
 		}else{
-			checkList = checkMapper.select(where + " AND c.unit_id = '" + user.getUnitId() + "'", " c.create_time DESC", null, null);
-		}		
-		modelMap.addAttribute("checkList", checkList);
+			where += " AND c.unit_id = '" + unitId + "'";	
+		}
+		modelMap.addAttribute("checkList", checkMapper.select(where, " c.create_time DESC", null, null));
 		return "bks_wap/inspect_list";
 	}
 

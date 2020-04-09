@@ -27,9 +27,9 @@ public class WapVideoAddressController {
 	 * 进入企业信息查看监控视频业页面
 	 */
 	@RequestMapping("/wap_videoscan")
-	public String VideoScan(){
+	public String VideoScan(ModelMap modelMap){
 		
-		return "bks_wap/video";
+		return iVideoAddressService.selectUnitVideoList(modelMap);
 	}
 	
 	/**

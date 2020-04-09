@@ -65,7 +65,7 @@ public interface IUserService {
 	 * @param file
 	 * @return
 	 */
-	ResponseResult<Void> allocateAccount(String duty, String idCard, String username, String password, String phone,
+	ResponseResult<Void> allocateAccount(Integer departmentId, String idCard, String username, String password, String phone,
 			Integer age, String healthCertificateCode, MultipartFile file);
 	
 	/**
@@ -129,6 +129,13 @@ public interface IUserService {
 	 * @return
 	 */
 	ResponseResult<Void> userBindDepartment(Integer userId, Integer departmentId);
+
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String workmensAdd(ModelMap modelMap);
 
 	
 }

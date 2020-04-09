@@ -16,11 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
+
+import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.filter.LoginType;
 import cn.dibcbks.filter.MyUsernamePasswordToken;
+import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.HygieneMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UserMapper;
@@ -45,6 +48,9 @@ public class IUserServiceImpl implements IUserService {
 	private UnitMapper unitMapper;
 	@Autowired
 	private HygieneMapper hygieneMapper;
+	@Autowired
+	private DepartmentMapper departmentMapper;
+	
 	
 	@Override
 	public User queryUser(String idCard) {
@@ -332,7 +338,7 @@ public class IUserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public ResponseResult<Void> allocateAccount(String duty, 
+	public ResponseResult<Void> allocateAccount(Integer departmentId, 
 												String idCard, 
 												String username, 
 												String password,
@@ -365,7 +371,7 @@ public class IUserServiceImpl implements IUserService {
 				}				
 				password = password == null ? Constants.INITIAL_PASSWORD : password;
 				String hashPassword = CommonUtil.getEncrpytedPassword(Constants.MD5, password, uuid, 1024);
-				User insert = new User();
+				User insert = new User();				
 				insert.setUsername(username);
 				insert.setIdCard(idCard);
 				insert.setPhone(phone);
@@ -376,6 +382,7 @@ public class IUserServiceImpl implements IUserService {
 				insert.setUuid(uuid);
 				insert.setUnitId(CommonUtil.getSessionUser().getUnitId());
 				insert.setParentId(CommonUtil.getSessionUser().getId());
+				insert.setDepartmentId(departmentId);
 				insert.setType(CommonUtil.getSessionUser().getType());
 				insert.setCreateTime(new Date());
 				userMapper.insert(insert);
@@ -551,6 +558,17 @@ public class IUserServiceImpl implements IUserService {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
 		}
 		return rr;
+	}
+
+	@Override
+	public String workmensAdd(ModelMap modelMap) {
+		try {
+			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "' AND d.department_parent_id > 0", null, null, null);
+			modelMap.addAttribute("departmentList", departmentList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "bks_wap/workmens_add";
 	}
 		
 }

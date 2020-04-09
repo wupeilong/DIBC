@@ -46,4 +46,11 @@ public interface IVideoAddressService {
 		 */
 		public ResponseResult<?> DeleteVideoAddress(Integer videoId);
 
+		/**
+		 * 
+		 * @param modelMap
+		 * @return
+		 */
+		String selectUnitVideoList(ModelMap modelMap);
+
 }

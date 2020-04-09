@@ -49,10 +49,15 @@ public class IProcurementServiceImpl implements IProcurementService {
 		try {
 			String where = null;
 			boolean isAnd = false;
-			if (unitId != null) {
-				where = "n.unit_id = '" + unitId + "'";
+			if(CommonUtil.getSessionUser().getType().equals(2)){//企业只查自家
+				where = "n.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
 				isAnd = true;
-			}
+			}else{
+				if (unitId != null) {
+					where = "n.unit_id = '" + unitId + "'";
+					isAnd = true;
+				}
+			}			
 			if (status != null) {
 				if (isAnd) {
 					where += " AND p.status = '" + status + "'";

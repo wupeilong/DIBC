@@ -11,36 +11,53 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					
+				</div>
 			</div>
-		</div>
-		<main class="main margin-top padding-side">
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>			 	
+		</div> 		
+		<main class="main margin-top padding-side" style="padding-top: 77px;">
 			<form action="" method="" class="clearfix">
 				<div class="workmens_info_top margin-bot">
-					<%-- <div class="input-group form-group fs">
+					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
 					  <div class="form-control box-shadow0 border0">${user.unitName}</div>					 
 					</div>
-					<div class="input-group form-group fs">
+					<%-- <div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>身份证号</span>
 					  <input type="text" class="form-control box-shadow0 border-bottom" id="idCard" name="idCard" value="" placeholder="请输入身份证号" aria-describedby="sizing-addon1">
 					</div>--%>
 					<div class="input-group form-group fs">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>手&ensp;机&ensp;号</span>
-					  <input type="text" class="form-control box-shadow0 border-bottom" id="phone" name="phone" placeholder="请输入手机号" aria-describedby="sizing-addon1">
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>部&ensp;&ensp;&ensp;&ensp;门</span>					  
+					  <select id="department_select" class="form-control box-shadow0 border-bottom">
+					  		<option value="">请选择职务</option>
+					  		<c:forEach items="${departmentList}" var="item">					  			
+					  			<option value="${item.departmentId}">${item.departmentName}</option>
+					  		</c:forEach>					  		
+					  </select>
 					</div>
 					<div class="input-group form-group fs">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>职&ensp;&ensp;&ensp;&ensp;务</span>
-					  <input type="text" class="form-control box-shadow0 border-bottom" id="duty" name="duty" placeholder="请输入职务" aria-describedby="sizing-addon1">
-					</div>
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>手&ensp;机&ensp;号</span>
+					  <input type="text" class="form-control box-shadow0 border-bottom" id="phone" name="phone" placeholder="请输入手机号" aria-describedby="sizing-addon1">
+					</div>					
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>姓&ensp;&ensp;&ensp;&ensp;名</span>
 					  <input type="text" class="form-control box-shadow0 border-bottom" id="username" name="username" placeholder="请输入姓名" aria-describedby="sizing-addon1">
@@ -91,8 +108,8 @@
 			var idCard_judge = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
 			var age_reg = /^[0-9]{1,3}/; 
 			 $('#register').click(function() {
-				 if ($("#duty").val() == "") {
-					layer.msg("请正确输入职务",{icon:2,time:1000});
+				 if ($("#department_select").val() == "") {
+					layer.msg("请选择职务",{icon:2,time:1000});
 					$("#duty").focus();		
 				}else if($("#username").val() == ""){
 					layer.msg("请正确输入姓名",{icon:2,time:1000});
@@ -119,13 +136,10 @@
 					var we2 = layerloadingOpen();
 				 	var formData = new FormData();				
 					/* formData.append('unimg',dataURLtoFile($("#preview").attr('src'),"we.jpg"));*/
-					formData.append('duty',$("#duty").val()); 
+					formData.append('departmentId',$("#department_select").val()); 
 					formData.append('username',$("#username").val());
 					formData.append('password',$("#phone").val().substring(5,11));
-					/* formData.append('idCard',$("#idCard").val());
-					formData.append('age',$("#age").val()); */
-					formData.append('phone',$("#phone").val());
-					/* formData.append('healthCertificateCode',$("#healthCertificateCode").val());	 */			
+					formData.append('phone',$("#phone").val());		
 					 $.ajax({
 						 url: '${pageContext.request.contextPath}/wap_user/workmens_reg',
 				          type: 'POST',
@@ -139,8 +153,10 @@
 									layer.msg(obj.message,{icon:2,time:1000});
 									return;				
 								}else{					
-									layer.msg(obj.message,{icon:1,time:1000});
-									location.href = "${pageContext.request.contextPath}/wap_user/workmens";
+									layer.msg(obj.message,{icon:1,time:1000},function(){
+										location.href = "${pageContext.request.contextPath}/wap_user/workmens_add";										
+									});
+									
 								}				
 							}
 						}); 
