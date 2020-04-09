@@ -24,17 +24,25 @@
 			<div class="margin-top3">
 				<form class="login_formIn">
 					<fieldset id="" class="margin-top margin-bot">
-						<div class="login_form">
+						<!-- <div class="login_form"> -->
+						<div class="wap_login">
+							<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/zlogin.png" class="img-responsive">
 							<div class="login_switch tabbox">
-								<div class="login_form_top tabh">
+								<div class="login_form_top tabh margin-bot">
 									<a class="cur">微信登录</a>|<a>账号登录</a>
 								</div>
 								<div class="tabb">
 									<div class="tab_type cur">
-										<div style="padding: 45px 0 0 25px;font-size: 17px;font-weight: 600;color: #212121; list-style: initial;padding-left: 3em;"><span>登录后应用将获得以下权限</span></div>
-										<div style="padding: 10px 0 0 40px;padding-left: 4em;"><span>获取你的公开信息（呢称、头像等）</span></div>
-										<div class="text-center margin-top2 margin-bot2"><button type="button" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;  background-color: #15bb17;
-	    border-color: #a9e895;">微信一键登陆</button></div>
+										<div class="padding-side fc margin-bot2">
+											<div>
+												<h5 class="fonwei">登录后系统将获得以下权限</h5>
+												<p class=""> 获取你的公开信息（呢称、头像等） </p>
+											</div>
+										</div>
+										<div class="text-center">
+											<button type="button" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;  background-color: #15bb17;
+		    border-color: #a9e895;background-image: inherit;">微信一键登陆</button>
+	    								</div>
 	    							</div>
 									<div class="tab_type">
 										<div class="login_user">

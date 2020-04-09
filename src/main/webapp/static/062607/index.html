@@ -3,14 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>爱阅读个人中心html5手机端会员个人中心页面模板源码【http://www.lanrenmb.com/zt/huiyuanzhongxin/】</title>
-	<link rel="stylesheet" type="text/css" href="css/ui.css">
-	<link href="favicon.ico" type="image/x-icon" rel="icon">
-	<link href="iTunesArtwork_402x.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+	<title>个人中心</title>
+	<link rel="stylesheet" type="text/css" href="css/ui.css">	
 </head>
 <body>
-	<div class="aui-container">
-		<div class="aui-page">
+	
+		
 			<div class="aui-page-my">
 				<div class="aui-my-info">
 					<div class="aui-my-info-back"></div>
@@ -23,59 +21,51 @@
 					<div class="aui-menu-list aui-menu-list-clear">
 						<ul>
 							<li class="b-line">
-								<a href="my-put.html">
+								<a href="${pageContext.request.contextPath}/wap_user/user_pcenter?id=${user.id}">
 									<div class="aui-icon"><img src="images/icon-home/my-in1.png"></div>
 									<h3>个人信息</h3>
 									<div class="aui-time"><i class="aui-jump"></i></div>
 								</a>
 							</li>
 							<li class="b-line">
-								<a href="my-read.html">
+								<a href="${pageContext.request.contextPath}/wap_user/workmens_update">
+									<div class="aui-icon"><img src="images/icon-home/my-in1.png"></div>
+									<h3>完善个人信息</h3>
+									<div class="aui-time"><i class="aui-jump"></i></div>
+								</a>
+							</li>
+							<li class="b-line">
+								<a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${userPcenter.unitId}">
 									<div class="aui-icon"><img src="images/icon-home/my-in2.png"></div>
-									<h3>我的首页</h3>
+									<h3>企业信息查询</h3>
 									<div class="aui-time"><i class="aui-jump"></i></div>
 								</a>
 							</li>
 							<li class="b-line">
-								<a href="my-secure.html">
+								<a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${user.id}">
 									<div class="aui-icon"><img src="images/icon-home/my-in3.png"></div>
-									<h3>安全中心</h3>
+									<h3>健康状况查询</h3>
 									<div class="aui-time"><i class="aui-jump"></i></div>
 								</a>
 							</li>
 							<li class="b-line">
-								<a href="my-up.html">
+								<a href="${pageContext.request.contextPath}/wap_user/workmens_health_add">
 									<div class="aui-icon"><img src="images/icon-home/my-in4.png"></div>
-									<h3>设置</h3>
+									<h3>健康信息录入</h3>
 									<div class="aui-time"><i class="aui-jump"></i></div>
 								</a>
 							</li>
 							<li class="b-line">
-								<a href="my-up.html">
+								<a href="${pageContext.request.contextPath}/wap_user/reset_password">
 									<div class="aui-icon"><img src="images/icon-home/my-in5.png"></div>
-									<h3>阅读</h3>
+									<h3>个人密码修改</h3>
 									<div class="aui-time"><i class="aui-jump"></i></div>
 								</a>
-							</li>
-							<li class="b-line">
-								<a href="my-up.html">
-									<div class="aui-icon"><img src="images/icon-home/my-in6.png"></div>
-									<h3>服务区域</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>
-							<li class="b-line">
-								<a href="my-up.html">
-									<div class="aui-icon"><img src="images/icon-home/my-in8.png"></div>
-									<h3>推荐给好友</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>
+							</li>							
 						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+	
 </body>
 </html>
