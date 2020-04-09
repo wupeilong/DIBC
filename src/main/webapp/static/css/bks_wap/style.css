@@ -139,6 +139,7 @@ a:hover{
 }
 .border0{
 	border: 0;
+	z-index: 0;
 }
 .width100{
 	width: 100%;
