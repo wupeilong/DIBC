@@ -694,13 +694,13 @@
                 e.returnValue = false;
                 var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
                 var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
-                self.prop.x = e.pageX || e.clientX + scrollX;
-                self.prop.y = e.pageY || e.clientY + scrollY;
-                if(!self.isVisible(self)) self.populate();
-                else self.calcResultsSize(self);
+                //self.prop.x = e.pageX || e.clientX + scrollX;
+                //self.prop.y = e.pageY || e.clientY + scrollY;
+              //  if(!self.isVisible(self)) self.populate();
+              //  else self.calcResultsSize(self);
                 return false;
             }).mouseup(function(e){
-                if(e.button != 2) self.hideResults(self);
+               // if(e.button != 2) self.hideResults(self);
             });
             self.hideResults(self);
         }

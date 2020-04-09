@@ -40,7 +40,7 @@ public interface IDisinfectionService {
 	 * @param map
 	 * @return
 	 */
-	String selectDisinfectionListPag(ModelMap modelMap);
+	String selectDisinfectionListPag(Integer unitId, ModelMap modelMap);
 	
 	/**
 	 * 进入清洗消毒记录详情页

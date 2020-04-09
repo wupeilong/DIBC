@@ -93,7 +93,7 @@
 	background:#ddd url(b.png) 0 0 repeat-x;
 }
 #result_list{
-	padding-bottom:5em;
+	/* padding-bottom:5em; */
 }
 .public_list_h5{
 	border-bottom: 1px solid #f9f6f6;

@@ -6,7 +6,7 @@ import cn.dibcbks.entity.Department;
 
 public interface DepartmentMapper {
 	
-	Integer insert(Department user);
+	Integer insert(Department department);
 	
 	List<Department> select(@Param("where") String where,
 					  @Param("orderBy") String orderBy, 

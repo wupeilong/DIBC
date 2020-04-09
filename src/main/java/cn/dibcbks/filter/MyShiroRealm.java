@@ -2,6 +2,7 @@ package cn.dibcbks.filter;
 
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -36,14 +37,17 @@ public class MyShiroRealm extends AuthorizingRealm{
 	
 	//每次验证权限执行
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {		
-		String[] ids = CommonUtil.getSessionUser().getAuthorization().split(";");
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		if(ids.length > 0){
-			for(int i=0;i<ids.length;i++){
-				info.addStringPermission(ids[i]);
-			}			
-			return info;
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {	
+		String authorization = CommonUtil.getSessionUser().getAuthorization();
+		if(StringUtils.isNotEmpty(authorization)){
+			String[] auths = authorization.split(";");
+			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+			if(auths.length > 0){
+				for(int i=0;i<auths.length;i++){
+					info.addStringPermission(auths[i]);
+				}			
+				return info;
+			}
 		}
 		return null; 		
 	}

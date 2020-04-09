@@ -110,7 +110,7 @@ public class IUnitServiceImpl implements IUnitService {
 			String where = null;
 			boolean addAnd = false;
 			if(unitId != null){
-				where += " n.unit_id = '" + unitId + "'";
+				where = " n.unit_id = '" + unitId + "'";
 				addAnd = true;
 			}
 			if(StringUtils.isNotEmpty(unitName)){
@@ -120,9 +120,9 @@ public class IUnitServiceImpl implements IUnitService {
 					where = " n.unit_name = '" + unitName + "'";
 				}				
  			}
-			if (CommonUtil.getSessionUser().getType() != 1 && StringUtils.isEmpty(where)) {
+			/*if (CommonUtil.getSessionUser().getType() != 1 && StringUtils.isEmpty(where)) {
 				where = " n.unit_type BETWEEN 2 AND 4 ";
-			}
+			}*/
 			List<Unit> unitList = unitMapper.select(where, null, null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功",unitList);
 		} catch (Exception e) {
@@ -234,4 +234,25 @@ public class IUnitServiceImpl implements IUnitService {
 		}
 	}
 
+
+	@Override
+	public String selectUnit(ModelMap modelMap) {
+		// 查询企业列表 企业类型不包括1
+		
+				String view=null;
+				try {
+					List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
+					modelMap.addAttribute("unitList", unitList);
+					logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入企业信息列表页面成功！");
+					view="bks_wap/indexcs";
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.info(Constants.ERROR_HEAD_INFO+ "用户进入企业信息列表页面失败！原因："+e.getMessage());
+				}
+				
+				return view;
+	}
+
+	
+	
 }
