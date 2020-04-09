@@ -134,7 +134,7 @@ public class IUnitServiceImpl implements IUnitService {
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功",unitList);
 		} catch (Exception e) {
 			e.printStackTrace();
-			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败");
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败,原因:"+e.getMessage());
 		}
 		return rr;
 	}
