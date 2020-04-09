@@ -8,9 +8,9 @@
 <meta name="viewport"	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 <title>监控视频列表</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 <link href="${pageContext.request.contextPath}/static/css/bks_wap/video-js.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/static/css/bks_wap/video.css" rel="stylesheet">
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
@@ -18,6 +18,7 @@
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/video/video.min.js"></script>
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/video/videojs-contrib-hls.min.js"></script>
+<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 
 </head>
 <body class="video_bodydetail">	
@@ -43,6 +44,21 @@
 	</c:if>	
 </body>
 <script src="${pageContext.request.contextPath}/static/js/bks_wap/video.min.js"></script> 
+	<script type="text/javascript">
+		if('${user.type}' == 3){
+			var date = new Date('${endTime}');
+		    var timeId = setInterval(function () {
+		      var now = new Date();
+		      console.log('定时运行：' + i + '次')
+		      if(now > date){
+		    	  layer.msg("已过监控开放时间，即将关闭服务！",{icon:0,time:10000},function(){
+		    		  location.href = "${pageContext.request.contextPath}/wap_public_home"; 
+		    	  });		    	  
+				}
+		    }, 1000)
+		}
+		
+	</script>
       <script type="text/javascript">
 		  //设置中文
 		  videojs.addLanguage('zh-CN', {

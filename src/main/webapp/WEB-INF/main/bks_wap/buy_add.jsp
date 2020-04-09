@@ -387,8 +387,7 @@
 							formData.append('detailList', JSON
 									.stringify(detailList));//采购详情
 							console.log(formData);
-							$
-									.ajax({
+							$.ajax({
 										url : "${pageContext.request.contextPath}/wap_pro/add",
 										type : 'POST',
 										cache : false,
