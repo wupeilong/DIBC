@@ -51,13 +51,21 @@
 		<fieldset>
 			<div class="input-group form-group fs">
 				<span class="input-group-addon border0 clear-bg fonwei">供&ensp;应&ensp;商</span>
-				<select id="unit_list" >
+				 <span id="unitspan">
+					<select id="unit_list" >
 					<!-- class="form-control box-shadow0 border-bottom" -->
 					<option value="">查询所有企业信息</option>
 					<c:forEach items="${unitList}" var="item">
 						<option value="${item.unitId}">${item.unitName}</option>
 					</c:forEach>
 				</select>
+				</span> 
+				<input type="text" style="display: none" 
+					id="inputType" placeholder="请输入商家名称">
+					
+				<input type="button" class="swh switchsucess"
+				id="swithcButton"  onclick="swhBtn()" value="+">
+				
 				<!-- <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>供&ensp;应&ensp;商</span>
 						  <input type="text" class="form-control box-shadow0 border-bottom" name="account"  aria-describedby="sizing-addon1"> -->
 			</div>
@@ -191,6 +199,16 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 <script type="text/javascript">
+   /* 切换按钮事件 */
+   function swhBtn(){
+	 
+	   
+	   $("#inputType").toggle();
+	   $("#unitspan").toggle();
+	   $("#unit_list").val($("#inputType").val());
+	   console.log($("#unit_list").val())
+   }
+		
 	$('select').searchableSelect({
 
 		"afterSelectItem" : function() {
@@ -327,8 +345,7 @@
 							formData.append('detailList', JSON
 									.stringify(detailList));//采购详情
 							console.log(formData);
-							$
-									.ajax({
+							$.ajax({
 										url : "${pageContext.request.contextPath}/wap_pro/add",
 										type : 'POST',
 										cache : false,
@@ -422,4 +439,31 @@
 		intoBase64("fileinput3", "preview3");
 	})
 </script>
+<style>
+.swh {
+	position:absolute;
+    padding: 5px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    width: 61px;
+    height: 29px;
+    margin-left: 276px;
+    }
+	
+	
+.switchsucess {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;}
+#unitspan{
+	text-align: center;
+
+}
+
+
+
+</style>
 </html>
