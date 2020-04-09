@@ -38,24 +38,29 @@
 						<p class="text-center text-white fonwei">信息查看</p>
 					</div>
 				</li>
-				<li class="padding-side">
-					<div class="check_self">
-						<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj3.png" class="img-responsive">
-						<p class="text-center text-white fonwei">商家自检</p>
-					</div>
-				</li>
-				<li class="padding-side">
-					<div class="check_gov">
-						<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj4.png" class="img-responsive">
-						<p class="text-center text-white fonwei">管局专检</p>
-					</div>
-				</li>
-				<li class="padding-side">
-					<div class="check_prof">
-						<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj2.png" class="img-responsive">
-						<p class="text-center text-white fonwei">督察专检</p>
-					</div>
-				</li>
+				<c:if test="${user.type == 2}">
+					<li class="padding-side">
+						<div class="check_self">
+							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj3.png" class="img-responsive">
+							<p class="text-center text-white fonwei">商家自检</p>
+						</div>
+					</li>
+				</c:if>
+				
+				<c:if test="${user.type == 1}">
+					<li class="padding-side">
+						<div class="check_gov">
+							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj4.png" class="img-responsive">
+							<p class="text-center text-white fonwei">管局专检</p>
+						</div>
+					</li>
+					<li class="padding-side">
+						<div class="check_prof">
+							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj2.png" class="img-responsive">
+							<p class="text-center text-white fonwei">督察专检</p>
+						</div>
+					</li>
+				</c:if>
 			</ul>
 		</main>
 		<div class="tabBar">
