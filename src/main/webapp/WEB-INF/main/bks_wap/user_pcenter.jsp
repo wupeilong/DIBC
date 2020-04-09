@@ -15,25 +15,10 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>		
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
-	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
-				<div class="munulist">
-					<a href="javascript:;" class="text-white"> <i class="fa fa-list"></i></a>
-					<ul class="list-unstyled margin0">
-						<li><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${userPcenter.unitId}" class="fonwei">企业信息查询</a></li>
-						<li><a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${user.id}" class="fonwei">健康状况查询</a></li>
-						<li><a href="${pageContext.request.contextPath}/wap_user/workmens_health_add" class="fonwei">健康信息录入</a></li>
-						<li><a href="${pageContext.request.contextPath}/wap_user/reset_password" class="fonwei">个人密码修改</a></li>
-					</ul>
-				</div>
-			</div>
-		</div> 
-		
+	<body class="contain">		
 		<main class="main margin-top padding-side">			
 			<form action="" method="" class="clearfix update_info">
-				<div class="border-bottom margin-top">
+				<%-- <div class="border-bottom margin-top">
 					<div class="fb padding-side05 sb margin-bot">
 						<div class="item_name fonwei">个人信息</div>						
 						<div class="">
@@ -42,7 +27,7 @@
 							</span>
 						</div>
 					</div>
-				</div>
+				</div> --%>
 				<div class="workmens_info_top margin-bot">
 					
 					<div class="input-group form-group fs">

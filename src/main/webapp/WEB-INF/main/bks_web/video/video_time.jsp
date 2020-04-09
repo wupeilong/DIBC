@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +11,12 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_web/nav_all.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css">
- <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_web/main_menus.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_web/main_menus.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery_table/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/static/js/layDate-v5.0.9/laydate/laydate.js"></script>
 <script type="text/javascript">	
 document.onreadystatechange=subSomething;
 function subSomething() { 		 
@@ -27,7 +24,7 @@ function subSomething() {
 		$("#loading").css("display","none");
 		$("#table_id").css("display","block");
    }	  
-} 
+}
 </script>
 </head>
 <body>
@@ -48,11 +45,11 @@ function subSomething() {
 		</thead>
 		<tbody>
 				<tr class="text-c">				
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
+				<td id="timeId">${timeInterval.id}</td>
+				<td>${timeInterval.startTime}</td>
+				<td>${timeInterval.endTime}</td>
 				<td class="td-manage">				
-					 <a href="javascript:;" onclick="update()" class="operation operation-add" style="text-decoration:none">
+					 <a href="javascript:;" onclick="update(${timeInterval.id},'${timeInterval.startTime}','${timeInterval.endTime}')" class="operation operation-add" style="text-decoration:none">
 						<i class="Hui-iconfont" style="font-size: 1em;">&#xe63c;</i>时间设置</a>
 				</td>
 			</tr>
@@ -65,28 +62,34 @@ function subSomething() {
 	</h1>	
 	<label>
 		<span>开放时间：</span>
-		<input id="editDepartmentName" type="text" value="" name="menuName" >
+		<input type="text" class="demo-input" placeholder="请选择日期" id="edit_start_time">
 		<div class="error-msg"></div>
 	</label>
 	<label>
 		<span>关闭时间: </span>
-		<input id="editDepartmentName" type="text" value="" name="menuName" >
-		<div class="error-msg"></div>
-	</label>
-	<label style="display: none;">
-		<span>关闭时间:</span>
-		<input id="editDepartmentHead" type="text" name="name" class="error" >
+		<input type="text" class="demo-input" placeholder="请选择日期" id="edit_end_time">
 		<div class="error-msg"></div>
 	</label>
 	
 </form>
-<div>
-	<input readonly="" class="el_time form-control border0" type="text" id="date" placeholder="请选择日期" style="border-radius:0;">
-</div>
+
+
 </body>
 
 <script type="text/javascript">
-function update(){
+//时间选择器
+laydate.render({ 
+  elem: '#edit_start_time'
+  ,type: 'time'
+});
+
+laydate.render({ 
+	  elem: '#edit_end_time'
+	  ,type: 'time'
+	});
+function update(id,startTime,endTime){
+	 $("#edit_start_time").val(startTime);
+	 $("#edit_end_time").val(endTime);
 	 layer.open({
 		  type: 1,
 		  shade: false,
@@ -94,9 +97,8 @@ function update(){
 		  content: $('#video_update'),
 		  btn: ['提交'],
 		  yes: function(index, layero){
-			  console.log();
-			/*  var data = "departmentId=" + "&authorizationId=" ;
-			 var url = "dep_update";
+			 var url = "${pageContext.request.contextPath}/web_video/time_update";
+			 var data = "id=" + id + "&startTime=" + $("#edit_start_time").val() + "&endTime=" + $("#edit_end_time").val();
 			 console.log(data);
 			  $.ajax({
 	   			"url" : url,    	    			
@@ -111,7 +113,7 @@ function update(){
 	   					layer.msg(obj.message,{icon:1,time:1000},function(){location.replace(location.href);layer.close(index);});
 	   				}	
 	   			}
-	   		});      */
+	   		});
 		  }
 	});
 }
