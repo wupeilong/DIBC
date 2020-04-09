@@ -4,47 +4,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8>
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<title>采购信息添加</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js"
-	type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
-<style type="text/css">
-.table>tbody>tr>td {
-	padding: 0;
-}
-</style>
+	<meta charset=utf-8>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<title>采购信息添加</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+	<style type="text/css">
+		.table>tbody>tr>td {
+			padding: 0;
+		}
+	</style>
 </head>
 <body class="contain">
-	<div class="navigation bg-primary">
+	<!-- <div class="navigation bg-primary">
 		<div class="fb padding-side">
 			<a href="javascript:history.go(-1)" class="text-white"><i
 				class="fa fa-angle-left"></i></a>
 		</div>
+	</div> -->
+	<div id="page">
+		<div id="header">
+			<div class="header-content">
+				<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+				<a class="menu-btn" id="demoSingle" href="#menu"></a>
+				<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+				<div class="header-btn text-right">
+					<button type="button" class="btn btn-primary form-control" id="add">提交</button>
+				</div>				
+			</div>
+		</div>
+		<div class="bannerPane">
+			<div class="overlay"></div>
+			<div class="s-banner-content">
+				<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+			</div>
+		</div>					
 	</div>
 	<main class="main margin-top padding-side05">
 	<form action="" method="post" class="padding-side login_formc">
@@ -151,16 +157,15 @@
 					<td class="vertical-mid" name="good_scount" contenteditable></td>
 					<td name="good_stime"><input readonly=""
 						class="el_time form-control border0" type="text" id="date"
-						placeholder="请选择日期"></td>
+						placeholder="请选择日期" style="border-radius:0;"></td>
 					<td class="vertical-mid" contenteditable="false"><a
 						href="javascript:;" onclick="del_tr(this)"
 						class="del_tr text-danger">删除</ a></td>
 				</tr>
 			</tbody>
 		</table>
-		<div class="text-right">
-			<input type="button" onclick="add_tr(this)" class="btn btn-success"
-				id="add_tr" value="新增商品">
+		<div class="text-right padding-side">
+			<input type="button" onclick="add_tr(this)" class="btn btn-success" id="add_tr" value="新增商品">
 		</div>
 	</div>
 
@@ -182,9 +187,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="margin-top2 margin-bot2">
-		<button type="button" class="btn btn-primary form-control" id="add">提交</button>
-	</div>
+	<div class="margin-top2 margin-bot2"> </div>
 	</main>
 	<c:import url="public/footer.jsp"></c:import>
 </body>
@@ -385,7 +388,7 @@
 			tr += '<tr> <td class="vertical-mid">'
 					+ i
 					+ '</td><td class="vertical-mid" contenteditable></td><td class="vertical-mid" contenteditable></td>'
-					+ '<td class="vertical-mid"><input readonly="" class="form-control el_time border0" type="text" id="date'+index+'" placeholder="请选择日期"></td>'
+					+ '<td class="vertical-mid"><input readonly="" class="form-control el_time border0" type="text" id="date'+index+'" style="border-radius:0;" placeholder="请选择日期"></td>'
 					+ '<td class="vertical-mid"><a href="javascript:;" onclick="del_tr(this)" class="del_tr text-danger">删除</ a></td></tr>'
 		}
 		$(obj).parents(".goods_list").find("table tbody").append(tr);

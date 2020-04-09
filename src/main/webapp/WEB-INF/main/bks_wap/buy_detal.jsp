@@ -22,7 +22,20 @@
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${procurementDetail.status == 0}">
+						<c:if test="${user.type  == 1 }">
+							<a href="javascript:;" class="btn btn-primary form-control">未验收</a>
+						</c:if>
+						<c:if test="${user.type  == 2 }">
+							<a href="javascript:;" class="btn btn-primary form-control" id="acceptance">确认验收</a>
+						</c:if>
+						</c:if>
+						<c:if test="${procurementDetail.status == 1}">
+							<a href="javascript:;" class="btn btn-primary form-control">已验收</a>
+						</c:if>
+					</div>				
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -32,8 +45,8 @@
 				</div>
 			</div>					
 		</div>   
-		<main class="main margin-top2 padding-side05">
-			<div class="">
+		<main class="main padding-side05">
+			<div class="margin-top">
 				<div class="input-group form-group fs border-bottom">
 				  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">供&ensp;应&ensp;商</span>
 				  <div class="form-control box-shadow0 border0" style="    z-index: 0;">${procurementDetail.supplier }</div>
@@ -135,19 +148,7 @@
 				
 			 </div>
 			 
-			<div class="margin-top2 margin-bot2">				
-					<c:if test="${procurementDetail.status == 0}">
-						<c:if test="${user.type  == 1 }">
-							<a href="javascript:;" class="btn btn-primary form-control">未验收</a>
-						</c:if>
-						<c:if test="${user.type  == 2 }">
-							<a href="javascript:;" class="btn btn-primary form-control" id="acceptance">确认验收</a>
-						</c:if>
-					</c:if>
-					<c:if test="${procurementDetail.status == 1}">
-						<a href="javascript:;" class="btn btn-primary form-control">已验收</a>
-					</c:if>			
-			</div>
+			<div class="margin-top2 margin-bot2"></div>
 		</main>		
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 		<script type="text/javascript">

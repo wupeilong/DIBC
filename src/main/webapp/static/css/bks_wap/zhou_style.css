@@ -34,6 +34,10 @@
     font-size: 14px;
     font-weight: 600;
 }
+.delivery .buy_top_a{
+	padding: 0px 6px 0 8px;
+	color: #fff;  
+}
 .buy_top_span1{
 	float: right;
     color: #08c66d;
