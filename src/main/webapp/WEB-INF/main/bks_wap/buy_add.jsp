@@ -222,18 +222,25 @@
 <script type="text/javascript">
 	/* 切换按钮事件 */
 	function swhBtn() {
-
-		console.log($("#unit_list").val());
-		console.log($("#inputType").val());
+		
 		$("#unit_list").val("");
 		$("#inputType").val("");
+		
+		//默认选中第一个
+		$("#unit_list").find("option:selected").attr("selected", false);
+        $("#unit_list").find("option").first().attr("selected", true);
+		
+		
 
 		$("#inputType").toggle();
 		$("#unitspan").toggle();
-
+		
+		//清空图片
 		$("#preview").attr("src", "");
 		$("#preview1").attr("src", "");
 		$("#preview2").attr("src", "");
+		$("#preview3").attr("src", "");
+		
 		//展示上传功能
 		$("#fileinput").css("display", "block");
 		$("#fileinput1").css("display", "block");
@@ -246,6 +253,12 @@
 							//展示上传功能
 							$("#fileinput").css("display", "block");
 							$("#fileinput1").css("display", "block");
+							
+							//清空图片
+							$("#preview").attr("src", "");
+							$("#preview1").attr("src", "");
+							$("#preview2").attr("src", "");
+							$("#preview3").attr("src", "");
 
 							var url = "${pageContext.request.contextPath}/wap_unit/list";
 							var data = "unitId=" + $("#unit_list").val();
