@@ -16,24 +16,7 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-body #header {
+#header {
     width: 100%;
     background: url(../../images/bks_wap/menu-bg.png) no-repeat center bottom !important;
     background-size: 100% !important;
@@ -59,6 +42,9 @@ body #header {
     width: 30px;
     height: 40px;
     position: relative;
+}
+div#header.pub{
+	 background: url(../../images/bks_wap/menu-bg.svg) no-repeat -21px -303px;
 }
 a.p-link-home {
     color: #FFF;
@@ -97,6 +83,9 @@ a.p-link-back {
     top: -5px;
     top: 0px;
     position: fixed !important;
+}
+.public_list .bannerPane{
+	background: url(../../images/bks_wap/bg-pub.jpg) no-repeat center center;
 }
 .bannerPane .overlay {
     background: #000;
