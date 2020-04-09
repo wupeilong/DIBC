@@ -191,9 +191,10 @@ public class IProcurementServiceImpl implements IProcurementService {
 			 supplierproductionLicensePath = get.uoladimg(supplierproductionLicense,user.getUuid());//许可证
 		}
 		//List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
-		
-		String supplierQualificationPath = get.uoladimg(supplierQualification,user.getUuid());//资质
-		
+		String supplierQualificationPath = null;
+		if(supplierQualification != null){
+			supplierQualificationPath = get.uoladimg(supplierQualification,user.getUuid());//资质
+		}
 		String invoicePath = get.uoladimg(invoice,user.getUuid());//发票
 		
 		/*if(supplierUnit.isEmpty()){
