@@ -77,14 +77,16 @@
 		<fieldset>
 			<div class="input-group form-group fs">
 				<span class="input-group-addon border0 clear-bg fonwei">供&ensp;应&ensp;商</span>
-				<span id="unitspan"> <select id="unit_list">
+				<span id="unitspan"> 
+				<select id="unit_list">
 						<!-- class="form-control box-shadow0 border-bottom" -->
 						<option value="">查询所有企业信息</option>
 						<c:forEach items="${unitList}" var="item">
 							<option value="${item.unitId}">${item.unitName}</option>
 						</c:forEach>
 				</select>
-				</span> <input type="text" style="display: none" id="inputType"
+				</span> 
+				<input type="text" style="display: none" id="inputType"
 					placeholder="请输入商家名称"> <input type="button"
 					class="swh switchsucess" id="swithcButton" onclick="swhBtn()"
 					value="+">
@@ -223,15 +225,31 @@
 	/* 切换按钮事件 */
 	function swhBtn() {
 		
+	
+		//默认选中第一个
+		
+		$("#unit_list").find("option:selected").attr("selected", false);
+			$("#unit_list").find("option[value='']").attr("selected",true);//任务名称
+			$("#unit_list").find("option:selected").each(function(i){
+				if($(this).text()=="查询所有企业信息"){
+   				var divVal=$(this).val();
+					$("#unitspan").find("div").each(function(){
+	   					if($(this).attr("data-value")==divVal){
+	   					 	$(this).click();
+	   					}
+	   			});
+   			}
+			})
+		
+		
+		
+		
+		
+		//清空值
 		$("#unit_list").val("");
 		$("#inputType").val("");
 		
-		//默认选中第一个
-		$("#unit_list").find("option:selected").attr("selected", false);
-        $("#unit_list").find("option").first().attr("selected", true);
-		
-		
-
+		//输入方式切换
 		$("#inputType").toggle();
 		$("#unitspan").toggle();
 		
@@ -244,7 +262,8 @@
 		//展示上传功能
 		$("#fileinput").css("display", "block");
 		$("#fileinput1").css("display", "block");
-
+		
+		
 	}
 
 	$('select').searchableSelect({"afterSelectItem" : function() {
