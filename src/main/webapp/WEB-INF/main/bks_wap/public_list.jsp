@@ -17,9 +17,9 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<style type="text/css">
-.navxg{
-	padding:0;
-}
+		.navxg{
+			padding:0;
+		}
 	</style>	
 </head>
 	<body class="o-page p-about">
