@@ -24,7 +24,6 @@
 					<a href="${pageContext.request.contextPath}/wap_public_home" class="p-link-back"><i class="fa fa-home"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
-
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -38,7 +37,7 @@
 	<div class="border0 bg0">		
 		<div class="panel-body padding0">
 			<ul class="formlist list-group margin0">
-				<li class="list-group-item fs" style="border-radius: 0;"><span
+				<li class="list-group-item fs" style="border-radius: 0;padding-top: 2em;"><span
 					class="padding-side text-muted">企业名称</span><label class="">${unitDetail.unitName}</label>
 				</li>
 				<li class="list-group-item fs" style="border-radius: 0;"><span

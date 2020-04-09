@@ -38,7 +38,7 @@
 				</div>
 			</div>			
 		</div>   		
-		<main class="main margin-top padding-side" style="padding:76px 0;">
+		<main class="main margin-top padding-side" style="padding:80px 0;">
 			<div class="panel panel-info" style="border-radius: 0px;">				
 				<ul class="list-group  panel-body padding0" id="result_list"></ul>
 			</div>
@@ -121,7 +121,7 @@
 									'<span>'+obj.data[i].legalPerson+'</span>'+
 									'</div>'+
 									'<a href="${pageContext.request.contextPath}/wap_public_uintdetail?unitid='+obj.data[i].unitId+'">'+
-									'<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/public_xq.png" style="width: 40px;margin-top: -15px;"></a>'+							
+									'<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/public_xq.png" style="width: 40px;margin-top: -15px;margin-right:1em"></a>'+							
 									'</div></a></li>';																			
 					}
 					$("#result_list").html(result);							
