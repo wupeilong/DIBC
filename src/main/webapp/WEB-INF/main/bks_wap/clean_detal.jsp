@@ -131,12 +131,12 @@
 								<tr>
 									<td>消毒药水</td>
 									<c:if test="${DisinfectionDetal[7]==1}">
-										<td>是：<input type="radio" name="tableware7" id="tableware" value="1" checked="checked" /></td>
-										<td>否：<input type="radio" name="tableware7" id="tableware" value="2" /></td>
+										<td>是：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="1" checked="checked" /></td>
+										<td>否：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="2" /></td>
 									</c:if>
 									<c:if test="${DisinfectionDetal[7]!=1}">
-										<td>是：<input type="radio" name="tableware7" id="tableware" value="1"  /></td>
-										<td>否：<input type="radio" name="tableware7" id="tableware" value="2" checked="checked"/></td>
+										<td>是：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="1"  /></td>
+										<td>否：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="2" checked="checked"/></td>
 									</c:if>
 								</tr>
 								<tr>
@@ -161,5 +161,17 @@
 		<c:import url="public/footer.jsp"></c:import>
 	</c:if>	
 	</body>
+<script type="text/javascript">
+	
+	$(function(){
+		
+		/* $('input').each(function(index,e){
+			$(e).attr("disabled","disabled");
+		}) */
+		$('input[type=radio]').attr("disabled","disabled")
+		
+	});
+	
+</script>
 
 </html>
