@@ -10,40 +10,84 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>		
 </head>
-	<body class="contain height100">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+	<body class="contain height100" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/bg-jgcj.png);background-repeat: no-repeat;background-size: cover;">
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+				</div>
 			</div>
-		</div>
-		<main class="main height100 fc bg-warning">
-			<!-- <div class="text-right padding-side"><a href="javascript:history.go(-1)" class="btn btn-primary"><i class="fa fa-angle-double-left"></i>返回</a></div> -->
-			<div class="width100">
-				<c:if test="${user.type==1}">
-					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/wap_ins/inspect_list?start=1" class="btn btn-info form-control">信息查看</a>
-					</div>					
-					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=2" class="btn btn-info form-control">管局专检</a>
+			<div class="bannerPane" style="background:#ffffff;opacity:0">
+				<div class="overlay" style="opacity:0"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>				
+		</div>  
+		<main class="main height100 fc fbot padding-side">
+			<ul class="inspect_lis list-unstyled fsa">
+				<li class="padding-side">
+					<div class="check_info">
+						<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj1.png" class="img-responsive">
+						<p class="text-center text-white fonwei">信息查看</p>
 					</div>
-					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=3" class="btn btn-info form-control">督察专检</a>
-					</div>
+				</li>
+				<c:if test="${user.type == 2}">
+					<li class="padding-side">
+						<div class="check_self">
+							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj3.png" class="img-responsive">
+							<p class="text-center text-white fonwei">商家自检</p>
+						</div>
+					</li>
 				</c:if>
-				<c:if test="${user.type==2}">
-					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/wap_ins/inspect_list?start=2" class="btn btn-info form-control">信息查看</a>
-					</div>
-					<div class="padding-side margin-bot2">
-						<a href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=1" class="btn btn-info form-control">商家自检</a>
-					</div>					
-				</c:if>	
-			</div>
-		</main>		
-	<c:import url="public/footer.jsp"></c:import>
+				
+				<c:if test="${user.type == 1}">
+					<li class="padding-side">
+						<div class="check_gov">
+							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj4.png" class="img-responsive">
+							<p class="text-center text-white fonwei">管局专检</p>
+						</div>
+					</li>
+					<li class="padding-side">
+						<div class="check_prof">
+							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj2.png" class="img-responsive">
+							<p class="text-center text-white fonwei">督察专检</p>
+						</div>
+					</li>
+				</c:if>
+			</ul>
+		</main>
+		<div class="tabBar">
+			<ul class="list-unstyled clearfix margin0">
+				<li><a href="home.html"><div><i class="fa fa-home"></i><div>工作台</div></div></a></li>
+				<li><a href=""><div><i class="fa fa-user"></i><div>个人中心</div></div></a></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			$(".check_info").click(function() {
+				location.href= "${pageContext.request.contextPath}/wap_ins/inspect_list";
+					// /wap_ins/inspect_list
+			})
+			$(".check_self").click(function() {
+				location.href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=1";
+			})
+			$(".check_gov").click(function() {
+				location.href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=2";
+			})
+			$(".check_prof").click(function() {
+				location.href="${pageContext.request.contextPath}/wap_ins/inspect_add?checkType=3";
+			})
+			document.body.addEventListener('touchstart', function () {});
+		</script>
+		
+		<c:import url="public/footer.jsp"></c:import>
+
 	</body>
 
 </html>

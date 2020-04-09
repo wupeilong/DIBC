@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.alibaba.fastjson.JSONArray;
+
 import cn.dibcbks.entity.Role;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
@@ -88,32 +91,30 @@ public class IWxServiceImpl implements IWxService {
 
 	@Override
 	public String wxOauth2Redirect(String code, HttpServletRequest request ,ModelMap modelMap) {
-		logger.info("微信回调信息 >>>>>>>" + code);
 		try {
         	//登录写入系统
 			WxUserInfoOut wxUserInfo = WxApi.getWxUserInfo(WxApi.getOauth2Token(code));
 			Subject subject = SecurityUtils.getSubject();
 			Session session = subject.getSession();
 	        if (wxUserInfo == null) {
-	            logger.info("获取微信用户信息失败");           
+	            logger.info(Constants.ERROR_HEAD_INFO + "获取微信用户信息失败");           
 	            return "error/404";
-	        }        
+	        }
+	        session.setAttribute("wx_user_info", wxUserInfo);
 	        User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
 	        if (user == null || user.getType() == null) {
-	        	session.setAttribute("wx_user_info", wxUserInfo);
+	        	
 	        	modelMap.addAttribute("isbind", 1);
 	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
-	        	return "bks_wap/binding";
+	        	return "bks_wap/roles_choose";
 	        }
 	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);				
 			session.setAttribute("userJson", userJson);
 			session.setAttribute("user", user);
 	        if(user.getType() == 3){
-	        	//TODO 进入大众首页
 	        	return "bks_wap/public_list";
 	        }else{
-	        	//进入主体、监管首页
 	        	return "bks_wap/home";
 	        }   
 		} catch (IncorrectCredentialsException e) {
@@ -127,7 +128,6 @@ public class IWxServiceImpl implements IWxService {
 		ResponseResult<Void> rr = null;
 		try {
 			WxUserInfoOut wxUserInfo =  (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
-			System.out.println(wxUserInfo);
 			Date createTime = new Date();
 	        User user = new User();
 	        String uuid = CommonUtil.getUUID();
@@ -136,6 +136,7 @@ public class IWxServiceImpl implements IWxService {
 	        user.setSex(wxUserInfo.getSex());
 	        user.setHeadUrl(wxUserInfo.getHeadimgurl());
 	        user.setUuid(uuid);
+	        user.setDepartmentId(220);//默认消费者
 	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
 	        user.setType(3);//公众
 	        user.setCreateTime(createTime);
@@ -194,7 +195,7 @@ public class IWxServiceImpl implements IWxService {
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("绑定用户类型:主体人员错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
+			logger.error("绑定用户类型:主体人员/监管人员错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
 			rr = new ResponseResult<>(ResponseResult.ERROR,"绑定失败!");
 		}
 		return rr;
@@ -269,7 +270,7 @@ public class IWxServiceImpl implements IWxService {
 
 
 	@Override
-	public ResponseResult<Void> bindSupervise(String phone, String password, HttpServletRequest request, ModelMap modelMap) {
+	public ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request, ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {
 			User user = userMapper.queryUserByPhone(phone);
@@ -277,11 +278,16 @@ public class IWxServiceImpl implements IWxService {
 				rr = new ResponseResult<>(ResponseResult.ERROR,"手机账户不存在，账户绑定失败！");
 			}else if (!user.getPassword().equals(CommonUtil.getEncrpytedPassword(Constants.MD5, password, user.getUuid(), 1024))) {
 				rr = new ResponseResult<>(ResponseResult.ERROR,"密码错误，账户绑定失败！");
-			} else {
+			} else if(!user.getType().equals(type)){
+				if(type.equals(1)){
+					rr = new ResponseResult<>(ResponseResult.ERROR,"监管账户信息不存在，账户绑定失败！");
+				}else{
+					rr = new ResponseResult<>(ResponseResult.ERROR,"主体账户信息不存在，账户绑定失败！");
+				}
+			}else{
 				WxUserInfoOut wxUserInfo =  (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
 				user.setHeadUrl(wxUserInfo.getHeadimgurl());
 				user.setSex(wxUserInfo.getSex());
-				//若用户未存在昵称则添加
 				user.setUsername(StringUtils.isEmpty(user.getUsername())? wxUserInfo.getNickname() : null);
 				user.setOpenid(wxUserInfo.getOpenId());
 				userMapper.updateById(user);

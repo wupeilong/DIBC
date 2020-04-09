@@ -18,16 +18,17 @@
 	<body class="contain">
 		<main class="bg-gradientfbot" style="height: 100%;background: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_roles.png) no-repeat;background-size: contain;">
 			<div class="text-center">
-				<div class="circle bg-gradient margin-top2" style="width: 80px;height: 80px;"> </div>
-				<p class="margin-top fonwei text-muted">用户：航天员</p>
+				<div class="circle bg-gradient margin-top2" style="width: 80px;height: 80px;"><img style="width: 80px;height: 80px;  border-radius:50%;"  src="${wx_user_info.headimgurl}"></div>
+				<p class="margin-top fonwei text-muted">用户：${wx_user_info.nickname}</p>
 			</div>
 			<div class="roles_lis width100 padding-side margin-top4 margin-bot2">
 				<div class="margin-bot fonwei" style="border-left: 4px solid #fe722d;padding-left: 1em;color: #666;font-size: 1.2em;"> 请选择用户角色 </div>
 				<ul class="list-unstyled">
-					<li class="fs" onclick="return location.href='wap_public_home';">
+					<li class="fs" id="bind_public" >
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role1.png" class="" alt=""> </div>
 						<div class="padding-side">
-							<a href="${pageContext.request.contextPath}/wap_public_home" class="fonwei">大众用户</a>
+							<%-- <a href="${pageContext.request.contextPath}/wap_public_home" class="fonwei">大众用户</a> --%>
+							<a href="javascript:;" class="fonwei">大众用户</a>
 							<div class="text-muted bfrifRows  " style="margin-top: 0.4em;    font-size: 10px;">大众用户。既是消费者又是监督者，可查看食品安全相关过程，齐抓共管食品安全。</div>
 						</div>
 					</li>
@@ -47,120 +48,119 @@
 					</li>
 				</ul>
 			</div>
-			
-			<div class="model_step2 fc modelbox" style="display: none;">
+			<div class="model_step2 fc modelbox" style="display: none; opacity: 0.6;">
 				<img src="${pageContext.request.contextPath}/static/images/bks_wap/binding.png" class="img-responsive">
 				<div class="bingding_form">
-					<div class="tabbox">
-						<!-- <ul class="tabh list-inline" style="border-bottom: 2px solid #348dec;">
-							<li class="fonwei fonsi16 cur">绑定主体</li>
-							<li class="fonwei fonsi16">创建主体</li>
-						</ul> -->
+					<div class="tabbox">						
 						<div class="tabb">
 							<div class="tab_type cur">
 								<form action="" class="bingform">
 									<legend class="fonsi16">主体绑定</legend>
-									<legend class="fonwei text-muted margin-top2 border0">*注： 系统将根据您所提交的执照编号分配您所属的企业主体信息</legend>
+									<legend class="fonwei text-muted margin-top2 border0">*注： 系统将根据您所绑定的手机账户分配您所属的企业主体信息</legend>
+									<div class="">
+										<label for="mobile" class="text-muted"><i class="fa fa-mobile"></i></label>
+										<input type="text" class="border0 form-control" name="mobile" id="mobile" value="" placeholder="请输入手机号"/>
+									</div>
 									<div class="margin-top">
-										<label for="xydm" class="text-muted"><i class="fa fa-vcard-o"></i></label>
-										<input type="text" class="border0 form-control" name="xydm" id="xydm" value="" placeholder="请输入营业执照编号"/>
+										<label for="password" class="text-muted"><i class="fa fa-key"></i></label>
+										<input type="password" class="border0 form-control" name="password" id="" value="" placeholder="请输入密码"/>
 									</div>
 								</form>
 								<div class="tips text-danger text-center margin-top" style="height:1em"></div>
 								<div class="margin-top2">
-									<a href="javascript:;" class="btn btn-primary form-control" onclick="binding_submit(this)">提交绑定</a>
+									<a href="javascript:;" class="btn btn-primary form-control" onclick="binding_submit(this,2)">提交绑定</a>
 								</div>
 								<div class="fonwei text-info margin-top2 border0 text-center"> 账号绑定后您将不需要频繁地登陆 </div>
-							</div>
-							<%-- <div class="tab_type">
-								<form action="" class="bingform">
-									<div class="margin-top">
-										<label for="" class="text-muted"><i class="fa fa-vcard-o"></i></label>
-										<input type="text" class="border0 form-control" name="" id="" value="" placeholder="请输入企业名称"/>
-									</div>
-									<div class="margin-top">
-										<label for="" class="text-muted"><i class="fa fa-lock"></i></label>
-										<input type="text" class="border0 form-control" name="" id="" value="" placeholder="统一社会信用代码"/>
-									</div>
-									<div class="margin-top">
-										<select name=""class="border0 form-control" style="padding-left: 2.6em;">
-											<option value="">请选择企业类型</option>
-											<option value="">学校</option>
-											<option value="">餐饮企业</option>
-											<option value="">其它</option>
-										</select>
-									</div>
-									<div class="margin-top fb">
-										<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner2.jpg" class="" style="width: 100px;height: 100px;border: 1px solid #555;">
-										<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner2.jpg" class="" style="width: 100px;height: 100px;border: 1px solid #555;">
-									</div>
-								</form>
-								<div class="margin-top">
-									<a href="javascript:;" class="btn btn-primary form-control">创建主体</a>
-								</div>
-							</div> --%>
+							</div>							
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="model_step3 modelbox" style="display: none;">
-				<img src="${pageContext.request.contextPath}/static/images/bks_wap/binding1.png" class="img-responsive">
-				<div class="bingding_form" style="position: absolute;bottom: 0em;top: auto;">
-					<form action="" class="bingform">
-						<legend class="fonsi16">监管人员绑定</legend>
-						<div class="">
-							<label for="mobile" class="text-muted"><i class="fa fa-mobile"></i></label>
-							<input type="text" class="border0 form-control" name="mobile" id="mobile" value="" placeholder="请输入手机号"/>
+			<div class="model_step3 modelbox" style="display: none; opacity: 0.6;">
+				<img src="${pageContext.request.contextPath}/static/images/bks_wap/binding.png" class="img-responsive">
+				<div class="bingding_form">
+					<div class="tabbox">						
+						<div class="tabb">
+							<div class="tab_type cur">
+								<form action="" class="bingform">
+									<legend class="fonsi16">监管人员绑定</legend>
+									<legend class="fonwei text-muted margin-top2 border0">*注： 系统将根据您所提供的手机账户绑定监管账户信息</legend>
+									<div class="">
+										<label for="mobile" class="text-muted"><i class="fa fa-mobile"></i></label>
+										<input type="text" class="border0 form-control" name="mobile" id="mobile" value="" placeholder="请输入手机号"/>
+									</div>
+									<div class="margin-top">
+										<label for="password" class="text-muted"><i class="fa fa-key"></i></label>
+										<input type="password" class="border0 form-control" name="password" id="" value="" placeholder="请输入密码"/>
+									</div>
+								</form>
+								<div class="tips text-danger text-center margin-top" style="height:1em"></div>
+								<div class="margin-top2">
+									<a href="javascript:;" class="btn btn-primary form-control" onclick="binding_submit(this,1)">提交绑定</a>
+								</div>
+								<div class="fonwei text-info margin-top2 border0 text-center"> 账号绑定后您将不需要频繁地登陆 </div>
+							</div>							
 						</div>
-						<div class="margin-top">
-							<label for="password" class="text-muted"><i class="fa fa-key"></i></label>
-							<input type="password" class="border0 form-control" name="password" id="" value="" placeholder="请输入密码"/>
-						</div>
-					</form>
-					<div class="tips text-danger text-center margin-top" style="height:1em"></div>
-					<div class="margin-top2">
-						<a href="javascript:;" class="btn btn-primary form-control" onclick="binding_submit1(this)">提交绑定</a>
 					</div>
 				</div>
 			</div>
 		</main>
 		<script type="text/javascript">
-			function binding_submit(e) {
-				var xydm=$(e).parents(".bingding_form").find("form input[name=xydm]").val();
-				var reg_xydm=/^([0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}|[1-9]\d{14})$/;
-				var tips=$(e).parents(".bingding_form").find(".tips");
-				if (!reg_xydm.test(xydm)) {
-					console.log("您输入的统一社会信用代码不合法，请重新输入！")
-				}else{
-					var url="";
-					$.ajax({
-						url:url,
-						type:"post",
-						data:{'xydm':xydm},
-						dataType:"json",
-						success:function() {
-							
-						}
-					})
+		$("#bind_public").click(function(){
+			var url = "${pageContext.request.contextPath}/wap_bind_public";
+			$.ajax({
+				"url" : url,
+				"data" : '',
+				"type" : "POST",
+				"dataType" : "json",
+				"success" : function(obj) {
+					if (obj.state == 0) {
+						layer.msg(obj.message,{icon:2,time:1000});
+						return;
+					}else{
+						layer.msg(obj.message,{icon:1,time:1000},function(){										
+							location.href = "${pageContext.request.contextPath}/wap_public_home";
+						});
+					}					
 				}
-				console.log(xydm);
-			}
-			function binding_submit1(e) {
+			});
+			  
+		});
+		
+			
+			function binding_submit(e,type) {
 				var mobile=$(e).parents(".bingding_form").find("form input[name=mobile]").val();
-				var pwd=$(e).parents(".bingding_form").find("form input[name=password]").val();
+				var password=$(e).parents(".bingding_form").find("form input[name=password]").val();
 				var mobileReg = /(^1[3|4|5|7|8|9]\d{9}$)|(^09\d{8}$)/;
-				var pwd_reg=/[a-zA-Z0-9]{6,12}/;
+				//var pwd_reg=/[a-zA-Z0-9]{6,12}/;
 				var tips=$(e).parents(".bingding_form").find(".tips");
-				
-				if (!mobileReg.test(mobile)||mobile=='') {
-					console.log("您输入的手机号或密码错误，请重新输入！")
+				if (!mobileReg.test(mobile) || mobile=='') {
+					layer.msg("您输入的手机号错误，请重新输入！",{icon:2,time:1000});
+					return;
 				}
-				
-				if (!pwd_reg.test(pwd)||mobile=='') {
-					console.log("您输入的手机号或密码错误，请重新输入！")
+				if (password=='') {
+					layer.msg("您输入的密码错误，请重新输入！",{icon:2,time:1000});					
+					return;
 				}
+				var url = "${pageContext.request.contextPath}/wap_bind_supervise";
+				var data = "password=" + password + "&phone=" + mobile + "&type=" + type;
+				$.ajax({
+					"url" : url,
+					"data" : data,
+					"type" : "POST",
+					"dataType" : "json",
+					"success" : function(obj) {
+						if (obj.state == 0) {
+							layer.msg(obj.message,{icon:2,time:1000});
+							return;
+						}else{
+							layer.msg(obj.message,{icon:1,time:1000},function(){										
+								location.href = "${pageContext.request.contextPath}/wap_home";
+							});
+						}					
+					}
+				});
 				
-				console.log(pwd);
 			}
 			//tab选项卡
 			/* $(".tabbox").find(".tabh").children().click(function(){
@@ -175,7 +175,7 @@
 			function model(el) {
 				layer.open({
 				  type:1,
-				  area: ['340px', 'auto'],
+				  area: ['340px', '530px'],
 				  title: false,
 				  content: el,
 				  closeBtn:2,

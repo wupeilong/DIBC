@@ -45,9 +45,9 @@ public class WapUserController {
 	 * @return
 	 */
 	@RequestMapping("/workmens")
-	public String workmens(ModelMap modelMap){	
+	public String workmens(Integer unitId, ModelMap modelMap){	
 		
-		return iUserService.workmens(modelMap);
+		return iUserService.workmens(unitId, modelMap);
 	}
 	
 	

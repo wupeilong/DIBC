@@ -30,7 +30,7 @@ public class WapInspectController {
 	 * @return
 	 */
 	@RequestMapping("/inspect_choise")
-	public String InspectChoise(){		
+	public String InspectChoise(){
 		return "bks_wap/inspect_choise";
 	}
 	

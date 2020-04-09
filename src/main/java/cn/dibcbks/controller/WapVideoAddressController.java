@@ -30,7 +30,6 @@ public class WapVideoAddressController {
 	public String VideoScan(){
 		
 		return "bks_wap/video";
-		//return "bks_wap/monitor";
 	}
 	
 	/**
@@ -102,7 +101,6 @@ public class WapVideoAddressController {
 	 * 控制视频流地址修改的跳转
 	 * 
 	 */
-	
 	@RequestMapping("/updateVideoInfo")
 	public  String updateVideoAddress(ModelMap modelMap,Integer unitId,Integer videoId){
 		

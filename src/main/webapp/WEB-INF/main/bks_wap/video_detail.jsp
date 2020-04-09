@@ -31,7 +31,7 @@
 			    <video id="my-video${item.videoId}" class="video-js" controls preload="auto" width="340" height="200" poster="m.jpg" data-setup="{}">      	
 			    	<source src="${item.videoAddress}" type="application/x-mpegURL">
 			        <p class="vjs-no-js"> 111 <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
-			    </video>	
+			    </video>
 			</div>			          
 	     </c:forEach>     
     </div>

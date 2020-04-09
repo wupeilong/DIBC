@@ -10,12 +10,18 @@ import cn.dibcbks.service.IUnitService;
  * @author Administrator
  *
  */
+import cn.dibcbks.util.ResponseResult;
+import io.swagger.annotations.ApiOperation;
 @Controller
 @RequestMapping("/web_unit")
 public class WebUnitController {
 	@Autowired
 	private IUnitService iUnitService;
 
-
 	
+	@ApiOperation("批量添加企业")
+	@RequestMapping("/")
+	public ResponseResult<Void> batchAddUnit(){
+		return null;
+	}
 }

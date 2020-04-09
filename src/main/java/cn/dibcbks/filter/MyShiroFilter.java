@@ -21,8 +21,7 @@ public class MyShiroFilter extends AuthorizationFilter {
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
 			throws Exception {
 		Subject subject = getSubject(request, response);
-		String[] perms = (String[]) mappedValue;
-
+		String[] perms = (String[]) mappedValue;		
 		boolean isPermitted = true;
 		if (perms != null && perms.length > 0) {
 			if (perms.length == 1) {
