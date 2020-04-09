@@ -28,7 +28,7 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<c:if test="${user.type == 1}">
 						<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					</c:if>	
@@ -38,7 +38,7 @@
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
 						<c:if test="${user.type == 2 }">
-							<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+							<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn btn-primary"><i class="fa fa-plus"></i></a>
 						</c:if>
 					</div>
 				</div>
@@ -59,10 +59,10 @@
 			</div>
 			
 		</div>
-		<main class="main margin-top padding-side05" style="padding-top: 0px;" id="result_list">
+		<main class="main padding-side05" style="padding-top: 146px;padding-bottom: 60px;" id="result_list">
 			<c:forEach items="${procurementList}" var="item">
 				<div class="buy_list">
-					<div class="buy_top"><p>订单号：
+					<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:
 						<span class="buy_top_span">${item.id}</span>
 						<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id=${item.id}">详情</a>
 						<c:if test="${item.status == 0}">
@@ -74,10 +74,11 @@
 						</p>
 					</div>
 					<div class="buy_top1">
-						<div>${item.unitName}
-							<span class="buy_top1_span text-muted"><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></span>					
+						<div>
+							<span class="fonwei text-muted bfrifRow">${item.unitName}</span>
+							<span class="buy_top1_span text-muted"><fmt:formatDate value="${item.purchasingTime}" pattern="yyyy-MM-dd" /></span>
 						</div>
-					</div>				
+					</div>
 				</div>
 			</c:forEach>		
 		</main>			

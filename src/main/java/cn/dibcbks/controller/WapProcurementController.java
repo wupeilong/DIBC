@@ -76,7 +76,9 @@ public class WapProcurementController {
 	 */
 	@RequestMapping("/add")
 	@ResponseBody
-	public ResponseResult<Void> addProcurement(	Integer supplierUnitId,
+	public ResponseResult<Void> addProcurement(	
+									String supplier,
+									Integer supplierUnitId,
 									MultipartFile supplierBusinessLicense,
 									MultipartFile supplierproductionLicense,
 									MultipartFile supplierQualification,
@@ -85,7 +87,7 @@ public class WapProcurementController {
 									String supplierPhone,
 									String detailList) throws ParseException{
 		
-		return iProcurementService.addProcurement(supplierUnitId,supplierBusinessLicense,supplierproductionLicense,supplierQualification,invoice,supplierPerson,supplierPhone,detailList);
+		return iProcurementService.addProcurement(supplier,supplierUnitId,supplierBusinessLicense,supplierproductionLicense,supplierQualification,invoice,supplierPerson,supplierPhone,detailList);
 	}
 	
 
