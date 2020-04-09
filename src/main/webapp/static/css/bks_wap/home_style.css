@@ -195,3 +195,6 @@ body{
 	background-position: 0 -139px;
 	background-size: 100%
 }
+#certify .swiper-slide{
+	width:288px;
+}

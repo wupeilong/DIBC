@@ -20,7 +20,7 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
@@ -43,7 +43,7 @@
 				<fieldset class="margin-top">
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">企业名称</span>
-					  <div class="form-control box-shadow0 border0">${unitDetail.unitName}</div>
+					  <div class="form-control box-shadow0 border0" style="font-size:13px;">${unitDetail.unitName}</div>
 					</div>
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">统一社会信用代码</span>
