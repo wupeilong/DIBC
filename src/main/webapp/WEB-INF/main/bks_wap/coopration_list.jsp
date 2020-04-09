@@ -31,7 +31,7 @@
 			<div class="coopration_list">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead class="bg-primary">
-						<tr><th style="width:3.2em">序号</th><th>企业名字</th><th style="width:5.2em">企业法人</th><th style="width:3.2em">操作</th></tr>
+						<tr><th style="width:3.4em">序号</th><th>企业名字</th><th style="width:5.4em">企业法人</th><th style="width:3.4em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">
 						<c:forEach items="${unitList}" var="item" varStatus="vs">
