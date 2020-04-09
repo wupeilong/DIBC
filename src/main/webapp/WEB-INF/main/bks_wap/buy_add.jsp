@@ -244,7 +244,6 @@
 		
 		
 		
-		
 		//清空值
 		$("#unit_list").val("");
 		$("#inputType").val("");
@@ -282,16 +281,22 @@
 							var url = "${pageContext.request.contextPath}/wap_unit/list";
 							var data = "unitId=" + $("#unit_list").val();
 
-							$
-									.ajax({
+							$.ajax({
 										"url" : url,
 										"data" : data,
 										"type" : "POST",
 										"dataType" : "json",
 										"success" : function(obj) {
+											if(obj.state==0){
+												layer.msg(obj.message, {
+													icon : 1,
+													time : 1000
+												});
+												
+												return;
+											}
 											console.log(obj);
-											$("#supplierPerson").val(
-													obj.data[0].legalPerson);
+											$("#supplierPerson").val(obj.data[0].legalPerson);
 											if ($("#unit_list").val() == "") {
 												return;
 											} else {
@@ -350,12 +355,7 @@
 			.click(
 
 					function() {
-						if ($("#unit_list").val()) {
-
-						}
-						console.log($("#unit_list").find("option:selected")
-								.text())
-
+					
 						var detailList = new Array();
 						var tr = document.querySelectorAll("tbody tr");
 						for (var i = 0; i < tr.length; i++) {

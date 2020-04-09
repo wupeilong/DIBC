@@ -33,10 +33,10 @@
 				</div>
 				<div class="bg-gradient" style="margin-top: 89px;">
 					<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
-					  <li class="active pull-left" id=""><div class="getall text-center">全部</div></li>
-					  <li class="pull-left" id=""><div class="getS text-center">商家自检</div></li>
-					  <li class="pull-left" id=""><div class="getJ text-center">监管专检</div></li><li>
-					  <li class="pull-left" id=""><div class="getD text-center">督察专检</div></li><li>
+					  <li class="active pull-left" style="width: 25%;"><div class="getall text-center">全部</div></li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getS text-center">商家自检</div></li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getJ text-center">监管专检</div></li><li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getD text-center">督察专检</div></li><li>
 					</ul>
 				</div>
 			</div>
@@ -53,26 +53,35 @@
 				</div>
 			</div>			
 		</div>
-		<main class="delivery main padding-side05"">
-			<div class="margin-top"></div>
-			<c:forEach items="${checkList}" var="f">
-				<div class="buy_list" id="result_list">
-					<div class="buy_top">
-						<p class="fb">
-							<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
-							<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=${f.id}">查看详情</a>
-						</p>
-					</div>
-					<div class="buy_top1">
-						<div class="fb">
-							<span class="text-muted">
-								<c:if test="${f.checkType==1}">
-							</span>
-							<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->${f.dailyTime}</span>					
+		<main class="delivery main padding-side05" style="padding-top: 128px;">
+			<div class="margin-top" id="result_list">
+				<c:forEach items="${checkList}" var="f" varStatus="vs">
+					<div class="buy_list" >									
+						<div class="buy_top">
+							<p class="fb">
+								<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+								<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=${f.id}">查看详情</a>
+							</p>
 						</div>
-					</div>				
-				</div>
-			</c:forEach>
+						<div class="buy_top1">
+							<div class="fb">
+								<span class="text-muted">
+									<c:if test="${f.checkType==1}">
+										商家自检
+									</c:if>
+									<c:if test="${f.checkType==2}">
+										监管专检
+									</c:if>
+									<c:if test="${f.checkType==3}">
+										督查专检
+									</c:if>
+								</span>
+								<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->${f.dailyTime}</span>					
+							</div>
+						</div>				
+					</div>
+				</c:forEach>
+			</div>
 			<div class="margin-bot"></div>
 		</main>
 		<c:if test="${user.type == 3}">
@@ -116,6 +125,7 @@
 			}
 		});		 
 	});	
+	
 	function selectunit(unitId) {
 		$("#select_uint_id").val(unitId);
 		var url = "${pageContext.request.contextPath}/wap_ins/queryList";
@@ -130,29 +140,40 @@
 					layer.msg(obj.message,{icon:2,time:1000});
 					return;
 				}else{
-					var result="";							
-					for(var i=0;i<obj.data.length;i++){
-						result += '<div class="buy_list">'+
-						  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
-						'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
-						'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+					var result = "";
+					for(var i=0; i<obj.data.length; i++){
+						result += '<div class="buy_list">';
+						result += '<div class="buy_top">';
+						result += '<p class="fb">';
+						result += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>';
+						result += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=' + obj.data[i].id + '">查看详情</a>';
+						result += '</p>';
+						result += '</div>';
+						result += '<div class="buy_top1">';
+						result += '<div class="fb">';
+						result += '<span class="text-muted">';
 						if(obj.data[i].checkType == 1){
-							result += "<td>单位自检</td>";
+							result += '商家自检';
 						}
 						if(obj.data[i].checkType == 2){
-							result += "<td>监管专检</td>";
+							result += '监管专检';
 						}
 						if(obj.data[i].checkType == 3){
-							result += "<td>督查组检查</td>";
-						}												
-						result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
-								  '</div></div></div>';
+							result += '督查专检';
+						}						
+						result += '</span>';
+						result += '<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->' + obj.data[i].dailyTime + '</span>';				
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';	
 					}
-					$("#result_list").html(result);							
-				}		
-			}
-		});	
-	}
+					$("#result_list").html(result);
+				}
+		}
+	});
+}
+	
+	
 	$(".menu").children().click(function(){
 		$(this).parent().children().removeClass("active")
 		$(this).addClass("active");
@@ -177,21 +198,31 @@
 					return;
 				}else{
 					var result = "";
-					for(var i=0;i<obj.data.length;i++){
-						result += "<tr>";
-						result += "<td>" + obj.data[i].unitName + "</td>";
+					for(var i=0; i<obj.data.length; i++){
+						result += '<div class="buy_list">';
+						result += '<div class="buy_top">';
+						result += '<p class="fb">';
+						result += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>';
+						result += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=' + obj.data[i].id + '">查看详情</a>';
+						result += '</p>';
+						result += '</div>';
+						result += '<div class="buy_top1">';
+						result += '<div class="fb">';
+						result += '<span class="text-muted">';
 						if(obj.data[i].checkType == 1){
-							result += "<td>单位自检</td>";
+							result += '商家自检';
 						}
 						if(obj.data[i].checkType == 2){
-							result += "<td>监管专检</td>";
+							result += '监管专检';
 						}
 						if(obj.data[i].checkType == 3){
-							result += "<td>督查专检</td>";
-						}							
-						result += "<td>" + obj.data[i].dailyTime + "</td>";
-						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-						result += "</tr>";				
+							result += '督查专检';
+						}						
+						result += '</span>';
+						result += '<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->' + obj.data[i].dailyTime + '</span>';				
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';	
 					}
 					$("#result_list").html(result);
 				}	
@@ -217,21 +248,31 @@
 					return;
 				}else{
 					var result = "";
-					for(var i=0;i<obj.data.length;i++){
-						result += "<tr>";
-						result += "<td>" + obj.data[i].unitName + "</td>";
+					for(var i=0; i<obj.data.length; i++){
+						result += '<div class="buy_list">';
+						result += '<div class="buy_top">';
+						result += '<p class="fb">';
+						result += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>';
+						result += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=' + obj.data[i].id + '">查看详情</a>';
+						result += '</p>';
+						result += '</div>';
+						result += '<div class="buy_top1">';
+						result += '<div class="fb">';
+						result += '<span class="text-muted">';
 						if(obj.data[i].checkType == 1){
-							result += "<td>单位自检</td>";
+							result += '商家自检';
 						}
 						if(obj.data[i].checkType == 2){
-							result += "<td>监管专检</td>";
+							result += '监管专检';
 						}
 						if(obj.data[i].checkType == 3){
-							result += "<td>督查专检</td>";
-						}							
-						result += "<td>" + obj.data[i].dailyTime + "</td>";
-						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-						result += "</tr>";				
+							result += '督查专检';
+						}						
+						result += '</span>';
+						result += '<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->' + obj.data[i].dailyTime + '</span>';				
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';	
 					}
 					$("#result_list").html(result);
 				}	
@@ -256,21 +297,31 @@
 					return;
 				}else{
 					var result = "";
-					for(var i=0;i<obj.data.length;i++){
-						result += "<tr>";
-						result += "<td>" + obj.data[i].unitName + "</td>";
+					for(var i=0; i<obj.data.length; i++){
+						result += '<div class="buy_list">';
+						result += '<div class="buy_top">';
+						result += '<p class="fb">';
+						result += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>';
+						result += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=' + obj.data[i].id + '">查看详情</a>';
+						result += '</p>';
+						result += '</div>';
+						result += '<div class="buy_top1">';
+						result += '<div class="fb">';
+						result += '<span class="text-muted">';
 						if(obj.data[i].checkType == 1){
-							result += "<td>单位自检</td>";
+							result += '商家自检';
 						}
 						if(obj.data[i].checkType == 2){
-							result += "<td>监管专检</td>";
+							result += '监管专检';
 						}
 						if(obj.data[i].checkType == 3){
-							result += "<td>督查专检</td>";
-						}							
-						result += "<td>" + obj.data[i].dailyTime + "</td>";
-						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-						result += "</tr>";				
+							result += '督查专检';
+						}						
+						result += '</span>';
+						result += '<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->' + obj.data[i].dailyTime + '</span>';				
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';	
 					}
 					$("#result_list").html(result);
 				}	
@@ -295,21 +346,31 @@
 					return;
 				}else{
 					var result = "";
-					for(var i=0;i<obj.data.length;i++){
-						result += "<tr>";
-						result += "<td>" + obj.data[i].unitName + "</td>";
+					for(var i=0; i<obj.data.length; i++){
+						result += '<div class="buy_list">';
+						result += '<div class="buy_top">';
+						result += '<p class="fb">';
+						result += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>';
+						result += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_ins/inspect_detal?id=' + obj.data[i].id + '">查看详情</a>';
+						result += '</p>';
+						result += '</div>';
+						result += '<div class="buy_top1">';
+						result += '<div class="fb">';
+						result += '<span class="text-muted">';
 						if(obj.data[i].checkType == 1){
-							result += "<td>单位自检</td>";
+							result += '商家自检';
 						}
 						if(obj.data[i].checkType == 2){
-							result += "<td>监管专检</td>";
+							result += '监管专检';
 						}
 						if(obj.data[i].checkType == 3){
-							result += "<td>督查专检</td>";
-						}							
-						result += "<td>" + obj.data[i].dailyTime + "</td>";
-						result += "<td style='4em'><a href='${pageContext.request.contextPath}/wap_ins/inspect_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-						result += "</tr>";				
+							result += '督查专检';
+						}						
+						result += '</span>';
+						result += '<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->' + obj.data[i].dailyTime + '</span>';				
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';	
 					}
 					$("#result_list").html(result);
 				}	

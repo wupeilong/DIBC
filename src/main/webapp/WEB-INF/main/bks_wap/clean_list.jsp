@@ -22,12 +22,12 @@
 			<div id="header">
 				<div class="header-content">					
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
-					<%-- <c:if test="${user.type == 1}"> --%>
+					<c:if test="${user.type == 1}">
 						<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<%-- </c:if>	
+					</c:if>	
 					<c:if test="${user.type != 1}">
 						<a class="menu-btn" href="#menu"></a>
-					</c:if> --%>
+					</c:if>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
 						<c:if test="${user.type == 2}">
@@ -44,23 +44,24 @@
 			</div>						
 		</div>
 		<main class="delivery main padding-side05"">
-			<div class="margin-top"></div>
-			<c:forEach items="${disinfectionlist}" var="f" varStatus="vs">
-				<div class="buy_list">
-					<div class="buy_top">
-						<p class="fb">
-							<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
-							<span class="bfrifRow"></span>
-						</p>
-					</div>
-					<div class="buy_top1">
-						<div class="fb">
-							<span class="text-muted bfrifRow"><!--  消毒日期 ：-->${f.dailyTime}</span>
-							<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">详情</a>
+			<div class="margin-top" id="result_list">
+				<c:forEach items="${disinfectionlist}" var="f" varStatus="vs">
+					<div class="buy_list">
+						<div class="buy_top">
+							<p class="fb">
+								<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+								<span class="bfrifRow"></span>
+							</p>
 						</div>
-					</div>				
-				</div>
-			</c:forEach>
+						<div class="buy_top1">
+							<div class="fb">
+								<span class="text-muted bfrifRow"><!--  消毒日期 ：-->${f.dailyTime}</span>
+								<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">详情</a>
+							</div>
+						</div>				
+					</div>
+				</c:forEach>
+			</div>
 			<!--序号 vs.count -->		
 		</main>
 		
@@ -122,13 +123,27 @@
 					var datvar="";							
 					for(var i=0;i<obj.data.length;i++){
 						datvar += '<div class="buy_list">'
+						datvar += '<div class="buy_top">'
+						datvar += '<p class="fb">'
+						datvar += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>'
+						datvar += '<span class="bfrifRow"></span>'
+						datvar += '</p>'
+						datvar += '</div>'
+						datvar += '<div class="buy_top1">'
+						datvar += '<div class="fb">'
+						datvar += '<span class="text-muted bfrifRow"><!--  消毒日期 ：-->' + obj.data[i].dailyTime + '</span>'
+						datvar += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=' + obj.data[i].id + '">详情</a>'
+						datvar += '</div>'
+						datvar += '</div>'				
+						datvar += '</div>'
+						/* datvar += '<div class="buy_list">'
 							   +  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i>'
 							   +  '订单号:<span class="buy_top_span">'+obj.data[i].id+'</span>'
 							   +  '<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
 						datvar += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">' +obj.data[i].unitName+'</span>'							  
-							   +  '<span class="buy_top1_span text-muted">format(' + obj.data[i].purchasingTime + ',yyyy-MM-dd)"</span></div></div></div>';													
+							   +  '<span class="buy_top1_span text-muted">format(' + obj.data[i].purchasingTime + ',yyyy-MM-dd)"</span></div></div></div>';	 */												
 					}
-					$(".buy_list").html(datvar);											
+					$("#result_list").html(datvar);											
 				}				
 			}
 		}); 				
