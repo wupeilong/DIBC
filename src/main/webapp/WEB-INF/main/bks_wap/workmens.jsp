@@ -34,7 +34,7 @@
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					 <c:if test="${user.type == 2}"><!-- 禁主体有权限人员可添加 -->
 						<shiro:hasPermission name="user_add"> 
-						<a href="${pageContext.request.contextPath}/wap_user/workmens_add" class="btn bg-primary" style="position: absolute; right: 5px;top: 50px;"><i class="fa fa-plus"></i></a>					
+						<a href="${pageContext.request.contextPath}/wap_user/workmens_add" class="btn btn-primary" style="position: absolute; right: 5px;top: 50px;"><i class="fa fa-plus"></i></a>					
 						</shiro:hasPermission>
 					</c:if>
 				</div>
