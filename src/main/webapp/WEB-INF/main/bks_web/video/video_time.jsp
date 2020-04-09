@@ -19,6 +19,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">	
 document.onreadystatechange=subSomething;
 function subSomething() { 		 
@@ -76,8 +77,12 @@ function subSomething() {
 		<span>关闭时间:</span>
 		<input id="editDepartmentHead" type="text" name="name" class="error" >
 		<div class="error-msg"></div>
-	</label>	
+	</label>
+	
 </form>
+<div>
+	<input readonly="" class="el_time form-control border0" type="text" id="date" placeholder="请选择日期" style="border-radius:0;">
+</div>
 </body>
 
 <script type="text/javascript">
