@@ -25,7 +25,10 @@
 				<div class="header-content">
 					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<button type="button" class="btn btn-primary form-control" onclick="diskinput()">提交</button>
+					</div>					
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -171,9 +174,7 @@
 				  	</table>
 				  </div>
 			</form>
-			<div class="margin-top2 margin-bot2">
-				<button type="button" class="btn btn-primary form-control" onclick="diskinput()">提交</button>
-			</div>
+			
 		</main>	
 	<c:import url="public/footer.jsp"></c:import>
 	</body>

@@ -35,7 +35,19 @@
 					<c:if test="${user.type != 1}">
 						<a class="menu-btn" href="#menu"></a>
 					</c:if>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${user.type == 2 }">
+							<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
+						</c:if>
+					</div>
+				</div>
+				<div class="bg-gradient menu_wrap" style="margin-top: 89px;">
+					<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
+					  <li class="active pull-left" id="whole"><div class="getall text-center text-white">全部</div></li>
+					  <li class="pull-left" id="no_acceptance"><div class="getUn text-center text-white">未验收</div></li>
+					  <li class="pull-left" id=" "><div class="geted text-center text-white">已验收</div></li><li>
+					</ul>
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -45,16 +57,7 @@
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
 			</div>
-			<div class="bg-gradient" style="margin-top: 89px;">
-						<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
-						  <li class="active pull-left" id="whole"><div class="getall text-center">全部</div></li>
-						  <li class="pull-left" id="no_acceptance"><div class="getUn text-center">未验收</div></li>
-						  <li class="pull-left" id=" "><div class="geted text-center">已验收</div></li><li>
-						</ul>
-					</div>
-				<c:if test="${user.type == 2 }">
-					<a href="${pageContext.request.contextPath}/wap_pro/buy_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
-				</c:if>			
+			
 		</div>
 		<main class="main margin-top padding-side05" style="padding-top: 0px;" id="result_list">
 			<c:forEach items="${procurementList}" var="item">

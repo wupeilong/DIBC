@@ -22,12 +22,25 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
-					<c:if test="${user.type == 2}">
-						<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
-					</c:if>						
+					<div class="header-btn text-right">
+						<c:if test="${user.type == 2}">
+							<c:if test="${distributionDetial.status == 1 && user.id == distributionDetial.mealsUserId}">
+								<button type="button" class="btn btn-primary" id="end">确认送达</button>
+							</c:if>
+							<c:if test="${distributionDetial.status == 2 && user.unitId == distributionDetial.acceptanceUnitId}">
+								<button type="button" class="btn btn-primary" id="reg">确认验收</button>
+							</c:if>
+							<c:if test="${distributionDetial.status == 3}">
+								<button type="button" class="btn btn-primary" id="result">验收详情</button>
+							</c:if>	 				
+						</c:if>
+						<c:if test="${user.type == 1 && distributionDetial.status == 3}">
+							<button type="button" class="btn btn-primary" id="result">验收详情</button>
+						</c:if>
+					</div>
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -37,9 +50,9 @@
 				</div>
 			</div>						
 		</div>		
-		<main class="main margin-top2 padding-side05">
-			<div class="forms">
-				<form action="" method="post" class="form1 cur">
+		<main class="main padding-side05">
+			<div class="forms margin-top">
+				<form action="" method="post" class="form1 cur margin-bot">
 					<fieldset>
 						<div class="input-group form-group fs border-bottom">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">食品类型</span>
@@ -148,36 +161,20 @@
 						  <div class="form-control box-shadow0 border0"><fmt:formatDate value="${distributionDetial.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
 						</div>
 					  </fieldset>
-					<div class="margin-top2 margin-bot2">
-					<c:if test="${user.type == 2}">
-						<c:if test="${distributionDetial.status == 1 && user.id == distributionDetial.mealsUserId}">
-							<button type="button" class="btn btn-primary form-control" id="end">确认送达</button>
-						</c:if>
-						<c:if test="${distributionDetial.status == 2 && user.unitId == distributionDetial.acceptanceUnitId}">
-							<button type="button" class="btn btn-primary form-control" id="reg">确认验收</button>
-						</c:if>
-						<c:if test="${distributionDetial.status == 3}">
-							<button type="button" class="btn btn-primary form-control" id="result">验收详情</button>
-						</c:if>	 				
-					</c:if>
-					<c:if test="${user.type == 1 && distributionDetial.status == 3}">
-						<button type="button" class="btn btn-primary form-control" id="result">验收详情</button>
-					</c:if>	
-			</div>
 				</form>
 				<form action="" method="" class="form2">
-					<table class="table table-bordered" cellspacing="" cellpadding="">
-						<caption>
-							<div class="fb">
-								<div class="">
-									<label>学校名称：</label><span>贵阳一中</span>
-								</div>
-								<div class="">
-									<label>日期：</label><span>2020-03-24</span>
-								</div>
+					<div class="text-muted padding-side">
+						<div class="fb">
+							<div class="">
+								<label>学校名称：</label><span>贵阳一中</span>
 							</div>
-						</caption>
-						<thead class="bg-success">
+							<div class="">
+								<label>日期：</label><span>2020-03-24</span>
+							</div>
+						</div>
+					</div>
+					<table class="table table-bordered" cellspacing="" cellpadding="">
+						<thead class="bg-primary">
 							<tr><th style="width: 4em;">序号</th><th style="width: 6em;">指标项目</th><th>验收内容</th><th>验收标准</th><th style="width: 6em;">是否达到</th></tr>
 						</thead>
 						<tbody>

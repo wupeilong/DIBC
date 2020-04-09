@@ -8,21 +8,21 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<title>多频检测记录</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-	
 </head>
-	<body class="contain">
+	<body class="contain" style="background-color: #f7f7f7;">
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<c:if test="${user.type == 1}">
 						<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					</c:if>	
@@ -37,27 +37,28 @@
 				<div class="s-banner-content">
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
-			</div>	
-			<a href="${pageContext.request.contextPath}/detection/detection_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>		
+			</div>						
 		</div> 	
-		<main class="main margin-top2 padding-side05">
-			<div class="">
-				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th>检查单位公司</th><th>样品名称</th><th style="width: 4em">日期</th><th style="width: 4em">操作</th></tr>
-					</thead>
-					<tbody id="result_list">
-						<c:forEach items="${detectionList}" var="f">
-							<tr>
-								<td>${f.unitName }</td>
-								<td>${f.samplName }</td>
-								<td class="vertical-mid"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></td>
-								<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a></td>
-							</tr>
-						</c:forEach>						
-					</tbody>
-				</table>
-			</div>
+		
+		<main class="delivery main padding-side05"">
+			<div class="margin-top"></div>
+			<c:forEach items="${detectionList}" var="f" varStatus="vs">
+				<div class="buy_list">
+					<div class="buy_top">
+						<p class="fb">
+							<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+							<span class="text-muted bfrifRow padding-side" style="font-size: 10px;"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></span>
+						</p>
+					</div>
+					<div class="buy_top1">
+						<div class="fb">
+							<span class="bfrifRow text-muted">样品名称:${f.samplName }</span>
+							<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a>
+						</div>
+					</div>				
+				</div>
+			</c:forEach>
+			<!--序号 vs.count -->		
 		</main>
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
@@ -111,12 +112,18 @@
 					var result = "";
 					for(var i=0;i<obj.data.length;i++){
 						var time=timestampToTime(obj.data[i].createTime);
-						result += "<tr>";
-						result += "<td>" + obj.data[i].unitName + "</td>";
-						result += "<td>" + obj.data[i].samplName + "</td>";
-						result += "<td>"+time+"</td>";
-						result += "<td class='vertical-mid'><a href='${pageContext.request.contextPath}/wap_det/detection_detal?id="+obj.data[i].id+"'>详情</a></td>";
-						result += "</tr>";
+						result += '<div class="buy_list">'+
+						  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
+						'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
+						'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id='+ obj.data[i].id +'">详情</a>';
+						<!-- if(obj.data[i].status == 0){
+							result += '<span class="buy_top_span1">未验收</span>';
+						}
+						if(obj.data[i].status == 1){
+							result += '<span class="buy_top_span1">已验收</span>';
+						}			 -->															
+						result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
+								  '</div></div></div>';
 					}
 					$("#result_list").html(result);
 				}				

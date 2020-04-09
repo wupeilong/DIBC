@@ -20,9 +20,14 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${user.parentId == 0 && user.unitId == unitDetail.unitId}">
+							<a href="${pageContext.request.contextPath}/wap_unit/coopration_update"><input type="button"class="btn btn-primary" value="完善企业信息"><!-- <i style="font-size: 20px;color: #1294b3;" class="fa fa-edit"></i> --></a>
+						</c:if>
+					</div>
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -30,24 +35,12 @@
 				<div class="s-banner-content">
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
-			</div>			
+			</div>
 		</div>
-		<main class="main margin-top2 padding-side">
+		<main class="main padding-side">
 			<form action="" method="post" class="cooperation_detal">
-				<div class="border-bottom margin-top">
-					<div class="fb padding-side05 sb margin-bot">
-						<div class="item_name fonwei">企业信息</div>
-						<div class="">
-							<span>
-								<c:if test="${user.parentId == 0 && user.unitId == unitDetail.unitId}">
-									<a href="${pageContext.request.contextPath}/wap_unit/coopration_update"><input type="button"class="btn btn-primary form-control" value="完善企业信息"><!-- <i style="font-size: 20px;color: #1294b3;" class="fa fa-edit"></i> --></a>
-								</c:if>
-							</span>
-						</div>
-					</div>
-				</div>
-				<fieldset>
-				    <!-- <legend>企业信息:</legend> -->
+				
+				<fieldset class="margin-top">
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">企业名称</span>
 					  <div class="form-control box-shadow0 border0">${unitDetail.unitName}</div>

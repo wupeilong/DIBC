@@ -8,10 +8,11 @@
 	<title>配送信息添加</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
@@ -22,13 +23,33 @@
 	</style>
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
+		<!-- <div class="navigation bg-primary">
 			<div class="fb padding-side">
 				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
 			</div>
+		</div> -->
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${user.type == 2}">
+							<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn btn-primary">提交</a>
+						</c:if>
+					</div>
+				</div>
+			</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>						
 		</div>
-		<main class="main margin-top2 padding-side05">
-			<form action="" method="post" class="delivery_add">
+		<main class="main padding-side05">
+			<form action="" method="post" class="delivery_add margin-top">
 				<fieldset>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>配餐类型</span>
@@ -37,7 +58,7 @@
 						<option value="">请选择送餐类型</option>					
 						<option value="1">早餐</option>
 						<option value="2">午餐</option>
-						<option value="3">晚餐</option>					
+						<option value="3">晚餐</option>
 					  </select>
 					</div>
 					<div class="input-group form-group fs">
@@ -108,9 +129,6 @@
 					</div>
 				  </fieldset>
 			</form>
-			<div class="margin-top2 margin-bot2">
-				<button type="button"  class="btn btn-primary form-control" id="add">提交</button>
-			</div>
 		</main>		
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
