@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/ztable.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
@@ -31,17 +32,25 @@
 			<div class="coopration_list">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead class="bg-primary">
-						<tr><th style="width:3.4em">序号</th><th>企业名字</th><th style="width:5.4em">企业法人</th><th style="width:3.4em">操作</th></tr>
+						<tr><th style="width:4.4em">序号</th><th>企业名字</th><th style="width:6.7em">企业法人</th><th style="width:4.4em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">
 						<c:forEach items="${unitList}" var="item" varStatus="vs">
-							<tr>
+							<c:if test="${vs.index%2 == 0}">
+								<tr>
 								<td class="vertical-mid">${vs.count}</td>
 								<td class="vertical-mid td-left">${item.unitName}</td>
 								<td class="vertical-mid">${item.legalPerson}</td>
-								<td class="vertical-mid fonwei"><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td>
-							</tr>
-						</c:forEach>
+								<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td></tr>
+							</c:if>
+							<c:if test="${vs.index%2 != 0}">
+								<tr>
+								<td class="vertical-mid alt">${vs.count}</td>
+								<td class="vertical-mid td-left alt">${item.unitName}</td>
+								<td class="vertical-mid alt">${item.legalPerson}</td>
+								<td class="vertical-mid alt"><a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${item.unitId}">详情</a></td></tr>
+							</c:if>							
+						</c:forEach>						
 					</tbody>
 				</table>
 			</div>
@@ -100,19 +109,26 @@
 				if (obj.state == 0) {
 					layer.msg(obj.message,{icon:2,time:1000});
 					return;
-				}else{
-					console.log(obj.data);
+				}else{					
 					var result = "";
 					for(var i=0;i<obj.data.length;i++){
-						result += "<tr>";
-						result += "<td>" + (i+1) + "</td>";
-						result += "<td>" + obj.data[i].unitName + "</td>";
-						result += "<td>" + obj.data[i].legalPerson + "</td>";
-						result += "<td><a href='${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=" + obj.data[i].unitId + "'>详情</a></td>";
-						result += "</tr>";
+						if(i%2 == 0){
+							result += "<tr>";	
+							result += "<td>" + (i+1) + "</td>";
+							result += "<td class='vertical-mid alt'>" + obj.data[i].unitName+ "</td>";
+							result += "<td class='vertical-mid td-left alt'>" + obj.data[i].legalPerson + "</td>";							
+							result += "<td class='vertical-mid alt'><a href='${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=" + obj.data[i].unitId + "'>详情</a></td>";
+							result += "</tr>";
+						}else{
+							result += "<tr>";	
+							result += "<td>" + (i+1) + "</td>";
+							result += "<td class='vertical-mid alt'>" + obj.data[i].unitName  + "</td>";
+							result += "<td class='vertical-mid td-left alt'>" + obj.data[i].legalPerson + "</td>";							
+							result += "<td class='vertical-mid alt'><a href='${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=" + obj.data[i].unitId + "'>详情</a></td>";
+							result += "</tr>";
+						}						
 					}
-					$("#result_list").html(result);
-					console.log(obj.data);									
+					$("#result_list").html(result);													
 				}				
 			}
 		}); 

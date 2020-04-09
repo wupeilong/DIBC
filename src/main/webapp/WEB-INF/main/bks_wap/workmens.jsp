@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/ztable.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
@@ -47,18 +48,27 @@
 			</div>			 	
 		</div> 		
 		<main class="main">
-			<div class="coopration_list">
+			<div class="coopration_list">				
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
 					<thead class="bg-primary">
-						<tr><th style="width:3.4em">序号</th><th style="width:5.4em">员工姓名</th><th>职务</th><th style="width:3.4em">年龄</th><th style="width:3.4em">操作</th></tr>
+						<tr><th style="    width: 6.7em;">员工姓名</th><th>职务</th><th style="width:4.4em">年龄</th><th style="width:4.4em">操作</th></tr>
 					</thead>
 					<tbody id="result_list">						
 						<c:forEach items="${userList}" var="item" varStatus="vs">
-							<tr><td class="vertical-mid">${vs.count }</td>
-							<td class="vertical-mid"><span class="" style="">${item.username }</span></td>
-							<td class="vertical-mid td-left">${item.departmentName }</td>
-							<td class="vertical-mid">${item.age }</td>
-							<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
+							<c:if test="${vs.index%2 == 0}">
+								<tr>
+								<td class="vertical-mid"><span class="" style="">${item.username }</span></td>
+								<td class="vertical-mid td-left">${item.departmentName }</td>
+								<td class="vertical-mid">${item.age }</td>
+								<td class="vertical-mid"><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
+							</c:if>
+							<c:if test="${vs.index%2 != 0}">
+								<tr>
+								<td class="vertical-mid alt"><span class="" style="">${item.username }</span></td>
+								<td class="vertical-mid td-left alt">${item.departmentName }</td>
+								<td class="vertical-mid alt">${item.age }</td>
+								<td class="vertical-mid alt"><a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id }">详情</a></td></tr>
+							</c:if>							
 						</c:forEach>
 					</tbody>
 				</table>
@@ -118,17 +128,24 @@
 					return;
 				}else{
 					var result = "";
-					for(var i=0;i<obj.data.length;i++){				
-						result += "<tr>";
-						result += "<td>" + (i+1) + "</td>";
-						result += "<td>" + obj.data[i].username + "</td>";
-						result += "<td>" + obj.data[i].duty + "</td>";
-						result += "<td>" + obj.data[i].age + "</td>";
-						result += "<td><a href='${pageContext.request.contextPath}/wap_user/workmens_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-						result += "</tr>";
+					for(var i=0;i<obj.data.length;i++){	
+						if(i%2 == 0){
+							result += "<tr>";							
+							result += "<td class='vertical-mid alt'>" + obj.data[i].username + "</td>";
+							result += "<td class='vertical-mid td-left alt'>" + obj.data[i].duty + "</td>";
+							result += "<td class='vertical-mid alt'>" + obj.data[i].age + "</td>";
+							result += "<td class='vertical-mid alt'><a href='${pageContext.request.contextPath}/wap_user/workmens_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+							result += "</tr>";
+						}else{
+							result += "<tr>";							
+							result += "<td class='vertical-mid alt'>" + obj.data[i].username + "</td>";
+							result += "<td class='vertical-mid td-left alt'>" + obj.data[i].duty + "</td>";
+							result += "<td class='vertical-mid alt'>" + obj.data[i].age + "</td>";
+							result += "<td class='vertical-mid alt'><a href='${pageContext.request.contextPath}/wap_user/workmens_detal?id=" + obj.data[i].id + "'>详情</a></td>";
+							result += "</tr>";
+						}					
 					}
-					$("#result_list").html(result);
-					console.log(obj.data);
+					$("#result_list").html(result);					
 				}				
 			}
 		}); 

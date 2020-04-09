@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script> --%>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.all.js"></script>
 </head>
 	<body class="contain">
@@ -24,7 +24,7 @@
 			<div class="roles_lis width100 padding-side margin-top4 margin-bot2">
 				<div class="margin-bot fonwei" style="border-left: 4px solid #fe722d;padding-left: 1em;color: #666;font-size: 1.2em;"> 请选择用户角色 </div>
 				<ul class="list-unstyled">
-					<li class="fs" id="bind_public" >
+					<li class="fs" id="bind_public" onclick="bindPublic()">
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role1.png" class="" alt=""> </div>
 						<div class="padding-side">
 							<%-- <a href="${pageContext.request.contextPath}/wap_public_home" class="fonwei">大众用户</a> --%>
@@ -106,7 +106,7 @@
 			</div>
 		</main>
 		<script type="text/javascript">
-		$("#bind_public").click(function(){
+		function bindPublic(){
 			var url = "${pageContext.request.contextPath}/wap_bind_public";
 			$.ajax({
 				"url" : url,
@@ -124,8 +124,11 @@
 					}					
 				}
 			});
+		}
+		/* $("#bind_public").click(function(){
+			
 			  
-		});
+		}); */
 		
 			
 			function binding_submit(e,type) {
