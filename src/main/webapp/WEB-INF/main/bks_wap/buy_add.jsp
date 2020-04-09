@@ -66,8 +66,8 @@
 						</c:forEach>
 					</select>
 				</span>
-				<input type="text" style="display: none" id="inputType"
-					placeholder="请输入商家名称"> <input type="button"
+				<input type="text" style="display: none" id="inputType"  placeholder="请输入商家名称"> 
+				<input type="button"
 					class="swh switchsucess" id="swithcButton" onclick="swhBtn()"
 					value="+">
 
@@ -510,6 +510,11 @@
 
 #unitspan {
 	text-align: center;
+}
+#inputType{
+    height: 34px;
+    text-align: center;
+ 	border-radius: 4px;
 }
 </style>
 </html>
