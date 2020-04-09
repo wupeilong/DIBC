@@ -25,6 +25,7 @@ import cn.dibcbks.util.ResponseResult;
 public class WapProcurementController {
 	@Autowired
 	private IProcurementService iProcurementService;
+	
 	/**
 	 * 进入采购列表页
 	 * @return
@@ -95,9 +96,9 @@ public class WapProcurementController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResponseResult<List<Procurement>> selectProcurementList(Integer unitId){
+	public ResponseResult<List<Procurement>> selectProcurementList(Integer unitId,Integer status){
 		
-		return iProcurementService.selectProcurementList(unitId);
+		return iProcurementService.selectProcurementList(unitId,status);
 	}
 	
 	

@@ -17,10 +17,10 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 </head>
 	<body class="contain">
-		<div id="page">
-			<div id="header" >
+		<div id="page" class="">
+			<div id="header">
 				<div class="header-content">
-					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
@@ -32,7 +32,7 @@
 				</div>
 			</div>			
 		</div>   		
-		<main class="main margin-top padding-side" style="padding-top: 76.4px;">
+		<main class="main padding-side" style="padding-top: 120px;">
 			<form action="" method="" class="clearfix">
 				<div class="workmens_info_top margin-bot">
 					<div class="input-group form-group fs">
