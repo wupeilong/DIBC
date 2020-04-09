@@ -41,6 +41,7 @@
 	border-radius: 9em;
 	padding-left: 24%;
 	margin-left: 9px;
+	outline: none;
 }
 .tabb input:focus{
 	background-color:rgba(0,0,0,0);
