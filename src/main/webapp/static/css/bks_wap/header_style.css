@@ -39,7 +39,7 @@ body #header {
     background-size: 100% !important;
     height: 65px;
     position: fixed;
-    z-index: 3;
+    z-index: 4;
     -moz-transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
@@ -90,7 +90,7 @@ a.p-link-back {
     text-align: center;
     overflow: hidden;
     height: 89px;
-   z-index: 2;
+   z-index: 3;
     background: url(../../images/bks_wap/2.jpg) no-repeat center center;
     background-size: cover;
     width: 100%;

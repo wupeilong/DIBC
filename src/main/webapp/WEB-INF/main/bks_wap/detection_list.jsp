@@ -8,32 +8,33 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<title>多频检测记录</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>	
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
+	
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
-				<div class="">
-					<div class="">
-						<select id="unit_list"">
-								<option value="">查看全部企业</option>
-								<c:forEach items="${unitList}" var="item">								
-									<option value="${item.unitId}">${item.unitName}</option>
-								</c:forEach>							
-						</select>
-						
-					</div>
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-home"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
-				<a href="${pageContext.request.contextPath}/detection/detection_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
 			</div>
-		</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>	
+			<a href="${pageContext.request.contextPath}/detection/detection_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>		
+		</div> 	
 		<main class="main margin-top2 padding-side05">
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
@@ -55,47 +56,77 @@
 		</main>
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
-<script>
-						$('#unit_list').searchableSelect({
-							"afterSelectItem":function(){								
-									var url = "queryList";
-									var data = "unitId=" + $("#unit_list").val();
-									$.ajax({
-										"url" : url,
-										"data" : data,
-										"type" : "POST",
-										"dataType" : "json",
-										"success" : function(obj) {
-											if (obj.state == 0) {
-												layer.msg(obj.message,{icon:2,time:1000});
-												return;
-											}else{
-												var result = "";
-												for(var i=0;i<obj.data.length;i++){
-													var time=timestampToTime(obj.data[i].createTime);
-													result += "<tr>";
-													result += "<td>" + obj.data[i].unitName + "</td>";
-													result += "<td>" + obj.data[i].samplName + "</td>";
-													result += "<td>"+time+"</td>";
-													result += "<td class='vertical-mid'><a href='${pageContext.request.contextPath}/wap_det/detection_detal?id="+obj.data[i].id+"'>详情</a></td>";
-													result += "</tr>";
-												}
-												$("#result_list").html(result);
-											}				
-										}
-									}); 											
+	 <script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
+    <script type="text/javascript">
+	$(function(){	
+		selectunit("");
+		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
+		$.ajax({
+			"url" : url,			
+			"type" : "POST",
+			"dataType" : "json",
+			"success" : function(e) {				
+				if (e.state == 0) {layer.msg(e.message,{icon:2,time:1000});
+					return;
+				}else{					
+					 $('#demoSingle').click(function(){
+						$(this).selectMenu({
+							title : '<i class="fa fa-fw fa-thumbs-o-up"></i> 请选择市场主体',
+							arrow : true,
+							showField : 'unitName',
+							keyField : 'unitId',
+							 position : 'center',
+							search : true,
+							data :e.data,
+							eSelect : function(data){
+								if(data && data.length > 0){
+									console.log(data[0].unitId);
+								selectunit(data[0].unitId)
+								}
 							}
 						});
-						function timestampToTime(timestamp) {
-					        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-					        var Y = date.getFullYear() + '-';
-					        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-					        var D = date.getDate() + ' ';
-					       	var h = date.getHours() + ':';
-					       	var m = date.getMinutes() + ':';
-					       	var s = date.getSeconds();
-					        return M+D;
-					    }
-					    
-						</script>
+					});
+				}
+			}
+		});		 
+	});	
+	function selectunit(unitId) {
+		var url = "queryList";
+		var data = "unitId=" +unitId;
+		$.ajax({
+			"url" : url,
+			"data" : data,
+			"type" : "POST",
+			"dataType" : "json",
+			"success" : function(obj) {
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{
+					var result = "";
+					for(var i=0;i<obj.data.length;i++){
+						var time=timestampToTime(obj.data[i].createTime);
+						result += "<tr>";
+						result += "<td>" + obj.data[i].unitName + "</td>";
+						result += "<td>" + obj.data[i].samplName + "</td>";
+						result += "<td>"+time+"</td>";
+						result += "<td class='vertical-mid'><a href='${pageContext.request.contextPath}/wap_det/detection_detal?id="+obj.data[i].id+"'>详情</a></td>";
+						result += "</tr>";
+					}
+					$("#result_list").html(result);
+				}				
+			}
+		}); 							
+	}
+	function timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+        var D = date.getDate() + ' ';
+       	var h = date.getHours() + ':';
+       	var m = date.getMinutes() + ':';
+       	var s = date.getSeconds();
+        return M+D;
+    }
+    </script>
 </html>
