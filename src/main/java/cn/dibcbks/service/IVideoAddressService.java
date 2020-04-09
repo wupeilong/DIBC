@@ -53,4 +53,11 @@ public interface IVideoAddressService {
 		 */
 		String selectUnitVideoList(ModelMap modelMap);
 
+		/**
+		 * 
+		 * @param modelMap
+		 * @return
+		 */
+		String selectTimeInterval(ModelMap modelMap);
+
 }
