@@ -29,7 +29,12 @@
 					<c:if test="${user.type != 1}">
 						<a class="menu-btn" href="#menu"></a>
 					</c:if>					
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${user.type == 1}">
+							<a href="${pageContext.request.contextPath}/wap_det/detection_add" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+						</c:if>
+					</div>				
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -38,26 +43,26 @@
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
 			</div>						
-		</div> 	
-		
+		</div>
 		<main class="delivery main padding-side05"">
-			<div class="margin-top"></div>
-			<c:forEach items="${detectionList}" var="f" varStatus="vs">
-				<div class="buy_list">
-					<div class="buy_top">
-						<p class="fb">
-							<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
-							<span class="text-muted bfrifRow padding-side" style="font-size: 10px;"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></span>
-						</p>
-					</div>
-					<div class="buy_top1">
-						<div class="fb">
-							<span class="bfrifRow text-muted">样品名称:${f.samplName }</span>
-							<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a>
+			<div class="margin-top" id="result_list">
+				<c:forEach items="${detectionList}" var="f" varStatus="vs">
+					<div class="buy_list">
+						<div class="buy_top">
+							<p class="fb">
+								<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+								<span class="text-muted bfrifRow padding-side" style="font-size: 10px;"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></span>
+							</p>
 						</div>
-					</div>				
-				</div>
-			</c:forEach>
+						<div class="buy_top1">
+							<div class="fb">
+								<span class="bfrifRow text-muted">样品名 : ${f.samplName }</span>
+								<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a>
+							</div>
+						</div>				
+					</div>
+				</c:forEach>
+			</div>
 			<!--序号 vs.count -->		
 		</main>
 	<c:import url="public/footer.jsp"></c:import>
@@ -111,19 +116,21 @@
 				}else{
 					var result = "";
 					for(var i=0;i<obj.data.length;i++){
-						var time=timestampToTime(obj.data[i].createTime);
-						result += '<div class="buy_list">'+
-						  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i> 订单号:'+
-						'<span class="buy_top_span">'+obj.data[i].id+'</span>'+
-						'<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id='+ obj.data[i].id +'">详情</a>';
-						<!-- if(obj.data[i].status == 0){
-							result += '<span class="buy_top_span1">未验收</span>';
-						}
-						if(obj.data[i].status == 1){
-							result += '<span class="buy_top_span1">已验收</span>';
-						}			 -->															
-						result += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">'+obj.data[i].unitName+'</span><span class="buy_top1_span text-muted">'+ format(obj.data[i].purchasingTime, "yyyy-MM-dd") +'</span>'+				
-								  '</div></div></div>';
+						var time = timestampToTime(obj.data[i].createTime);
+						result += '<div class="buy_list">';
+						result += '<div class="buy_top">';
+						result += '<p class="fb">';
+						result += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>';
+						result += '<span class="text-muted bfrifRow padding-side" style="font-size: 10px;">' + time + '</span>';
+						result += '</p>';
+						result += '</div>';
+						result += '<div class="buy_top1">';
+						result += '<div class="fb">';
+						result += '<span class="text-muted">样品名 : ' + obj.data[i].samplName + '</span>';			
+						result += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=' + obj.data[i].id + '">详情</a>';				
+						result += '</div>';
+						result += '</div>';
+						result += '</div>';
 					}
 					$("#result_list").html(result);
 				}				
@@ -134,11 +141,11 @@
         var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-        var D = date.getDate() + ' ';
+        var D = date.getDate() + '';
        	var h = date.getHours() + ':';
        	var m = date.getMinutes() + ':';
        	var s = date.getSeconds();
-        return M+D;
+        return Y+M+D;
     }
     </script>
 </html>
