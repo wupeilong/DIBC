@@ -18,8 +18,8 @@
     margin-top: 25px;
 }
 .login_pwd{
-	/* background-image: url("../../images/bks_wap/zloginpwd.png");
-	background-size: 100% 100%; */
+	background-image: url("../../images/bks_wap/zloginpwd.png");
+	background-size: 100% 100%; 
 	width: 90%;
     height: 50px;
     padding: 7px;
@@ -76,7 +76,7 @@
 }
 .wap_login .login_switch{
 	width:100%;
-	position:absolute;
+	position: absolute;
 	top:0;
 	left:0;
 }

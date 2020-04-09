@@ -34,9 +34,9 @@
 								<div class="tabb">
 									<div class="tab_type cur">
 										<div class="padding-side fc margin-bot2">
-											<div>
-												<h5 class="fonwei">登录后系统将获得以下权限</h5>
-												<p class=""> 获取你的公开信息（呢称、头像等） </p>
+											<div style="margin-top: 45px;">
+												<h5 class="fonwei" style="margin-left: -15px;">登录后系统将获得以下权限</h5>
+												<p class="" style="    margin-left: 10px;"> 获取你的公开信息（呢称、头像等） </p>
 											</div>
 										</div>
 										<div class="text-center">
