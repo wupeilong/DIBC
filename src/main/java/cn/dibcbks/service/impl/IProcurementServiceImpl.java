@@ -162,6 +162,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 	}
 
 	@Override
+	@Transactional(rollbackFor=Exception.class)
 	public ResponseResult<Void> addProcurement(	
 												String supplier,
 												Integer supplierUnitId, 
