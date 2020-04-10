@@ -178,13 +178,26 @@ public class IProcurementServiceImpl implements IProcurementService {
 		String supplierBusinessLicensePath=null;
 		String supplierproductionLicensePath=null;
 		
-		//如果企业id不为空 则企业存在 查询企业营业执照等信息
+		//如果企业id不为空 则企业存在并且存有营业执照和许可证（此时前不会传入两类文件） 查询企业营业执照等信息
 		if(supplierUnitId!=null){
+			
 			List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
-			//营业执照路径
-			supplierBusinessLicensePath=supplierUnit.get(0).getBusinessLicense();
-			//许可证路径
-			supplierproductionLicensePath=supplierUnit.get(0).getProductionLicense();
+				
+			//存有营业执照
+			if( supplierBusinessLicense==null){
+				//营业执照路径
+				supplierBusinessLicensePath=supplierUnit.get(0).getBusinessLicense();
+
+			}
+				
+			//存有许可证路径
+			if( supplierproductionLicense==null){
+				//许可证路径
+				supplierproductionLicensePath=supplierUnit.get(0).getProductionLicense();
+
+			}
+			
+			
 		}else{
 			//企业id为空 企业不存在  营业执照 许可证通过前端文件获取
 			 supplierBusinessLicensePath = get.uoladimg(supplierBusinessLicense,user.getUuid());//营业执照	
@@ -192,6 +205,8 @@ public class IProcurementServiceImpl implements IProcurementService {
 		}
 		//List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
 		String supplierQualificationPath = null;
+		
+		//资质证明非必传
 		if(supplierQualification != null){
 			supplierQualificationPath = get.uoladimg(supplierQualification,user.getUuid());//资质
 		}
@@ -206,7 +221,31 @@ public class IProcurementServiceImpl implements IProcurementService {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"发票上传失败，添加采购信息失败！");
 		}else if (StringUtils.isEmpty(detailList)) {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"未添加采购详情，添加采购信息失败！");
+		}else if(StringUtils.isEmpty(supplierproductionLicensePath)){
+			rr = new ResponseResult<>(ResponseResult.ERROR,"食品许可证上传失败，添加采购信息失败！");
+
 		}else {
+			
+			//如果企业id未传  说明企业不存在
+			if(supplierUnitId==null){
+				//添加企业信息
+				Integer uintId=null;
+				String businessLicenseCode=null;
+				String unitAddress=null;
+				String expirationDate=null;
+				Integer unitType=null;
+				Date date=new Date();
+				UnitIncrease(uintId, supplier, 
+						supplierPerson, businessLicenseCode, 
+						supplierBusinessLicensePath, 
+						supplierproductionLicensePath, 
+						unitAddress, expirationDate, 
+						unitType, date);
+			}
+			
+			
+			
+			
 			//上传采购信息
 			Procurement procurement = new Procurement();
 			procurement.setUnitId(user.getUnitId());
@@ -242,5 +281,24 @@ public class IProcurementServiceImpl implements IProcurementService {
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 		}
 		return rr;
+	}
+	
+	/**
+	 * 添加企业信息
+	 */
+	public void UnitIncrease(Integer unitId, String unitName, 
+								String legalPerson, String businessLicenseCode,
+								String businessLicense, String productionLicense,
+								String unitAddress, String expirationDate, 
+								Integer unitType, Date createTime){
+		
+				Unit unit=new Unit(unitId, unitName, 
+								legalPerson, businessLicenseCode, 
+								businessLicense, 
+								productionLicense, 
+								unitAddress, expirationDate, 
+								unitType, createTime);
+						
+					unitMapper.insert(unit);
 	}
 }

@@ -135,7 +135,7 @@
 									<div class="fc">
 										<i class="fa fa-plus padding-side05"></i>
 									</div>
-									<div class="text-center">上传经营资质</div>
+									<div class="text-center">上传检验合格报告</div>
 								</div>
 							</div>
 							<input type="file" name="" id="fileinput2" value=""
@@ -403,7 +403,13 @@
 								time : 1000
 							});
 							$("#preview").focus();
-						} else if ($("#preview3").attr('src') == "") {
+						}else if($("#preview1").attr('src') == ""){
+							layer.msg("请上传营业执照", {
+								icon : 2,
+								time : 1000
+							});
+							$("#preview1").focus();
+						}else if ($("#preview3").attr('src') == "") {
 							layer.msg("请上传发票图片", {
 								icon : 2,
 								time : 1000
@@ -438,20 +444,18 @@
 											"#unit_list").find(
 											"option:selected").text());//供货商ID
 											
-								//若企业不存在  必须上传 y营业执照和许可证
-							if ($("#unit_list").val()=="") {
+								//若企业不存在 或者企业信息未保存营业执照 许可证   必须上传 y营业执照和许可证
+							if ($("#unit_list").val()==""||$("#preview").attr('src') == "") {
 							
 								formData.append('supplierBusinessLicense',
 										dataURLtoFile($("#preview").attr('src'),
-												"we.jpg"));//营业执照
-												
-								if ($("#preview1").attr('src') != "") {
-										formData.append('supplierproductionLicense',
-										dataURLtoFile($("#preview1")
-										.attr('src'), "we.jpg"));//许可证
-												
-								}
-											
+												"we.jpg"));//营业执照			
+							}
+							if ($("#unit_list").val()==""||$("#preview1").attr('src') == "") {
+								formData.append('supplierproductionLicense',
+								dataURLtoFile($("#preview1")
+								.attr('src'), "we.jpg"));//许可证
+										
 							}
 
 							
