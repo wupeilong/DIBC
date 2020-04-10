@@ -5,7 +5,7 @@
 <head>
 	<meta charset=utf-8>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>从业人员信息添加</title>
+	<title>完善用户信息</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
@@ -35,11 +35,11 @@
 		</div> 	
 		<main class="main margin-top padding-side">
 			<form action="" method="" class="clearfix">
-				<div class="workmens_info_top margin-bot">
+				<div class="workmens_info_top margin-bot">					
 					<div class="input-group form-group fs">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.unitName}</div>					 
-					</div>
+						  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
+					<div class="form-control box-shadow0 border0">${userDetail.unitName}</div>					 
+					</div>					
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>身份证号</span>
 					  <input type="hidden" id="id" name="id" value="${userDetail.id }">
@@ -163,7 +163,7 @@
 									return;				
 								}else{					
 									layer.msg(obj.message,{icon:1,time:1000});
-									location.href = "${pageContext.request.contextPath}/wap_user/workmens";
+									location.href = "${pageContext.request.contextPath}/wap_user/user_pcenter?id=${user.id}";
 								}				
 							}
 						}); 

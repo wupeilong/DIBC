@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,55 +32,67 @@
 					</c:if>
 					
 					<c:if test="${wx_user_info != null}">										
-						<img src="${wx_user_info.openIdheadimgurl}" class="aui-my-avatar">					
+						<img src="${wx_user_info.headimgurl}" class="aui-my-avatar">					
 						<div class="aui-mt-location aui-l-red"></div>
-					</c:if>					
+					</c:if>											
 				</div>
 				<div class="aui-l-content">
 					<div class="aui-menu-list aui-menu-list-clear">
 						<ul>
-							<li class="b-line">
-								<a href="${pageContext.request.contextPath}/wap_user/user_pcenter?id=${user.id}">
-									<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh2.png"></div>
-									<h3>个人信息</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>
-							<li class="b-line">
-								<a href="${pageContext.request.contextPath}/wap_user/workmens_update">
-									<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh4.png"></div>
-									<h3>完善个人信息</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>
-							<li class="b-line">
-								<a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${userPcenter.unitId}">
-									<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh3.png"></div>
-									<h3>企业信息查询</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>
-							<li class="b-line">
-								<a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${user.id}">
-									<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh1.png"></div>
-									<h3>健康状况查询</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>
-							<li class="b-line">
-								<a href="${pageContext.request.contextPath}/wap_user/workmens_health_add">
-									<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh5.png"></div>
-									<h3>健康信息录入</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>
-							<li class="b-line">
-								<a href="${pageContext.request.contextPath}/wap_user/reset_password">
-									<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh6.png"></div>
-									<h3>个人密码修改</h3>
-									<div class="aui-time"><i class="aui-jump"></i></div>
-								</a>
-							</li>							
+							<shiro:hasPermission name="person_info">
+								<li class="b-line">
+									<a href="${pageContext.request.contextPath}/wap_user/user_pcenter?id=${user.id}">
+										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh2.png"></div>
+										<h3>个人信息</h3>
+										<div class="aui-time"><i class="aui-jump"></i></div>
+									</a>
+								</li>							
+							</shiro:hasPermission>
+							<shiro:hasPermission name="person_update">
+								<li class="b-line">
+									<a href="${pageContext.request.contextPath}/wap_user/workmens_update">
+										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh4.png"></div>
+										<h3>完善个人信息</h3>
+										<div class="aui-time"><i class="aui-jump"></i></div>
+									</a>
+								</li>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="person_unit">
+								<li class="b-line">
+									<a href="${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=${userPcenter.unitId}">
+										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh3.png"></div>
+										<h3>企业信息查询</h3>
+										<div class="aui-time"><i class="aui-jump"></i></div>
+									</a>
+								</li>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="person_hygiene">
+								<li class="b-line">
+									<a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${user.id}">
+										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh1.png"></div>
+										<h3>健康状况查询</h3>
+										<div class="aui-time"><i class="aui-jump"></i></div>
+									</a>
+								</li>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="person_add_hygiene">
+								<li class="b-line">
+									<a href="${pageContext.request.contextPath}/wap_user/workmens_health_add">
+										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh5.png"></div>
+										<h3>健康信息录入</h3>
+										<div class="aui-time"><i class="aui-jump"></i></div>
+									</a>
+								</li>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="person_password_update">
+								<li class="b-line">
+									<a href="${pageContext.request.contextPath}/wap_user/reset_password">
+										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh6.png"></div>
+										<h3>个人密码修改</h3>
+										<div class="aui-time"><i class="aui-jump"></i></div>
+									</a>
+								</li>
+							</shiro:hasPermission>							
 						</ul>
 					</div>
 				</div>
