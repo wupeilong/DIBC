@@ -178,29 +178,39 @@ public class IProcurementServiceImpl implements IProcurementService {
 		GetCommonUser get = new GetCommonUser();
 		String supplierBusinessLicensePath=null;
 		String supplierproductionLicensePath=null;
+		Unit u=new Unit();
 		
-		//如果企业id不为空 则企业存在并且存有营业执照和许可证（此时前不会传入两类文件） 查询企业营业执照等信息
-		if(supplierUnitId!=null){
-			
-			List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
+		
+		//如果企业id不为空  营业执照许可证路径 可以通过查询或者前段传入得到
+		if(supplierUnitId!=null){			
+			List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);				
 				
-			//存有营业执照
 			if( supplierBusinessLicense==null){
-				//营业执照路径
+				System.out.println("企业已有营业执照===================");
 				supplierBusinessLicensePath=supplierUnit.get(0).getBusinessLicense();
-
-			}
+			}else{
+				supplierBusinessLicensePath=get.uoladimg(supplierBusinessLicense,user.getUuid());
+				System.out.println("保存营业执照上传路径："+supplierBusinessLicensePath);
+				//保存证件
+				u.setUnitId(supplierUnitId);
+				u.setBusinessLicense(supplierBusinessLicensePath);
+				unitMapper.updateById(u);
 				
-			//存有许可证路径
+			}
+			
 			if( supplierproductionLicense==null){
+				System.out.println("企业已有许可证===================");
 				//许可证路径
 				supplierproductionLicensePath=supplierUnit.get(0).getProductionLicense();
-
+			}	else{
+				supplierproductionLicensePath=get.uoladimg(supplierproductionLicense,user.getUuid());//许可证
+				System.out.println("保存许可证上传路径："+supplierproductionLicensePath);
+				u.setUnitId(supplierUnitId);
+				u.setProductionLicense(supplierproductionLicensePath);
+				unitMapper.updateById(u);
 			}
-			
-			
 		}else{
-			//企业id为空 企业不存在  营业执照 许可证通过前端文件获取
+			//企业id为空 企业不存在  营业执照 许可证只能通过前端文件获取
 			 supplierBusinessLicensePath = get.uoladimg(supplierBusinessLicense,user.getUuid());//营业执照	
 			 supplierproductionLicensePath = get.uoladimg(supplierproductionLicense,user.getUuid());//许可证
 		}
@@ -217,6 +227,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"供货商信息不存在，添加采购信息失败！");
 		};*/
 		if(StringUtils.isEmpty(supplierBusinessLicensePath)){
+			System.out.println(supplierBusinessLicensePath);
 			rr = new ResponseResult<>(ResponseResult.ERROR,"营业执照上传失败，添加采购信息失败！");
 		}else if(StringUtils.isEmpty(invoicePath)){
 			rr = new ResponseResult<>(ResponseResult.ERROR,"发票上传失败，添加采购信息失败！");
@@ -224,9 +235,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"未添加采购详情，添加采购信息失败！");
 		}else if(StringUtils.isEmpty(supplierproductionLicensePath)){
 			rr = new ResponseResult<>(ResponseResult.ERROR,"食品许可证上传失败，添加采购信息失败！");
-
-		}else {
-			
+		}else {			
 			//如果企业id未传  说明企业不存在
 			if(supplierUnitId==null){
 				//添加企业信息
@@ -234,7 +243,8 @@ public class IProcurementServiceImpl implements IProcurementService {
 				String businessLicenseCode=null;
 				String unitAddress=null;
 				String expirationDate=null;
-				Integer unitType=null;
+				//默认企业类型为4
+				Integer unitType=4;
 				Date date=new Date();
 				UnitIncrease(uintId, supplier, 
 						supplierPerson, businessLicenseCode, 
@@ -242,11 +252,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 						supplierproductionLicensePath, 
 						unitAddress, expirationDate, 
 						unitType, date);
-			}
-			
-			
-			
-			
+			}			
 			//上传采购信息
 			Procurement procurement = new Procurement();
 			procurement.setUnitId(user.getUnitId());
