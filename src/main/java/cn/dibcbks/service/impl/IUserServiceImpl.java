@@ -282,7 +282,8 @@ public class IUserServiceImpl implements IUserService {
 	public String queryUserPcenter(ModelMap modelMap, String id) {
 		try {
 			List<User> list = userMapper.select(" u.id = '" + id + "'", null, null, null);
-			modelMap.addAttribute("userPcenter", list.isEmpty() ? null : list.get(0));			
+			System.out.println("list : " + list.get(0));
+			modelMap.addAttribute("userPcenter", list.isEmpty() ? null : list.get(0));	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -481,6 +482,7 @@ public class IUserServiceImpl implements IUserService {
 				update.setHealthCertificateCode(healthCertificateCode);	
 				update.setHealthCertificate(newHealthCertificate);
 				userMapper.updateById(update);
+				CommonUtil.setAttribute("user", update);
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 			}			
 		} catch (Exception e) {
