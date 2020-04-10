@@ -178,13 +178,26 @@ public class IProcurementServiceImpl implements IProcurementService {
 		String supplierBusinessLicensePath=null;
 		String supplierproductionLicensePath=null;
 		
-		//如果企业id不为空 则企业存在 查询企业营业执照等信息
+		//如果企业id不为空 则企业存在并且存有营业执照和许可证（此时前不会传入两类文件） 查询企业营业执照等信息
 		if(supplierUnitId!=null){
+			
 			List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
-			//营业执照路径
-			supplierBusinessLicensePath=supplierUnit.get(0).getBusinessLicense();
-			//许可证路径
-			supplierproductionLicensePath=supplierUnit.get(0).getProductionLicense();
+				
+			//存有营业执照
+			if( supplierBusinessLicense==null){
+				//营业执照路径
+				supplierBusinessLicensePath=supplierUnit.get(0).getBusinessLicense();
+
+			}
+				
+			//存有许可证路径
+			if( supplierproductionLicense==null){
+				//许可证路径
+				supplierproductionLicensePath=supplierUnit.get(0).getProductionLicense();
+
+			}
+			
+			
 		}else{
 			//企业id为空 企业不存在  营业执照 许可证通过前端文件获取
 			 supplierBusinessLicensePath = get.uoladimg(supplierBusinessLicense,user.getUuid());//营业执照	
@@ -192,6 +205,8 @@ public class IProcurementServiceImpl implements IProcurementService {
 		}
 		//List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
 		String supplierQualificationPath = null;
+		
+		//资质证明非必传
 		if(supplierQualification != null){
 			supplierQualificationPath = get.uoladimg(supplierQualification,user.getUuid());//资质
 		}
