@@ -278,12 +278,14 @@ public class IWxServiceImpl implements IWxService {
 				rr = new ResponseResult<>(ResponseResult.ERROR,"手机账户不存在，账户绑定失败！");
 			}else if (!user.getPassword().equals(CommonUtil.getEncrpytedPassword(Constants.MD5, password, user.getUuid(), 1024))) {
 				rr = new ResponseResult<>(ResponseResult.ERROR,"密码错误，账户绑定失败！");
-			} else if(!user.getType().equals(type)){
+			}else if(!user.getType().equals(type)){
 				if(type.equals(1)){
 					rr = new ResponseResult<>(ResponseResult.ERROR,"监管账户信息不存在，账户绑定失败！");
 				}else{
 					rr = new ResponseResult<>(ResponseResult.ERROR,"主体账户信息不存在，账户绑定失败！");
 				}
+			}else if(StringUtils.isNotEmpty(user.getOpenid())){
+				rr = new ResponseResult<>(ResponseResult.ERROR,"该账户已绑定过微信，操作失败！");
 			}else{
 				WxUserInfoOut wxUserInfo =  (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
 				user.setHeadUrl(wxUserInfo.getHeadimgurl());

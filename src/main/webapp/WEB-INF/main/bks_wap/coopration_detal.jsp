@@ -37,8 +37,8 @@
 				</div>
 			</div>
 		</div>
-		<main class="main padding-side">
-			<form action="" method="post" class="cooperation_detal">
+		<main class="main">
+			<div class="cooperation_detal">
 				
 				<fieldset class="margin-top">
 					<div class="input-group form-group fs border-bottom">
@@ -49,7 +49,7 @@
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">统一社会信用代码</span>
 					  <div class="form-control box-shadow0 border0">${unitDetail.businessLicenseCode}</div>
 					</div>
-					<div class="fsa border-bottom">
+					<div class="fsa">
 						<div class="margin-bot2">
 							  <div class="fc">
 								<div class="layui-upload-list fc">
@@ -94,18 +94,38 @@
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">法人姓名</span>
 					  <div class="form-control box-shadow0 border0">${unitDetail.legalPerson}</div>
 					</div>
-				  </fieldset>
-				 <!-- <div class="margin-top2">
-				  	<div>
-			　　　　　　<input type="file" accept="image/*">
-			　　　　　　<input type="file" accept="video/*" capture="camcorder">
-			　　　　</div>
-				  </div> -->
-				  
-			</form>
-			<!-- <div class="margin-top2 margin-bot2">
-				<button type="button" class="btn btn-primary form-control">保存</button>
-			</div> -->
+					
+					<ul class="padding-side list-unstyled margin-bot2" style="border-top: 2px solid #ddd;">
+						<li class="fb staff_lis border-bottom padding-side margin-top">
+							<div class="staff-face fs padding-side">
+								<div class="bg-gradient bg-circle fc">
+									<i class="fa fa-address-book fa-2x text-white"></i>
+								</div>
+								<div class="padding-side">
+									<div class="fonwei staff_name">张啥那份</div>
+									<div class="text-muted bfrifRow staff_oc">人力资源人力资源管理师人力资源管理师管理师</div>
+								</div>
+							</div>
+							<div class="padding-side" style="padding-left: 0;">
+								<a href=""><i class="fa fa-angle-right text-muted fa-2x"></i></a>
+							</div>
+						</li>
+						<li class="fb staff_lis border-bottom padding-side">
+							<div class="staff-face fs padding-side">
+								<div class="bg-gradient bg-circle fc">
+									<i class="fa fa-address-book fa-2x text-white"></i>
+								</div>
+								<div class="padding-side">
+									<div class="fonwei staff_name">张啥那份</div>
+									<div class="text-muted bfrifRow staff_oc">人力资源管理师</div>
+								</div>
+							</div>
+							<div class="padding-side" style="padding-left: 0;">
+								<a href=""><i class="fa fa-angle-right text-muted fa-2x"></i></a>
+							</div>
+						</li>
+					</ul>
+				</div>
 		</main>		
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 		<script type="text/javascript">
