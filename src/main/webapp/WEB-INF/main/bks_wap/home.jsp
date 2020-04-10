@@ -95,7 +95,12 @@
 			<div class="menu" style="margin-bottom: 51.2px">
 				<ul>
 					<shiro:hasPermission name="wap_unit">
-						<li><a href="${pageContext.request.contextPath}/wap_unit/coopration_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" border="0" alt="" title=""/></a><p class="text-center">企业信息</p></li>
+						<li>
+							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" border="0" alt="" title=""/>
+							</a>
+							<p class="text-center">企业信息</p>
+						</li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_user">
 						<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/></a><p class="text-center">从业人员</p></li>
@@ -183,6 +188,11 @@
 				$(document).ready(function() {
 					$(".loader_wrap").fadeOut();
 				})
+				
+				window.ontouchstart = function(e) {
+				    if (e.target.tagName === 'img')
+				         e.preventDefault();
+				 };
 			</script>
 			
 		</main>
