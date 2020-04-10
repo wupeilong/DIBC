@@ -29,10 +29,10 @@
 							<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/zlogin.png" class="img-responsive">
 							<div class="login_switch tabbox">
 								<div class="login_form_top tabh margin-bot">
-									<a>微信登录</a>|<a class="cur">账号登录</a>
+									<a class="cur">微信登录</a>|<a>账号登录</a>
 								</div>
 								<div class="tabb">
-									<div class="tab_type">
+									<div class="tab_type cur">
 										<div class="padding-side fc margin-bot2">
 											<div style="margin-top: 45px;">
 												<h5 class="fonwei" style="margin-left: -15px;">登录后系统将获得以下权限</h5>
@@ -44,7 +44,7 @@
 		    border-color: #a9e895;background-image: inherit;">微信一键登陆</button>
 	    								</div>
 	    							</div>
-									<div class="tab_type cur">
+									<div class="tab_type">
 										<div class="login_user">
 											<input type="text" class="login_input box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
 										</div>

@@ -97,7 +97,7 @@
 					</li>
 					<li class="text-center margin-bot">
 						<div class="fc">
-							<a id="monitoring" href="javascript:;" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png">
+							<a id="monitoring" href="javascript:;" class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/icon9.png">
 								<p>实时监控</p>
 							</a>
 						</div>
