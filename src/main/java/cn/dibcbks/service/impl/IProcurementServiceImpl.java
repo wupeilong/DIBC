@@ -221,7 +221,31 @@ public class IProcurementServiceImpl implements IProcurementService {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"发票上传失败，添加采购信息失败！");
 		}else if (StringUtils.isEmpty(detailList)) {
 			rr = new ResponseResult<>(ResponseResult.ERROR,"未添加采购详情，添加采购信息失败！");
+		}else if(StringUtils.isEmpty(supplierproductionLicensePath)){
+			rr = new ResponseResult<>(ResponseResult.ERROR,"食品许可证上传失败，添加采购信息失败！");
+
 		}else {
+			
+			//如果企业id未传  说明企业不存在
+			if(supplierUnitId==null){
+				//添加企业信息
+				Integer uintId=null;
+				String businessLicenseCode=null;
+				String unitAddress=null;
+				String expirationDate=null;
+				Integer unitType=null;
+				Date date=new Date();
+				UnitIncrease(uintId, supplier, 
+						supplierPerson, businessLicenseCode, 
+						supplierBusinessLicensePath, 
+						supplierproductionLicensePath, 
+						unitAddress, expirationDate, 
+						unitType, date);
+			}
+			
+			
+			
+			
 			//上传采购信息
 			Procurement procurement = new Procurement();
 			procurement.setUnitId(user.getUnitId());
@@ -257,5 +281,24 @@ public class IProcurementServiceImpl implements IProcurementService {
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 		}
 		return rr;
+	}
+	
+	/**
+	 * 添加企业信息
+	 */
+	public void UnitIncrease(Integer unitId, String unitName, 
+								String legalPerson, String businessLicenseCode,
+								String businessLicense, String productionLicense,
+								String unitAddress, String expirationDate, 
+								Integer unitType, Date createTime){
+		
+				Unit unit=new Unit(unitId, unitName, 
+								legalPerson, businessLicenseCode, 
+								businessLicense, 
+								productionLicense, 
+								unitAddress, expirationDate, 
+								unitType, createTime);
+						
+					unitMapper.insert(unit);
 	}
 }

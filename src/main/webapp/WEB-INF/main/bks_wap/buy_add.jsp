@@ -135,7 +135,7 @@
 									<div class="fc">
 										<i class="fa fa-plus padding-side05"></i>
 									</div>
-									<div class="text-center">上传经营资质</div>
+									<div class="text-center">上传检验合格报告</div>
 								</div>
 							</div>
 							<input type="file" name="" id="fileinput2" value=""
