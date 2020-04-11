@@ -622,6 +622,7 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	border-radius: .4em;
 	background-color: #fff;
 	box-shadow: 0 0 4px #ddd;
+	margin-bottom: .4em;
 }
 .yanshou{
 	width: 155px;

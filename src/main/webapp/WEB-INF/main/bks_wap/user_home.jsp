@@ -18,7 +18,7 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>		
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head >
-<body style="background: rgba(40, 42, 54, 0.5490196078431373);">
+<body style="background-color: #eee;">
 	<div class="aui-page-my">
 				<div class="aui-my-info">
 					<div class="aui-my-info-back">	</div>	

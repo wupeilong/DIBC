@@ -5542,6 +5542,8 @@ body {
 .aui-my-info {
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: .6em;
 }
 .aui-page-my .aui-icon {
   width: 22px;
