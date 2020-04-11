@@ -10,6 +10,10 @@
     font-weight: 600;
     top: 25px;
     line-height: 5;
+   /*  display: block;
+	padding: 0 1em;
+	width: 270px;
+	height: 100%; */
 }
 .video_bg img{
     margin: 15px;
@@ -43,7 +47,9 @@ text-align: left;
     font-size: 17px;
     font-weight: 600;
     color: #131415;
-    padding: 19px 0 0 0;
+    padding: 19px 0 0 1em;
+    background-color: rgba(255, 255, 255, 0.52);
+	margin-bottom: 3px;
 }
 .video_div p>span{
     color: #2e8ae6;

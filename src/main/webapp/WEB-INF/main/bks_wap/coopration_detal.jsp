@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +25,11 @@
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
-						<c:if test="${user.parentId == 0 && user.unitId == unitDetail.unitId}">
-							<a href="${pageContext.request.contextPath}/wap_unit/coopration_update"><input type="button"class="btn btn-primary" value="完善企业信息"><!-- <i style="font-size: 20px;color: #1294b3;" class="fa fa-edit"></i> --></a>
-						</c:if>
+						<c:if test="${user.unitId == unitDetail.unitId}">							
+							<shiro:hasPermission name="unit_update">
+								<a href="${pageContext.request.contextPath}/wap_unit/coopration_update"><input type="button"class="btn btn-primary" value="完善企业信息"></a>
+							</shiro:hasPermission>
+							</c:if>
 					</div>
 				</div>
 			</div>
@@ -101,7 +104,7 @@
 						<div class="" style="">
 							<div class="padding-side fonwei" style="padding:.6em 1em;border-left:4px solid #348dec;background-color:#f7fbfd;">从业人员</div>
 						</div>
-						<ul class="padding-side list-unstyled margin-bot2">
+						<ul class="padding-side list-unstyled margin-bot2 margin-top">
 						<c:forEach items="${userDetail}" var="item" varStatus="vs">
 							<li class="fb staff_lis border-bottom padding-side">
 								<div class="staff-face fs padding-side">
