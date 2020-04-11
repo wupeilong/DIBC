@@ -43,7 +43,7 @@
 		<main class="main padding-side05">
 			<div class="margin-top" id="result_list">				
 				<c:forEach items="${distributionList}" var="item" varStatus="vs">
-				<div class="delivery_li fb margin-bot" style="height: 100px;">
+				<div class="delivery_li fb" style="height: 100px;">
 					<div class="" style="width: 90%;">
 						<div class="margin-bot">
 							<div class="fonwei"><i class="fa fa-address-card-o text-primary"></i> 供应商：${item.mealsUnitName}</div>

@@ -3,6 +3,8 @@ package cn.dibcbks.filter;
 
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,8 +15,11 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+
 import cn.dibcbks.entity.User;
-import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.util.CommonUtil;
 
@@ -31,7 +36,7 @@ import cn.dibcbks.util.CommonUtil;
 * @version V1.0
 */
 public class MyShiroRealm extends AuthorizingRealm{
-	
+	private static final Logger logger = LogManager.getLogger(MyShiroRealm.class.getName());
 	@Autowired
 	private UserMapper userMapper;
 	
@@ -39,6 +44,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {	
 		String authorization = CommonUtil.getSessionUser().getAuthorization();
+		logger.info("【" + CommonUtil.getSessionUser().getUsername() + "】用户的授权信息：" + authorization);
 		if(StringUtils.isNotEmpty(authorization)){
 			String[] auths = authorization.split(";");
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

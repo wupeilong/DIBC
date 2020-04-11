@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
+import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.PropsUtil;
 import java.security.MessageDigest;
 import java.util.HashMap;
@@ -111,8 +112,8 @@ public class WxApi {
                 wxUserInfo.setCountry(jsonObject.getString("country"));
                 wxUserInfo.setHeadimgurl(jsonObject.getString("headimgurl"));
                 wxUserInfo.setPrivilege(jsonObject.getString("privilege"));
-                wxUserInfo.setUnionid(jsonObject.getString("unionid"));
-                return wxUserInfo;
+                wxUserInfo.setUnionid(jsonObject.getString("unionid"));                
+                return wxUserInfo;                
             }
             // 获取token失败
             logger.info("获取微信用户信息失败 errcode：" + jsonObject.getInteger("errcode") + " errmsg：" + jsonObject.getString("errmsg"));

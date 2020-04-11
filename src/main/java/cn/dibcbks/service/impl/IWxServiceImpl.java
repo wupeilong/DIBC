@@ -3,7 +3,9 @@ package cn.dibcbks.service.impl;
 
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
@@ -17,9 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.alibaba.fastjson.JSONArray;
-
 import cn.dibcbks.entity.Role;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
@@ -92,26 +92,29 @@ public class IWxServiceImpl implements IWxService {
 	@Override
 	public String wxOauth2Redirect(String code, HttpServletRequest request ,ModelMap modelMap) {
 		try {
-        	//登录写入系统
-			WxUserInfoOut wxUserInfo = WxApi.getWxUserInfo(WxApi.getOauth2Token(code));
-			Subject subject = SecurityUtils.getSubject();
-			Session session = subject.getSession();
-	        if (wxUserInfo == null) {
-	            logger.info(Constants.ERROR_HEAD_INFO + "获取微信用户信息失败");           
-	            return "error/404";
-	        }
-	        session.setAttribute("wx_user_info", wxUserInfo);
+			WxUserInfoOut wxUserInfo = null;
+			if(CommonUtil.containsCode(code)){
+				wxUserInfo = CommonUtil.getAttributeToCodeHashMap(code);
+				logger.info("微信二次回调，从CodeHashMap中获取微信用户信息：" + wxUserInfo);
+			}else{
+				wxUserInfo = WxApi.getWxUserInfo(WxApi.getOauth2Token(code));
+			}
+			if(wxUserInfo == null ){	        	
+	        	logger.error(Constants.ERROR_HEAD_INFO + "获取微信用户信息失败");
+	        	return wxLogin(modelMap);//重定向登陆页	        	
+	        }      
+			CommonUtil.setAttributeCodeHashMap(code, wxUserInfo);
+			CommonUtil.setAttribute("wx_user_info", wxUserInfo);
 	        User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
 	        if (user == null || user.getType() == null) {
-	        	
 	        	modelMap.addAttribute("isbind", 1);
 	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
 	        	return "bks_wap/roles_choose";
 	        }
-	        subject.login(new MyUsernamePasswordToken(user.getOpenid()));
+	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);				
-			session.setAttribute("userJson", userJson);
-			session.setAttribute("user", user);
+	        CommonUtil.setAttribute("userJson", userJson);
+	        CommonUtil.setAttribute("user", user);
 	        if(user.getType() == 3){
 	        	return "bks_wap/public_list";
 	        }else{

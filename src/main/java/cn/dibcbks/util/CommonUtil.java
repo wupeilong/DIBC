@@ -1,14 +1,16 @@
 package cn.dibcbks.util;
 
 
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.session.InvalidSessionException;
-import org.apache.shiro.subject.Subject;
-
 import cn.dibcbks.entity.User;
+import cn.dibcbks.util.wx.WxUserInfoOut;
 
 /**
  * 通用工具类
@@ -16,6 +18,12 @@ import cn.dibcbks.entity.User;
  *
  */
 public class CommonUtil {
+	
+	/**
+	 * 微信Code - key   微信用户信息 - value
+	 */
+	public static Map<String, WxOauthInfo> codeHashMap = new HashMap<String, WxOauthInfo>();
+	
 	
 	/**
 	 * 获取用户UUID
@@ -101,4 +109,39 @@ public class CommonUtil {
 	public static boolean isLogin(){
 		return SecurityUtils.getSubject().isAuthenticated();
 	}
+
+	
+	/**
+	 * 判断存入CodeHashMap 是否存 Code
+	 * @param code
+	 * @param wxUserInfo
+	 */
+	public static boolean containsCode(String code) {
+		
+		return codeHashMap.containsKey(code);		
+	}
+	
+	/**
+	 *存入Code + WxUserInfoOut
+	 * @param code
+	 * @param wxUserInfo
+	 */
+	public static void setAttributeCodeHashMap(String code, WxUserInfoOut wxUserInfo) {
+		if(wxUserInfo != null){
+			codeHashMap.put(code, new WxOauthInfo(code,wxUserInfo));
+		}
+			
+	}
+	
+	/**
+	 * 查询 WxUserInfoOut
+	 * @param code
+	 * @return
+	 */
+	public static WxUserInfoOut getAttributeToCodeHashMap(String code) {	
+		
+		return codeHashMap.get(code).getWxUserInfoOut();
+	}
+	
+	
 }
