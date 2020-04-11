@@ -22,7 +22,7 @@
 
 </head>
 <body class="video_bodydetail">
-	<div class="padding-side" style="position:fex;left:0;top:0;z-index:9999;padding:1em;">
+	<div class="padding-side" style="position:fixed;left:0;top:0;z-index:9999;padding:1em;">
 	  	<a href="javascript:history.go(-1);" class="margin-top"><i class="fa fa-arrow-left text-muted fa-2x"></i></a>
 	</div>
 	<div class="m" style="text-align: center;padding-bottom: 4em;">
