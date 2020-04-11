@@ -50,12 +50,12 @@
 					<div class="buy_list">
 						<div class="buy_top">
 							<p class="fb">
-								<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+								<span class="buy_top_span bfrifRow"><i class="fa fa-address-card text-danger"></i> <!-- 学校： -->${f.unitName}</span>
 								<span class="text-muted bfrifRow padding-side" style="font-size: 10px;"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></span>
 							</p>
 						</div>
 						<div class="buy_top1">
-							<div class="fb">
+							<div class="fb">   
 								<span class="bfrifRow text-muted">样品名 : ${f.samplName }</span>
 								<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a>
 							</div>

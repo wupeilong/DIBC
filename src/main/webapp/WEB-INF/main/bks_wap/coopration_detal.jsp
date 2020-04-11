@@ -112,8 +112,8 @@
 										<i class="fa fa-address-book fa-2x text-white"></i>
 									</div>
 									<div class="padding-side">
-										<div class="fonwei staff_name">${item.username}</div>
-										<div class="fonwei staff_name"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd" /></div>
+										<div class="fonwei staff_name text-muted">${item.username}</div>
+										<div class="staff_name text-muted"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd" /></div>
 										<div class="text-muted bfrifRow staff_oc">${item.departmentName}</div>
 									</div>
 								</div>
