@@ -55,7 +55,7 @@
 							</p>
 						</div>
 						<div class="buy_top1">
-							<div class="fb">
+							<div class="fb">   
 								<span class="bfrifRow text-muted">样品名 : ${f.samplName }</span>
 								<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a>
 							</div>
