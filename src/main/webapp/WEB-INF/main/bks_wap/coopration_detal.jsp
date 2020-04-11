@@ -104,7 +104,7 @@
 						<div class="" style="">
 							<div class="padding-side fonwei" style="padding:.6em 1em;border-left:4px solid #348dec;background-color:#f7fbfd;">从业人员</div>
 						</div>
-						<ul class="padding-side list-unstyled margin-bot2">
+						<ul class="padding-side list-unstyled margin-bot2 margin-top">
 						<c:forEach items="${userDetail}" var="item" varStatus="vs">
 							<li class="fb staff_lis border-bottom padding-side">
 								<div class="staff-face fs padding-side">
