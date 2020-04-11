@@ -102,9 +102,9 @@
 							</a>
 						</li>
 					</shiro:hasPermission>
-					<shiro:hasPermission name="wap_user">
+					<%-- <shiro:hasPermission name="wap_user">
 						<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
-					</shiro:hasPermission>
+					</shiro:hasPermission> --%>
 					<shiro:hasPermission name="wap_pro">
 						<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/><p class="text-center">采购报送</p></a></li>
 					</shiro:hasPermission>
@@ -121,7 +121,12 @@
 						<li><a href="${pageContext.request.contextPath}/wap_ins/inspect_choise"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon7.png" border="0" alt="" title=""/><p class="text-center">监管采集</p></a></li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_det">
-						<li><a id="detection" href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/><p class="text-center">检测报送</p></a></li>
+						<li><a id="detection" href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/><p class="text-center"><c:if test="${user.type == 2}">
+							检测结果
+						</c:if>
+						<c:if test="${user.type == 1}">
+							检验检测
+						</c:if></p></a></li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_video">
 						<li><a href="${pageContext.request.contextPath}/wap_video/wap_videoscan"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon9.png" border="0" alt="" title=""/><p class="text-center">视频监控</p></a></li>
@@ -132,11 +137,11 @@
 			<c:import url="public/footer.jsp"></c:import>
 			<script type="text/javascript">
 				$("#detection").click(function(){
-					 if('${user.type}' != 1){
+					 /* if('${user.type}' != 1){
 						layer.msg("此功能尚未对外开放！",{icon:0,time:1000});
-					 }else{
+					 }else{ */
 						location.href = "${pageContext.request.contextPath}/wap_det/detection_list";		
-					 }					  
+					/*  } */					  
 				});	
 			
 				certifySwiper = new Swiper('#certify .swiper-container', {

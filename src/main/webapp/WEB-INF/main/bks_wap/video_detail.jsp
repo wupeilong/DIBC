@@ -20,6 +20,7 @@
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/video/videojs-contrib-hls.min.js"></script>
 <script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 
+<<<<<<< HEAD
 </head>
 <body class="video_bodydetail">
 	<div class="padding-side" style="position:fixed;left:0;top:0;z-index:9999;padding:1em;width: 100%;background-color: rgba(50, 239, 249,.8);">
