@@ -49,7 +49,7 @@
 					<div class="buy_list">
 						<div class="buy_top">
 							<p class="fb">
-								<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+								<span class="buy_top_span bfrifRow fonwei"><i class="fa fa-address-card-o text-danger"></i> <!-- 学校： -->${f.unitName}</span>
 								<span class="bfrifRow"></span>
 							</p>
 						</div>
