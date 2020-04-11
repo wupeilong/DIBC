@@ -64,7 +64,7 @@
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>配餐单位</span>
 					  <%-- <input type="text" class="form-control box-shadow0 border-bottom" name="account" value="${user.unitName }" aria-describedby="sizing-addon1"> --%>
-						<select id="mealsUnitName">
+						<select id="mealsUnitName" class="width100">
 								<option value="">请选择送餐企业</option>								
 								<c:forEach items="${unitList}" var="item">								
 									<option value="${item.unitId}">${item.unitName}</option>
