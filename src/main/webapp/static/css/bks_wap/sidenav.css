@@ -1,4 +1,4 @@
-.sidenav{background:#ffffff;box-shadow:2px 2px 6px rgba(0,0,0,.3);display:block;font-size:16px;font-weight:400;height:397.2px;left:0;position:fixed;overflow:auto;transform:translate(-262px,0);transition:transform .3s;bottom: 43px;width:123px;z-index:100}
+.sidenav{background:#ffffff;box-shadow:2px 2px 6px rgba(0,0,0,.3);display:block;font-size:16px;font-weight:400;height:397.2px;left:0;position:fixed;overflow:auto;transform:translate(-262px,0);transition:transform .3s;bottom: 43px;width:123px;z-index:99999}
 .sidenav.show{transform:translate(0,0)}
 .sidenav-brand{background:#FF5722;border-bottom:1px solid #FF7043;color:#FAFAFA;font-size:24px;font-weight:700;line-height:32px;padding:20px 24px 19px}
 .sidenav-dropdown,.sidenav-header{border-bottom:1px solid #424242;margin:0}
