@@ -40,7 +40,6 @@
 	<script src="${pageContext.request.contextPath}/static/js/bks_wap/sidenav.min.js"></script>
 	<script>$('[data-sidenav]').sidenav();</script>
 </c:if>	
-
 </body>
 </html>
 
