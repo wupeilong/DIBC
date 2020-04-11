@@ -33,10 +33,10 @@
 				</div>
 				<div class="bg-gradient" style="margin-top: 89px;">
 					<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
-					  <li class="active pull-left" style="width: 25%;"><div class="getall text-center">全部</div></li>
-					  <li class="pull-left"  style="width: 25%;"><div class="getS text-center">商家自检</div></li>
-					  <li class="pull-left"  style="width: 25%;"><div class="getJ text-center">监管专检</div></li><li>
-					  <li class="pull-left"  style="width: 25%;"><div class="getD text-center">督察专检</div></li><li>
+					  <li class="active pull-left" style="width: 25%;"><div class="getall text-center text-white">全部</div></li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getS text-center text-white">商家自检</div></li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getJ text-center text-white">监管专检</div></li><li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getD text-center text-white">督察专检</div></li><li>
 					</ul>
 				</div>
 			</div>

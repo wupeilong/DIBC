@@ -1,4 +1,14 @@
-
+/* *{
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+} */
+/* input,textarea { 
+	-webkit-user-select:auto; webkitä¯ÀÀÆ÷ 
+}  */
 .contain{
 	max-width: 640px;
 	min-width: 320px;
@@ -612,8 +622,35 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	border-radius: .4em;
 	background-color: #fff;
 	box-shadow: 0 0 4px #ddd;
+	margin-bottom: .4em;
 }
 .yanshou{
 	width: 155px;
 }
+
+
+.staff_lis{
+	padding: .6em;
+	margin-bottom: .4em;
+	box-shadow: 0 0 3px #999;
+	border-radius: .4em;
+	/* border: 1px solid #999; */
+}
+.staff_name{
+	margin-bottom: .4em;
+}
+.staff-face{
+	padding-right: 0;
+}
+.staff-face i{
+	font-size: 1.6em;
+}
+.bg-circle{
+	width: 3em;
+	height: 3em;
+	border-radius: 50%;
+}
+.staff_oc{
+	font-size: 12px;
+	width: 13.4em;
 }

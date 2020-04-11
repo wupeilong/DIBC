@@ -1,7 +1,6 @@
 package cn.dibcbks.service.impl;
 
 
-
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +15,7 @@ import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.exception.MyRuntimeException;
 import cn.dibcbks.mapper.UnitMapper;
+import cn.dibcbks.service.IDepartmentService;
 import cn.dibcbks.service.IUnitService;
 import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.Constants;
@@ -27,7 +27,8 @@ public class IUnitServiceImpl implements IUnitService {
 	private static final Logger logger = LogManager.getLogger(IUnitServiceImpl.class.getName());
 	@Autowired
 	private UnitMapper unitMapper;
-	
+	@Autowired
+	private IDepartmentService iDepartmentSercice;
 	
 	@Override
 	public ResponseResult<Void> updatUnit(Unit unit) {
@@ -259,6 +260,48 @@ public class IUnitServiceImpl implements IUnitService {
 				
 				return view;
 	}
+
+
+	@Override
+	public ResponseResult<Void> addUnit(String unitName, String businessLicenseCode, MultipartFile file,MultipartFile file1, Integer unitType) {		
+		try {
+			GetCommonUser get = new GetCommonUser();
+			User user = CommonUtil.getSessionUser();
+			List<Unit> unitList = unitMapper.select(" n.unit_name = '" + unitName + "'", null, null, null);
+			if(!unitList.isEmpty()){
+				System.out.println("企业：" + unitName);
+				return new ResponseResult<Void>(ResponseResult.ERROR,"企业名称已存在，新增失败！");
+			}else if(StringUtils.isNotEmpty(businessLicenseCode) && unitMapper.queryUnit(businessLicenseCode) != null){
+				return new ResponseResult<>(ResponseResult.ERROR, "营业执照编码已存在，新增失败！");
+			}else{
+				Unit insert = new Unit();
+				insert.setUnitName(unitName);			
+				insert.setBusinessLicenseCode(businessLicenseCode);
+				insert.setUnitType(unitType);
+				if(file != null){				
+					String businessLicense = get.uoladimg(file, user.getUuid());
+					if(businessLicense == null){
+						return new ResponseResult<Void>(ResponseResult.ERROR,"营业执照上传异常,新增失败！");
+					}
+					insert.setBusinessLicense(businessLicense);
+				}
+				if(file1 != null){				
+					String productionLicense = get.uoladimg(file1, user.getUuid());
+					if(productionLicense == null){
+						return new ResponseResult<Void>(ResponseResult.ERROR,"许可证上传异常,新增失败！");
+					}
+					insert.setProductionLicense(productionLicense);		
+				}			
+				unitMapper.insert(insert);
+				System.out.println(insert);
+				iDepartmentSercice.addUnitDepartment(insert);
+				return new ResponseResult<Void>(ResponseResult.SUCCESS,"操作成功！");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseResult<Void>(ResponseResult.SUCCESS,"操作失败！");
+		}		
+	}	
 
 	
 	

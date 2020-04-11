@@ -41,10 +41,9 @@
 			</div>						
 		</div>		
 		<main class="main padding-side05">
-			<div class="margin-top">
-				
+			<div class="margin-top" id="result_list">				
 				<c:forEach items="${distributionList}" var="item" varStatus="vs">
-				<div class="delivery_li fb margin-bot" style="height: 100px;">
+				<div class="delivery_li fb" style="height: 100px;">
 					<div class="" style="width: 90%;">
 						<div class="margin-bot">
 							<div class="fonwei"><i class="fa fa-address-card-o text-primary"></i> 供应商：${item.mealsUnitName}</div>
@@ -119,13 +118,26 @@
 				}else{
 					var result = "";
 					for(var i=0;i<obj.data.length;i++){
-						result += "<tr>";
-						result += "<td>" + (i+1) + "</td>";
-						result += "<td>" + obj.data[i].id + "</td>";
-						result += "<td>" + obj.data[i].mealsUnitName + "</td>";
-						result += "<td>" + obj.data[i].acceptanceUnitName + "</td>";
-						result += "<td><a href='${pageContext.request.contextPath}/wap_dry/delivery_detal?id=" + obj.data[i].id + "'>详情</a></td>";
-						result += "</tr>";
+						result += '<div class="delivery_li fb margin-bot" style="height: 100px;">'
+							result += '<div class="" style="width: 90%;">'
+							result += '<div class="margin-bot">'
+							result += '<div class="fonwei"><i class="fa fa-address-card-o text-primary"></i> 供应商：' + obj.data[i].mealsUnitName + '</div>'
+							result += '</div>'
+							result += '<div class="fb ftop" style="font-size: 12px;">'
+							result += '<div class="">'
+							result += '<div class="text-muted"><i class="fa fa-calendar-minus-o text-danger"></i> 配送单号：</div>'
+							result += '<span class="padding-side">' + obj.data[i].id + '</span>'
+							result += '</div>'
+							result += '<div class="padding-side border-left yanshou" style="border-left: 1px solid #ddd;">'
+							result += '<div class="text-muted"><i class="fa fa-cart-arrow-down text-success"></i> 验收单位：</div>'
+							result += '<span class="">' + obj.data[i].acceptanceUnitName + '</span>'
+							result += '</div>'
+							result += '</div>'
+							result += '</div>'
+							result += '<div class="fc fend" style="width: 10%;height: 100%;border-left: 1px solid #ddd;">'
+							result += '<a href="${pageContext.request.contextPath}/wap_dry/delivery_detal?id=' + obj.data[i].id + '"><i class="fa fa-angle-right fa-3x text-muted"></i></a>'
+							result += '</div>'
+							result += '</div>'						
 					}
 					$("#result_list").html(result);
 					console.log(obj.data);									

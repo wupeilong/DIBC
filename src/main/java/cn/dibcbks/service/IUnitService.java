@@ -49,5 +49,9 @@ public interface IUnitService {
 									Integer unitType, 
 									String legalPerson);
 
+	
+	ResponseResult<Void> addUnit(String unitName, String businessLicenseCode, MultipartFile file, MultipartFile file1,
+			Integer unitType);
+
 
 }

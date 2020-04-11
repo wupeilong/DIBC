@@ -87,7 +87,7 @@
 				</select>
 				</span> 
 				<input type="text" style="display: none" id="inputType"
-					placeholder="请输入商家名称"> <input type="button"
+					placeholder="请输入商家名称" onblur="judgeUnit()"> <input type="button"
 					class="swh switchsucess" id="swithcButton" onclick="swhBtn()"
 					value="+">
 
@@ -135,7 +135,7 @@
 									<div class="fc">
 										<i class="fa fa-plus padding-side05"></i>
 									</div>
-									<div class="text-center">上传经营资质</div>
+									<div class="text-center">上传检验合格报告</div>
 								</div>
 							</div>
 							<input type="file" name="" id="fileinput2" value=""
@@ -222,6 +222,38 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 <script type="text/javascript">
+
+	//申明一个全局的企业名单变量
+	var UnitList=null;
+	
+	//判断新增企业是否存在
+	function judgeUnit(){
+		if($("#inputType").val()==""){
+			layer.msg("请录入商家名称", {
+				icon : 2,
+				time : 1000
+			});
+			$("#inputType").focus()
+			return;
+		}else{
+			$.each(UnitList.data,function(i,obj){
+				console.log(obj.unitName)
+				if(obj.unitName==$("#inputType").val()){
+					
+					layer.msg("该商家已存在", {
+						icon : 2,
+						time : 1000
+					});
+					$("#inputType").focus()
+					return false;
+				}
+			})
+			
+			
+		}
+	}
+	
+	
 	/* 切换按钮事件 */
 	function swhBtn() {
 		
@@ -242,7 +274,9 @@
 			})
 		
 		
-		
+		//清空是否已有证件的标志
+			$("#fileinput").attr("name","");
+			$("#fileinput1").attr("name","");
 		
 		//清空值
 		$("#unit_list").val("");
@@ -250,6 +284,7 @@
 		
 		//输入方式切换
 		$("#inputType").toggle();
+		$("#inputType").focus()
 		$("#unitspan").toggle();
 		
 		//清空图片
@@ -266,7 +301,9 @@
 	}
 
 	$('select').searchableSelect({"afterSelectItem" : function() {
-							
+							//清空已有证件的标志
+							$("#fileinput").attr("name","");
+							$("#fileinput1").attr("name","");
 							
 							//展示上传功能
 							$("#fileinput").css("display", "block");
@@ -289,13 +326,16 @@
 										"success" : function(obj) {
 											if(obj.state==0){
 												layer.msg(obj.message, {
-													icon : 1,
+													icon : 2,
 													time : 1000
 												});
 												
 												return;
 											}
 											console.log(obj);
+											
+											UnitList=obj;
+											
 											$("#supplierPerson").val(obj.data[0].legalPerson);
 											if ($("#unit_list").val() == "") {
 												return;
@@ -309,16 +349,17 @@
 												if (obj.data[0].businessLicense == ""
 														|| obj.data[0].businessLicense == null) {
 													layer.msg("未保存该企业的营业执照", {
-														icon : 1,
+														icon : 2,
 														time : 1000
 													});
 
 												} else {
-													$("#preview")
-															.attr(
-																	"src",
-																	"${pageContext.request.contextPath}/"
-																			+ obj.data[0].businessLicense);
+													
+													$("#preview").attr("src","${pageContext.request.contextPath}/"+ obj.data[0].businessLicense);
+													//设置已有证件标志
+													$("#fileinput").attr("name","yes");
+													
+													
 													//已有证件  禁止更改
 													$("#fileinput").css(
 															"display", "none");
@@ -327,15 +368,14 @@
 												if (obj.data[0].productionLicense == ""
 														|| obj.data[0].productionLicense == null) {
 													layer.msg("未保存该企业的食品许可证", {
-														icon : 1,
+														icon : 2,
 														time : 1000
 													});
 												} else {
-													$("#preview1")
-															.attr(
-																	"src",
-																	"${pageContext.request.contextPath}/"
-																			+ obj.data[0].productionLicense);
+													$("#preview1").attr("src","${pageContext.request.contextPath}/"+ obj.data[0].productionLicense);
+													//设置已有证件标志
+													$("#fileinput1").attr("name","yes");
+													
 													//已有证件  禁止更改
 													$("#fileinput1").css(
 															"display", "none");
@@ -350,19 +390,18 @@
 					}
 
 			);
+	
+	
 
-	$("#add")
-			.click(
-
+	$("#add").click(
 					function() {
-					
+						
+						
 						var detailList = new Array();
 						var tr = document.querySelectorAll("tbody tr");
 						for (var i = 0; i < tr.length; i++) {
 							detailList[i] = new Array();
-
 							detailList[i][0] = tr[i].cells[1].innerText;
-
 							if (tr[i].cells[1].innerText == "") {
 								layer.msg("请完善供货明细！", {
 									icon : 2,
@@ -389,7 +428,6 @@
 							}
 						}
 						//供货商名字不能为空
-
 						if ($("#unit_list").val() == ""
 								&& $("#inputType").val() == "") {
 							layer.msg("请录入供货商", {
@@ -403,7 +441,13 @@
 								time : 1000
 							});
 							$("#preview").focus();
-						} else if ($("#preview3").attr('src') == "") {
+						}else if($("#preview1").attr('src') == ""){
+							layer.msg("请上传食品许可证", {
+								icon : 2,
+								time : 1000
+							});
+							$("#preview1").focus();
+						}else if ($("#preview3").attr('src') == "") {
 							layer.msg("请上传发票图片", {
 								icon : 2,
 								time : 1000
@@ -424,50 +468,29 @@
 						} else {
 							var we1 = layerloadingOpen();
 							var formData = new FormData();
-
 							//若供货id不为空 传入供货商id
 							if ($("#unit_list").val() != "") {
-								formData.append('supplierUnitId', $(
-										"#unit_list").val());//供货商ID
+								formData.append('supplierUnitId', $("#unit_list").val());//供货商ID
 							}
-
 							//传入供货商名称
-							formData.append('supplier',
-									$("#unit_list").val() == "" ? $(
-											"#inputType").val() : $(
-											"#unit_list").find(
-											"option:selected").text());//供货商ID
-											
-								//若企业不存在  必须上传 y营业执照和许可证
-							if ($("#unit_list").val()=="") {
+							formData.append('supplier',$("#unit_list").val() == "" ? $("#inputType").val() : $("#unit_list").find("option:selected").text());//供货商ID											
 							
-								formData.append('supplierBusinessLicense',
-										dataURLtoFile($("#preview").attr('src'),
-												"we.jpg"));//营业执照
-												
-								if ($("#preview1").attr('src') != "") {
-										formData.append('supplierproductionLicense',
-										dataURLtoFile($("#preview1")
-										.attr('src'), "we.jpg"));//许可证
-												
-								}
-											
+							//若果企业已有证件 则不传
+							
+							if ($("#fileinput").attr('name')!="yes") {							
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview").attr('src'),"we.jpg"));//营业执照			
 							}
-
-							
+							if ($("#fileinput1").attr('name')!="yes") {
+								formData.append('supplierproductionLicense',
+								dataURLtoFile($("#preview1").attr('src'), "we.jpg"));//许可证										
+							}							
 							if ($("#preview2").attr('src') != "") {
-								formData.append('supplierQualification',
-										dataURLtoFile($("#preview2")
-												.attr('src'), "we.jpg"));//资质
+								formData.append('supplierQualification',dataURLtoFile($("#preview2").attr('src'), "we.jpg"));//资质
 							}
-							formData.append('invoice', dataURLtoFile($(
-									"#preview3").attr('src'), "we.jpg"));//发票 
-							formData.append('supplierPerson', $(
-									"#supplierPerson").val());//联系人					
-							formData.append('supplierPhone',
-									$("#supplierPhone").val());//联系电话
-							formData.append('detailList', JSON
-									.stringify(detailList));//采购详情
+							formData.append('invoice', dataURLtoFile($("#preview3").attr('src'), "we.jpg"));//发票 
+							formData.append('supplierPerson', $("#supplierPerson").val());//联系人					
+							formData.append('supplierPhone',$("#supplierPhone").val());//联系电话
+							formData.append('detailList', JSON.stringify(detailList));//采购详情
 							console.log(formData);
 							$.ajax({
 										url : "${pageContext.request.contextPath}/wap_pro/add",
@@ -552,6 +575,7 @@
 	}
 
 	$("#fileinput").on("change", function() {
+		console.log($("#fileinput").val());
 		intoBase64("fileinput", "preview");
 	})
 	$("#fileinput1").on("change", function() {

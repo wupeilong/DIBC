@@ -44,7 +44,7 @@ public interface IDistributionService {
 	 * @param id
 	 * @return
 	 */
-	ResponseResult<Void> confirmDeliver(String id);
+	ResponseResult<Void> confirmDeliver(String id,ModelMap modelMap);
 
 	/**
 	 * 配送定单已验收
@@ -52,7 +52,7 @@ public interface IDistributionService {
 	 * @param openedPhoto
 	 * @return
 	 */
-	ResponseResult<Void> confirmAcceptance(String id, MultipartFile openedPhoto, String acceptanceResult); 
+	ResponseResult<Void> confirmAcceptance(String id, MultipartFile openedPhoto, String acceptanceResult,ModelMap modelMap); 
 
 	/**
 	 * 进入配送信息添加页
