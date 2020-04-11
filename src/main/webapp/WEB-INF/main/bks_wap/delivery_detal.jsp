@@ -395,6 +395,7 @@
 		})
 		
 		$("#result").click(function() {
+			$(document).scrollTop(0);
 			var detialResult = '${distributionDetial.acceptanceResult}';
 			if(detialResult != "" && detialResult != null ){
 				var data = JSON.parse(detialResult);
