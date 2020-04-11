@@ -87,7 +87,7 @@
 				</select>
 				</span> 
 				<input type="text" style="display: none" id="inputType"
-					placeholder="请输入商家名称"> <input type="button"
+					placeholder="请输入商家名称" onblur="judgeUnit()"> <input type="button"
 					class="swh switchsucess" id="swithcButton" onclick="swhBtn()"
 					value="+">
 
@@ -222,6 +222,38 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 <script type="text/javascript">
+
+	//申明一个全局的企业名单变量
+	var UnitList=null;
+	
+	//判断新增企业是否存在
+	function judgeUnit(){
+		if($("#inputType").val()==""){
+			layer.msg("请录入商家名称", {
+				icon : 2,
+				time : 1000
+			});
+			$("#inputType").focus()
+			return;
+		}else{
+			$.each(UnitList.data,function(i,obj){
+				console.log(obj.unitName)
+				if(obj.unitName==$("#inputType").val()){
+					
+					layer.msg("该商家已存在", {
+						icon : 2,
+						time : 1000
+					});
+					$("#inputType").focus()
+					return false;
+				}
+			})
+			
+			
+		}
+	}
+	
+	
 	/* 切换按钮事件 */
 	function swhBtn() {
 		
@@ -252,6 +284,7 @@
 		
 		//输入方式切换
 		$("#inputType").toggle();
+		$("#inputType").focus()
 		$("#unitspan").toggle();
 		
 		//清空图片
@@ -293,13 +326,16 @@
 										"success" : function(obj) {
 											if(obj.state==0){
 												layer.msg(obj.message, {
-													icon : 1,
+													icon : 2,
 													time : 1000
 												});
 												
 												return;
 											}
 											console.log(obj);
+											
+											UnitList=obj;
+											
 											$("#supplierPerson").val(obj.data[0].legalPerson);
 											if ($("#unit_list").val() == "") {
 												return;
@@ -313,7 +349,7 @@
 												if (obj.data[0].businessLicense == ""
 														|| obj.data[0].businessLicense == null) {
 													layer.msg("未保存该企业的营业执照", {
-														icon : 1,
+														icon : 2,
 														time : 1000
 													});
 
@@ -332,7 +368,7 @@
 												if (obj.data[0].productionLicense == ""
 														|| obj.data[0].productionLicense == null) {
 													layer.msg("未保存该企业的食品许可证", {
-														icon : 1,
+														icon : 2,
 														time : 1000
 													});
 												} else {
@@ -354,9 +390,12 @@
 					}
 
 			);
+	
+	
 
 	$("#add").click(
-					function() {	
+					function() {
+						
 						
 						var detailList = new Array();
 						var tr = document.querySelectorAll("tbody tr");

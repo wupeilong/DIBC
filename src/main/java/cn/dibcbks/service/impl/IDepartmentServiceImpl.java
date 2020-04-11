@@ -1,12 +1,14 @@
 package cn.dibcbks.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.service.IDepartmentService;
 
+@Service
 public class IDepartmentServiceImpl implements IDepartmentService {
 	@Autowired
 	private DepartmentMapper departmentMapper;
