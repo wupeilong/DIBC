@@ -22,7 +22,7 @@
 				<%-- <a href="${pageContext.request.contextPath}/home">进入主页</a> --%>
 			</div>
 			<div class="margin-top3">
-				<form class="login_formIn">
+				<form class="login_formIn fc">
 					<fieldset id="" class="margin-top margin-bot">
 						<!-- <div class="login_form"> -->
 						<div class="wap_login">
