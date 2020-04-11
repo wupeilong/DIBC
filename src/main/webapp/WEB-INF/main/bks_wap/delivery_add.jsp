@@ -64,14 +64,17 @@
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>配餐单位</span>
 					  <%-- <input type="text" class="form-control box-shadow0 border-bottom" name="account" value="${user.unitName }" aria-describedby="sizing-addon1"> --%>
-						<select id="mealsUnitName">
+						<select id="mealsUnitName" class="width100">
 								<option value="">请选择送餐企业</option>								
 								<c:forEach items="${unitList}" var="item">								
 									<option value="${item.unitId}">${item.unitName}</option>
 								</c:forEach>							
 						</select>		
 					</div>		
-					<a href="javascript:;" onclick="insertUnit()">新增配餐单位</a>						
+					<div class="input-group form-group fs">
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"></span>
+					  <div class="width100"><a href="javascript:;" onclick="insertUnit()">新增配餐单位</a></div>
+					</div>					
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>订餐单位</span>
 					  <input type="text" class="width100 box-shadow0 border-bottom" name="acceptance_unit_name" value="${user.unitName }" readonly>
@@ -213,7 +216,7 @@
 			if($("#preview4").attr('src') != ""){
 				formData.append('businessLicense',dataURLtoFile($("#preview4").attr('src'),"we.jpg"));
 			}							
-			formData.append('#nitType',$("#reg_unitType").val());
+			formData.append('#unitType',$("#reg_unitType").val());
 			 $.ajax({
 				 url: '${pageContext.request.contextPath}/wap_unit/add',
 		          type: 'POST',
@@ -244,7 +247,7 @@
 	}
 	
 	$(function () {		
-		$('#select').searchableSelect();
+		$('select').searchableSelect();
 		/* $('#mealsUnitName').searchableSelect({
             "afterSelectItem": function() {
             }

@@ -86,7 +86,7 @@ public class WapDeliveryController {
 	@ResponseBody
 	public ResponseResult<Void> deliveryService(String id,MultipartFile openedPhoto,String acceptanceResult,ModelMap modelMap){
 		
-		return iDistributionService.confirmAcceptance(id,openedPhoto,acceptanceResult);
+		return iDistributionService.confirmAcceptance(id,openedPhoto,acceptanceResult,modelMap);
 	}
 	
 	

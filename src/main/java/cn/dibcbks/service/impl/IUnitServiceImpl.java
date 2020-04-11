@@ -1,7 +1,11 @@
 package cn.dibcbks.service.impl;
 
 
+import java.util.Date;
 import java.util.List;
+
+import javax.management.loading.PrivateClassLoader;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +19,7 @@ import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.exception.MyRuntimeException;
 import cn.dibcbks.mapper.UnitMapper;
+import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.service.IDepartmentService;
 import cn.dibcbks.service.IUnitService;
 import cn.dibcbks.util.CommonUtil;
@@ -27,6 +32,8 @@ public class IUnitServiceImpl implements IUnitService {
 	private static final Logger logger = LogManager.getLogger(IUnitServiceImpl.class.getName());
 	@Autowired
 	private UnitMapper unitMapper;
+	@Autowired
+	private  UserMapper userMaper;
 	@Autowired
 	private IDepartmentService iDepartmentSercice;
 	
@@ -173,7 +180,13 @@ public class IUnitServiceImpl implements IUnitService {
 		if (!list.isEmpty()) {
 			unitDetail = list.get(0);
 		}
+	//TODO
+		if(CommonUtil.getSessionUser().getType() == 1){
+			List<User> userDetail = userMaper.select(" u.unit_id = '" + unitId + "'", null, null, null);
+			modelMap.addAttribute("userDetail",userDetail);
+		}
 		modelMap.addAttribute("unitDetail", unitDetail);
+		
 		return "bks_wap/coopration_detal";
 	}
 
@@ -205,8 +218,6 @@ public class IUnitServiceImpl implements IUnitService {
 		List<Unit> unitList = unitMapper.select(" n.unit_id = '" + user.getUnitId() + "'", null, null, null);
 		if(unitList.isEmpty()){
 			return new ResponseResult<Void>(ResponseResult.ERROR,"企业信息异常，操作失败！");
-		}else if(!user.getParentId().equals(0)){
-			return new ResponseResult<>(ResponseResult.ERROR, "该账户不是管理员，不能修改企业信息！");
 		}else{
 			Unit update = unitList.get(0);
 			update.setUnitName(unitName);
@@ -278,6 +289,7 @@ public class IUnitServiceImpl implements IUnitService {
 				insert.setUnitName(unitName);			
 				insert.setBusinessLicenseCode(businessLicenseCode);
 				insert.setUnitType(unitType);
+				insert.setCreateTime(new Date());
 				if(file != null){				
 					String businessLicense = get.uoladimg(file, user.getUuid());
 					if(businessLicense == null){
