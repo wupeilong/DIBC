@@ -176,17 +176,22 @@ public class IUnitServiceImpl implements IUnitService {
 	@Override
 	public String CooprationDetal(ModelMap modelMap, Integer unitId) {
 		Unit unitDetail = null;
-		List<Unit> list = unitMapper.select(" unit_id = '" + unitId + "'", null, null, null);
+		String where = null;
+		if(unitId != null){
+			where = " n.unit_id = '" + unitId + "'";
+		}else{
+			where = " n.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
+			
+		}		
+		List<Unit> list = unitMapper.select(where, null, null, null);
 		if (!list.isEmpty()) {
 			unitDetail = list.get(0);
 		}
-	//TODO
-		if(CommonUtil.getSessionUser().getType() == 1){
+		if(CommonUtil.getSessionUser().getType() == 1 && unitId != null){
 			List<User> userDetail = userMaper.select(" u.unit_id = '" + unitId + "'", null, null, null);
 			modelMap.addAttribute("userDetail",userDetail);
 		}
-		modelMap.addAttribute("unitDetail", unitDetail);
-		
+		modelMap.addAttribute("unitDetail", unitDetail);		
 		return "bks_wap/coopration_detal";
 	}
 
@@ -276,6 +281,7 @@ public class IUnitServiceImpl implements IUnitService {
 	@Override
 	public ResponseResult<Void> addUnit(String unitName, String businessLicenseCode, MultipartFile file,MultipartFile file1, Integer unitType) {		
 		try {
+			System.out.println("unitType:" + unitType);
 			GetCommonUser get = new GetCommonUser();
 			User user = CommonUtil.getSessionUser();
 			List<Unit> unitList = unitMapper.select(" n.unit_name = '" + unitName + "'", null, null, null);
@@ -303,9 +309,9 @@ public class IUnitServiceImpl implements IUnitService {
 						return new ResponseResult<Void>(ResponseResult.ERROR,"许可证上传异常,新增失败！");
 					}
 					insert.setProductionLicense(productionLicense);		
-				}			
-				unitMapper.insert(insert);
+				}
 				System.out.println(insert);
+				unitMapper.insert(insert);				
 				iDepartmentSercice.addUnitDepartment(insert);
 				return new ResponseResult<Void>(ResponseResult.SUCCESS,"操作成功！");
 			}

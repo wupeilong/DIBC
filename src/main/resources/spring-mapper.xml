@@ -5,6 +5,8 @@
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
@@ -14,14 +16,18 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd"
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
 	default-lazy-init="true">
 	<!--  自动扫描，	扫描以com.yichuan开头包中的所有有注解的类注入spring（IOC）,但是不扫描controller -->
 	 <context:component-scan base-package="cn.dibcbks">
 	   <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan> 
 	
-	
+	<task:annotation-driven/>
+	<context:annotation-config/>
+	<!--定时任务扫描的包-->
+	<context:component-scan base-package="cn.dibcbks.quartz"/>
 	
 	<!-- 异常统一处理类 HandlerExceptionResolver 注释 -->
   	<!-- <bean id="handlerExceptionResolver" class="cn.dibcbks.exception.MyExceptionResolver" />  -->
@@ -120,26 +126,20 @@
                  <entry key="authc" value-ref="myFormAuthenticationFilter"/>    
             </util:map>    
         </property>
-		<property name="filterChainDefinitions">
-			 <value>
-				/* = anon
-			</value> 			
-			<!-- <value>
-				/static/** = anon
-				/wap_login = anon
-				/wap_user_login = anon
+		<property name="filterChainDefinitions">			
+			<value>
+				/static/** = anon						
+				/web_login = anon
 				/web_login = anon
 				/web_user_login = anon
-				/register = anon
-				/registeradd = anon
-				/userLogin = anon
-				/admin_login = anon
-				/admin_add = anon
-				/is_exist = anon				
+				/wap_bind_supervise = anon
+				/wap_bind_public = anon
+				/wx_oauth2 = anon
+				/wx_login = anon
+				/wap_user_login = anon
+				/wap_is_exist = anon							
 				/*/** = authc
-   			</value> --> 
-   		
-   			<!-- /*/** = authc -->
+   			</value> 
 		</property>
 	</bean>		
 </beans>
