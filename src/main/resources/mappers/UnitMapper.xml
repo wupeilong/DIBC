@@ -104,7 +104,25 @@
 	</select>
 	
 
-	<select id="queryUnit" resultMap="BaseResultMap" parameterType="java.lang.String">
+	<select id="queryUnit" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+			n.unit_id,
+			n.unit_name,
+			n.legal_person,
+			n.business_license_code,
+			n.business_license,
+			n.production_license,
+			n.unit_address,
+			n.expiration_date,
+			n.create_time,
+			n.unit_type
+		FROM
+			unit AS n
+		WHERE
+			n.unit_id = #{unnitId}
+	</select>
+	
+	<select id="queryUserByUnitId" resultMap="BaseResultMap" parameterType="java.lang.String">
 		SELECT
 			n.unit_id,
 			n.unit_name,
