@@ -4,7 +4,7 @@
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:jpa="http://www.springframework.org/schema/data/jpa"	
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
@@ -19,10 +19,10 @@
 	default-lazy-init="true">
 	<!--  自动扫描，	扫描以com.yichuan开头包中的所有有注解的类注入spring（IOC）,但是不扫描controller -->
 	 <context:component-scan base-package="cn.dibcbks">
-	   <context:excclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan> 	
-	<context:annotation-config/>	
-
+	   <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan> 
+	
+	<context:annotation-config/>
 	
 	<!-- 异常统一处理类 HandlerExceptionResolver 注释 -->
   	<!-- <bean id="handlerExceptionResolver" class="cn.dibcbks.exception.MyExceptionResolver" />  -->
@@ -44,7 +44,26 @@
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
-	</bean>	
+	</bean>
+	
+	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" isolation="REPEATABLE_READ" rollback-for="Exception" />
+			<tx:method name="update*" isolation="REPEATABLE_READ" rollback-for="Exception" />
+			<tx:method name="delete*" isolation="REPEATABLE_READ" rollback-for="Exception" />
+			<tx:method name="get*" isolation="REPEATABLE_READ" read-only="true" />
+			<tx:method name="*" isolation="REPEATABLE_READ" propagation="NOT_SUPPORTED"/>
+		</tx:attributes>	
+	</tx:advice> 
+	<aop:config>
+		<aop:pointcut expression="execution(* cn.dibcbks.service..*(..))" id="point"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="point"/>
+	</aop:config> -->
+	
+	<!-- 
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/> 
+	-->
 	<!-- 持久层接口扫描 -->
 	<bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="cn.dibcbks.mapper"/>
