@@ -28,7 +28,7 @@
 		});
 	</script>
 </head>
-<body class="contain" style=";background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_home.jpg);position: relative;">
+<body class="contain" style=";background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_home.jpg);position: relative;height: auto;">
 		<div class="bg-primary loader_wrap">
 			<div class="loader">
 				<div class="line-scale-pulse-out">
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-		<main class="" id="main_container" style="position: relative;height: 100%;background-size: contain;padding-bottom: 5em;">
+		<main class="" id="main_container" style="position: relative;background-size: contain;padding-bottom: 5em;">
 			<div class="banner_wrap ">
 				<div id="certify" style="width: 100%;">
 					<div class="swiper-container swiper-container-horizontal">
