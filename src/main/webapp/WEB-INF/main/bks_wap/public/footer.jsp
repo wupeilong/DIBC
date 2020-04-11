@@ -29,7 +29,7 @@
 			<li><a href="${pageContext.request.contextPath}/wap_det/detection_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/></a><p class="text-center">检测报送</p></li>
 			<li><a href="${pageContext.request.contextPath}/wap_video/wap_videoscan"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon9.png" border="0" alt="" title=""/></a><p class="text-center">视频监控</p></li>
 		</ul>	
-  </nav>
+  	</nav>
   		<div class="tabBar footer_div">
 		<ul class="list-unstyled clearfix margin0">				
 			<li style="width: 43%;    font-size:1.5em;"><a href="${pageContext.request.contextPath}/wap_home"><div><i class="fa fa-home"></i></div></a></li>
