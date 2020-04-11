@@ -1,6 +1,7 @@
 package cn.dibcbks.service.impl;
 
 
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -205,8 +206,6 @@ public class IUnitServiceImpl implements IUnitService {
 		List<Unit> unitList = unitMapper.select(" n.unit_id = '" + user.getUnitId() + "'", null, null, null);
 		if(unitList.isEmpty()){
 			return new ResponseResult<Void>(ResponseResult.ERROR,"企业信息异常，操作失败！");
-		}else if(!user.getParentId().equals(0)){
-			return new ResponseResult<>(ResponseResult.ERROR, "该账户不是管理员，不能修改企业信息！");
 		}else{
 			Unit update = unitList.get(0);
 			update.setUnitName(unitName);
@@ -278,6 +277,7 @@ public class IUnitServiceImpl implements IUnitService {
 				insert.setUnitName(unitName);			
 				insert.setBusinessLicenseCode(businessLicenseCode);
 				insert.setUnitType(unitType);
+				insert.setCreateTime(new Date());
 				if(file != null){				
 					String businessLicense = get.uoladimg(file, user.getUuid());
 					if(businessLicense == null){

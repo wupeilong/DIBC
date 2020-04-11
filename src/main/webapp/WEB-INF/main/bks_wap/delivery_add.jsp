@@ -216,7 +216,7 @@
 			if($("#preview4").attr('src') != ""){
 				formData.append('businessLicense',dataURLtoFile($("#preview4").attr('src'),"we.jpg"));
 			}							
-			formData.append('#nitType',$("#reg_unitType").val());
+			formData.append('#unitType',$("#reg_unitType").val());
 			 $.ajax({
 				 url: '${pageContext.request.contextPath}/wap_unit/add',
 		          type: 'POST',
