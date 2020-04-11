@@ -102,9 +102,9 @@
 							</a>
 						</li>
 					</shiro:hasPermission>
-					<shiro:hasPermission name="wap_user">
+					<%-- <shiro:hasPermission name="wap_user">
 						<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
-					</shiro:hasPermission>
+					</shiro:hasPermission> --%>
 					<shiro:hasPermission name="wap_pro">
 						<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/><p class="text-center">采购报送</p></a></li>
 					</shiro:hasPermission>
