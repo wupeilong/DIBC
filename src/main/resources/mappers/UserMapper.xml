@@ -157,6 +157,7 @@
 	    </trim>
 	</insert>
 	
+	
 	<!--查询用户 -->
 	<select id="select" resultMap="BaseResultMap"> 
 		SELECT
