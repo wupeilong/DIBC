@@ -21,7 +21,10 @@
 <script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 
 </head>
-<body class="video_bodydetail">	
+<body class="video_bodydetail">
+	<div class="" style="position:fex;">
+		<span><i class="fa fa-angle-left text-white"></i></span>
+	<div>
 	<div class="m" style="text-align: center;padding-bottom: 4em;">
 	<c:if test="${videoAddressList.size()==0}">
 	<span style="top: 65px;position: relative;color: #c23412;font-size: 17px;font-weight: 600">暂无视频数据</span>

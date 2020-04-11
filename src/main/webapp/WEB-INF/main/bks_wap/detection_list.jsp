@@ -46,22 +46,25 @@
 		</div>
 		<main class="delivery main padding-side05"">
 			<div class="margin-top" id="result_list">
-				<c:forEach items="${detectionList}" var="f" varStatus="vs">
-					<div class="buy_list">
-						<div class="buy_top">
-							<p class="fb">
-								<span class="buy_top_span bfrifRow"><i class="fa fa-address-card text-danger"></i> <!-- 学校： -->${f.unitName}</span>
-								<span class="text-muted bfrifRow padding-side" style="font-size: 10px;"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></span>
-							</p>
-						</div>
-						<div class="buy_top1">
-							<div class="fb">   
-								<span class="bfrifRow text-muted">样品名 : ${f.samplName }</span>
-								<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a>
+				<c:if test="${user.type == 1}">
+					<c:forEach items="${detectionList}" var="f" varStatus="vs">
+						<div class="buy_list">
+							<div class="buy_top">
+								<p class="fb">
+									<span class="buy_top_span bfrifRow"><i class="fa fa-address-card text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+									<span class="text-muted bfrifRow padding-side" style="font-size: 10px;"><fmt:formatDate value="${f.createTime}" pattern="yyyy-MM-dd"/></span>
+								</p>
 							</div>
-						</div>				
-					</div>
-				</c:forEach>
+							<div class="buy_top1">
+								<div class="fb">   
+									<span class="bfrifRow text-muted">样品名 : ${f.samplName }</span>
+									<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_det/detection_detal?id=${f.id}">详情</a>
+								</div>
+							</div>				
+						</div>
+					</c:forEach>
+				</c:if>
+				
 			</div>
 			<!--序号 vs.count -->		
 		</main>
