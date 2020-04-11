@@ -19,9 +19,10 @@
 	default-lazy-init="true">
 	<!--  自动扫描，	扫描以com.yichuan开头包中的所有有注解的类注入spring（IOC）,但是不扫描controller -->
 	 <context:component-scan base-package="cn.dibcbks">
-	   <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	   <context:excclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan> 	
 	<context:annotation-config/>	
+
 	
 	<!-- 异常统一处理类 HandlerExceptionResolver 注释 -->
   	<!-- <bean id="handlerExceptionResolver" class="cn.dibcbks.exception.MyExceptionResolver" />  -->
@@ -103,18 +104,18 @@
         </property>
 		<property name="filterChainDefinitions">			
 			<value>
-				/static/** = anon						
-				/web_login = anon
-				/web_login = anon
-				/web_user_login = anon
-				/wap_bind_supervise = anon
-				/wap_bind_public = anon
-				/wx_oauth2 = anon
-				/wx_login = anon
-				/wap_user_login = anon
-				/wap_is_exist = anon							
-				/*/** = authc
-   			</value> 
+			/static/** = anon
+			/web_login = anon
+			/web_login = anon
+			/web_user_login = anon
+			/wap_bind_supervise = anon
+			/wap_bind_public = anon
+			/wx_oauth2 = anon
+			/wx_login = anon
+			/wap_user_login = anon
+			/wap_is_exist = anon
+			/*/** = authc
+			</value> 
 		</property>
 	</bean>		
 </beans>
