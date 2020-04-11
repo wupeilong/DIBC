@@ -68,9 +68,9 @@ public class WapDeliveryController {
 	 */
 	@RequestMapping("/service")
 	@ResponseBody
-	public ResponseResult<Void> deliveryService(String id){		
+	public ResponseResult<Void> deliveryService(String id,ModelMap modelMap){		
  
-		return iDistributionService.confirmDeliver(id);
+		return iDistributionService.confirmDeliver(id,modelMap);
 	}
 	
 	
@@ -84,9 +84,9 @@ public class WapDeliveryController {
 	 */
 	@RequestMapping("/acceptance")
 	@ResponseBody
-	public ResponseResult<Void> deliveryService(String id,MultipartFile openedPhoto,String acceptanceResult){
+	public ResponseResult<Void> deliveryService(String id,MultipartFile openedPhoto,String acceptanceResult,ModelMap modelMap){
 		
-		return iDistributionService.confirmAcceptance(id,openedPhoto,acceptanceResult);
+		return iDistributionService.confirmAcceptance(id,openedPhoto,acceptanceResult,modelMap);
 	}
 	
 	

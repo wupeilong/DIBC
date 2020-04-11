@@ -22,7 +22,7 @@
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
-					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a href="${pageContext.request.contextPath}/wap_dry/delivery_detal?id=${distributionDetial.id}" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
 					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<div class="header-btn text-right">
@@ -37,8 +37,16 @@
 								<button type="button" class="btn btn-primary" id="result">验收详情</button>
 							</c:if>	 				
 						</c:if>
-						<c:if test="${user.type == 1 && distributionDetial.status == 3}">
-							<button type="button" class="btn btn-primary" id="result">验收详情</button>
+						<c:if test="${user.type != 2}">
+							<c:if test="${distributionDetial.status == 1}">
+								<button type="button" class="btn btn-primary">启送中</button>
+							</c:if>
+							<c:if test="${distributionDetial.status == 2}">
+								<button type="button" class="btn btn-primary">已送达</button>
+							</c:if>
+							<c:if test="${distributionDetial.status == 3}">
+								<button type="button" class="btn btn-primary" id="result">验收详情</button>
+							</c:if>							
 						</c:if>
 					</div>
 				</div>
@@ -52,10 +60,10 @@
 		</div>		
 		<main class="main padding-side05">
 			<div class="forms margin-top">
-				<form action="" method="post" class="form1 cur margin-bot">
+				<form action="" method="post" class="form1 cur margin-bot"  id="form1">
 					<fieldset>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">食品类型</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">食品类型:</span>
 						  <div class="form-control box-shadow0 border0" style="z-index: 1;">
 							  <c:if test="${distributionDetial.type == 1}">
 							  		早餐
@@ -69,19 +77,23 @@
 						  </div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">配餐单位</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">配餐单位:</span>
 						  <div class="form-control box-shadow0 border0" style="z-index: 1;">${distributionDetial.mealsUnitName }</div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">送餐人</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">送&nbsp;&nbsp;餐&nbsp;&nbsp;人:</span>
 						  <div class="form-control box-shadow0 border0" style="z-index: 1;">${distributionDetial.mealsUserName }</div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">启送时间</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">订&nbsp;&nbsp;单&nbsp;&nbsp;号:</span>
+						  <div class="form-control box-shadow0 border0" style="z-index: 1;">${distributionDetial.id }</div>
+						</div>
+						<div class="input-group form-group fs border-bottom">
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">启送时间:</span>
 						  <div class="form-control box-shadow0 border0" style="z-index: 1;"><fmt:formatDate value="${distributionDetial.startTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">送达时间</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">送达时间:</span>
 						  <div class="form-control box-shadow0 border0" style="z-index: 1;"><fmt:formatDate value="${distributionDetial.endTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
 						</div>						
 						<div class="fsa margin-bot2">
@@ -135,11 +147,11 @@
 							
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">验收时间</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">验收时间:</span>
 						  <div class="form-control box-shadow0 border0"><fmt:formatDate value="${distributionDetial.acceptanceTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">配送状态</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">配送状态:</span>
 						  <div class="form-control box-shadow0 border0">
 						  		<c:if test="${distributionDetial.status == 1}">
 						  			启送中
@@ -153,16 +165,16 @@
 						  </div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">配送地点</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">配送地点:</span>
 						  <div class="form-control box-shadow0 border0">${distributionDetial.address}</div>
 						</div>
 						<div class="input-group form-group fs border-bottom">
-						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">创建时间</span>
+						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">创建时间:</span>
 						  <div class="form-control box-shadow0 border0"><fmt:formatDate value="${distributionDetial.createTime}" pattern="yyyy-MM-dd HH:mm:ss" /></div>
 						</div>
 					  </fieldset>
 				</form>
-				<form action="" method="" class="form2">
+				<form action="" method="" class="form2 margin-bot" id="form2">
 					<div class="text-muted padding-side">
 						<div class="fb">
 							<div class="">
@@ -364,30 +376,38 @@
 			</div>
 		</main>			
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
-		<script type="text/javascript">
+		
+	<c:import url="public/footer.jsp"></c:import>
+	</body>
+<script type="text/javascript">
 		$("#reg").click(function() {
+			console.log("12111");
 			//验收
 			if($("#preview").attr('src') == ""){
 				layer.msg("请上传拆封取餐照",{icon:2,time:1000});
 				$("#preview").focus();
 				return;
 			}
-			$(this).parents("form").removeClass("cur");
-			$(this).parents("form").next().addClass("cur");
+			//$(this).parents("#form1").removeClass("cur");
+			//$(this).parents("#form1").next().addClass("cur");
+			$("#form1").removeClass("cur");
+			$("#form2").addClass("cur");
 		})
 		
 		$("#result").click(function() {
 			var detialResult = '${distributionDetial.acceptanceResult}';
-			var data = JSON.parse(detialResult);
-			$(".form2").find("select").each(function(index){
-				if(data[index] == 1){
-					$(this).html("<option value ='1' selected='selected'>是</option>");
-				}else{
-					$(this).html("<option value ='0' selected='selected'>否</option>");
-				}				
-			});
-			$(".form1").removeClass("cur");
-			$(".form2").addClass("cur");
+			if(detialResult != "" && detialResult != null ){
+				var data = JSON.parse(detialResult);
+				$(".form2").find("select").each(function(index){
+					if(data[index] == 1){
+						$(this).html("<option value ='1' selected='selected'>是</option>");
+					}else{
+						$(this).html("<option value ='0' selected='selected'>否</option>");
+					}				
+				});
+				$(".form1").removeClass("cur");
+				$(".form2").addClass("cur");
+			}			
 		})
 		
 		var $current = $("fieldset");		
@@ -402,14 +422,10 @@
 		 
 		$("#end").click(function () {			
 			layer.confirm('是否确认送达？', {
-				  btn: ['是', '否'] //可以无限个按钮
+				  btn: ['是', '否']
 				}, function(index, layero){
 					songda();
-				  	//按钮【按钮一】的回调
-					//layer.close(index);
-				}, function(index){
-				  	//按钮【按钮二】的回调
-					//layer.alert("按钮二");
+				}, function(index){				  
 				});
 		})
 		
@@ -426,12 +442,11 @@
 					if (obj.state == 0) {
 						layer.msg(obj.message,{icon:2,time:1000});						
 					}else{
-						layer.msg(obj.message,{icon:1,time:1000});							
+						layer.msg(obj.message,{icon:1,time:1000},function(){
+							window.location.reload();
+						});							
 					}		
-					//延时刷新页面
-					setTimeout(function (){							 
-						window.location.reload();
-					}, 3000);	
+					
 				}
 			}); 
 		}
@@ -483,10 +498,6 @@
 					}, 3000);	
 				}
 			}); 
-		}
-		
-		</script>	
-	<c:import url="public/footer.jsp"></c:import>
-	</body>
-
+		}		
+	</script>	
 </html>

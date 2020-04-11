@@ -193,3 +193,6 @@ img[src=""],img:not([src]){
 	padding:2px;
 	font-size:12px;
 }
+a.text-primary:focus{
+	text-decoration: none;
+}
