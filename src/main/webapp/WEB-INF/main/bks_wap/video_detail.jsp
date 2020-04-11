@@ -23,6 +23,10 @@
 </head>
 <body class="video_bodydetail">	
 	<div class="m" style="text-align: center;padding-bottom: 4em;">
+	<c:if test="${videoAddressList.size()==0}">
+	<span style="top: 65px;position: relative;color: #c23412;font-size: 17px;font-weight: 600">暂无视频数据</span>
+	</c:if>
+	<c:if test="${videoAddressList.size()>0}">
 		<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
 			<div class="video_div" style="display: inline-block;">
 				<c:if test="${vs.index==0}">
@@ -34,7 +38,8 @@
 			        <p class="vjs-no-js"> 111 <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
 			    </video>
 			</div>			          
-	     </c:forEach>     
+	     </c:forEach>
+	     </c:if>   
     </div>
 	<c:if test="${user.type == 3}">
 		<c:import url="public/public_footer.jsp"></c:import>
