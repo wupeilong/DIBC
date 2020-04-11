@@ -154,7 +154,7 @@
 								<button type="button" class="btn btn-primary" id="result">验收详情</button>
 							</c:if>	 				
 						</c:if>
-						<c:if test="${user.type == 1 && distributionDetial.status == 3}">
+						<c:if test="${user.type != 2 && distributionDetial.status == 3}">
 							<button type="button" class="btn btn-primary" id="result">验收详情</button>
 						</c:if>
 					</div>
