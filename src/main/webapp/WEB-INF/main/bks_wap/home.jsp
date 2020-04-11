@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-		<main class="" id="main_container" style="position: relative;height: 100%;background-size: contain;">
+		<main class="" id="main_container" style="position: relative;height: 100%;background-size: contain;padding-bottom: 5em;">
 			<div class="banner_wrap ">
 				<div id="certify" style="width: 100%;">
 					<div class="swiper-container swiper-container-horizontal">
@@ -92,8 +92,8 @@
 					<div class="swiper-button-next"></div> -->
 				</div>
 			</div>
-			<div class="menu" style="margin-bottom: 51.2px">
-				<ul>
+			<div class="menu fc padding-side"> <!-- style="margin-bottom: 51.2px" -->
+				<ul style="max-width: 414px;">
 					<shiro:hasPermission name="wap_unit">
 						<li>
 							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
