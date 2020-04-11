@@ -22,6 +22,9 @@
 
 </head>
 <body class="video_bodydetail">
+	<div class="padding-side" style="position:fex;left:0;top:0;z-index:9999;padding:1em;">
+	  	<a href="javascript:history.go(-1);" class="margin-top"><i class="fa fa-arrow-left text-muted fa-2x"></i></a>
+	</div>
 	<div class="m" style="text-align: center;padding-bottom: 4em;">
 	<c:if test="${videoAddressList.size()==0}">
 	<span style="top: 65px;position: relative;color: #c23412;font-size: 17px;font-weight: 600">暂无视频数据</span>
