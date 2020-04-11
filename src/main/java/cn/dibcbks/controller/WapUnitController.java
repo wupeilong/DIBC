@@ -88,7 +88,6 @@ public class WapUnitController {
 		return iUnitService.queryUnitList(unitId,null);
 	}
 	
-	//dfssssssssssfsddddddddddddd
 	/**
 	 * 查询企业select查询
 	 * @return
@@ -123,4 +122,21 @@ public class WapUnitController {
 	}
 	
 	
+	
+	/**
+	 * 新增单位信息
+	 * @param unitId
+	 * @return
+	 */
+	@RequestMapping("/add")
+	@ResponseBody
+	public ResponseResult<Void> addUnit(
+			@RequestParam(value="unitName",required = false) String unitName,			
+			@RequestParam(value="businessLicenseCode",required = false) String businessLicenseCode,
+			@RequestParam(value="businessLicense",required=false)MultipartFile file,
+			@RequestParam(value="productionLicense",required=false)MultipartFile file1,				
+			@RequestParam(value="unitType",required = false) Integer unitType){
+		
+		return iUnitService.addUnit(unitName,businessLicenseCode,file,file1,unitType);
+	}
 }
