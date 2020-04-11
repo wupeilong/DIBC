@@ -247,7 +247,7 @@
 	}
 	
 	$(function () {		
-		$('#select').searchableSelect();
+		$('select').searchableSelect();
 		/* $('#mealsUnitName').searchableSelect({
             "afterSelectItem": function() {
             }
