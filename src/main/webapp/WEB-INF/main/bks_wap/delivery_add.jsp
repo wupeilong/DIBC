@@ -206,9 +206,7 @@
 		}else{
 			var we_reg = layerloadingOpen();
 			var formData = new FormData();
-			formData.append('unitName',$("#reg_unitName").val());	
-			console.log($("#reg_unitName").val());
-			console.log($("#reg_businessLicenseCode").val());
+			formData.append('unitName',$("#reg_unitName").val());
 			formData.append('businessLicenseCode',$("#reg_businessLicenseCode").val());
 			if($("#preview3").attr('src') != ""){
 				formData.append('businessLicense',dataURLtoFile($("#preview3").attr('src'),"we.jpg"));
@@ -216,7 +214,7 @@
 			if($("#preview4").attr('src') != ""){
 				formData.append('businessLicense',dataURLtoFile($("#preview4").attr('src'),"we.jpg"));
 			}							
-			formData.append('#unitType',$("#reg_unitType").val());
+			formData.append('unitType',$("#reg_unitType").val());
 			 $.ajax({
 				 url: '${pageContext.request.contextPath}/wap_unit/add',
 		          type: 'POST',
