@@ -109,7 +109,7 @@
 									
 							</div>
 						</caption>
-				  		<thead>
+				  		<thead style="background-color: #aed5e1;color: #fff;">
 				  			<tr><th style="width: 6em;">检查项目</th><th>检查内容</th><th style="width: 6em;">检查结果</th></tr>
 				  		</thead>
 				  		<tbody>
