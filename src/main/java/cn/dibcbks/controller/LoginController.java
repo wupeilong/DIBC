@@ -37,14 +37,6 @@ public class LoginController {
 	@Autowired
 	private IWxService iWxService;
 	
-	/**
-	 * H5进入登录页
-	 * @return
-	 */	
-	@GetMapping("/wap_login")
-	public String loginPage(HttpServletRequest request){		
-		return "bks_wap/login";
-	}	
 	
 	
 	/**
@@ -184,7 +176,7 @@ public class LoginController {
 	@ApiImplicitParam(name = "code", value = "换取oauth2_token的票据")
 	@GetMapping("/wx_oauth2")
 	public String wxOauth2Redirect(String code,HttpServletRequest request,ModelMap modelMap) {
-
+		
 	   return iWxService.wxOauth2Redirect(code,request,modelMap);
 	}
 	
