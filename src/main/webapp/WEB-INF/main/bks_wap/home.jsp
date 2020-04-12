@@ -97,7 +97,7 @@
 					<shiro:hasPermission name="wap_unit">
 						<li>
 							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" border="0" alt="" title=""/>
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" bor der="0" alt="" title=""/>
 								<p class="text-center">企业信息</p>
 							</a>
 						</li>
