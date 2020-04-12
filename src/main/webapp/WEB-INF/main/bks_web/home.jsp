@@ -100,13 +100,16 @@
 							</ul>
 						</li>
 						<li>
-							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">下载管理</span>
+							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">企业管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<!-- <li id="0013" data-src="http://xgk.sxghfwzx.com/cp/xgk_index.do">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询1111</span></a>
+								<li id="0013" data-src="${pageContext.request.contextPath}/web_unit/excel">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">企业上传</span></a>
 								</li>
-								<li id="0014" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
+								<li id="0017" data-src="${pageContext.request.contextPath}web_user/user_list">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">企业用户信息</span></a>
+								</li>
+								<!-- <li id="0014" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">提案查询2111</span></a>
 								</li>
 								<li id="0015" data-src="https://www.hao123.com/">
@@ -121,10 +124,8 @@
 							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">用户管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<li id="0017" data-src="${pageContext.request.contextPath}web_user/user_list">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户部门信息</span></a>
-								</li>
-								<!-- <li id="0018" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
+								
+								<!--<li id="0018" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">2提案查询</span></a>
 								</li>
 								<li id="0019" data-src="https://www.hao123.com/">

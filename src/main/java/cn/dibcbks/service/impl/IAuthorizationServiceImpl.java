@@ -426,6 +426,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	public JSONObject getDepartment(ModelMap modelMap) {
 		if (SecurityUtils.getSubject().isAuthenticated()) {
 			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);
+			System.out.println(departmentList);
 			JSONArray json = JSONArray.fromObject(departmentList);
 			JSONObject lan1 = new JSONObject();
 	        lan1.put("code", 0);
@@ -509,7 +510,8 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 			if(CommonUtil.isLogin()){
 				where = "d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
 			}
-			List<Department> departmentList = departmentMapper.select(where, null, null, null);		
+			List<Department> departmentList = departmentMapper.select(where, null, null, null);	
+			System.out.println("departmentList : " + departmentList);
 			List<Department> list = new ArrayList<>();
 			sortDepartment(0, departmentList, list);
 			modelMap.addAttribute("userId", userId);

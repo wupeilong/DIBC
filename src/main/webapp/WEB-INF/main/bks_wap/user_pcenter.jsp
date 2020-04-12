@@ -50,7 +50,7 @@
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属单位</span>
 					  <div class="form-control box-shadow0 border0">${userPcenter.unitName}</div>
-					</div>
+					</div>					
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>职&ensp;&ensp;&ensp;&ensp;务</span>
 					  <div class="form-control box-shadow0 border0">${userPcenter.duty}</div>
