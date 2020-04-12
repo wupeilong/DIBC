@@ -27,9 +27,9 @@
 			<div id="header"  style="background: url(${pageContext.request.contextPath}/static/images/bks_wap/menu-bg.svg) no-repeat center bottom !important;">
 				<div class="header-content">
 					<a href="javascript:location.replace(location.href);" class="p-link-back"><i class="fa fa-refresh"></i></a>	
-					<a class="" id="demoSingle" href="#menu"><i class="fa fa-search fa-2x text-white" style="margin-top:.5em"></i></a>
+					<a class="" id="demoSingle" href="javascript:;"><i class="fa fa-search fa-2x text-white" style="margin-top:.5em"></i></a>
 					<!-- menu-btn -->
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-angle-left fonwei"></i></a>					
 				</div>
 			</div>
 			<div class="bannerPane">

@@ -23,8 +23,8 @@ h5{padding:10px 10px 10px 0px; margin:0px;font-size:14px; font-weight:bold; text
 h6{padding:0 10px 5px 0px; margin:0px;font-size:14px; font-weight:bold; text-decoration:none;color:#AFEAFF;}
 /*----------------------menu-------------------------*/
 .menu{width:100%;padding:25px 0px 0px 0;text-align:center;}
-.menu ul{list-style:none;padding:0px;margin:0px;display:inline;line-height:25px;}
-.menu ul li{list-style:none;display:inline-block;width:89px;height:89px;/*  background:url(../img/icon_bg.png) no-repeat center top;*/ background-color: #fff;border-radius: 12px; margin:0px 6px 5px 6px; position: relative;}
+/* .menu ul{list-style:none;padding:0px;margin:0px;display:inline;line-height:25px;} */
+.menu ul li{list-style:none;display:inline-block;width:84px;height:84px;/*  background:url(../img/icon_bg.png) no-repeat center top;*/ background-color: #fff;border-radius: 12px; margin: 0px 8px 8px 6px; position: relative;}
 .menu ul li a{ font-size:15px; font-weight:bold; color:#302f2f; text-decoration:none; text-shadow:1px 1px #dcdcdc;}
 .menu ul li a img{padding:0px; width:85px; height:85px;}
 .menu ul li p{position: absolute;bottom: 1.2em;left: 0;width: 100%;text-align: center;}
