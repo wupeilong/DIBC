@@ -109,20 +109,21 @@ public class IWxServiceImpl implements IWxService {
 	        if (user == null || user.getType() == null) {
 	        	modelMap.addAttribute("isbind", 1);
 	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
-	        	return "bks_wap/roles_choose";
+	        	
+	        	return "redirect:wap.gzws.online/bks_wap/roles_choose";
 	        }
 	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);				
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
 	        if(user.getType() == 3){
-	        	return "bks_wap/public_list";
+	        	return "redirect:wap.gzws.online/bks_wap/public_list";
 	        }else{
-	        	return "bks_wap/home";
+	        	return "redirect:wap.gzws.online/bks_wap/home";
 	        }   
 		} catch (IncorrectCredentialsException e) {
 			e.printStackTrace();
-			return "error/404";
+			return "redirect:wap.gzws.online/error/404";
 	    }
 	}
 
