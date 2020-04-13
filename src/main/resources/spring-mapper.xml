@@ -122,10 +122,10 @@
             </util:map>    
         </property>
 		<property name="filterChainDefinitions">
-			<value>
-				/*/** = anon
-			</value>		
 			<!-- <value>
+				/*/** = anon
+			</value>	 -->	
+			<value>
 			/static/** = anon
 			/web_login = anon
 			/web_login = anon
@@ -137,7 +137,7 @@
 			/wap_user_login = anon
 			/wap_is_exist = anon
 			/*/** = authc
-			</value>  -->
+			</value>
 		</property>
 	</bean>		
 </beans>

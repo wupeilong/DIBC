@@ -348,7 +348,8 @@ public class IUnitServiceImpl implements IUnitService {
 			unitName = json.getJSONArray(i).get(0).toString();
 			businessLicenseCode = json.getJSONArray(i).get(1).toString();
 			//依据企业名称 + 统一社会信用代码
-			units = unitMapper.select("n.unit_name = '" + unitName + "' OR n.business_license_code ='" + businessLicenseCode + "'", null, null, null);
+			//units = unitMapper.select("n.unit_name = '" + unitName + "' OR n.business_license_code ='" + businessLicenseCode + "'", null, null, null);
+			units = unitMapper.select("n.unit_name = '" + unitName + "'", null, null, null);
 			if(units.isEmpty()){
 				unit = new Unit();
 				unit.setUnitName(unitName);//企业名称
