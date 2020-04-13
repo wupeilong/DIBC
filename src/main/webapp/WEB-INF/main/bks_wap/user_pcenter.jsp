@@ -34,8 +34,8 @@
 				</div>
 			</div>					
 		</div> 		
-		<main class="main margin-top padding-side">			
-			<form action="" method="" class="clearfix update_info">
+		<main class="main padding-side">			
+			<form action="" method="" class="clearfix update_info margin-top margin-bot">
 				<%-- <div class="border-bottom margin-top">
 					<div class="fb padding-side05 sb margin-bot">
 						<div class="item_name fonwei">个人信息</div>						

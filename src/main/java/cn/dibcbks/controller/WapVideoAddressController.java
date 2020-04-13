@@ -29,7 +29,6 @@ public class WapVideoAddressController {
 	 */
 	@RequestMapping("/wap_videoscan")
 	public String VideoScan(ModelMap modelMap){
-		
 		return iVideoAddressService.selectUnitVideoList(modelMap);
 	}
 	
@@ -38,8 +37,7 @@ public class WapVideoAddressController {
 	 * @return
 	 */
 	@RequestMapping("/wap_videodetal")
-	public String CooprationDetal(ModelMap modelMap,Integer unitId){	
-		
+	public String CooprationDetal(ModelMap modelMap,Integer unitId){
 		return  iVideoAddressService.SelectVideoAddress(modelMap, unitId);
 	}
 	
@@ -52,7 +50,6 @@ public class WapVideoAddressController {
 		
 		//调用视频详情控制层 因为业务,业务逻辑一样，前段渲染不同
 		this.CooprationDetal( modelMap, unitId);
-		
 		return  "bks_wap/video_peration";
 	}
 	

@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset=utf-8>
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="viewport" content="width=device-width,initial-scale=0.1,minimum-scale=1,maximum-scale=0.1,user-scalable=no">
 	<title>企业信息</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
@@ -46,7 +46,7 @@
 				<div class="margin-top margin-bot">
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">企业名称</span>
-					  <div class="form-control box-shadow0 border0" style="font-size:13px;">${unitDetail.unitName}</div>
+					  <div class="form-control box-shadow0 border0" style="font-size:13px;white-space:nowrap;">${unitDetail.unitName}</div>
 					</div>
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">统一社会信用代码</span>
@@ -77,20 +77,24 @@
 					</div>
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">企业类型</span>
-					  <c:choose>
-					  	<c:when test="${unitDetail.unitType == 1}">
-					  		<div class="form-control box-shadow0 border0">监管局</div>
-					  	</c:when>
-					  	<c:when test="${unitDetail.unitType == 2}">
-					  		<div class="form-control box-shadow0 border0">学校</div>
-					  	</c:when>
-					  	<c:when test="${unitDetail.unitType == 3}">
-					  		<div class="form-control box-shadow0 border0">餐饮业</div>
-					  	</c:when>
-					  	<c:when test="${unitDetail.unitType == 4}">
-					  		<div class="form-control box-shadow0 border0">其他</div>
-					  	</c:when>
-					  </c:choose>
+					  
+					  <div class="form-control box-shadow0 border0">
+					 	 <c:choose>
+						  	<c:when test="${unitDetail.unitType == 1}">
+						  		监管局
+						  	</c:when>
+						  	<c:when test="${unitDetail.unitType == 2}">
+						  		学校
+						  	</c:when>
+						  	<c:when test="${unitDetail.unitType == 3}">
+						  		餐饮业
+						  	</c:when>
+						  	<c:when test="${unitDetail.unitType == 4}">
+						  		其他
+						  	</c:when>
+					  	 </c:choose>
+					  </div>
+					 
 					  
 					</div>
 					<div class="input-group form-group margin0 fs">

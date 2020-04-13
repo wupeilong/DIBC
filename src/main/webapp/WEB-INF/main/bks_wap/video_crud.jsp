@@ -38,10 +38,8 @@
 				</div>
 			</div>
 		</div>
-		<main class="main margin-top2 padding-side05">
-			<div class="" id="tt">
-				
-			</div>
+		<main class="main padding-side05">
+			<div class="margin-top2" id="tt"></div>
 		</main>
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
