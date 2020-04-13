@@ -60,6 +60,9 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="point"/>
 	</aop:config> -->
 	
+	
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<!-- 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/> 

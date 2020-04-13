@@ -40,8 +40,8 @@ public class TestDemo {
 		address.setVideoId(7);
 		
 		
-		ResponseResult<?> GG =sdf.DeleteVideoAddress(8);
-		System.out.println(GG.getMessage());
+		//ResponseResult<?> GG =sdf.DeleteVideoAddress(8);
+		//System.out.println(GG.getMessage());
 		
 	
 		

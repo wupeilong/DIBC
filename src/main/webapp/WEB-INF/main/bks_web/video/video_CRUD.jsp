@@ -42,11 +42,11 @@
 
 
 	<div class="m" style="text-align: center; padding-bottom: 4em;">
-
+	
 		<table class="table table-striped table-hover" cellspacing=""
 			style="text-align: center"
 			cellpadding="">
-			<thead style="text-align: cnter">
+			<thead>
 				<tr style="text-align: cnter">
 					<th style="text-align: cnter">序号</th>
 					<th style="text-align: cnter">企业名称</th>
@@ -57,42 +57,14 @@
 					<th style="text-align: cnter">操作</th>
 				</tr>
 			</thead>
-			<tbody id="result_list">
-				<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
-					<c:if test="${vs.index==0}">
-						<h4
-							style="font-size: 20px; font-weight: 600; padding: 25px 0 0 0;">贵州指上通科技有限责任公司</h4>
-					</c:if>
-					<tr>
-						<td style="text-align: cnter">${vs.count}</td>
-						<td style="text-align: cnter">${item.unitName}</td>
-						<td style="text-align: cnter">${item.cameraPosition}</td>
-						<td style="text-align: cnter">${item.videoAddress}</td>
-						<td style="text-align: cnter"><c:if
-								test="${item.videoType==1}">实时监控</c:if> <c:if
-								test="${item.videoType==2}">视频回放</c:if></td>
-						<td style="text-align: cnter"><c:if
-								test="${item.streamType==1}">RTMP</c:if> <c:if
-								test="${item.streamType==2}">TRSP</c:if> <c:if
-								test="${item.streamType==3}">FLV</c:if> <c:if
-								test="${item.streamType==4}">HTTP</c:if></td>
-						<td style="text-align: cnter">
-							<button id="address_update" videoId=${item.videoId} type="button"><a href="${pageContext.request.contextPath}/web_video/updateVideoInfo?unitId=${item.unitId}&videoId=${item.videoId}">修改</a></button>
-							<button id="address_delete" videoId=${item.videoId} type="button" onclick="addressDelete(this)">删除</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-
-
-	<div style="width: 100%">
+			<h4 style="font-size: 20px; font-weight: 600; padding: 25px 0 0 0;">贵州指上通科技有限责任公司</h4>
+			
+			<div style="width: 100%;margin-top: 50px;margin-bottom: 50px">
 			<span class="">监控位置:</span>
-			<input id="cameraPosition" type="text" class="" id="supplierPerson" > 
+			<input id="cameraPosition" type="text" class="inputClass" id="supplierPerson" > 
 			<input id="unitId" type="text" style="display: none" value="${unitid}">
 			<span class="VideoAddClass">视频流地址:</span> 
-			<input id="videoAddress" type="text" class="" > 
+			<input id="videoAddress" type="text" class="inputClass" > 
 			<span class="VideoAddClass">监控类型:</span> 
 			<select id="videoType"
 				name="videoType" style="height: 28px;">
@@ -109,9 +81,35 @@
 				<option value="3">FLV</option>
 				<option value="4">HTTP</option>
 			</select>
-			<button id="addressAdd"  class="VideoAddClass" style="width: 115px"
-				type="button"">增加</button>
+			<button id="addressAdd" type="button"" class="addClass">增加</button>
 		</div>
+			
+			
+			<tbody id="result_list">
+				<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
+					
+					<tr>
+						<td style="text-align: cnter">${vs.count}</td>
+						<td style="text-align: cnter">${item.unitName}</td>
+						<td style="text-align: cnter">${item.cameraPosition}</td>
+						<td style="text-align: cnter">${item.videoAddress}</td>
+						<td style="text-align: cnter"><c:if
+								test="${item.videoType==1}">实时监控</c:if> <c:if
+								test="${item.videoType==2}">视频回放</c:if></td>
+						<td style="text-align: cnter"><c:if
+								test="${item.streamType==1}">RTMP</c:if> <c:if
+								test="${item.streamType==2}">TRSP</c:if> <c:if
+								test="${item.streamType==3}">FLV</c:if> <c:if
+								test="${item.streamType==4}">HTTP</c:if></td>
+						<td style="text-align: cnter">
+							<button id="address_update" videoId=${item.videoId}  class="modifyClass"><a href="${pageContext.request.contextPath}/web_video/updateVideoInfo?unitId=${item.unitId}&videoId=${item.videoId}">修改</a></button>
+							<button id="address_delete" videoId=${item.videoId}  class="deleteClass" onclick="addressDelete(this)">删除</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 	<c:import url="public/footer.jsp"></c:import>
 </body>
 
@@ -182,14 +180,14 @@
 				layer.close(result); */
 				if (result.state == 0) {
 					layer.msg(obj.message, {
-						icon : 1,
+						icon : 2,
 						time : 1000
 					}, function() {
 						location.reload()
 					});
 					return;
 				} else {
-					layer.msg(obj.message, {
+					layer.msg("操作成功", {
 						icon : 1,
 						time : 1000
 					}, function() {
@@ -203,32 +201,58 @@
 	});
 
 	function addressDelete(e) {
+		
+		 layer.confirm("你确定删除吗？", {btn: ['确定', '取消'], title:'提示'},function(index){
+			 var id = e.getAttribute("videoId"); 
+				console.log(id+"***************************")
+				var url = "${pageContext.request.contextPath}/web_video/web_videodelete";
+				var data = "videoId=" + id;
+				$.ajax({
+					"url" : url,
+					"data" : data,
+					"type" : "POST",
+					"dataType" : "json",
+					"success" : function(obj) {
+						layer.msg(obj.message, {
+							icon : 1,
+							time : 1000
+						}, function() {
+							location.reload()
+						});
 
-		var id = e.getAttribute("videoId"); 
-		console.log(id+"***************************")
-		var url = "${pageContext.request.contextPath}/web_video/web_videodelete";
-		var data = "videoId=" + id;
-		$.ajax({
-			"url" : url,
-			"data" : data,
-			"type" : "POST",
-			"dataType" : "json",
-			"success" : function(obj) {
-				layer.msg(obj.message, {
-					icon : 1,
-					time : 1000
-				}, function() {
-					location.reload()
+					}
 				});
 
-			}
-		});
+			 
+		 });
 
+		
 	}
 </script>
 <style>
 .VideoAddClass {
-	margin-left: 100px
+	margin-left: 93px
+}
+.addClass{
+	width: 98px;
+    margin-left: 22px;
+    background-color: #FFEB3B;
+    border-radius: 4px;
+}
+.modifyClass{
+}
+.deleteClass{
+	width: 60px;
+    margin-left: 10px;
+    background-color: #FF5722;
+    border-radius: 4px;
+}
+th {
+    text-align: center;
+}
+.inputClass{
+
+
 }
 </style>
 
