@@ -25,7 +25,7 @@ public class MyFormAuthenticationFilter  extends FormAuthenticationFilter {
         if (url.contains("web")) {
             loginUrl = "/web_login";
         }else{
-        	loginUrl = "/wap_login";
+        	loginUrl = "/wx_login";
         }
         WebUtils.issueRedirect(request, response, loginUrl);
     }
