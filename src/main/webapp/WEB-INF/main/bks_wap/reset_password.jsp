@@ -33,8 +33,8 @@
 				</div>
 			</div>					
 		</div> 
-		<main class="main margin-top padding-side">
-			<form action="" method="" class="clearfix update_info">
+		<main class="main padding-side" style="height:100%;">
+			<form action="" method="" class="clearfix update_info margin-top">
 				<div class="margin-bot margin-top">
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>原&ensp;&ensp;密&ensp;&ensp;码</span>

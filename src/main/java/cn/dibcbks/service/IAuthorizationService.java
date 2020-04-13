@@ -10,12 +10,6 @@ import cn.dibcbks.util.ResponseResult;
 import net.sf.json.JSONObject;
 public interface IAuthorizationService {
 	
-	/**
-	 * 菜单添加页
-	 * @param modelMap
-	 * @return
-	 */
-	String addMenuPag(ModelMap modelMap);
 	
 	/**
 	 * 菜单添加
@@ -24,12 +18,7 @@ public interface IAuthorizationService {
 	 */
 	ResponseResult<Void> addMenu(Menu menu);
 	
-	/**
-	 * 菜单编辑页
-	 * @param menuId
-	 * @return
-	 */
-	String updateMenuPag(Integer menuId, ModelMap modelMap);
+	
 	
 	/**
 	 * 菜单编辑

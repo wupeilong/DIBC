@@ -97,7 +97,7 @@
 					<shiro:hasPermission name="wap_unit">
 						<li>
 							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" border="0" alt="" title=""/>
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" bor der="0" alt="" title=""/>
 								<p class="text-center">企业信息</p>
 							</a>
 						</li>
@@ -121,7 +121,8 @@
 						<li><a href="${pageContext.request.contextPath}/wap_ins/inspect_choise"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon7.png" border="0" alt="" title=""/><p class="text-center">监管采集</p></a></li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_det">
-						<li><a id="detection" href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/><p class="text-center"><c:if test="${user.type == 2}">
+						<li><a id="detection" href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/><p class="text-center">
+						<c:if test="${user.type == 2}">
 							检测结果
 						</c:if>
 						<c:if test="${user.type == 1}">

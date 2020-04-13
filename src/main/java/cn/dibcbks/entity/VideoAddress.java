@@ -19,7 +19,7 @@ public class VideoAddress implements Serializable {
 	private String videoAddress;//视频地址
 	private String cameraPosition;//摄像机位
 	public Integer videoType;//视频类型
-	private String streamType;
+	private String streamType;//流类型
 	public VideoAddress() {
 		super();
 		// TODO Auto-generated constructor stub

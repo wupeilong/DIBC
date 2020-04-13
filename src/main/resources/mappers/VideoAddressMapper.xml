@@ -141,6 +141,24 @@
 		DELETE FROM video_address where video_id = #{videId};
 	</delete>
 			
+			
+	<!--查询用户 -->
+	<select id="select" resultMap="BaseResultMap"> 
+		SELECT
+			v.unit_id,
+			n.unit_name,
+			v.video_address,
+			v.camera_position,
+			v.video_type,
+			v.stream_type,
+			v.video_id
+		FROM
+			video_address v 
+		LEFT JOIN unit n ON n.unit_id = v.unit_id		
+		<if test="where != null">where ${where}</if>
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="offset != null">limit ${offset},${countPerPage}</if>
+	</select>		
 </mapper>
 	
 	

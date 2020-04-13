@@ -33,8 +33,8 @@
 				</div>
 			</div>			
 		</div>  
-		<main class="main margin-top2 padding-side05">
-			<div class="" id="tt">
+		<main class="main padding-side05">
+			<div class="margin-top" id="tt">
 				<c:forEach items="${unitList}" var="item" varStatus="vs">
 					<a href="${pageContext.request.contextPath}/wap_video/wap_videodetal?unitId=${item.unitId}">
 					<div class="video_bg">

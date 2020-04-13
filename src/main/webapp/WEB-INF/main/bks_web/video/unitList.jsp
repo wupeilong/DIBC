@@ -38,8 +38,10 @@
 				</div>
 			</div>
 		</div>
-		<main class="main padding-side05">
-			<div class="margin-top2" id="tt"></div>
+		<main class="main margin-top2 padding-side05">
+			<div class="" id="tt">
+				
+			</div>
 		</main>
 	<c:import url="public/footer.jsp"></c:import>
 	</body>
@@ -60,7 +62,7 @@
 					}else{
 						var result = "";
 						for(var i=0;i<obj.data.length;i++){
-							result+='<a href="${pageContext.request.contextPath}/wap_video/wap_showaddresslist?unitId='+obj.data[i].unitId+'">'+
+							result+='<a href="${pageContext.request.contextPath}/web_video/web_showaddresslist?unitId='+obj.data[i].unitId+'">'+
 									'<div class="video_bg"><span>'+obj.data[i].unitName+'</span><img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/video_1.png"></div></a>';
 						}
 						$("#tt").html(result);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,4 +38,10 @@ public class WebUnitController {
 		return iUnitService.batchAddUnit(unitList);
 	}
 	
+	@ApiOperation("企业信息列表页")
+	@RequestMapping("/list")
+	public String selectUnit(ModelMap modelMap){
+		
+		return "bks_web/excel/unit_excel";
+	}
 }

@@ -60,6 +60,9 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="point"/>
 	</aop:config> -->
 	
+	
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<!-- 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/> 
@@ -122,10 +125,10 @@
             </util:map>    
         </property>
 		<property name="filterChainDefinitions">
-			<value>
-				/*/** = anon
-			</value>		
 			<!-- <value>
+				/*/** = anon
+			</value>	 -->	
+			<value>
 			/static/** = anon
 			/web_login = anon
 			/web_login = anon
@@ -137,7 +140,7 @@
 			/wap_user_login = anon
 			/wap_is_exist = anon
 			/*/** = authc
-			</value>  -->
+			</value>
 		</property>
 	</bean>		
 </beans>

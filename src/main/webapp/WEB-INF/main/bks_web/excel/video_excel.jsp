@@ -4,14 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>后台企业批量上传页面</title>
+<title>视频批量导入页页面</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_web/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_web/hqt_admin.css"/>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_web/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_web/hqt_admin.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/excel/dist/css/tableexport.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/Hui-iconfont/1.0.8/iconfont.css />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/Hui-iconfont/1.0.8/iconfont.css" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/H-ui.admin.js"></script>
@@ -38,17 +38,11 @@
 						<tbody>
 							<tr class="result_tr">
 								<td></td>
-								<td>姓名</td>
-								<td>身份</td>
-								<td>学届</td>
-								<td>年级</td>
-								<td>班级</td>
-								<td>身份证号</td>
-								<td>手机号</td>
-								<td>学号</td>
-								<td>学校/单位</td>
-								<td>地址</td>
-								<td>就读省份</td>
+								<td>企业名称</td>
+								<td>摄像机位</td>
+								<td>视频流地址</td>
+								<td>监控类型</td>
+								<td>视频流类型</td>										
 								<td contenteditable="false">操作</td></tr>							
 						</tbody>
 					</table>
@@ -62,20 +56,20 @@
 				var tr=document.querySelectorAll("tr");
 			})
 			function diskproduct(){	
-					var userlist=new Array();	
+					var unitList = new Array();	
 					var rs = document.getElementsByName("tr_idx")		
 			   		for(var i = 0; i < rs.length; i++){     		
-			   			userlist[i]=new Array();
+			   			unitList[i]=new Array();
 			    	 	for(var j = 0;j<rs[i].cells.length-1; j++){
 			    	 		if(j!=0 && j<14){    	 		
-			    	 			userlist[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
+			    	 			unitList[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
 			    	 		}    	 				
 			    	 	}    	 	
-					}   	
-					console.log(userlist);
-			    	var url="userexclAdd"; 
-			    	var  data ="userlist="+JSON.stringify(userlist);	    			  
-			        $.ajax({    	   
+					}
+					console.log(unitList);
+			    	var url="${pageContext.request.contextPath}/web_video/bath_add"; 
+			    	var  data ="unitList="+JSON.stringify(unitList);	    			  
+			         $.ajax({    	   
 			    	   "url":url,    	  
 			    	   "data":data,
 			    	   "type":"POST",
@@ -89,17 +83,11 @@
 			    		   var d=obj.data;
 			    		   var html = '<table class="table table-bordered table-hover fontwei" id="test_table"><tbody><tr class="result_tr">'+
 			    		   			'<td></td>'+
-									'<td>姓名</td>'+
-									'<td>身份</td>'+
-									'<td>学届</td>'+
-									'<td>年级</td>'+
-									'<td>班级</td>'+
-									'<td>身份证号</td>'+
-									'<td>手机号</td>'+
-									'<td>学号</td>'+
-									'<td>学校/单位</td>'+
-									'<td>地址</td>'+
-									'<td>就读省份</td>'+
+			    		   			'<td>企业名称</td>'+
+									'<td>摄像机位</td>'+
+									'<td>视频流地址</td>'+
+									'<td>监控类型</td>'+
+									'<td>视频流类型</td>'+			    		   																
 									'<td contenteditable="false">操作</td></tr>';
 			    		   for(var j=0;j<d.length;j++){
 			    			   var b=j+1;
@@ -107,14 +95,13 @@
 			    			   for(var i=0;i<d[j].length;i++){
 			    					html +="<td>"+d[j][i]+"</td>";	   
 			    			   }
-			    			   html +='<td contenteditable="false"><a href="javascript:void(0)"><i class="Hui-iconfont">&#xe609;</i></a></td></tr>';
-			    			  
+			    			   html +='<td contenteditable="false"><a href="javascript:void(0)"><i class="Hui-iconfont">&#xe609;</i></a></td></tr>';			    			  
 			    		   }
 			    		   html +="</tbody></table>";
 			    		   document.getElementById('result').innerHTML = html;  	
 			    		   $("table").tableExport({formats:["xlsx","xls","csv","txt"]});
 			    	   }      
-			    	});  
+			    	});
 			}
 			
 			
@@ -193,13 +180,10 @@
 			function excel(){
 				$("#test_table").table2excel({
 			        exclude: ".noExl", //过滤位置的 css 类名
-			        filename: "用户清单-" + new Date().getTime() + ".xls" //文件名称
+			        filename: "企业清单-" + new Date().getTime() + ".xls" //文件名称
 			    });
 			}
 			
-//			function delData(obj) {
-//				$(obj).parents("tr").remove();
-//			}
 		</script>
 </body>
 </html>
