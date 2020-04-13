@@ -53,5 +53,12 @@ public interface IUnitService {
 	ResponseResult<Void> addUnit(String unitName, String businessLicenseCode, MultipartFile file, MultipartFile file1,
 			Integer unitType);
 
+	/**
+	 * 
+	 * @param unitList
+	 * @return
+	 */
+	ResponseResult<List<List<String>>> batchAddUnit(String unitList);
+
 
 }

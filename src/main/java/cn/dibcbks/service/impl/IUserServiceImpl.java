@@ -150,7 +150,7 @@ public class IUserServiceImpl implements IUserService {
 	}
 
 
-	@Override
+	/*@Override
 	public ResponseResult<Void> updateUser(User user) {
 		ResponseResult<Void> rr = null;
 		try {
@@ -167,7 +167,7 @@ public class IUserServiceImpl implements IUserService {
 				user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, user.getPassword(), user.getUuid(), 1024));
 			}
 			userMapper.updateById(user);
-			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功");
+			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户资料修改成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,7 +175,7 @@ public class IUserServiceImpl implements IUserService {
 			logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：" + e.getMessage());
 		}
 		return rr;
-	}
+	}*/
 
 	
 
@@ -494,8 +494,10 @@ public class IUserServiceImpl implements IUserService {
 
 	@Override
 	public String updateUserPage(ModelMap modelMap) {
-		
-		modelMap.addAttribute("userDetail", userMapper.queryUser(CommonUtil.getSessionUser().getIdCard()));
+		List<User> list = userMapper.select("u.id = '" + CommonUtil.getSessionUser().getId() + "'", null, null, null);
+		if(!list.isEmpty()){
+			modelMap.addAttribute("userDetail", list.get(0));
+		}		
 		return "bks_wap/workmens_update";
 	}
 
@@ -534,15 +536,12 @@ public class IUserServiceImpl implements IUserService {
 	@Override
 	public String selectUserList(ModelMap modelMap) {
 		try {
-			String where = null;
 			if(CommonUtil.isLogin()){
-				where = "u.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
-			}
-			modelMap.addAttribute("userList", userMapper.select(where, "u.create_time DESC", null, null));			
+				modelMap.addAttribute("userList", userMapper.select("u.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", "u.create_time DESC", null, null));				
+			}						
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return "bks_web/user/user";
 	}
 
@@ -573,4 +572,61 @@ public class IUserServiceImpl implements IUserService {
 		return "bks_wap/workmens_add";
 	}
 		
+	
+	@Override
+	public ResponseResult<Void> webUpdateUser(User user) {
+		try {
+			List<User> userList = userMapper.select("u.id = '" + user.getId() + "'", null, null, null);
+			User oldUser = userList.get(0);
+			if(StringUtils.isNotEmpty(user.getIdCard())){
+				User queryUser = queryUser(user.getIdCard());
+				if (queryUser != null && !oldUser.getIdCard().equals(queryUser.getIdCard())) {
+					logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：身份证已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "身份证已存在！");
+				}				
+			}	
+			if(StringUtils.isNotEmpty(user.getPhone())){
+				User queryUser = userMapper.queryUserByPhone(user.getPhone());
+				if (queryUser != null && !oldUser.getPhone().equals(queryUser.getPhone())) {
+					logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：手机号已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "身份证已存在！");
+				}
+			}
+			userMapper.updateById(user);
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户资料修改成功！");
+			return new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：" + e.getMessage());
+			return new ResponseResult<Void>(ResponseResult.ERROR, "用户资料修改操作失败！");			
+		}
+	}
+
+	@Override
+	public ResponseResult<Void> deleteUser(Integer id) {
+		try {
+			userMapper.deleteById(id);
+			return new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}
+	}
+
+	@Override
+	public ResponseResult<Void> webAddUser(User user) {
+		try {
+			if(userMapper.queryUserByPhone(user.getPhone()) != null){
+				return new ResponseResult<>(ResponseResult.ERROR,"手机号重复，添加失败！");
+			}
+			String uuid = CommonUtil.getUUID();
+			user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, user.getPhone().substring(user.getPhone().length() - 6), uuid, 1024));
+			user.setUnitId(CommonUtil.getSessionUser().getUnitId());
+			userMapper.insert(user);
+			return new ResponseResult<>(ResponseResult.SUCCESS,"添加成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseResult<>(ResponseResult.ERROR,"添加失败！");
+		}
+	}
 }

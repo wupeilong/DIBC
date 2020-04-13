@@ -306,7 +306,7 @@ public class LoginController {
 	@RequestMapping("/web_home")
 	public String webHome(){
 		
-		return "redirect:/bks_web/home";
+		return "bks_web/home";
 	}
 	
 }

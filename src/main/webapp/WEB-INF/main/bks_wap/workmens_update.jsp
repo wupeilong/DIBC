@@ -17,7 +17,7 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
-	<body class="contain">
+	<body class="contain">	
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
@@ -32,7 +32,7 @@
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
 			</div>					
-		</div> 	
+		</div>		
 		<main class="main margin-top padding-side">
 			<form action="" method="" class="clearfix">
 				<div class="workmens_info_top margin-bot">					
@@ -101,6 +101,7 @@
 		</main>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>		
 		<script type="text/javascript">
+		console.log('用户: ${userDetail}');
 			$("#fileinput").on("change",function() {
 				intoBase64("fileinput","preview");
 			})
