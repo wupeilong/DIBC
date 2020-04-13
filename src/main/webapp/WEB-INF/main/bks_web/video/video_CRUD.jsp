@@ -99,7 +99,9 @@
 				<option value="0">请选择监控类型</option>
 				<option value="1">实时监控</option>
 				<option value="2">视频回放</option>
-			</select> <span class="VideoAddClass">视频流类型:</span> <select id="streamType"
+			</select> 
+			<span class="VideoAddClass">视频流类型:</span> 
+			<select id="streamType"
 				name="streamType" style="height: 28px;">
 				<option value="0">请选择视频类型</option>
 				<option value="1">RTMP</option>
@@ -128,7 +130,47 @@
 			'videoAddress' : videoAddress,
 			'cameraPosition' : cameraPosition
 		};
-		console.log(obj);
+		
+		if(cameraPosition==""){
+			layer.msg("请录入监控位置",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#cameraPosition").focus()
+			});
+			
+			return;
+		}
+		if(videoAddress==""){
+			layer.msg("请录入视频流地址",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#videoAddress").focus()
+			});
+			
+			return;
+		}
+		if(videoType==0){
+			layer.msg("请录监控类型",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#videoType").focus()
+			});
+			
+			return;
+		}
+		if(streamType==0){
+			layer.msg("请录入视频流类型",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#streamType").focus()
+			});
+			
+			return;
+		}
 		$.ajax({
 			url : "${pageContext.request.contextPath}/web_video/web_videosave",
 			type : 'POST',
