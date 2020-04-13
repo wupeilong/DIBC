@@ -34,7 +34,11 @@ public class IVideoAdressServiceImpl implements IVideoAddressService {
 			TimeInterval timeInterval = timeIntervalMapper.selectById(1);
 			String endTime = DateUtil.dateFormat(new Date(),DateUtil.DATE_PATTERN) + " " + timeInterval.getEndTime();
 			map.addAttribute("endTime", endTime);
+			
+				//把企业id传到前端  方便后续添加
+			map.addAttribute("unitid", id);
 			map.addAttribute("videoAddressList", list);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

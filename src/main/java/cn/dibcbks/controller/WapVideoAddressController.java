@@ -56,37 +56,10 @@ public class WapVideoAddressController {
 		return  "bks_wap/video_peration";
 	}
 	
-	/**
-	 * 保存或者修改视频流地址
-	 * @return
-	 */
-	@RequestMapping("/wap_videosave")
-	@ResponseBody
-	public ResponseResult<?> VideoAdressSave(VideoAddress videoAddress){
-		System.out.println("++++++++++++"+videoAddress+"===============================");
-		
-		return iVideoAddressService.VideoAdressSave(videoAddress);
-	}
 	
 	
-	/**
-	 * 删除视频流地址
-	 * @param videoId
-	 * @return
-	 */
-	@RequestMapping("/wap_videodelete")
-	@ResponseBody
-	public ResponseResult<?> DeleteVideoAddress(Integer videoId){
-		return iVideoAddressService.DeleteVideoAddress(videoId);
-	}
 	
-	/**
-	 * 视频地址维护
-	 */
-	@RequestMapping("/wap_videoCRUD")
-	public String VideoCRUD(){
-		return "bks_wap/video_crud";
-	}
+	
 	
 	/**
 	 * 根据videoid查询视频流
@@ -98,18 +71,7 @@ public class WapVideoAddressController {
 		return iVideoAddressService.getVideAddressBeanById(videoId);
 	}
 	
-	/**
-	 * 控制视频流地址修改的跳转
-	 * 
-	 */
-	@RequestMapping("/updateVideoInfo")
-	public  String updateVideoAddress(ModelMap modelMap,Integer unitId,Integer videoId){
-		
-		iVideoAddressService.getVideoAddressBeanById(modelMap,unitId, videoId);
-		System.out.println("========================");
-		
-		return "bks_wap/videoInfoUpdate";
-	}
+	
 	
 	@ApiOperation("公众是否可以查看监控")
 	@RequestMapping("/monitoring")
