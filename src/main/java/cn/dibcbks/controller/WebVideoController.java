@@ -1,5 +1,7 @@
 package cn.dibcbks.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +16,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Controller
 @RequestMapping("/web_video")
-public class WebVideaoController {
+public class WebVideoController {
 		@Autowired
 		private IVideoAddressService iVideoAddressService; 
 	
@@ -95,4 +97,19 @@ public class WebVideaoController {
 		}
 		
 		
+		@ApiOperation("批量添加视频页")
+		@RequestMapping("/excel")
+		public String batchAddVideo(Integer videoId){
+			
+			return "bks_web/excel/video_excel";
+		}
+		
+		
+		@ApiOperation("批量添加视频")
+		@RequestMapping("/bath_add")
+		@ResponseBody
+		public ResponseResult<List<List<String>>> batchAddVideo(String videoList){
+			
+			return iVideoAddressService.batchAddVideo(videoList);
+		}
 }
