@@ -27,7 +27,7 @@
     </table>
     
 <form action="" method="" id="layer_add" style="display: none;" class="smart-green layui-layer-wrap">
-	<h1>权限信息添加
+	<h1>权限信息添加===============
 		<span>请输入权限信息.</span>
 	</h1>
 	<label>

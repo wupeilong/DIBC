@@ -119,7 +119,7 @@
 						var obj = {'unitName':'','videoId':videoId,'streamType':streamType,'videoType':videoType,'videoAddress':videoAddress,'cameraPosition':cameraPosition};
 						console.log(obj);
 						 $.ajax({
-							 url: "${pageContext.request.contextPath}/wap_video/wap_videosave",
+							 url: "${pageContext.request.contextPath}/web_video/web_videosave",
 					          type: 'POST',
 					          data: obj,
 					          /* contentType : 'application/json', z这种形式data必须是json字符串*/

@@ -525,7 +525,7 @@ public class IUserServiceImpl implements IUserService {
 			}
 		}catch(IncorrectCredentialsException e){			
 			rr = new ResponseResult<>(ResponseResult.ERROR,"密码错误！请重新输入...");
-			logger.error(Constants.ERROR_HEAD_INFO + "用户注册失败 原因：" + e.getMessage());
+			logger.error(Constants.ERROR_HEAD_INFO + "用户登录失败 原因：" + e.getMessage());
 		} catch (Exception e) {			
 			rr = new ResponseResult<Void>(ResponseResult.ERROR, "数据存在异常，请联系工作人员处理！");
 			logger.error(Constants.ERROR_HEAD_INFO + "账户登录失败，原因： " + e.getMessage());
