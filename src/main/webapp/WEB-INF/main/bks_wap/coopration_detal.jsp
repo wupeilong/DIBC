@@ -90,8 +90,10 @@
 					  	<c:when test="${unitDetail.unitType == 4}">
 					  		<div class="form-control box-shadow0 border0">其他</div>
 					  	</c:when>
+					  	<c:otherwise>
+					  		<div class="form-control box-shadow0 border0"></div>
+					  	</c:otherwise>
 					  </c:choose>
-					  
 					</div>
 					<div class="input-group form-group margin0 fs">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">法人姓名</span>
