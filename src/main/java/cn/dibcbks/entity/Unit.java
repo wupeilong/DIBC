@@ -22,13 +22,14 @@ public class Unit implements Serializable {
 	 private String unitAddress;//单位地址
 	 private String expirationDate;//到期时间
 	 private Integer unitType;//企业类型：1-监管局 -2学校 3-餐饮业 4-其他
+	 private String typeName;//企业类型：1-监管局 -2学校 3-餐饮业 4-其他
 	 private Date createTime;//创建时间
 	public Unit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Unit(Integer unitId, String unitName, String legalPerson, String businessLicenseCode, String businessLicense,
-			String productionLicense, String unitAddress, String expirationDate, Integer unitType, Date createTime) {
+			String productionLicense, String unitAddress, String expirationDate, Integer unitType, String typeName,
+			Date createTime) {
 		super();
 		this.unitId = unitId;
 		this.unitName = unitName;
@@ -39,6 +40,7 @@ public class Unit implements Serializable {
 		this.unitAddress = unitAddress;
 		this.expirationDate = expirationDate;
 		this.unitType = unitType;
+		this.typeName = typeName;
 		this.createTime = createTime;
 	}
 	public Integer getUnitId() {
@@ -95,6 +97,12 @@ public class Unit implements Serializable {
 	public void setUnitType(Integer unitType) {
 		this.unitType = unitType;
 	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -106,8 +114,8 @@ public class Unit implements Serializable {
 		return "Unit [unitId=" + unitId + ", unitName=" + unitName + ", legalPerson=" + legalPerson
 				+ ", businessLicenseCode=" + businessLicenseCode + ", businessLicense=" + businessLicense
 				+ ", productionLicense=" + productionLicense + ", unitAddress=" + unitAddress + ", expirationDate="
-				+ expirationDate + ", unitType=" + unitType + ", createTime=" + createTime + "]";
+				+ expirationDate + ", unitType=" + unitType + ", typeName=" + typeName + ", createTime=" + createTime
+				+ "]";
 	}
-	
 	
 }

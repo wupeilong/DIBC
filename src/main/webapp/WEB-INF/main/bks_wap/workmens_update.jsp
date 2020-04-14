@@ -36,7 +36,7 @@
 				</div>
 			</div>
 		</div>		
-		<main class="main padding-side" style="height:100%;">
+		<main class="main padding-side">
 			<form action="" method="" class="clearfix">
 				<div class="workmens_info_top margin-bot margin-top">					
 					<div class="input-group form-group fs">

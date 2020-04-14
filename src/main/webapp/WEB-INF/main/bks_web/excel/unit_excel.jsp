@@ -82,7 +82,7 @@
 			    			   layer.msg(obj.message,{icon:2,time:1000});
 			    			   return;
 			      			}
-			    		   layer.msg(obj.message,{icon:2,time:2000});
+			    		   layer.msg(obj.message,{icon:1,time:2000});
 			    		   var d=obj.data;
 			    		   var html = '<table class="table table-bordered table-hover fontwei" id="test_table"><tbody><tr class="result_tr">'+
 			    		   			'<td></td>'+
