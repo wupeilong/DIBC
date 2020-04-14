@@ -127,7 +127,10 @@
 							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">用户管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
 							<ul class="subnav list-unstyled">
-								<li id="0020" data-src="${pageContext.request.contextPath}/web_user/user_list">
+								<li id="0020" data-src="${pageContext.request.contextPath}/web_user/excel">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">监管人员信息上传</span></a>
+								</li>								
+								<li id="0021" data-src="${pageContext.request.contextPath}/web_user/user_list">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">用户信息</span></a>
 								</li>
 								<!--<li id="0018" data-src="https://www.baidu.com/index.php?tn=monline_3_dg">
