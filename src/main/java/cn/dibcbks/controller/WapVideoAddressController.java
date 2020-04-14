@@ -25,8 +25,9 @@ public class WapVideoAddressController {
 	IVideoAddressService iVideoAddressService;
 	
 	/**
-	 * 进入企业信息查看监控视频业页面
+	 * 查看监控视频列表
 	 */
+	@ApiOperation(value="根据权限控制企业列表和监控页面的跳转",tags="监管人人员先跳转企业列表界面,企业主体跳转该企业监控视频界面")
 	@RequestMapping("/wap_videoscan")
 	public String VideoScan(ModelMap modelMap){
 		
@@ -37,6 +38,7 @@ public class WapVideoAddressController {
 	 * 进入视频信息详情页
 	 * @return
 	 */
+	@ApiOperation(value="监控视频实时播放界面跳转",tags="需要传入企业id")
 	@RequestMapping("/wap_videodetal")
 	public String CooprationDetal(ModelMap modelMap,Integer unitId){	
 		
@@ -65,6 +67,7 @@ public class WapVideoAddressController {
 	 * 根据videoid查询视频流
 	 * 
 	 */
+	@ApiOperation(value="根据id查询监控视频相关信息接口",tags="需要传入监控视频id",response=VideoAddress.class)
 	@RequestMapping("/wap_getAddresByid")
 	@ResponseBody
 	public VideoAddress getVideBeanByid(Integer videoId){
