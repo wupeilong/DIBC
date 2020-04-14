@@ -30,7 +30,6 @@ public class WapVideoAddressController {
 	@ApiOperation(value="根据权限控制企业列表和监控页面的跳转",tags="监管人人员先跳转企业列表界面,企业主体跳转该企业监控视频界面")
 	@RequestMapping("/wap_videoscan")
 	public String VideoScan(ModelMap modelMap){
-		
 		return iVideoAddressService.selectUnitVideoList(modelMap);
 	}
 	
@@ -40,8 +39,7 @@ public class WapVideoAddressController {
 	 */
 	@ApiOperation(value="监控视频实时播放界面跳转",tags="需要传入企业id")
 	@RequestMapping("/wap_videodetal")
-	public String CooprationDetal(ModelMap modelMap,Integer unitId){	
-		
+	public String CooprationDetal(ModelMap modelMap,Integer unitId){
 		return  iVideoAddressService.SelectVideoAddress(modelMap, unitId);
 	}
 	
@@ -54,7 +52,6 @@ public class WapVideoAddressController {
 		
 		//调用视频详情控制层 因为业务,业务逻辑一样，前段渲染不同
 		this.CooprationDetal( modelMap, unitId);
-		
 		return  "bks_wap/video_peration";
 	}
 	

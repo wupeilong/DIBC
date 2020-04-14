@@ -102,12 +102,15 @@
 						<li>
 							<a href="javascript:void(0);" class=""><i class="fa fa-window-restore fa-fw"></i><span class="padding-side05">企业管理</span>
 							<i class="fa fa-angle-down fa-fw fa-2x pull-right"></i></a>
-							<ul class="subnav list-unstyled">
+							<ul class="subnav list-unstyled">								
+								<li id="0013" data-src="${pageContext.request.contextPath}/web_unit/excel">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">企业信息批量上传</span></a>
+								</li>
+								<li id="0013" data-src="${pageContext.request.contextPath}/web_video/excel">
+									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">视频信息批量上传</span></a>
+								</li>
 								<li id="0017" data-src="${pageContext.request.contextPath}/web_unit/list">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">企业信息列表</span></a>
-								</li>
-								<li id="0013" data-src="${pageContext.request.contextPath}/web_unit/excel">
-									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">企业信息上传</span></a>
 								</li>
 								<li id="0017" data-src="${pageContext.request.contextPath}/web_user/user_list">
 									<a href="javascript:void(0);"><i class="fa fa-tag fa-fw"></i><span class="padding-side05">企业用户信息</span></a>
