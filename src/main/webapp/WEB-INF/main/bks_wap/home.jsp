@@ -93,7 +93,7 @@
 				</div>
 			</div>
 			<div class="menu fc padding-side"> <!-- style="margin-bottom: 51.2px" -->
-				<ul class="list-unstyled" style="display: flex;flex-wrap: wrap;width: 294px;">
+				<ul class="list-unstyled" style="">
 					<shiro:hasPermission name="wap_unit">
 						<li>
 							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
@@ -136,7 +136,6 @@
 					</shiro:hasPermission>
 				</ul>
 			</div>
-			
 			<c:import url="public/footer.jsp"></c:import>
 			<script type="text/javascript">
 				$("#detection").click(function(){
