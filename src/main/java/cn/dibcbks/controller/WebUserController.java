@@ -79,7 +79,8 @@ public class WebUserController {
 	}
 	
 	@ApiOperation("监管人员批量添加页")
-	@GetMapping("/bath_add")
+	@PostMapping("/bath_add")
+	@ResponseBody
 	public ResponseResult<List<List<String>>> batchAddUser(String userList){
 		
 		return iUserService.batchAddUser(userList);

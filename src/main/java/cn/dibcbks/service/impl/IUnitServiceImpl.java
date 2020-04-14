@@ -4,9 +4,6 @@ package cn.dibcbks.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.management.loading.PrivateClassLoader;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +15,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
-import cn.dibcbks.exception.MyRuntimeException;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.service.IDepartmentService;
@@ -28,7 +24,6 @@ import cn.dibcbks.util.Constants;
 import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
 import net.sf.json.JSONArray;
-import sun.font.ScriptRun;
 
 @Service
 public class IUnitServiceImpl implements IUnitService {
@@ -41,24 +36,46 @@ public class IUnitServiceImpl implements IUnitService {
 	private IDepartmentService iDepartmentService;
 	
 	@Override
-	public ResponseResult<Void> updatUnit(Unit unit) {
-		try {
-			User currentUser = (User)SecurityUtils.getSubject().getSession().getAttribute("user");
-			if(!currentUser.getParentId().equals(0)){
-				logger.info(Constants.SUCCESSU_HEAD_INFO + "该账户不是管理员，不能修改企业信息！");
-				return new ResponseResult<>(ResponseResult.ERROR, "该账户不是管理员，不能修改企业信息！");
-			}else{
-				if(StringUtils.isNotEmpty(unit.getBusinessLicenseCode())){
-					Unit queryUnit = unitMapper.queryUnit(unit.getBusinessLicenseCode());
-					if(queryUnit != null && !unit.getBusinessLicenseCode().equals(queryUnit.getBusinessLicenseCode())){
-						logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因：营业执照编码已存在！");
-						return new ResponseResult<>(ResponseResult.ERROR, "营业执照编码已存在！");
-					}
+	public ResponseResult<Void> updateUnit(Unit unit) {
+		try {			
+			if(StringUtils.isNotEmpty(unit.getBusinessLicenseCode())){
+				Unit queryUnit = unitMapper.queryUnit(unit.getBusinessLicenseCode());
+				if(queryUnit != null && !unit.getBusinessLicenseCode().equals(queryUnit.getBusinessLicenseCode())){
+					logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因：营业执照编码已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "营业执照编码已存在！");
 				}
-				unitMapper.updateById(unit);
-				logger.info(Constants.SUCCESSU_HEAD_INFO + "企业资料修成功！");
-				return new ResponseResult<>(ResponseResult.SUCCESS, "企业资料修改成功！");
-			}			
+			}
+			if(StringUtils.isNotEmpty(unit.getUnitName())){
+				List<Unit> unitList = unitMapper.select("n.unit_name = '" + unit.getUnitName() + "'", null, null, null);
+				if(!unitList.isEmpty() && !unitList.get(0).getUnitId().equals(unit.getUnitId())){
+					logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因：企业名称已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "企业名称已存在！");
+				}
+			}
+			if(StringUtils.isNotEmpty(unit.getTypeName())){
+				switch (unit.getTypeName()) {//企业类型
+					case "市场监督管理局":
+						unit.setUnitType(1); break;
+					case "学校":						
+					case "学校食堂":	
+						unit.setUnitType(2); break;//学校
+					case "餐饮业":	
+					case "配餐单位":
+					case "小型餐馆":
+					case "中型餐馆":
+					case "大型餐馆":
+					case "特大型餐馆":
+						unit.setUnitType(3); break;//餐饮业
+					case "企业":						
+					case "个体":	
+					default:
+						unit.setUnitType(4); break;//其他
+				}	
+			}
+			unitMapper.updateById(unit);
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "企业资料修成功！");
+			return new ResponseResult<>(ResponseResult.SUCCESS, "企业资料修改成功！");
+						
 		} catch (Exception e) {
 			logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因：" + e.getMessage());
 			return new ResponseResult<>(ResponseResult.ERROR, "企业资料修改失败！");
@@ -132,12 +149,6 @@ public class IUnitServiceImpl implements IUnitService {
 					where = " n.unit_name = '" + unitName + "'";
 				}				
  			}
-			
-			if(CommonUtil.getSessionUser()==null){
-				throw new MyRuntimeException("未登录或者登录过期");
-			}
-			
-			
 			if (CommonUtil.getSessionUser().getType() != 1 && StringUtils.isEmpty(where)) {
 				where = " n.unit_type BETWEEN 2 AND 4 ";
 			}
@@ -172,7 +183,6 @@ public class IUnitServiceImpl implements IUnitService {
 			logger.error(Constants.ERROR_HEAD_INFO + "用户进入企业信息页面失败，原因：" + e.getMessage());
 		}
 		return "bks_wap/coopration_list";
-		//return "error/404";
 	}
 
 
@@ -213,13 +223,8 @@ public class IUnitServiceImpl implements IUnitService {
 
 
 	@Override
-	public ResponseResult<Void> updateUnit(	String unitName, 
-											String businessLicenseCode, 
-											MultipartFile file,
-											MultipartFile file1, 
-											String unitAddress, 
-											Integer unitType, 
-											String legalPerson) {
+	public ResponseResult<Void> updateUnit(	String unitName, String businessLicenseCode, MultipartFile file,
+											MultipartFile file1, String unitAddress, Integer unitType, String legalPerson) {
 		
 		GetCommonUser get = new GetCommonUser();
 		User user = CommonUtil.getSessionUser();
@@ -227,8 +232,7 @@ public class IUnitServiceImpl implements IUnitService {
 		if(unitList.isEmpty()){
 			return new ResponseResult<Void>(ResponseResult.ERROR,"企业信息异常，操作失败！");
 		}else{
-			Unit update = unitList.get(0);
-			update.setUnitName(unitName);
+			Unit update = unitList.get(0);			
 			if(StringUtils.isNotEmpty(businessLicenseCode)){
 				Unit unit = unitMapper.queryUnit(businessLicenseCode);
 				if(unit != null && !unit.getBusinessLicenseCode().equals(update.getBusinessLicenseCode())){
@@ -237,8 +241,36 @@ public class IUnitServiceImpl implements IUnitService {
 				}
 			}
 			update.setBusinessLicenseCode(businessLicenseCode);
-			update.setUnitAddress(unitAddress);
+			update.setUnitAddress(unitAddress);			
+			if(StringUtils.isNotEmpty(unitName)){
+				unitList = unitMapper.select("n.unit_name = '" + unitName + "'", null, null, null);
+				if(!unitList.isEmpty() && !unitList.get(0).getUnitId().equals(user.getUnitId())){
+					logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因：企业名称已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "企业名称已存在！");
+				}
+				update.setUnitName(unitName);
+			}
 			update.setUnitType(unitType);
+//			if(StringUtils.isNotEmpty(typeName)){
+//				switch (typeName) {//企业类型
+//					case "市场监督管理局":
+//						update.setUnitType(1); break;
+//					case "学校":						
+//					case "学校食堂":	
+//						update.setUnitType(2); break;//学校
+//					case "餐饮业":	
+//					case "配餐单位":
+//					case "小型餐馆":
+//					case "中型餐馆":
+//					case "大型餐馆":
+//					case "特大型餐馆":
+//						update.setUnitType(3); break;//餐饮业
+//					case "企业":						
+//					case "个体":	
+//					default:
+//						update.setUnitType(4); break;//其他
+//				}	
+//			}
 			update.setLegalPerson(legalPerson);
 			if(file != null){
 				get.deluoladimg(update.getBusinessLicense());
@@ -264,20 +296,17 @@ public class IUnitServiceImpl implements IUnitService {
 
 	@Override
 	public String selectUnit(ModelMap modelMap) {
-		// 查询企业列表 企业类型不包括1
-		
-				String view=null;
-				try {
-					List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
-					modelMap.addAttribute("unitList", unitList);
-					logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入企业信息列表页面成功！");
-					view="bks_wap/indexcs";
-				} catch (Exception e) {
-					e.printStackTrace();
-					logger.info(Constants.ERROR_HEAD_INFO+ "用户进入企业信息列表页面失败！原因："+e.getMessage());
-				}
-				
-				return view;
+		String view=null;
+		try {
+			List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
+			modelMap.addAttribute("unitList", unitList);
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入企业信息列表页面成功！");
+			view="bks_wap/indexcs";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(Constants.ERROR_HEAD_INFO+ "用户进入企业信息列表页面失败！原因："+e.getMessage());
+		}		
+		return view;
 	}
 
 
@@ -325,6 +354,7 @@ public class IUnitServiceImpl implements IUnitService {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ResponseResult<List<List<String>>> batchAddUnit(String unitList) {
 		ResponseResult<List<List<String>>> rr;
@@ -426,7 +456,7 @@ public class IUnitServiceImpl implements IUnitService {
 	public String selectWebUnitList(ModelMap modelMap) {
 		try {
 			String where = null;
-			if(CommonUtil.getSessionUser().getType() == 2){
+			if(CommonUtil.getSessionUser().getType() != 1){
 				where = " n.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";				
 			}
 			modelMap.addAttribute("unitList", unitMapper.select(where, " n.create_time DESC ", null, null));
@@ -434,8 +464,67 @@ public class IUnitServiceImpl implements IUnitService {
 			e.printStackTrace();
 		}
 		return "bks_web/unit/unit";
-	}	
+	}
 
-	
-	
+
+	@Override
+	public ResponseResult<Void> addUnit(Unit unit) {
+		try {			
+			if(StringUtils.isNotEmpty(unit.getBusinessLicenseCode())){
+				Unit queryUnit = unitMapper.queryUnit(unit.getBusinessLicenseCode());
+				if(queryUnit != null && !unit.getBusinessLicenseCode().equals(queryUnit.getBusinessLicenseCode())){
+					logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因：营业执照编码已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "营业执照编码已存在！");
+				}
+			}
+			if(StringUtils.isNotEmpty(unit.getUnitName())){
+				List<Unit> unitList = unitMapper.select("n.unit_name = '" + unit.getUnitName() + "'", null, null, null);
+				if(!unitList.isEmpty() && !unitList.get(0).getUnitId().equals(unit.getUnitId())){
+					logger.error(Constants.ERROR_HEAD_INFO + "企业资料修改失败，原因：企业名称已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "企业名称已存在！");
+				}
+			}
+			if(StringUtils.isNotEmpty(unit.getTypeName())){
+				switch (unit.getTypeName()) {//企业类型
+					case "市场监督管理局":
+						unit.setUnitType(1); break;
+					case "学校":						
+					case "学校食堂":	
+						unit.setUnitType(2); break;//学校
+					case "餐饮业":	
+					case "配餐单位":
+					case "小型餐馆":
+					case "中型餐馆":
+					case "大型餐馆":
+					case "特大型餐馆":
+						unit.setUnitType(3); break;//餐饮业
+					case "企业":						
+					case "个体":	
+					default:
+						unit.setUnitType(4); break;//其他
+				}	
+			}
+			unitMapper.insert(unit);
+			iDepartmentService.addUnitDepartment(unit);
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "企业添加成功！");
+			return new ResponseResult<>(ResponseResult.SUCCESS, "企业添加成功！");
+						
+		} catch (Exception e) {
+			logger.error(Constants.ERROR_HEAD_INFO + "企业添加失败，原因：" + e.getMessage());
+			return new ResponseResult<>(ResponseResult.ERROR, "企业添加失败！");
+		}
+	}
+
+
+	@Override
+	public ResponseResult<Void> deleteUnit(Integer unitId) {
+		try {
+			unitMapper.deleteById(unitId);
+			return new ResponseResult<>(ResponseResult.SUCCESS, "企业删除成功！");
+		} catch (Exception e) {
+			return new ResponseResult<>(ResponseResult.ERROR, "企业删除失败！");
+		}
+	}
+
+
 }
