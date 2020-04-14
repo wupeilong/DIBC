@@ -42,11 +42,11 @@ public class MyFormAuthenticationFilter  extends FormAuthenticationFilter {
         System.out.println("当前请求的协议版本:" + req.getProtocol());
         System.out.println("当前请求的协议类型:" + req.getScheme());
         if (url.contains("web")) {
-            //loginUrl = "http://edt.gzws.online:8081/web_login";
-            loginUrl = "http://127.0.0.1:8080/web_login";
+            loginUrl = "http://edt.gzws.online:8081/web_login";
+            //loginUrl = "http://127.0.0.1:8080/web_login";
         }else{
-        	//loginUrl = "http://edt.gzws.online:8081/wx_login";
-        	loginUrl = "http://127.0.0.1:8080/wx_login";
+        	loginUrl = "http://edt.gzws.online:8081/wx_login";
+        	//loginUrl = "http://127.0.0.1:8080/wx_login";
         }
         WebUtils.issueRedirect(request, response, loginUrl);
     }

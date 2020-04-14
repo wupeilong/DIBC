@@ -39,8 +39,8 @@
 				</div>
 			</div>			
 		</div>   		
-		<main class="main margin-top padding-side" style="padding:80px 0;">
-			<div class="panel panel-info" style="border-radius: 0px;">				
+		<main class="main padding-side" style="padding:88px 0;">
+			<div class="panel panel-info margin-bot" style="border-radius: 0px;">				
 				<ul class="list-group  panel-body padding0" id="result_list"></ul>
 			</div>
 		</main>	
