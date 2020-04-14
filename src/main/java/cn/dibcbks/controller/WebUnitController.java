@@ -1,9 +1,14 @@
 package cn.dibcbks.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import cn.dibcbks.service.IUnitService;
 /**
  * PC端企业控制器
@@ -19,9 +24,24 @@ public class WebUnitController {
 	private IUnitService iUnitService;
 
 	
-	@ApiOperation("批量添加企业")
-	@RequestMapping("/")
-	public ResponseResult<Void> batchAddUnit(){
-		return null;
+	@ApiOperation("批量添加企业页")
+	@RequestMapping("/excel")
+	public String batchAddUnit(){
+		return "bks_web/excel/unit_excel";
+	}
+	
+	@ApiOperation("批量添加企业实现")
+	@RequestMapping("/bath_add")
+	@ResponseBody
+	public ResponseResult<List<List<String>>> batchAddUnit(String unitList){
+		
+		return iUnitService.batchAddUnit(unitList);
+	}
+	
+	@ApiOperation("企业信息列表页")
+	@RequestMapping("/list")
+	public String selectUnitList(ModelMap modelMap){
+		
+		return iUnitService.selectWebUnitList(modelMap);	
 	}
 }

@@ -21,12 +21,15 @@
 <script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 
 </head>
-<body class="video_bodydetail">	
-	<div class="m" style="text-align: center;padding-bottom: 4em;">
+<body class="video_bodydetail">
+	<div class="padding-side" style="position:fixed;left:0;top:0;z-index:9999;padding:1em;width: 100%;background-color: rgba(50, 239, 249,.8);">
+	  	<a href="javascript:history.go(-1);" class=""><i class="fa fa-chevron-circle-left text-white fa-2x"></i></a>
+	</div>
+	<div class="m" style="text-align: center;padding-bottom: 4em;padding-top: 4em;">
 	<c:if test="${videoAddressList.size()==0}">
 	<span style="top: 65px;position: relative;color: #c23412;font-size: 17px;font-weight: 600">暂无视频数据</span>
 	</c:if>
-	<c:if test="${videoAddressList.size()>0}">
+	<c:if test="${videoAddressList.size()>0}"> 
 		<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
 			<div class="video_div" style="display: inline-block;">
 				<c:if test="${vs.index==0}">

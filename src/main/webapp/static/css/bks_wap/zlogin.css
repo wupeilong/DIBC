@@ -9,22 +9,22 @@
     background-repeat: no-repeat;
 	
 }
-.login_user{
+/* .login_user{
 	background-image: url("../../images/bks_wap/zloginuser.png");
 	background-size: 100% 100%;
 	width: 90%;
     height: 50px;
     margin: 15px;
     margin-top: 25px;
-}
-.login_pwd{
+} */
+/* .login_pwd{
 	background-image: url("../../images/bks_wap/zloginpwd.png");
 	background-size: 100% 100%; 
 	width: 90%;
     height: 50px;
     margin: 15px;
     margin-top: 25px;
-}
+} */
 .login_input{
 	background-size: 100% 100%;
 	display: block;
@@ -48,10 +48,10 @@
 	background-color:#736c6c0f;
 }
 
-.login_form_top{
+/* .login_form_top{
 	text-align: center;
 	padding-top: 25px;
-}
+} */
 .active{	
    border-bottom: 2px solid #39b90d;
 }

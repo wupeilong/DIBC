@@ -126,7 +126,7 @@ button.btn{
 }
 .main{
 	/* height: 100%; */
-	padding-bottom: 48px;
+	padding-bottom: 64px;
 	padding-top: 92.4px;
 }
 .tab_heading{
@@ -653,4 +653,60 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 .staff_oc{
 	font-size: 12px;
 	width: 13.4em;
+}
+
+
+.login_wrap .tabh li{
+	color: #ddd;
+	padding: 2vw;
+	width: 50%;
+	text-align: center;
+	position: relative;
+	font-size: 5vw;
+}
+.login_wrap .tabh li.cur{
+	background-color: inherit;
+	color: #15bb17;
+	border-bottom: 2px solid #15bb17;
+}
+.login_wrap .tabh li:last-of-type::before{
+	content: '';
+	position: absolute;
+	width: .4vw;
+	height: 50%;
+	background-color: #ddd;
+	left: 0;
+	top: 2.5vw;
+}
+.login_wrap .login_switch  p{
+	line-height: inherit;
+}
+.login_wrap .login_switch .tab_type input{
+	width: 94%;
+	height: 10vw;
+	border-radius: 4em;
+	padding-left: 16vw;
+	background-color: rgba(164, 164, 164, 0.2);
+	border: 0;
+	margin-left: 3%;
+	outline: none;
+}
+.login_wrap .login_switch .tab_type input:focus{
+	background-color: rgba(164, 164, 164, 0.3);
+}
+.footer_flag{
+	position: fixed;
+	width: 100%;
+	bottom: 4vw;
+	left:0;
+}
+.footer_flag p{
+	text-align: center;
+}
+#wx_login,#login{
+	width: 38vw;
+	border-color: #a9e895;
+	font-size: 4vw;
+	height: auto;
+	line-height: inherit;
 }

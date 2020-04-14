@@ -44,13 +44,13 @@
 				  	<table class="table table-bordered" cellspacing="" cellpadding="">
 				  		<caption>
 				  			<c:if test="${checkType==1}">
-				  				<h3 class="text-center">食品商家专项监督检查表</h3>
+				  				<h3 class="text-center">云岩区餐饮主体监督自查表</h3>
 				  			</c:if>
 							<c:if test="${checkType==2}">
-				  				<h3 class="text-center">监督管理局专项监督检查表</h3>
+				  				<h3 class="text-center">云岩区市场监督管理局监督检查表</h3>
 				  			</c:if>
 				  			<c:if test="${checkType==3}">
-				  				<h3 class="text-center">督查专项监督检查表</h3>
+				  				<h3 class="text-center">云岩区督查专项监督检查表</h3>
 				  			</c:if>							
 							<div class="margin-top2">
 								<div class="">									

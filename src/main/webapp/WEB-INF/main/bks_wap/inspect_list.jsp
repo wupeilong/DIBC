@@ -34,9 +34,9 @@
 				<div class="bg-gradient" style="margin-top: 89px;">
 					<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
 					  <li class="active pull-left" style="width: 25%;"><div class="getall text-center text-white">全部</div></li>
-					  <li class="pull-left"  style="width: 25%;"><div class="getS text-center text-white">商家自检</div></li>
-					  <li class="pull-left"  style="width: 25%;"><div class="getJ text-center text-white">监管专检</div></li><li>
-					  <li class="pull-left"  style="width: 25%;"><div class="getD text-center text-white">督察专检</div></li><li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getS text-center text-white">主体自查</div></li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getJ text-center text-white">监管检查</div></li><li>
+					  <li class="pull-left"  style="width: 25%;"><div class="getD text-center text-white">督查抽查</div></li><li>
 					</ul>
 				</div>
 			</div>
@@ -67,13 +67,13 @@
 							<div class="fb">
 								<span class="text-muted">
 									<c:if test="${f.checkType==1}">
-										商家自检
+										主体自查
 									</c:if>
 									<c:if test="${f.checkType==2}">
-										监管专检
+										监管检查
 									</c:if>
 									<c:if test="${f.checkType==3}">
-										督查专检
+										督查抽查
 									</c:if>
 								</span>
 								<span class="text-muted" style="font-size: 12px;"><!--  消毒日期 ：-->${f.dailyTime}</span>					

@@ -42,11 +42,11 @@
 
 
 	<div class="m" style="text-align: center; padding-bottom: 4em;">
-
+	
 		<table class="table table-striped table-hover" cellspacing=""
 			style="text-align: center"
 			cellpadding="">
-			<thead style="text-align: cnter">
+			<thead>
 				<tr style="text-align: cnter">
 					<th style="text-align: cnter">序号</th>
 					<th style="text-align: cnter">企业名称</th>
@@ -57,12 +57,37 @@
 					<th style="text-align: cnter">操作</th>
 				</tr>
 			</thead>
+			<h4 style="font-size: 20px; font-weight: 600; padding: 25px 0 0 0;">贵州指上通科技有限责任公司</h4>
+			
+			<div style="width: 100%;margin-top: 50px;margin-bottom: 50px">
+			<span class="">监控位置:</span>
+			<input id="cameraPosition" type="text" class="inputClass" id="supplierPerson" > 
+			<input id="unitId" type="text" style="display: none" value="${unitid}">
+			<span class="VideoAddClass">视频流地址:</span> 
+			<input id="videoAddress" type="text" class="inputClass" > 
+			<span class="VideoAddClass">监控类型:</span> 
+			<select id="videoType"
+				name="videoType" style="height: 28px;">
+				<option value="0">请选择监控类型</option>
+				<option value="1">实时监控</option>
+				<option value="2">视频回放</option>
+			</select> 
+			<span class="VideoAddClass">视频流类型:</span> 
+			<select id="streamType"
+				name="streamType" style="height: 28px;">
+				<option value="0">请选择视频类型</option>
+				<option value="1">RTMP</option>
+				<option value="2">TRSP</option>
+				<option value="3">FLV</option>
+				<option value="4">HTTP</option>
+			</select>
+			<button id="addressAdd" type="button"" class="addClass">增加</button>
+		</div>
+			
+			
 			<tbody id="result_list">
 				<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
-					<c:if test="${vs.index==0}">
-						<h4
-							style="font-size: 20px; font-weight: 600; padding: 25px 0 0 0;">贵州指上通科技有限责任公司</h4>
-					</c:if>
+					
 					<tr>
 						<td style="text-align: cnter">${vs.count}</td>
 						<td style="text-align: cnter">${item.unitName}</td>
@@ -71,89 +96,16 @@
 						<td style="text-align: cnter"><c:if
 								test="${item.videoType==1}">实时监控</c:if> <c:if
 								test="${item.videoType==2}">视频回放</c:if></td>
-						<td style="text-align: cnter"><c:if
-								test="${item.streamType==1}">RTMP</c:if> <c:if
-								test="${item.streamType==2}">TRSP</c:if> <c:if
-								test="${item.streamType==3}">FLV</c:if> <c:if
-								test="${item.streamType==4}">HTTP</c:if></td>
+						<td style="text-align: cnter">${item.streamType}</td>
 						<td style="text-align: cnter">
-							<button id="address_update" videoId=${item.videoId
-								} type="button"><a href="${pageContext.request.contextPath}/wap_video/updateVideoInfo?unitId=${item.unitId}&videoId=${item.videoId}">修改</a></button>
-							<button id="address_delete" videoId=${item.videoId
-								} type="button" onclick="addressDelete(this)">删除</button>
+							<button id="address_update" videoId=${item.videoId}  class="modifyClass"><a href="${pageContext.request.contextPath}/web_video/updateVideoInfo?unitId=${item.unitId}&videoId=${item.videoId}">修改</a></button>
+							<button id="address_delete" videoId=${item.videoId}  class="deleteClass" onclick="addressDelete(this)">删除</button>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-
-
-	<div style="display: none;" id="update_content">
-		<table width="100%" border="2" cellspacing="1" cellpadding="4"
-			bgcolor="#cccccc" class="tabtop13" align="center">
-			</tr>
-			<td width="70%" class="btbg font-center">企业名称</td>
-			<td><input type="text" name="unitname" value=""></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">监控位置</td>
-				<td><input type="text" name="location" value=""></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">视频流地址</td>
-				<td><input type="text" name="videoaddress" value=""></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">监控类型</td>
-				<td><select id="videotype">
-						<option value="1">实时监控</option>
-						<option value="2">视频回放</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td width="70%" class="btbg font-center">视频流类型</td>
-				<td><select id="videoaddresstype">
-						<option value="1">RTMP</option>
-						<option value="2">TRSP</option>
-						<option value="2">FLV</option>
-						<option value="2">HTTP</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td width="18%" class="btbg font-center" colspan="2" align="center">
-					<button type="button" class="btn btn-default" onclick="修改()">
-						<i class="fa fa-edit" />提交
-					</button>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<div style="width: 100%">
-			<span class="">监控位置:</span>
-			<!-- <input type="text" class="form-control box-shadow0 border-bottom" id="supplierPerson" placeholder="请输入监控位置"> -->
-			<input id="cameraPosition" type="text" class="" id="supplierPerson"
-				value="${videoInfo.cameraPosition}"> <input id="unitId"
-				type="text" class="" id="supplierPerson" style="display: none"
-				value="${videoAddressList[0].unitId}"> <span
-				class="VideoAddClass">视频流地址:</span> <input id="videoAddress"
-				type="text" class="" value="${videoInfo.videoAddress}"> <span
-				class="VideoAddClass">监控类型:</span> <select id="videoType"
-				name="videoType" style="height: 28px;">
-				<option value="0">请选择监控类型</option>
-				<option value="1">实时监控</option>
-				<option value="2">视频回放</option>
-			</select> <span class="VideoAddClass">视频流类型:</span> <select id="streamType"
-				name="streamType" style="height: 28px;">
-				<option value="0">请选择视频类型</option>
-				<option value="1">RTMP</option>
-				<option value="2">TRSP</option>
-				<option value="3">FLV</option>
-				<option value="4">HTTP</option>
-			</select>
-			<button id="addressAdd" class="VideoAddClass" style="width: 115px"
-				type="button"">增加</button>
-		</div>
 	<c:import url="public/footer.jsp"></c:import>
 </body>
 
@@ -172,9 +124,49 @@
 			'videoAddress' : videoAddress,
 			'cameraPosition' : cameraPosition
 		};
-		console.log(obj);
+		
+		if(cameraPosition==""){
+			layer.msg("请录入监控位置",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#cameraPosition").focus()
+			});
+			
+			return;
+		}
+		if(videoAddress==""){
+			layer.msg("请录入视频流地址",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#videoAddress").focus()
+			});
+			
+			return;
+		}
+		if(videoType==0){
+			layer.msg("请录监控类型",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#videoType").focus()
+			});
+			
+			return;
+		}
+		if(streamType==0){
+			layer.msg("请录入视频流类型",{
+				icon : 2,
+				time : 1000
+			},function(){
+				$("#streamType").focus()
+			});
+			
+			return;
+		}
 		$.ajax({
-			url : "${pageContext.request.contextPath}/wap_video/wap_videosave",
+			url : "${pageContext.request.contextPath}/web_video/web_videosave",
 			type : 'POST',
 			data : obj,
 			/* contentType : 'application/json', z这种形式data必须是json字符串*/
@@ -184,14 +176,14 @@
 				layer.close(result); */
 				if (result.state == 0) {
 					layer.msg(obj.message, {
-						icon : 1,
+						icon : 2,
 						time : 1000
 					}, function() {
 						location.reload()
 					});
 					return;
 				} else {
-					layer.msg(obj.message, {
+					layer.msg("操作成功", {
 						icon : 1,
 						time : 1000
 					}, function() {
@@ -205,31 +197,58 @@
 	});
 
 	function addressDelete(e) {
+		
+		 layer.confirm("你确定删除吗？", {btn: ['确定', '取消'], title:'提示'},function(index){
+			 var id = e.getAttribute("videoId"); 
+				console.log(id+"***************************")
+				var url = "${pageContext.request.contextPath}/web_video/web_videodelete";
+				var data = "videoId=" + id;
+				$.ajax({
+					"url" : url,
+					"data" : data,
+					"type" : "POST",
+					"dataType" : "json",
+					"success" : function(obj) {
+						layer.msg(obj.message, {
+							icon : 1,
+							time : 1000
+						}, function() {
+							location.reload()
+						});
 
-		var id = e.getAttribute("videoId");
-		var url = "${pageContext.request.contextPath}/wap_video/wap_videodelete";
-		var data = "videoId=" + id;
-		$.ajax({
-			"url" : url,
-			"data" : data,
-			"type" : "POST",
-			"dataType" : "json",
-			"success" : function(obj) {
-				layer.msg(obj.message, {
-					icon : 1,
-					time : 1000
-				}, function() {
-					location.reload()
+					}
 				});
 
-			}
-		});
+			 
+		 });
 
+		
 	}
 </script>
 <style>
 .VideoAddClass {
-	margin-left: 100px
+	margin-left: 93px
+}
+.addClass{
+	width: 98px;
+    margin-left: 22px;
+    background-color: #FFEB3B;
+    border-radius: 4px;
+}
+.modifyClass{
+}
+.deleteClass{
+	width: 60px;
+    margin-left: 10px;
+    background-color: #FF5722;
+    border-radius: 4px;
+}
+th {
+    text-align: center;
+}
+.inputClass{
+
+
 }
 </style>
 

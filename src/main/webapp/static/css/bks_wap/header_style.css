@@ -21,6 +21,7 @@
     width: 100%;
     text-align: center;
     height: 65px;
+    /* z-index: 999999999; */
 }
 .menu-btn {
     background: url(../../images/bks_wap/icons.svg) no-repeat -21px -303px;
@@ -59,7 +60,7 @@ a.p-link-back {
     text-align: center;
     overflow: hidden;
     height: 89px;
-   	/* z-index: 9999; */
+   	z-index: 3;
     background: url(../../images/bks_wap/2.jpg) no-repeat center center;
     background-size: cover;
     width: 100%;

@@ -1,6 +1,7 @@
 package cn.dibcbks.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,8 @@ import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.Constants;
 import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
+import net.sf.json.JSONArray;
+import sun.font.ScriptRun;
 
 @Service
 public class IUnitServiceImpl implements IUnitService {
@@ -35,7 +38,7 @@ public class IUnitServiceImpl implements IUnitService {
 	@Autowired
 	private  UserMapper userMaper;
 	@Autowired
-	private IDepartmentService iDepartmentSercice;
+	private IDepartmentService iDepartmentService;
 	
 	@Override
 	public ResponseResult<Void> updatUnit(Unit unit) {
@@ -311,14 +314,126 @@ public class IUnitServiceImpl implements IUnitService {
 					insert.setProductionLicense(productionLicense);		
 				}
 				System.out.println(insert);
-				unitMapper.insert(insert);				
-				iDepartmentSercice.addUnitDepartment(insert);
+				unitMapper.insert(insert);
+				iDepartmentService.addUnitDepartment(insert);
 				return new ResponseResult<Void>(ResponseResult.SUCCESS,"操作成功！");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseResult<Void>(ResponseResult.SUCCESS,"操作失败！");
 		}		
+	}
+
+
+	@Override
+	public ResponseResult<List<List<String>>> batchAddUnit(String unitList) {
+		ResponseResult<List<List<String>>> rr;
+		List<List<String>> list=new ArrayList<List<String>>();
+		JSONArray json = JSONArray.fromObject(unitList);
+		String unitName = "";//企业名称		
+		String businessLicenseCode = "";//统一社会信用代码
+		String unitType = "";//企业类型
+		String legalPerson = "";//企业法人
+		String unitAddress = "";//经营地址
+		String expirationDate = "";//到期时间		
+		Date createTime = new Date();//创建时间
+		String username = "";//联系人
+		String phone = "";//联系电话
+		Integer departmentId = null;//负责人部门角色ID
+		String uuid = "";//
+		Unit unit = null;
+		User user = null;
+		List<Unit> units = new ArrayList<>();
+		Integer row = null;
+		for(int i=0;i<json.size();i++){
+			unitName = json.getJSONArray(i).get(0).toString().trim();
+			businessLicenseCode = json.getJSONArray(i).get(1).toString().trim();
+			unitType = json.getJSONArray(i).get(2).toString().trim();
+			legalPerson = json.getJSONArray(i).get(3).toString().trim();
+			unitAddress = json.getJSONArray(i).get(4).toString().trim();
+			expirationDate = json.getJSONArray(i).get(5).toString().trim();
+			username =  json.getJSONArray(i).get(6).toString().trim();
+			phone =  json.getJSONArray(i).get(7).toString().trim();
+			//依据企业名称 + 统一社会信用代码
+			//units = unitMapper.select("n.unit_name = '" + unitName + "' OR n.business_license_code ='" + businessLicenseCode + "'", null, null, null);
+			units = unitMapper.select("n.unit_name = '" + unitName + "'", null, null, null);			
+			if(units.isEmpty()){
+				unit = new Unit();
+				unit.setUnitName(unitName);//企业名称
+				unit.setBusinessLicenseCode(businessLicenseCode);//统一社会信用代码				
+				unit.setTypeName(unitType);
+				switch (unitType) {//企业类型
+					case "市场监督管理局":
+						unit.setUnitType(1); break;
+					case "学校":						
+					case "学校食堂":	
+						unit.setUnitType(2); break;//学校
+					case "餐饮业":	
+					case "配餐单位":
+					case "小型餐馆":
+					case "中型餐馆":
+					case "大型餐馆":
+					case "特大型餐馆":
+						unit.setUnitType(3); break;//餐饮业
+					case "企业":						
+					case "个体":	
+					default:
+						unit.setUnitType(4); break;//其他
+				}			
+				unit.setLegalPerson(legalPerson);//企业法人				
+				unit.setUnitAddress(unitAddress);//经营地址				
+				unit.setExpirationDate(expirationDate);//到期时间
+				unit.setCreateTime(createTime);//创建时间
+				row = unitMapper.insert(unit);
+				System.out.println("unit:" + unit);
+				departmentId = iDepartmentService.addUnitDepartment(unit);
+			}else{
+				unit = units.get(0);				
+				departmentId = iDepartmentService.selectChargePersonDepartmentId(unit.getUnitId());
+			}		
+			if(userMaper.queryUserByPhone(phone) != null){ //该手机账户已存在企业账户无法绑定
+				logger.error(Constants.ERROR_HEAD_INFO + "手机号：" + phone + "  已存在企业账户无法绑定企业：" + unit.getUnitName());
+				continue;
+			}
+			System.out.println(unit);
+			if(StringUtils.isNotEmpty(phone)){
+				user = new User();
+				user.setPhone(phone);//联系方式
+				user.setUsername(username);//联系人
+				user.setDepartmentId(departmentId);//负责人部门ID
+				if(unit.getUnitType().equals(1)){//是否为监管企业
+					user.setType(1);//监管人员
+				}else{
+					user.setType(2);//企业人员
+				}		
+				user.setUnitId(unit.getUnitId());//企业ID
+				uuid = CommonUtil.getUUID();
+				user.setUuid(uuid);//uuid
+				user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, phone.substring(phone.length() - 6), uuid, 1024));//默认密码为手机后六位
+				user.setCreateTime(createTime);//创建时间
+				userMaper.insert(user);
+			}
+			if(row == 0){
+				list.add(json.getJSONArray(i));			
+			}	
+		}		
+		rr = new ResponseResult<List<List<String>>>(ResponseResult.SUCCESS,"操作成功:" + (json.size() - list.size()) + "条  失败：" + list.size() + "条 ",list);		
+		return rr;
+	}
+
+
+	@Override
+	public String selectWebUnitList(ModelMap modelMap) {
+		try {
+			String where = null;
+			if(CommonUtil.getSessionUser().getType() == 2){
+				where = " n.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";				
+			}
+			modelMap.addAttribute("unitList", unitMapper.select(where, " n.create_time DESC ", null, null));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "bks_web/unit/unit";
 	}	
 
 	

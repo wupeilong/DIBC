@@ -109,6 +109,7 @@ public class IWxServiceImpl implements IWxService {
 	        if (user == null || user.getType() == null) {
 	        	modelMap.addAttribute("isbind", 1);
 	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
+	        	
 	        	return "bks_wap/roles_choose";
 	        }
 	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));

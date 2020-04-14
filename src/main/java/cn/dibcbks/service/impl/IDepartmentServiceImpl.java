@@ -1,5 +1,7 @@
 package cn.dibcbks.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cn.dibcbks.entity.Department;
@@ -21,7 +23,7 @@ public class IDepartmentServiceImpl implements IDepartmentService {
 		department.setDepartmentHead(unit.getLegalPerson());//负责人
 		department.setDepartmentParentId(0);//最上级
 		department.setDepartmentType(6);//主体
-		department.setAuthorizationId(4);//三级权限
+		department.setAuthorizationId(4);//四级权限
 		departmentMapper.insert(department);
 		Integer departmentParentId = department.getDepartmentId();//企业部门ID
 		
@@ -31,10 +33,10 @@ public class IDepartmentServiceImpl implements IDepartmentService {
 		department.setDepartmentHead(unit.getLegalPerson());//负责人
 		department.setDepartmentParentId(departmentParentId);//父级部门ID
 		department.setDepartmentType(6);//主体
-		department.setAuthorizationId(5);//五级权限
+		department.setAuthorizationId(4);//四级权限
 		departmentMapper.insert(department);
 		
-		Integer legalPersonDepartmentId = department.getDepartmentId();//负责人部门ID
+		Integer chargePersonDepartmentId = department.getDepartmentId();//负责人部门ID
 		
 		department = new Department();
 		department.setUnitId(unit.getUnitId());//企业Id
@@ -45,7 +47,15 @@ public class IDepartmentServiceImpl implements IDepartmentService {
 		department.setAuthorizationId(5);//五级权限
 		departmentMapper.insert(department);
 		
-		return legalPersonDepartmentId;
+		return chargePersonDepartmentId;
 	}
 
+	
+	public Integer selectChargePersonDepartmentId(Integer unitId){
+		List<Department> departmentList = departmentMapper.select(" d.unit_id = '" + unitId + "'", null, null, null);
+		if(departmentList.isEmpty()){
+			return null;
+		}
+		return departmentList.get(0).getDepartmentId();
+	}
 }

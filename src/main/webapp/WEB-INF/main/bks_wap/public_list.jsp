@@ -27,8 +27,9 @@
 			<div id="header"  style="background: url(${pageContext.request.contextPath}/static/images/bks_wap/menu-bg.svg) no-repeat center bottom !important;">
 				<div class="header-content">
 					<a href="javascript:location.replace(location.href);" class="p-link-back"><i class="fa fa-refresh"></i></a>	
-					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a class="" id="demoSingle" href="javascript:;"><i class="fa fa-search fa-2x text-white" style="margin-top:.5em"></i></a>
+					<!-- menu-btn -->
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-angle-left fonwei"></i></a>					
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -38,8 +39,8 @@
 				</div>
 			</div>			
 		</div>   		
-		<main class="main margin-top padding-side" style="padding:80px 0;">
-			<div class="panel panel-info" style="border-radius: 0px;">				
+		<main class="main padding-side" style="padding:88px 0;">
+			<div class="panel panel-info margin-bot" style="border-radius: 0px;">				
 				<ul class="list-group  panel-body padding0" id="result_list"></ul>
 			</div>
 		</main>	

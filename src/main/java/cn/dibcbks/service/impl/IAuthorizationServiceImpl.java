@@ -37,11 +37,6 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	@Autowired
 	private AuthorizationMapper authorizationMapper;
 	
-	@Override
-	public String addMenuPag(ModelMap modelMap) {
-		//TODO 菜单添加页
-		return "";
-	}
 	
 	@Override
 	public ResponseResult<Void> addMenu(Menu menu) {
@@ -64,12 +59,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 		return rr;
 	}
 	
-	@Override
-	public String updateMenuPag(Integer menuId, ModelMap modelMap) {
-		modelMap.addAttribute("menuDetail", menuMapper.selectById(menuId));
-		//TODO 菜单详情页
-		return "";
-	}
+	
 	
 	@Override
 	public ResponseResult<Void> updateMenu(Menu menu) {
@@ -92,24 +82,19 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	
 	@Override
 	public JSONObject selectMenuListPag(ModelMap modelMap) {
-		//try {
-//			List<Menu> menuList = menuMapper.select(null, null, null, null);			
-//			List<Menu> menus = new ArrayList<Menu>();
-//			sort(-1, menuList, menus);			
-//			
-//			modelMap.addAttribute("menuList", menus);
-		//} catch (Exception e) {
-			//e.printStackTrace();
-		//}
-			List<Menu> menulist=menuMapper.select(null, null, null, null);				
-			JSONArray json = JSONArray.fromObject(menulist);
 			JSONObject lan1 = new JSONObject();
-	        lan1.put("code", 0);
-	        lan1.put("msg", "");
-	        lan1.put("count",menulist.size());
-	        lan1.put("data",json);
+			try {
+				List<Menu> menulist=menuMapper.select(null, null, null, null);				
+				JSONArray json = JSONArray.fromObject(menulist);
+				lan1.put("code", 0);
+				lan1.put("msg", "");
+				lan1.put("count",menulist.size());
+				lan1.put("data",json);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return lan1;
-		//return "bks_web/menu/menu";
+		
 	}		
 	
 	@Override
@@ -176,12 +161,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	
 	@Override
 	public String addDepartmentPag(ModelMap modelMap) {		
-//		String where = "parent_id = '-1' ";
-//		if(!CommonUtil.getSessionUser().getType().equals(1)){
-//			//非监控人员有一些菜单没有权限
-//			//where += " AND menu_id NOT IN (1,2,3)";
-//		}
-//		List<Menu> menuList = menuMapper.select(where, null, null, null);	
+	
 		List<Menu> menuList = menuMapper.select(null, null, null, null);
 		modelMap.addAttribute("menuList", menuList);
 		return "bks_wap/department_add";
@@ -426,6 +406,7 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 	public JSONObject getDepartment(ModelMap modelMap) {
 		if (SecurityUtils.getSubject().isAuthenticated()) {
 			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", null, null, null);
+			System.out.println(departmentList);
 			JSONArray json = JSONArray.fromObject(departmentList);
 			JSONObject lan1 = new JSONObject();
 	        lan1.put("code", 0);
@@ -509,7 +490,8 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 			if(CommonUtil.isLogin()){
 				where = "d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
 			}
-			List<Department> departmentList = departmentMapper.select(where, null, null, null);		
+			List<Department> departmentList = departmentMapper.select(where, null, null, null);	
+			System.out.println("departmentList : " + departmentList);
 			List<Department> list = new ArrayList<>();
 			sortDepartment(0, departmentList, list);
 			modelMap.addAttribute("userId", userId);

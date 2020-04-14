@@ -5,7 +5,7 @@
 <head>
 	<meta charset=utf-8>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>完善用户信息</title>
+	<title>个人信息完善</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
@@ -17,13 +17,16 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
-	<body class="contain">
+	<body class="contain">	
 		<div id="page">
 			<div id="header">
 				<div class="header-content">
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<button type="button" class="btn btn-primary form-control" id="register">保存</button>
+					</div>			
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -31,11 +34,11 @@
 				<div class="s-banner-content">
 					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
 				</div>
-			</div>					
-		</div> 	
-		<main class="main margin-top padding-side">
+			</div>
+		</div>		
+		<main class="main padding-side">
 			<form action="" method="" class="clearfix">
-				<div class="workmens_info_top margin-bot">					
+				<div class="workmens_info_top margin-bot margin-top">					
 					<div class="input-group form-group fs">
 						  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
 					<div class="form-control box-shadow0 border0">${userDetail.unitName}</div>					 
@@ -95,12 +98,13 @@
 				</div>				
 			</form>
 			
-			<div class="margin-top2 margin-bot2">
+			<!-- <div class="margin-top2 margin-bot2">
 				<button type="button" class="btn btn-primary form-control" id="register">保存</button>
-			</div>
+			</div> -->
 		</main>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>		
 		<script type="text/javascript">
+		console.log('用户: ${userDetail}');
 			$("#fileinput").on("change",function() {
 				intoBase64("fileinput","preview");
 			})

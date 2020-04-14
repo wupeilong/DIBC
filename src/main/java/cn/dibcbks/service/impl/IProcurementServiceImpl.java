@@ -20,6 +20,7 @@ import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.Unqualified;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.exception.MyRuntimeException;
+import cn.dibcbks.exception.TXruntimeException;
 import cn.dibcbks.mapper.ProcurementMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UnqualifiedMapper;
@@ -255,9 +256,8 @@ public class IProcurementServiceImpl implements IProcurementService {
 					unitMapper.insert(u);
 
 					// 添加部门信息
-
+					
 					iDepartmentServiceImpl.addUnitDepartment(u);
-
 				}
 				// 上传采购信息
 				Procurement procurement = new Procurement();
@@ -301,7 +301,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 			e.printStackTrace();
 			
 			rr = new ResponseResult<>(ResponseResult.SUCCESS, "操作失败！错误信息:" + e.getMessage());
-			//	throw new MyRuntimeException(e.getMessage());
+				throw new TXruntimeException("操作失败",e.getMessage());
 				
 		}
 		
@@ -317,7 +317,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 			Integer unitType, Date createTime) {
 
 		Unit unit = new Unit(unitId, unitName, legalPerson, businessLicenseCode, businessLicense, productionLicense,
-				unitAddress, expirationDate, unitType, createTime);
+				unitAddress, expirationDate, unitType, null,createTime);
 
 		unitMapper.insert(unit);
 	}

@@ -25,8 +25,6 @@ public interface IUserService {
 
 	ResponseResult<User> login(String idCard, String password);
 
-	ResponseResult<Void> updateUser(User user);	
-
 	ResponseResult<Void> userIsExist(String idCard,String phone);
 
 	ResponseResult<List<User>> queryUnitUser(Integer unitId, String unitName);
@@ -136,6 +134,35 @@ public interface IUserService {
 	 * @return
 	 */
 	String workmensAdd(ModelMap modelMap);
+
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	ResponseResult<Void> webUpdateUser(User user);
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ResponseResult<Void> deleteUser(Integer id);
+
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	ResponseResult<Void> webAddUser(User user);
+
+	/**
+	 * 
+	 * @param userList
+	 * @return
+	 */
+	ResponseResult<List<List<String>>> batchAddUser(String userList);
+
 
 	
 }

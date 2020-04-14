@@ -83,10 +83,12 @@ public class IDetectionServiceImpl implements IDetectionService{
 
 	@Override
 	public String selectDetectionListPage(ModelMap modelMap) {
-		
+		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time) ";		
 		iUnitService.addUnitListToModelMap(modelMap);
-		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time) ";
-		List<Detection> detectionList = detectionMapper.select(where, null, null, null);
+		if(CommonUtil.getSessionUser().getType() != 1){
+			where += " AND d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
+		}
+		List<Detection> detectionList = detectionMapper.select(where, "d.create_time DESC", null, null);
 		modelMap.addAttribute("detectionList", detectionList);
 		return "bks_wap/detection_list";
 	}
