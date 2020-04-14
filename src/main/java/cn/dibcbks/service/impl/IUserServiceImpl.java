@@ -32,6 +32,7 @@ import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.Constants;
 import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
+import net.bytebuddy.dynamic.scaffold.MethodRegistry.Handler.ForAbstractMethod;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -631,63 +632,105 @@ public class IUserServiceImpl implements IUserService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ResponseResult<List<List<String>>> batchAddUser(String userList) {
-		ResponseResult<List<List<String>>> rr;
+		ResponseResult<List<List<String>>> rr = null;
 		List<List<String>> list=new ArrayList<List<String>>();
 		JSONArray json = JSONArray.fromObject(userList);
-		String username = "";//姓名		
+		String username = "";//姓名
 		String phone = "";//联系方式
 		String departmentName = "";//工作部门
-		String authorization = "";//权限级别		
-		Integer departmentId = null;//部门ID
-		String uuid = "";//用户UUID
-		User user = null;
-		Integer row = null;
-		List<Department> departments = null;
-		Department department = null;
+		String authorization = "";//权限级别
+//		Integer departmentId = null;//部门ID
+//		String uuid = "";//用户UUID
+//		User user = null;
+//		Integer row = null;
+//		List<Department> departments = null;
+//		Department department = null;
 		Date createTime = new Date();
 		for(int i=0;i<json.size();i++){
-			username = json.getJSONArray(i).get(0).toString().trim();
-			phone = json.getJSONArray(i).get(1).toString().trim();
-			departmentName = json.getJSONArray(i).get(2).toString().trim();
-			authorization = json.getJSONArray(i).get(3).toString().trim();			
-			//依据部门名字 查询部门信息			
-			departments = departmentMapper.select(" d.department_name = '" + departmentName + "'", null, null, null);
-			if(departments.isEmpty()){
-				department = new Department();
-				department.setUnitId(1);//市场监管局
-				department.setDepartmentName(departmentName);//部门名字
-				department.setDepartmentParentId(1);//上级部门为市场监管局
-				department.setDepartmentType(1);//管辖部门类型：1-市场监管局 2-市场监管分局 3-社区[街道办事处] 4-居委会 5-网格 6-主体
-				department.setAuthorizationId(authorization.equals("一级权限") ? 1 : 2);
-				departmentMapper.insert(department);
-				departmentId = department.getDepartmentId();
-			}else{
-				departmentId = departments.get(0).getDepartmentId();
-			}		
-			if(userMapper.queryUserByPhone(phone) != null){ //该手机账户已存在企业账户无法绑定
-				logger.error(Constants.ERROR_HEAD_INFO + "手机号：" + phone + "已存在账户无法绑定部门：" + departmentName);
-				continue;
-			}			
-			if(StringUtils.isNotEmpty(phone)){
-				user = new User();
-				user.setPhone(phone);//联系方式
-				user.setUsername(username);//联系人
-				user.setDepartmentId(departmentId);//负责人部门ID
-				user.setType(1);//监管人员					
-				user.setUnitId(1);//企业ID
-				uuid = CommonUtil.getUUID();
-				user.setUuid(uuid);//uuid
-				user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, phone.substring(phone.length() - 6), uuid, 1024));//默认密码为手机后六位
-				user.setCreateTime(createTime);//创建时间
-				userMapper.insert(user);
-			}
-			if(row == 0){
-				list.add(json.getJSONArray(i));			
-			}	
+			JSONArray jsonArray = json.getJSONArray(i);
+			username = jsonArray.get(0).toString().trim();
+			phone = jsonArray.get(1).toString().trim();
+			departmentName = jsonArray.get(2).toString().trim();
+			authorization = jsonArray.get(3).toString().trim();
+//			//依据部门名字 查询部门信息			
+//			departments = departmentMapper.select(" d.department_name = '" + departmentName + "'", null, null, null);
+//			if(departments.isEmpty()){
+//				department = new Department();
+//				department.setUnitId(1);//市场监管局
+//				department.setDepartmentName(departmentName);//部门名字
+//				department.setDepartmentParentId(1);//上级部门为市场监管局
+//				department.setDepartmentType(1);//管辖部门类型：1-市场监管局 2-市场监管分局 3-社区[街道办事处] 4-居委会 5-网格 6-主体
+//				department.setAuthorizationId(authorization.equals("一级权限") ? 1 : 2);
+//				departmentMapper.insert(department);
+//				departmentId = department.getDepartmentId();
+//			}else{
+//				departmentId = departments.get(0).getDepartmentId();
+//			}		
+//			if(userMapper.queryUserByPhone(phone) != null){ //该手机账户已存在企业账户无法绑定
+//				logger.error(Constants.ERROR_HEAD_INFO + "手机号：" + phone + "已存在账户无法绑定部门：" + departmentName);
+//				continue;
+//			}		
+//			if(StringUtils.isNotEmpty(phone)){
+//				user = new User();
+//				user.setPhone(phone);//联系方式
+//				user.setUsername(username);//联系人
+//				user.setDepartmentId(departmentId);//负责人部门ID
+//				user.setType(1);//监管人员				
+//				user.setUnitId(1);//企业ID
+//				uuid = CommonUtil.getUUID();
+//				user.setUuid(uuid);//uuid
+//				user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, phone.substring(phone.length() - 6), uuid, 1024));//默认密码为手机后六位
+//				user.setCreateTime(createTime);//创建时间
+//				row = userMapper.insert(user);
+//			}
+//			if(row == 0){
+//				list.add(json.getJSONArray(i));			
+//			}	
+			executeAddUser(jsonArray,username,phone,departmentName,authorization,createTime,list);
 		}		
 		rr = new ResponseResult<List<List<String>>>(ResponseResult.SUCCESS,"操作成功:" + (json.size() - list.size()) + "条  失败：" + list.size() + "条 ",list);		
 		return rr;
+	}
+	
+	public synchronized void executeAddUser(JSONArray json,String username,String phone,String departmentName,String authorization,Date createTime,List<List<String>> list){		
+		//依据部门名字 查询部门信息
+		List<Department> departments = departmentMapper.select(" d.department_name = '" + departmentName + "'", null, null, null);
+		Integer departmentId = null;
+		Integer row = 0;
+		if(departments.isEmpty()){
+			Department department = new Department();
+			department.setUnitId(1);//市场监管局
+			department.setDepartmentName(departmentName);//部门名字
+			department.setDepartmentParentId(1);//上级部门为市场监管局
+			department.setDepartmentType(1);//管辖部门类型：1-市场监管局 2-市场监管分局 3-社区[街道办事处] 4-居委会 5-网格 6-主体
+			department.setAuthorizationId(authorization.equals("一级权限") ? 1 : 2);
+			departmentMapper.insert(department);
+			departmentId = department.getDepartmentId();
+		}else{
+			departmentId = departments.get(0).getDepartmentId();
+		}
+		if(userMapper.queryUserByPhone(phone) != null){ //该手机账户已存在企业账户无法绑定
+			logger.error(Constants.ERROR_HEAD_INFO + "手机号：" + phone + "已存在账户无法绑定部门：" + departmentName);
+			return;
+		}
+		if(StringUtils.isNotEmpty(phone)){
+			User user = new User();
+			user.setPhone(phone);//联系方式
+			user.setUsername(username);//联系人
+			user.setDepartmentId(departmentId);//负责人部门ID
+			user.setType(1);//监管人员					
+			user.setUnitId(1);//企业ID
+			String uuid = CommonUtil.getUUID();
+			user.setUuid(uuid);//uuid
+			user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, phone.substring(phone.length() - 6), uuid, 1024));//默认密码为手机后六位
+			user.setCreateTime(createTime);//创建时间
+			row = userMapper.insert(user);
+		}
+		if(row == 0){
+			list.add(json);		
+		}
 	}
 }
