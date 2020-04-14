@@ -60,5 +60,12 @@ public interface IUnitService {
 	 */
 	ResponseResult<List<List<String>>> batchAddUnit(String unitList);
 
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String selectWebUnitList(ModelMap modelMap);
+
 
 }

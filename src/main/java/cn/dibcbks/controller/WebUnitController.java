@@ -40,8 +40,8 @@ public class WebUnitController {
 	
 	@ApiOperation("企业信息列表页")
 	@RequestMapping("/list")
-	public String selectUnit(ModelMap modelMap){
+	public String selectUnitList(ModelMap modelMap){
 		
-		return "bks_web/excel/unit_excel";
+		return iUnitService.selectWebUnitList(modelMap);	
 	}
 }

@@ -12,6 +12,7 @@
 	    <result column="unit_address" property="unitAddress" />
 	    <result column="expiration_date" property="expirationDate" />
 	    <result column="unit_type" property="unitType" />
+	    <result column="type_name" property="typeName" />
 	    <result column="create_time" property="createTime" />
   	</resultMap>
 
@@ -45,6 +46,9 @@
 	      <if test="unitType != null">
 	        unit_type,
 	      </if>
+	      <if test="typeName != null">
+	        type_name,
+	      </if>
 	      <if test="createTime != null">
 	        create_time,
 	      </if>
@@ -77,6 +81,9 @@
 	      <if test="unitType != null">
 	        #{unitType},
 	      </if>
+	      <if test="typeName != null">
+	        #{typeName},
+	      </if>
 	      <if test="createTime != null">
 	        #{createTime},
 	      </if>
@@ -95,7 +102,8 @@
 			n.unit_address,
 			n.expiration_date,
 			n.create_time,
-			n.unit_type
+			n.unit_type,
+			n.type_name
 		FROM
 			unit AS n
 		<if test="where != null">where ${where}</if>
@@ -115,7 +123,8 @@
 			n.unit_address,
 			n.expiration_date,
 			n.create_time,
-			n.unit_type
+			n.unit_type,
+			n.type_name
 		FROM
 			unit AS n
 		WHERE
@@ -133,7 +142,8 @@
 			n.unit_address,
 			n.expiration_date,
 			n.create_time,
-			n.unit_type
+			n.unit_type,
+			n.type_name
 		FROM
 			unit AS n
 		WHERE
@@ -168,6 +178,9 @@
 	      <if test="unitType != null">
 	        unit_type = #{unitType},
 	      </if>
+	      <if test="typeName != null">
+	        type_name = #{typeName},
+	      </if>
 	      <if test="createTime != null">
 	        create_time = #{createTime},
 	      </if>
@@ -177,7 +190,7 @@
 
 	
 	<delete id="deleteById" parameterType="java.lang.Integer">
-		DELETE FROM utni where unit_id = #{unitId};
+		DELETE FROM unit where unit_id = #{unitId};
 	</delete>
 </mapper>
 	
