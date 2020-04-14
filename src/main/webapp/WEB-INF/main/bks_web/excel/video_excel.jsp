@@ -56,19 +56,18 @@
 				var tr=document.querySelectorAll("tr");
 			})
 			function diskproduct(){	
-					var unitList = new Array();	
+					var videoList = new Array();	
 					var rs = document.getElementsByName("tr_idx")		
 			   		for(var i = 0; i < rs.length; i++){     		
-			   			unitList[i]=new Array();
+			   			videoList[i]=new Array();
 			    	 	for(var j = 0;j<rs[i].cells.length-1; j++){
 			    	 		if(j!=0 && j<14){    	 		
-			    	 			unitList[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
+			    	 			videoList[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
 			    	 		}    	 				
 			    	 	}    	 	
 					}
-					console.log(unitList);
 			    	var url="${pageContext.request.contextPath}/web_video/bath_add"; 
-			    	var  data ="unitList="+JSON.stringify(unitList);	    			  
+			    	var  data ="videoList="+JSON.stringify(videoList);
 			         $.ajax({    	   
 			    	   "url":url,    	  
 			    	   "data":data,
@@ -79,7 +78,7 @@
 			    			   layer.msg(obj.message,{icon:2,time:1000});
 			    			   return;
 			      			}
-			    		   layer.msg(obj.message,{icon:2,time:2000});
+			    		   layer.msg(obj.message,{icon:1,time:2000});
 			    		   var d=obj.data;
 			    		   var html = '<table class="table table-bordered table-hover fontwei" id="test_table"><tbody><tr class="result_tr">'+
 			    		   			'<td></td>'+
