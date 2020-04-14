@@ -26,7 +26,6 @@ public class Unit implements Serializable {
 	 private Date createTime;//创建时间
 	public Unit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Unit(Integer unitId, String unitName, String legalPerson, String businessLicenseCode, String businessLicense,
 			String productionLicense, String unitAddress, String expirationDate, Integer unitType, String typeName,
