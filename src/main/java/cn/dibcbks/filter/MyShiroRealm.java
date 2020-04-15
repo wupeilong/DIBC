@@ -75,6 +75,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 			ByteSource byteSource = ByteSource.Util.bytes(user.getUuid());
 			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account,user.getPassword(),getName());
 			info.setCredentialsSalt(byteSource);
+			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
 			return info;
 		}
 		return null;
