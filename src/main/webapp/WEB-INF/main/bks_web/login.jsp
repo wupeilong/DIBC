@@ -40,7 +40,7 @@
 						</div>
 					</fieldset>
 				</form>
-				<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 50px;">登陆</button></div>
+				<div class="text-center margin-top2 margin-bot2"><button type="submit" class="btn btn-primary form-control" id="login" value="登陆" style="height: 100px;">登陆</button></div>
 			</div>	
 		</div>	
 		<script type="text/javascript">

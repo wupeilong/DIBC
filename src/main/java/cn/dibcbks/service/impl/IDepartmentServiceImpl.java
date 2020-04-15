@@ -52,7 +52,7 @@ public class IDepartmentServiceImpl implements IDepartmentService {
 
 	
 	public Integer selectChargePersonDepartmentId(Integer unitId){
-		List<Department> departmentList = departmentMapper.select(" d.unit_id = '" + unitId + "'", null, null, null);
+		List<Department> departmentList = departmentMapper.select(" d.unit_id = '" + unitId + "' AND d.department_name = '负责人'", null, null, null);
 		if(departmentList.isEmpty()){
 			return null;
 		}

@@ -147,20 +147,20 @@
 		if(!name_reg.test($("#unitName").val())){
 			layer.msg("请正确输入企业名称",{icon:2,time:1000});
 			$("#unitName").focus();		
-		}else if (!password_reg.test($("#businessLicenseCode").val())) {
+		}else if ($("#businessLicenseCode").val() != "" && !password_reg.test($("#businessLicenseCode").val())) {
 			layer.msg("请正确输入社会统一信用代码",{icon:2,time:1000});
 			$("#businessLicenseCode").focus();		
-		}else if($("#preview").attr('src') == ""){
+		}/* else if($("#preview").attr('src') == ""){
 			layer.msg("请上传营业执照",{icon:2,time:1000});							
 		}else if($("#preview1").attr('src') == ""){
 			layer.msg("请上传食品许可证",{icon:2,time:1000});							
-		}else if($("#unitType").val() == 0){
+		} */else if($("#unitType").val() == 0){
 			layer.msg("请选择企业类型",{icon:2,time:1000});
 			$("#unitType").focus();		
 		}else  if($("#unitAddress").val() == ""){
 			layer.msg("请正确填写营业地址",{icon:2,time:1000});
 			$("#unitAddress").focus();		
-		}else if(!username_reg.test($("#legalPerson").val())){
+		}else if($("#legalPerson").val() != "" && !username_reg.test($("#legalPerson").val())){
 			layer.msg("请填写法人姓名",{icon:2,time:1000});
 			$("#legalPerson").focus();		
 		}else{

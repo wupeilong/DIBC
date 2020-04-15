@@ -5,6 +5,7 @@ package cn.dibcbks.filter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -70,9 +71,11 @@ public class MyShiroRealm extends AuthorizingRealm{
 			user = userMapper.queryUserByOpenid(account);
 		}
 		if(user != null){
+			this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
 			ByteSource byteSource = ByteSource.Util.bytes(user.getUuid());
 			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account,user.getPassword(),getName());
 			info.setCredentialsSalt(byteSource);
+			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
 			return info;
 		}
 		return null;

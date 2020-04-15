@@ -43,7 +43,7 @@
 								<td>视频流地址</td>
 								<td>监控类型</td>
 								<td>视频流类型</td>										
-								<td contenteditable="false">操作</td></tr>							
+								<td contenteditable="false">操作</td></tr>					
 						</tbody>
 					</table>
 				</div>			

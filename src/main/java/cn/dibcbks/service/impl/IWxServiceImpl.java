@@ -3,10 +3,7 @@ package cn.dibcbks.service.impl;
 
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -19,13 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-import com.alibaba.fastjson.JSONArray;
+
+import cn.dibcbks.entity.Authorization;
+import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Role;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
-import cn.dibcbks.entity.WxAccessToken;
-import cn.dibcbks.filter.LoginType;
 import cn.dibcbks.filter.MyUsernamePasswordToken;
+import cn.dibcbks.mapper.AuthorizationMapper;
+import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.RoleMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UserMapper;
@@ -36,9 +35,7 @@ import cn.dibcbks.util.Constants;
 import cn.dibcbks.util.DateUtil;
 import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
-import cn.dibcbks.util.wx.AccessTokenOut;
 import cn.dibcbks.util.wx.WxApi;
-import cn.dibcbks.util.wx.WxApiAddressUtil;
 import cn.dibcbks.util.wx.WxUserInfoOut;
 import net.sf.json.JSONObject;
 
@@ -53,6 +50,9 @@ public class IWxServiceImpl implements IWxService {
 	private UnitMapper unitMapper;
 	@Autowired
 	private RoleMapper roleMapper;
+	@Autowired
+	private AuthorizationMapper authorizationMapper;
+	
 	
 	
 	@Override
@@ -143,8 +143,11 @@ public class IWxServiceImpl implements IWxService {
 	        user.setDepartmentId(220);//默认消费者
 	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
 	        user.setType(3);//公众
-	        user.setCreateTime(createTime);
+	        user.setCreateTime(createTime);	        
 	        userMapper.insert(user);
+	        //微信大众用户预授权
+	        Authorization authorization = authorizationMapper.selectById(3);
+	        user.setAuthorization(authorization.getAuthorizationContent());
 	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);	
 	        CommonUtil.setAttribute("userJson", userJson);
@@ -295,7 +298,7 @@ public class IWxServiceImpl implements IWxService {
 				user.setHeadUrl(wxUserInfo.getHeadimgurl());
 				user.setSex(wxUserInfo.getSex());
 				user.setUsername(StringUtils.isEmpty(user.getUsername())? wxUserInfo.getNickname() : null);
-				user.setOpenid(wxUserInfo.getOpenId());
+				user.setOpenid(wxUserInfo.getOpenId());				
 				userMapper.updateById(user);
 				CommonUtil.login(new MyUsernamePasswordToken(wxUserInfo.getOpenId()));
 				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
