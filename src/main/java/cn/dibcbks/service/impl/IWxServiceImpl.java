@@ -298,7 +298,7 @@ public class IWxServiceImpl implements IWxService {
 				user.setHeadUrl(wxUserInfo.getHeadimgurl());
 				user.setSex(wxUserInfo.getSex());
 				user.setUsername(StringUtils.isEmpty(user.getUsername())? wxUserInfo.getNickname() : null);
-				user.setOpenid(wxUserInfo.getOpenId());
+				user.setOpenid(wxUserInfo.getOpenId());				
 				userMapper.updateById(user);
 				CommonUtil.login(new MyUsernamePasswordToken(wxUserInfo.getOpenId()));
 				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
