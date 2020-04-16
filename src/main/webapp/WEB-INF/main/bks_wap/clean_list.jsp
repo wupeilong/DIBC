@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@
 		</div>
 		<main class="delivery main padding-side05"">
 			<div class="margin-top" id="result_list">
-				<c:if test="${disinfectionlist.siz()==0 }">
+				<c:if test="${disinfectionlist == null || fn:length(disinfectionlist) <= 0 }">
 					<span style="top: 65px;position: relative;color: #c23412;font-size: 17px;font-weight: 600">暂无清洗记录</span>
 				</c:if>
 				<c:forEach items="${disinfectionlist}" var="f" varStatus="vs">
