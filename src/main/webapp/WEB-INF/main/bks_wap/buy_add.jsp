@@ -44,6 +44,19 @@
 </style>
 </head>
 <body class="contain">
+<div class="upload_imgs">
+							<div class="fc tip_text">
+								<div class="text-info">
+									<div class="fc">
+										<i class="fa fa-plus padding-side05"></i>
+									</div>
+									<div class="text-center">上传营业执照</div>
+								</div>
+							</div>
+							<input type="file" name="" id="fileinput" value=""
+								accept="image/*" /> <img src="" id="preview">
+						</div>
+
 	<!-- <div class="navigation bg-primary">
 		<div class="fb padding-side">
 			<a href="javascript:history.go(-1)" class="text-white"><i
