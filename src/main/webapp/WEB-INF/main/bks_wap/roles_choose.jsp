@@ -19,7 +19,7 @@
 		<main class="bg-gradientfbot" style="height: 100%;background: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_roles.png) no-repeat;background-size: contain;">
 			<div class="text-center">
 				<div class="circle bg-gradient margin-top2" style="width: 80px;height: 80px;"><img style="width: 80px;height: 80px;  border-radius:50%;"  src="${wx_user_info.headimgurl}"></div>
-				<p class="margin-top fonwei text-muted">用户：${wx_user_info.nickname}</p>
+				<p class="margin-top fonwei binding_page_black fonwei" style="color: #0a0a0a;">用户：${wx_user_info.nickname}</p>
 			</div>
 			<div class="roles_lis width100 padding-side margin-top4 margin-bot2">
 				<div class="margin-bot fonwei" style="border-left: 4px solid #fe722d;padding-left: 1em;color: #666;font-size: 1.2em;"> 请选择用户角色 </div>
@@ -29,21 +29,21 @@
 						<div class="padding-side">
 							<%-- <a href="${pageContext.request.contextPath}/wap_public_home" class="fonwei">大众用户</a> --%>
 							<a href="javascript:;" class="fonwei">大众用户</a>
-							<div class="text-muted bfrifRows  " style="margin-top: 0.4em;    font-size: 10px;">大众用户。既是消费者又是监督者，可查看食品安全相关过程，齐抓共管食品安全。</div>
+							<div class="binding_page_black fonwei bfrifRows  " style="margin-top: 0.4em;    font-size: 10px;">大众用户。既是消费者又是监督者，可查看食品安全相关过程，齐抓共管食品安全。</div>
 						</div>
 					</li>
 					<li class="fs" onclick="model($('.model_step2'))">
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role.png" class="" alt=""> </div>
 						<div class="padding-side">
-							<a href="javascript:;" class="fonwei">主体人员</a>
-							<div class="text-muted bfrifRows  " style="margin-top: 0.4em;font-size: 10px;">主体人员。作为食品生产的主体，诚信生产经营，根据相关法律，接受相关部门的监督。</div>
+							<a href="javascript:;" class="fonwei">市场主体</a>
+							<div class="binding_page_black fonwei bfrifRows  " style="margin-top: 0.4em;font-size: 10px;">主体人员。作为食品生产的主体，诚信生产经营，根据相关法律，接受相关部门的监督。</div>
 						</div>
 					</li>
 					<li class="fs" onclick="model($('.model_step3'))">
 						<div class=""> <img src="${pageContext.request.contextPath}/static/images/bks_wap/role2.png" class="" alt=""> </div>
 						<div class="padding-side">
 							<a href="javascript:;" class="fonwei bfrifRows">监管人员</a>
-							<div class="text-muted  " style="margin-top: 0.4em;font-size: 10px;">监管人员。黔灵毓秀，贵中云岩，保障人民群众的饮食安全。</div>
+							<div class="binding_page_black fonwei  " style="margin-top: 0.4em;font-size: 10px;">监管人员。黔灵毓秀，贵中云岩，保障人民群众的饮食安全。</div>
 						</div>
 					</li>
 				</ul>
@@ -56,13 +56,13 @@
 							<div class="tab_type cur">
 								<form action="" class="bingform">
 									<legend class="fonsi16">主体绑定</legend>
-									<legend class="fonwei text-muted margin-top2 border0">*注： 系统将根据您所绑定的手机账户分配您所属的企业主体信息</legend>
+									<legend class="fonwei binding_page_black margin-top2 border0">*注： 系统将根据您所绑定的手机账户分配您所属的企业主体信息</legend>
 									<div class="">
-										<label for="mobile" class="text-muted"><i class="fa fa-mobile"></i></label>
+										<label for="mobile" class="binding_page_black"><i class="fa fa-mobile"></i></label>
 										<input type="text" class="border0 form-control" name="mobile" id="mobile" value="" placeholder="请输入手机号"/>
 									</div>
 									<div class="margin-top">
-										<label for="password" class="text-muted"><i class="fa fa-key"></i></label>
+										<label for="password" class="binding_page_black"><i class="fa fa-key"></i></label>
 										<input type="password" class="border0 form-control" name="password" id="" value="" placeholder="请输入密码"/>
 									</div>
 								</form>
@@ -84,13 +84,13 @@
 							<div class="tab_type cur">
 								<form action="" class="bingform">
 									<legend class="fonsi16">监管人员绑定</legend>
-									<legend class="fonwei text-muted margin-top2 border0">*注： 系统将根据您所提供的手机账户绑定监管账户信息</legend>
+									<legend class="fonwei binding_page_black margin-top2 border0">*注： 系统将根据您所提供的手机账户绑定监管账户信息</legend>
 									<div class="">
-										<label for="mobile" class="text-muted"><i class="fa fa-mobile"></i></label>
+										<label for="mobile" class="binding_page_black"><i class="fa fa-mobile"></i></label>
 										<input type="text" class="border0 form-control" name="mobile" id="mobile" value="" placeholder="请输入手机号"/>
 									</div>
 									<div class="margin-top">
-										<label for="password" class="text-muted"><i class="fa fa-key"></i></label>
+										<label for="password" class="binding_page_black"><i class="fa fa-key"></i></label>
 										<input type="password" class="border0 form-control" name="password" id="" value="" placeholder="请输入密码"/>
 									</div>
 								</form>

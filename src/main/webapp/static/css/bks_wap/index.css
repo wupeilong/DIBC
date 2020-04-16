@@ -126,7 +126,7 @@ button.btn{
 }
 .main{
 	/* height: 100%; */
-	padding-bottom: 48px;
+	padding-bottom: 64px;
 	padding-top: 92.4px;
 }
 .tab_heading{
@@ -709,4 +709,7 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	font-size: 4vw;
 	height: auto;
 	line-height: inherit;
+}
+.binding_page_black {
+    color: #333;
 }

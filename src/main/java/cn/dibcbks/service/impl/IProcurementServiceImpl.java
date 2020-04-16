@@ -317,7 +317,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 			Integer unitType, Date createTime) {
 
 		Unit unit = new Unit(unitId, unitName, legalPerson, businessLicenseCode, businessLicense, productionLicense,
-				unitAddress, expirationDate, unitType, createTime);
+				unitAddress, expirationDate, unitType, null,createTime);
 
 		unitMapper.insert(unit);
 	}

@@ -178,7 +178,7 @@
 			u.sex,
 			u.type,
 			u.uuid,
-			u.authorization,
+			a.authorization_content AS authorization,
 			u.`status`,
 			u.create_time,
 			n.unit_name,
@@ -190,6 +190,7 @@
 		LEFT JOIN unit AS n ON n.unit_id = u.unit_id
 		LEFT JOIN role AS r ON r.role_id = u.role_id
 		LEFT JOIN department AS d ON d.department_id = u.department_id
+		LEFT JOIN authorization AS a ON a.authorization_id = d.authorization_id
 		<if test="where != null">where ${where}</if>
 		<if test="orderBy != null">order by ${orderBy}</if>
 		<if test="offset != null">limit ${offset},${countPerPage}</if>
