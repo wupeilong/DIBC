@@ -77,7 +77,7 @@
 								  <img class="layui-upload-img" src="${pageContext.request.contextPath}${procurementDetail.supplierQualification }">
 								</div>
 							</div>
-							<div class="text-center">经营资质</div>
+							<div class="text-center">检验合格报告</div>
 						</div>
 					</div>
 				<div class="input-group form-group fs border-bottom">

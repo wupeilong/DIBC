@@ -38,10 +38,10 @@
 								</div>
 							</div>
 							<div class="tab_type cur">
-								<div class="login_user margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginuser.png);background-repeat: no-repeat;background-size: 100% 100%;">
+								<div class="login_user margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginuser.png);background-repeat: no-repeat;background-size: 100% 109%;">
 									<input type="text" class="login_input box-shadow0 width100" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
 								</div>
-								<div class="login_pwd margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginpwd.png);background-repeat: no-repeat;background-size: 100% 100%;">
+								<div class="login_pwd margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginpwd.png);background-repeat: no-repeat;background-size: 100% 109%;">
 									<input type="password" class="login_input bg-pwd box-shadow0 width100" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
 								</div>
 								<div class="text-center btn_box margin-top2">
@@ -53,8 +53,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="footer_flag margin-top2 text-center text-white">
-				<p>Copyright&copy;2020 贵州科技</p>
+			<div class="footer_flag margin-top2 text-center text-white margin-top2">
+				<p>Copyright&copy;2020 贵州指上通科技有限责任公司</p>
 				<p>黔公网安备11000002000001号</p>
 			</div>
 		</div>

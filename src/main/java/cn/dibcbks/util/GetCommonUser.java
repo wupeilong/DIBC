@@ -57,6 +57,7 @@ public class GetCommonUser {
     	}else{
     		extName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));	  
     	} 
+
 	    try {
 	    	File file5 = new File(path1+"/static/images/bks_wap/company_img/"+uuid);
 		    if (!file5.exists()) {

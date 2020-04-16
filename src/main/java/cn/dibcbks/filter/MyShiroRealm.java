@@ -72,14 +72,15 @@ public class MyShiroRealm extends AuthorizingRealm{
 		}
 		if(user != null){
 			//清理当前用户权限
-			this.clearCache(SecurityUtils.getSubject().getPrincipals());
-			this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+			//this.clearCache(SecurityUtils.getSubject().getPrincipals());
+			//this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
 			ByteSource byteSource = ByteSource.Util.bytes(user.getUuid());
 			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account,user.getPassword(),getName());
 			info.setCredentialsSalt(byteSource);
-			System.err.println(SecurityUtils.getSubject().getPrincipals());
+			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+			System.out.println(SecurityUtils.getSubject().getPrincipals());
 			//给当前用户授权			
-			doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals(),user);
+			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals(),user);
 			return info;
 		}
 		return null;
