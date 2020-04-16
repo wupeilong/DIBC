@@ -58,33 +58,7 @@
 				</tr>
 			</thead>
 			<h4 style="font-size: 20px; font-weight: 600; padding: 25px 0 0 0;">贵州指上通科技有限责任公司</h4>
-			
-			<div style="width: 100%;margin-top: 50px;margin-bottom: 50px">
-			<span class="">监控位置:</span>
-			<input id="cameraPosition" type="text" class="inputClass" id="supplierPerson" > 
-			<input id="unitId" type="text" style="display: none" value="${unitid}">
-			<span class="VideoAddClass">视频流地址:</span> 
-			<input id="videoAddress" type="text" class="inputClass" > 
-			<span class="VideoAddClass">监控类型:</span> 
-			<select id="videoType"
-				name="videoType" style="height: 28px;">
-				<option value="0">请选择监控类型</option>
-				<option value="1">实时监控</option>
-				<option value="2">视频回放</option>
-			</select> 
-			<span class="VideoAddClass">视频流类型:</span> 
-			<select id="streamType"
-				name="streamType" style="height: 28px;">
-				<option value="0">请选择视频类型</option>
-				<option value="1">RTMP</option>
-				<option value="2">TRSP</option>
-				<option value="3">FLV</option>
-				<option value="4">HTTP</option>
-			</select>
-			<button id="addressAdd" type="button"" class="addClass">增加</button>
-		</div>
-			
-			
+
 			<tbody id="result_list">
 				<c:forEach items="${videoAddressList}" var="item" varStatus="vs">
 					
@@ -111,124 +85,43 @@
 			</tbody>
 		</table>
 	</div>
-	<c:import url="public/footer.jsp"></c:import>
+	
+	<button type="button"  onclick="go()">sdfsdffs</button>
+	<%-- <c:import url="public/footer.jsp"></c:import> --%>
+	
+	<table class="layui-hide" id="demo"></table>
+	
 </body>
 
 <script type="text/javascript">
-	$("#addressAdd").click(function() {
-		var unitId = $("#unitId").val()
-		var cameraPosition = $("#cameraPosition").val();
-		var videoAddress = $("#videoAddress").val();
-		var videoType = $("#videoType").val();
-		var streamType = $("#streamType").val();
-		var obj = {
-			'unitId' : unitId,
-			'unitName' : '',
-			'streamType' : streamType,
-			'videoType' : videoType,
-			'videoAddress' : videoAddress,
-			'cameraPosition' : cameraPosition
-		};
-		
-		if(cameraPosition==""){
-			layer.msg("请录入监控位置",{
-				icon : 2,
-				time : 1000
-			},function(){
-				$("#cameraPosition").focus()
-			});
-			
-			return;
-		}
-		if(videoAddress==""){
-			layer.msg("请录入视频流地址",{
-				icon : 2,
-				time : 1000
-			},function(){
-				$("#videoAddress").focus()
-			});
-			
-			return;
-		}
-		if(videoType==0){
-			layer.msg("请录监控类型",{
-				icon : 2,
-				time : 1000
-			},function(){
-				$("#videoType").focus()
-			});
-			
-			return;
-		}
-		if(streamType==0){
-			layer.msg("请录入视频流类型",{
-				icon : 2,
-				time : 1000
-			},function(){
-				$("#streamType").focus()
-			});
-			
-			return;
-		}
-		$.ajax({
-			url : "${pageContext.request.contextPath}/web_video/web_videosave",
-			type : 'POST',
-			data : obj,
-			/* contentType : 'application/json', z这种形式data必须是json字符串*/
-			dataType : 'json',
-			"success" : function(result) {
-				/* console.log(result);
-				layer.close(result); */
-				if (result.state == 0) {
-					layer.msg(obj.message, {
-						icon : 2,
-						time : 1000
-					}, function() {
-						location.reload()
-					});
-					return;
-				} else {
-					layer.msg("操作成功", {
-						icon : 1,
-						time : 1000
-					}, function() {
-						location.reload()
-					});
-				}
 
-			}
-		});
+function go(){
+	console.log("${videoAddressList.get(0)}");
+}
 
-	});
 
-	function addressDelete(e) {
-		
-		 layer.confirm("你确定删除吗？", {btn: ['确定', '取消'], title:'提示'},function(index){
-			 var id = e.getAttribute("videoId"); 
-				console.log(id+"***************************")
-				var url = "${pageContext.request.contextPath}/web_video/web_videodelete";
-				var data = "videoId=" + id;
-				$.ajax({
-					"url" : url,
-					"data" : data,
-					"type" : "POST",
-					"dataType" : "json",
-					"success" : function(obj) {
-						layer.msg(obj.message, {
-							icon : 1,
-							time : 1000
-						}, function() {
-							location.reload()
-						});
+layui.use('table', function(){
+  var table = layui.table;
+  
+  //展示已知数据
+  table.render({
+    elem: '#demo'
+    ,cols: [[ //标题栏
+      {field: 'unitName', title: '用户名', width: 120}
+      ,{field: 'cameraPosition', title: '邮箱', minWidth: 150}
+      ,{field: 'videoAddress', title: '签名', minWidth: 160}
+      ,{field: 'videoType', title: '性别', width: 80}
+      ,{field: 'streamType', title: '城市', width: 100}
+    ]]
+    ,data:"${videoAddressList.get(0)}"
+    //,skin: 'line' //表格风格
+    ,even: true
+    //,page: true //是否显示分页
+    //,limits: [5, 7, 10]
+    //,limit: 5 //每页默认显示的数量
+  });
+});
 
-					}
-				});
-
-			 
-		 });
-
-		
-	}
 </script>
 <style>
 .VideoAddClass {

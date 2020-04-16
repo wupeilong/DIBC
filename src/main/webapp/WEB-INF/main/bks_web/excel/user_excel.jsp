@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>视频批量导入页页面</title>
+<title>后台用户信息修改页面</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
@@ -38,12 +38,11 @@
 						<tbody>
 							<tr class="result_tr">
 								<td></td>
-								<td>企业名称</td>
-								<td>摄像机位</td>
-								<td>视频流地址</td>
-								<td>监控类型</td>
-								<td>视频流类型</td>										
-								<td contenteditable="false">操作</td></tr>					
+								<td>名字</td>
+								<td>联系方式</td>
+								<td>工作部门</td>
+								<td>权限级别</td>																
+								<td contenteditable="false">操作</td></tr>						
 						</tbody>
 					</table>
 				</div>			
@@ -56,18 +55,19 @@
 				var tr=document.querySelectorAll("tr");
 			})
 			function diskproduct(){	
-					var videoList = new Array();	
+					var userList = new Array();	
 					var rs = document.getElementsByName("tr_idx")		
 			   		for(var i = 0; i < rs.length; i++){     		
-			   			videoList[i]=new Array();
+			   			userList[i]=new Array();
 			    	 	for(var j = 0;j<rs[i].cells.length-1; j++){
 			    	 		if(j!=0 && j<14){    	 		
-			    	 			videoList[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
+			    	 			userList[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
 			    	 		}    	 				
 			    	 	}    	 	
 					}
-			    	var url="${pageContext.request.contextPath}/web_video/bath_add"; 
-			    	var  data ="videoList="+JSON.stringify(videoList);
+					console.log(userList);
+			    	var url="${pageContext.request.contextPath}/web_user/bath_add"; 
+			    	var  data ="userList="+JSON.stringify(userList);	    			  
 			         $.ajax({    	   
 			    	   "url":url,    	  
 			    	   "data":data,
@@ -81,12 +81,11 @@
 			    		   layer.msg(obj.message,{icon:1,time:2000});
 			    		   var d=obj.data;
 			    		   var html = '<table class="table table-bordered table-hover fontwei" id="test_table"><tbody><tr class="result_tr">'+
-			    		   			'<td></td>'+
-			    		   			'<td>企业名称</td>'+
-									'<td>摄像机位</td>'+
-									'<td>视频流地址</td>'+
-									'<td>监控类型</td>'+
-									'<td>视频流类型</td>'+			    		   																
+			    		   			'<td></td>' +
+									'<td>名字</td>' +
+									'<td>联系方式</td>' +
+									'<td>工作部门</td>' +	
+									'<td>权限级别</td>' +
 									'<td contenteditable="false">操作</td></tr>';
 			    		   for(var j=0;j<d.length;j++){
 			    			   var b=j+1;

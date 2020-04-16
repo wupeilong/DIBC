@@ -84,6 +84,7 @@ public class IDisinfectionServiceImpl implements IDisinfectionService {
 	
 	@Override
 	public String selectDisinfectionListPag(Integer unitId, ModelMap modelMap) {
+		System.out.println("=======权限==============="+CommonUtil.getSessionUser().getType());
 		if(CommonUtil.getSessionUser().getType() == 1){
 			iUnitService.addUnitListToModelMap(modelMap);			
 		}
@@ -97,6 +98,7 @@ public class IDisinfectionServiceImpl implements IDisinfectionService {
 		List<Disinfection> disinfectionList = disinfectionMapper.select(where, " d.create_time DESC", null, null);
 		//清洗消毒记录列表
 		modelMap.addAttribute("disinfectionlist", disinfectionList);
+		System.out.println("=======shuju==============="+disinfectionList);
 		return "bks_wap/clean_list";
 	}
 

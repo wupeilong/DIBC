@@ -112,4 +112,13 @@ public class WebVideoController {
 			
 			return iVideoAddressService.batchAddVideo(videoList);
 		}
+		
+		
+		
+		@RequestMapping("/test")
+		public String TestContrller(ModelMap modelMap){
+			//根据id查询视频流地址
+			iVideoAddressService.SelectVideoAddress(modelMap, 83);
+			return "bks_web/test";
+		}
 }

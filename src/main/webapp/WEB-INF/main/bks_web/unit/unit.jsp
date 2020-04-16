@@ -30,7 +30,7 @@ function subSomething() {
 </head>
 <body >
 <a class="btn btn-success radius r"  href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>	
-<a class="btn btn-success radius r"  href="javascript:;" onclick="user_add()" title="新增" ><i class="icon Hui-iconfont">&#xe600;</i></a>
+<a class="btn btn-success radius r"  href="javascript:;" onclick="unit_add()" title="新增" ><i class="icon Hui-iconfont">&#xe600;</i></a>
 	<div id="loading">
 		<div><img src="${pageContext.request.contextPath}/static/images/bks_web/loading.gif"/></div>
 	</div>
@@ -73,9 +73,9 @@ function subSomething() {
 				<td>${item.unitAddress}</td>
 				<td>${item.expirationDate}</td>
 				<td class="td-manage">
-					<a href="javascript:;" onclick="update_unit('${item.unitId}','${item.unitName}','${item.typeName}','${item.legalPerson}','${item.unitAddress}','${item.expirationDate}')" class="operation operation-edit" style="text-decoration:none">
+					<a href="javascript:;" onclick="update_unit('${item.unitId}','${item.unitName}','${item.businessLicenseCode}','${item.typeName}','${item.legalPerson}','${item.unitAddress}','${item.expirationDate}')" class="operation operation-edit" style="text-decoration:none">
 						<i class="Hui-iconfont" style="font-size: 1em;">&#xe60c;</i>编辑</a> 
-					<a href="javascript:;" onclick="del_user('${item.unitId}')" class="operation operation-del" style="text-decoration:none">
+					<a href="javascript:;" onclick="del_unit('${item.unitId}')" class="operation operation-del" style="text-decoration:none">
 						<i class="Hui-iconfont" style="font-size: 1em;">&#xe6e2;</i>删除</a>
 				</td>
 			</tr>
@@ -85,7 +85,7 @@ function subSomething() {
 	<form id="unit_update" class="clearfix well" style="display: none;" >
 				<div class="workmens_info_top margin-bot">					
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" for="username"><i class="padding-side05 text-danger vertical-mid">*</i>企业名称</span>
+					  <span class="input-group-addon border0 clear-bg" for="username"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;&ensp;&ensp;业&ensp;&ensp;名&ensp;&ensp;&ensp;称</span>
 					  <input type="text" class="form-control box-shadow0 border-bottom" id="update_unitName" name="unitName"  value=""  placeholder="" aria-describedby="sizing-addon1">				 
 					  <input type="hidden" id="update_unitId" value="">
 					</div>
@@ -94,8 +94,8 @@ function subSomething() {
 					  <input type="text" class="form-control box-shadow0 border-bottom" id="update_businessLicenseCode" name="pwd"  value=""  placeholder="请输入社会统一信用代码" aria-describedby="sizing-addon1">
 					</div>						
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企业分类</span>
-					  <select id="update_legalPerson">
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;&ensp;&ensp;业&ensp;&ensp;分&ensp;&ensp;&ensp;类</span>
+					  <select id="update_typeName" style="width: 162px;height: 32px;font-size: 15px" >
 					  		<option value="市场监督管理局">市场监督管理局</option>
 					  		<option value="学校">学校</option>
 					  		<option value="学校食堂">学校食堂</option>
@@ -112,16 +112,16 @@ function subSomething() {
 					  <!-- 手&ensp;机&ensp;号<input type="text" class="form-control box-shadow0 border-bottom" id="update_idCard" name="idCard" value="" placeholder="请输入身份证号" aria-describedby="sizing-addon1"> -->
 					</div>
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企业法人</span>
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;&ensp;&ensp;业&ensp;&ensp;法&ensp;&ensp;&ensp;人</span>
 					  <input type="text" class="form-control box-shadow0 border-bottom" id="update_legalPerson" name="phone"  value=""  placeholder="请输入企业法人名字" aria-describedby="sizing-addon1">
 					</div>
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企业经营地址</span>
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;业&ensp;经&ensp;营&ensp;地址</span>
 					  <input type="text" class="form-control box-shadow0 border-bottom" id="update_unitAddress" name="duty"  value=""  placeholder="请输入企业经营地址" aria-describedby="sizing-addon1">
 					</div>
 									
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>到期时间</span>
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>到&ensp;&ensp;&ensp;期&ensp;&ensp;时&ensp;&ensp;&ensp;间</span>
 					  <input type="text" class="form-control box-shadow0 border-bottom"  value=""  id="update_expirationDate" name="age" placeholder="请输入年龄" aria-describedby="sizing-addon1">
 					</div>					
 				</div>
@@ -129,55 +129,69 @@ function subSomething() {
 					<a href="javascript:;" class="btn btn-primary" id="edit_unit">保存</a>
 				</div>
 			</form>
-			<form id="add_user" class="clearfix well" style="display: none;" >
-				<div class="workmens_info_top margin-bot">
+			<form id="add_unit" class="clearfix well" style="display: none;" >
+				<div class="workmens_info_top margin-bot">					
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" for="username"><i class="padding-side05 text-danger vertical-mid">*</i>姓&ensp;&ensp;&ensp;&ensp;名</span>
-					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_username" name="username"  value=""  placeholder="请输入姓名" aria-describedby="sizing-addon1">
+					  <span class="input-group-addon border0 clear-bg" for="username"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;&ensp;&ensp;业&ensp;&ensp;名&ensp;&ensp;&ensp;称</span>
+					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_unitName" name="unitName"  value=""  placeholder="" aria-describedby="sizing-addon1">				 
+					</div>
+					<div class="input-group margin-bot">
+					  <span class="input-group-addon border0 clear-bg" for="pwd"><i class="padding-side05 text-danger vertical-mid">*</i>社会统一信用代码</span>
+					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_businessLicenseCode" name="pwd"  value=""  placeholder="请输入社会统一信用代码" aria-describedby="sizing-addon1">
 					</div>						
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>身份证号</span>
-					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_idCard" name="idCard" value="" placeholder="请输入身份证号" aria-describedby="sizing-addon1">
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;&ensp;&ensp;业&ensp;&ensp;分&ensp;&ensp;&ensp;类</span>
+					  <select id="add_typeName" style="width: 162px;height: 32px;font-size: 15px" >
+					  		<option value="市场监督管理局">市场监督管理局</option>
+					  		<option value="学校">学校</option>
+					  		<option value="学校食堂">学校食堂</option>
+					  		<option value="餐饮业">餐饮业</option>
+					  		<option value="配餐单位">配餐单位</option>
+					  		<option value="小型餐馆">小型餐馆</option>
+					  		<option value="中型餐馆">中型餐馆</option>
+					  		<option value="大型餐馆">大型餐馆</option>
+					  		<option value="特大型餐馆">特大型餐馆</option>
+					  		<option value="企业">企业</option>
+					  		<option value="个体">个体</option>
+					  		<option value="其他">其他</option>
+					  </select>
 					</div>
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>手&ensp;机&ensp;号</span>
-					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_phone" name="phone"  value=""  placeholder="请输入手机号" aria-describedby="sizing-addon1">
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;&ensp;&ensp;业&ensp;&ensp;法&ensp;&ensp;&ensp;人</span>
+					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_legalPerson" name="phone"  value=""  placeholder="请输入企业法人名字" aria-describedby="sizing-addon1">
 					</div>
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>职&ensp;&ensp;&ensp;&ensp;务</span>
-					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_duty" name="duty"  value=""  placeholder="请输入职务" aria-describedby="sizing-addon1">
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>企&ensp;业&ensp;经&ensp;营&ensp;地址</span>
+					  <input type="text" class="form-control box-shadow0 border-bottom" id="add_unitAddress" name="duty"  value=""  placeholder="请输入企业经营地址" aria-describedby="sizing-addon1">
 					</div>
 									
 					<div class="input-group margin-bot">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>年&ensp;&ensp;&ensp;&ensp;龄</span>
-					  <input type="text" class="form-control box-shadow0 border-bottom"  value=""  id="add_age" name="age" placeholder="请输入年龄" aria-describedby="sizing-addon1">
+					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>到&ensp;&ensp;&ensp;期&ensp;&ensp;时&ensp;&ensp;&ensp;间</span>
+					  <input type="text" class="form-control box-shadow0 border-bottom"  value=""  id="add_expirationDate" name="age" placeholder="请输入年龄" aria-describedby="sizing-addon1">
 					</div>					
 				</div>
 				<div class="text-center">
-					<a href="javascript:;" class="btn btn-primary" id="adduser">提交</a>
+					<a href="javascript:;" class="btn btn-primary" id="addunit">保存</a>
 				</div>
-			</form>
+			</form>		
 </div>
 </body>
 
 <script type="text/javascript">
-function user_add(){
+function unit_add(){
 	layer.open({
 		type: 1,
-		content: $('#add_user')
+		content: $('#add_unit')
 	});
 }
-$("#adduser").click(function adduser(){
-	if($("#add_username").val() == ""){
-		layer.msg("姓名不能为空！",{icon:2,time:1000});
-		return;
-	}else if($("#add_phone").val() == ""){
-		layer.msg("手机号不能为空！",{icon:2,time:1000});		
-		return;
-	} else{
-		var data ="username=" + $("#add_username").val() + "&idCard=" + $("#add_idCard").val() + "&phone=" 
-		 + $("#add_phone").val() + "&duty=" + $("#add_duty").val() + "&age=" + $("#add_age").val();
-		var url = "${pageContext.request.contextPath}/web_user/add_user";
+$("#addunit").click(function adduser(){
+		if($("#add_unitName").val() == ""){
+			layer.msg("企业名称不能为空！",{icon:2,time:1000});
+			return;
+		}	
+		var data = "unitName=" + $("#add_unitName").val() + "&typeName=" + $("#add_typeName").val() + "&legalPerson=" + $("#add_legalPerson").val()
+				 + "&unitAddress=" + $("#add_unitAddress").val() + "&expirationDate=" + $("#add_expirationDate").val();
+		var url = "${pageContext.request.contextPath}/web_unit/add_unit";
 		console.log(data);
 		$.ajax({
 			"url" : url,
@@ -192,24 +206,24 @@ $("#adduser").click(function adduser(){
 				}		
 			}
 		}); 
-	}	
+		
 });
 
 
-function del_user(userId){
+function del_unit(unitId){
 	layer.confirm('是否确定删除用户？', {
 		  btn: ['确定', '取消'] //可以无限个按钮		  
 		}, function(index, layero){
-			delete_user(userId);
+			delete_user(unitId);
 		}, function(index){
 		  //按钮【按钮二】的回调
 		});
 }
 
 
-function delete_user(userId){	
-	var data = "id=" + userId;
-	var url = "${pageContext.request.contextPath}/web_user/delete_user";
+function delete_user(unitId){
+	var data = "unitId=" + unitId;
+	var url = "${pageContext.request.contextPath}/web_unit/del_unit";
 	console.log(data);
 	$.ajax({
 	"url" : url,
@@ -226,19 +240,14 @@ function delete_user(userId){
 }); 
 }
 
-$("#edit_user").click(function(){
-	if($("#update_phone").val() == ""){
-		layer.msg("手机号不能为空！",{icon:2,time:1000});
+$("#edit_unit").click(function(){
+	if($("#update_unitName").val() == ""){
+		layer.msg("企业名称不能为空！",{icon:2,time:1000});
 		return;
-	}
-	if($("#update_username").val() == ""){
-		layer.msg("姓名不能为空！",{icon:2,time:1000});
-		return;
-	}
-	var data = "id=" + $("#update_userId").val() + "&unitName=" + $("#update_unitName").val() + "&username=" + $("#update_username").val()
-			 + "&idCard=" + $("#update_idCard").val() + "&phone=" + $("#update_phone").val() + "&duty=" + $("#update_duty").val()
-			 + "&age=" + $("#update_age").val();
-	var url = "${pageContext.request.contextPath}/web_user/update_user";
+	}	
+	var data = "unitId=" + $("#update_unitId").val() + "&unitName=" + $("#update_unitName").val() + "&typeName=" + $("#update_typeName").val() + "&businessLicenseCode=" + $("#update_businessLicenseCode").val()
+			 + "&legalPerson=" + $("#update_legalPerson").val() + "&unitAddress=" + $("#update_unitAddress").val() + "&expirationDate=" + $("#update_expirationDate").val();
+	var url = "${pageContext.request.contextPath}/web_unit/update_unit";
 	console.log(data);
 	$.ajax({
 		"url" : url,
@@ -255,45 +264,19 @@ $("#edit_user").click(function(){
 	}); 
 });
 
-function update_user(unitId,unitName,typeName,legalPerson,unitAddress,expirationDate){
-	$("#update_userId").val(userId);
+function update_unit(unitId,unitName,businessLicenseCode,typeName,legalPerson,unitAddress,expirationDate){
+	$("#update_unitId").val(unitId);
 	$("#update_unitName").val(unitName);
-	$("#update_username").val(username);
-	$("#update_idCard").val(idCard);
-	$("#update_phone").val(phone);
-	$("#update_duty").val(duty);
-	$("#update_age").val(age);	
+	$("#update_businessLicenseCode").val(businessLicenseCode);
+	$("#update_typeName").val(typeName);
+	$("#update_legalPerson").val(legalPerson);
+	$("#update_unitAddress").val(unitAddress);
+	$("#update_expirationDate").val(expirationDate);
 	layer.open({
 		type: 1,
-		content: $('#user_update')
+		content: $('#unit_update')
 	});
 }
-
-function add(){
-	layer.open({
-		type: 1,
-		content: $('#auth_add')
-	});
-}
-	
-function add_auth(){
-	var data = "authorizationName=" + $("#add_authName").val() + "&authorizationRemark=" + $("#add_authRemark").val();
-	var url = "${pageContext.request.contextPath}/web_auth/authorization_add";
-	$.ajax({
-		"url" : url,
-		"data" : data,
-		"type" : "POST",
-		"dataType" : "json",
-		"success" : function(obj) {
-			if (obj.state == 0) {
-				layer.msg(obj.message,{icon:2,time:1000});						
-			}else{
-				layer.msg(obj.message,{icon:1,time:1000},function(){location.reload()});											
-			}					
-		}
-	}); 
-}
-
 
 var table=$('.table-sort').dataTable({
 	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -303,27 +286,7 @@ var table=$('.table-sort').dataTable({
 	]
 });
 
-/*管理员-删除*/
-function admin_del(authorizationId,authorizationName){
-	layer.confirm('确认要删除【' + authorizationName + '】权限吗？',function(index){		
-		var url = "authorization_delete";
-		var data ="authorizationId=" + authorizationId;
-		$.ajax({
-			"url" : url,
-			"data" : data,
-			"type" : "POST",
-			"dataType" : "json",
-			"success" : function(obj) {
-				if (obj.state == 0) {
-					layer.msg(obj.message,{icon:2,time:1000});
-					return;
-				}else{
-					layer.msg(obj.message,{icon:1,time:1000},function(){location.replace(location.href);layer.close(layer.index);});
-				}				
-			}
-		}); 
-	});
-}
+
 /*管理员-编辑*/
 /*管理员-编辑*/
 function admin_edit(title,url,id,w,h){	
