@@ -38,15 +38,11 @@
 						<tbody>
 							<tr class="result_tr">
 								<td></td>
-								<td>企业名称</td>
-								<td>社会通一信用代码</td>
-								<td>企业类型</td>
-								<td>企业法人</td>
-								<td>企业经营地址</td>
-								<td>到期时间</td>
-								<td>联系人</td>
-								<td>联系电话</td>									
-								<td contenteditable="false">操作</td></tr>							
+								<td>名字</td>
+								<td>联系方式</td>
+								<td>工作部门</td>
+								<td>权限级别</td>																
+								<td contenteditable="false">操作</td></tr>						
 						</tbody>
 					</table>
 				</div>			
@@ -59,19 +55,19 @@
 				var tr=document.querySelectorAll("tr");
 			})
 			function diskproduct(){	
-					var unitList = new Array();	
+					var userList = new Array();	
 					var rs = document.getElementsByName("tr_idx")		
 			   		for(var i = 0; i < rs.length; i++){     		
-			   			unitList[i]=new Array();
+			   			userList[i]=new Array();
 			    	 	for(var j = 0;j<rs[i].cells.length-1; j++){
 			    	 		if(j!=0 && j<14){    	 		
-			    	 			unitList[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
+			    	 			userList[i][j-1]=rs[i].cells[j].innerHTML;    	 			 	 			
 			    	 		}    	 				
 			    	 	}    	 	
 					}
-					console.log(unitList);
-			    	var url="${pageContext.request.contextPath}/web_unit/bath_add"; 
-			    	var  data ="unitList="+JSON.stringify(unitList);	    			  
+					console.log(userList);
+			    	var url="${pageContext.request.contextPath}/web_user/bath_add"; 
+			    	var  data ="userList="+JSON.stringify(userList);	    			  
 			         $.ajax({    	   
 			    	   "url":url,    	  
 			    	   "data":data,
@@ -85,15 +81,11 @@
 			    		   layer.msg(obj.message,{icon:1,time:2000});
 			    		   var d=obj.data;
 			    		   var html = '<table class="table table-bordered table-hover fontwei" id="test_table"><tbody><tr class="result_tr">'+
-			    		   			'<td></td>'+
-			    		   			'<td>企业名称</td>'+
-									'<td>社会通一信用代码</td>'+
-									'<td>企业类型</td>'+
-									'<td>企业法人</td>'+
-									'<td>企业经营地址</td>'+
-									'<td>到期时间</td>'+
-									'<td>联系人</td>'+
-									'<td>联系电话</td>'+																	
+			    		   			'<td></td>' +
+									'<td>名字</td>' +
+									'<td>联系方式</td>' +
+									'<td>工作部门</td>' +	
+									'<td>权限级别</td>' +
 									'<td contenteditable="false">操作</td></tr>';
 			    		   for(var j=0;j<d.length;j++){
 			    			   var b=j+1;

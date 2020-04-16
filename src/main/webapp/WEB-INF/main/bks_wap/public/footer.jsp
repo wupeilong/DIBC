@@ -21,12 +21,12 @@
 		<ul class="footer_ul">
 			<li><a href="${pageContext.request.contextPath}/wap_unit/coopration_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" border="0" alt="" title=""/></a><p class="text-center" >企业信息</p></li>					
 			<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/></a><p class="text-center">从业人员</p></li>
-			<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/></a><p class="text-center">采购报送</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/></a><p class="text-center">索证索票</p></li>
 			<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/></a><p class="text-center">制餐检视</p></li>
-			<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/></a><p class="text-center">配送报备</p></li>
-			<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/></a><p class="text-center">清洁记录</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/></a><p class="text-center">配送核查</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/></a><p class="text-center">清消记录</p></li>
 			<li><a href="${pageContext.request.contextPath}/wap_ins/inspect_choise"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon7.png" border="0" alt="" title=""/></a><p class="text-center">监管采集</p></li>
-			<li><a href="${pageContext.request.contextPath}/wap_det/detection_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/></a><p class="text-center">检测报送</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_det/detection_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/></a><p class="text-center">检测结果</p></li>
 			<li><a href="${pageContext.request.contextPath}/wap_video/wap_videoscan"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon9.png" border="0" alt="" title=""/></a><p class="text-center">视频监控</p></li>
 		</ul>	
   	</nav>

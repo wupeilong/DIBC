@@ -3,12 +3,11 @@
 	 		var filePath = $("#"+inputId).val(), //获取input的value,里面是文件的路径
             	fileFormat = filePath.substring(filePath.lastIndexOf('.')).toLowerCase(),
             	imgBase64 = '', //存储图片的base64
-           	 	maxSize = 1*1024*1024,
-            	fileObj = $("#"+inputId)[0].files[0];//document.getElementById('upload').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象
-            	
+           	 	maxSize = 300*1024,
+            	fileObj = $("#"+inputId)[0].files[0];//document.getElementById('upload').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象            	
 	 		//检查文件格式
 	        if(!fileFormat.match(/.png|.jpg|.jpeg|.gif/)){
-	        	layer.msg('文件类型错误,文件格式必须为:png/jpg/jpeg!',{icon:2,time:1000}); 	          
+	        	layer.msg('文件类型错误,文件格式必须为:png/jpg/jpeg! 文件类型：' + fileFormat,{icon:2,time:1000}); 	          
 	            return;
 	        }
 	        var index = layerloadingOpen();
@@ -37,7 +36,7 @@
 	 			  shadeClose: false,
 	 		/*	  btn: '关闭',*/
 	 			  content:'<div><img src="'+imgId+'" id="preview" style="width: 360px;height: 360px;"><span class="layui-layer-setwin"><a class="layui-layer-ico layui-layer-close layui-layer-close2" href="javascript:;"></a></span></div>',
-	 			 success: function (layero) {
+	 			  success: function (layero) {
 				        layero.find('.layui-layer-content').css({	
 				        	'height':'360px',
 				            'width': '360px',		            
@@ -144,3 +143,43 @@
 	        }
 	        return new File([u8arr], filename, {type:mime});
 	      }
+	    
+	  //将base64转换为blob
+	    function dataURLtoBlob(dataurl) {
+
+	    	var arr = dataurl.split(','),
+
+	    	        mime = arr[0].match(/:(.*?);/)[1],
+
+	    	        bstr =atob(arr[1]),
+
+	    	        n = bstr.length,
+
+	    	        u8arr =new Uint8Array(n);
+
+	    	    while (n--) {
+
+	    	u8arr[n] = bstr.charCodeAt(n);
+
+	    	    }
+	    	
+	    	return new Blob([u8arr], {type:mime});
+
+	    	}
+	    
+	    
+	  //将blob转换成file
+
+	    function blobToFile(theBlob, fileName){
+	    	
+	    	theBlob.lastModifiedDate =new Date();
+	    	
+	        theBlob.name = fileName;
+	    	
+	        return theBlob;
+
+	    }
+
+	    
+
+	    	

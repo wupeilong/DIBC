@@ -2,7 +2,6 @@ package cn.dibcbks.filter;
 
 import java.io.IOException;
 import java.net.InetAddress;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +22,7 @@ public class MyFormAuthenticationFilter  extends FormAuthenticationFilter {
     protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
         HttpServletRequest req = (HttpServletRequest) request;
         String loginUrl = getLoginUrl();
-        String url = req.getRequestURI();
-        
+        String url = req.getRequestURI();        
 //        System.out.println("请求服务器域名:" + req.getServerName());  
 //        System.out.println("请求服务器端口:" + req.getServerPort());
 //        System.out.println("请求远程主机（客服端）域名:" + req.getRemoteHost());          
@@ -43,8 +41,10 @@ public class MyFormAuthenticationFilter  extends FormAuthenticationFilter {
 //        System.out.println("当前请求的协议类型:" + req.getScheme());
         if (url.contains("web")) {
             loginUrl = "http://edt.gzws.online:8081/web_login";
+            //loginUrl = "http://127.0.0.1:8080/web_login";
         }else{
         	loginUrl = "http://edt.gzws.online:8081/wx_login";
+        	//loginUrl = "http://127.0.0.1:8080/wx_login";
         }
         WebUtils.issueRedirect(request, response, loginUrl);
     }

@@ -20,6 +20,7 @@ import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.Unqualified;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.exception.MyRuntimeException;
+import cn.dibcbks.exception.TXruntimeException;
 import cn.dibcbks.mapper.ProcurementMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UnqualifiedMapper;
@@ -174,90 +175,87 @@ public class IProcurementServiceImpl implements IProcurementService {
 		GetCommonUser get = new GetCommonUser();
 		String supplierBusinessLicensePath = null;
 		String supplierproductionLicensePath = null;
+		String supplierQualificationPath = null;
 		Unit u = new Unit();
+		List<Unit> supplierUnit=null;
+		String invoicePath =null;
 		try {
+			
+			//企业存在
 			if (supplierUnitId != null) {
-				List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
-
-				if (supplierBusinessLicense == null) {
-					System.out.println("企业已有营业执照===================");
-					supplierBusinessLicensePath = supplierUnit.get(0).getBusinessLicense();
-				} else {
-					supplierBusinessLicensePath = get.uoladimg(supplierBusinessLicense, user.getUuid());
-					System.out.println("保存营业执照上传路径：" + supplierBusinessLicensePath);
+				logger.info("处理已有企业============================");
+				supplierUnit = unitMapper.select(" n.unit_id = '" + supplierUnitId + "'", null, null, null);
+				//该企业没上传证件则从企业信息中取
+				if(supplierBusinessLicense==null){
+					
+					supplierBusinessLicensePath=supplierUnit.get(0).getBusinessLicense();
+				}
+				if(supplierproductionLicense==null){
+					
+					supplierproductionLicensePath=supplierUnit.get(0).getProductionLicense();
+					
+				}
+				/*if(supplierQualification==null){
+					
+					supplierQualificationPath=supplierUnit.get(0).getQualificationPath();
+				}*/
+	
+			
+			}
+				//保存并上传最新营业执照
+			if (supplierBusinessLicense != null) {
+				supplierBusinessLicensePath = get.uoladimg(supplierBusinessLicense, user.getUuid());
+				
 					// 保存证件
+				if(supplierUnitId!=null){
 					u.setUnitId(supplierUnitId);
 					u.setBusinessLicense(supplierBusinessLicensePath);
-
 					unitMapper.updateById(u);
-
 				}
-
-				if (supplierproductionLicense == null) {
-					System.out.println("企业已有许可证===================");
-					// 许可证路径
-					supplierproductionLicensePath = supplierUnit.get(0).getProductionLicense();
-				} else {
-					supplierproductionLicensePath = get.uoladimg(supplierproductionLicense, user.getUuid());// 许可证
-					System.out.println("保存许可证上传路径：" + supplierproductionLicensePath);
+					
+				} 
+			//上传许可证
+			if(supplierproductionLicense != null){
+				supplierproductionLicensePath = get.uoladimg(supplierproductionLicense, user.getUuid());// 许可证
+				if(supplierUnitId!=null){
 					u.setUnitId(supplierUnitId);
 					u.setProductionLicense(supplierproductionLicensePath);
-
 					unitMapper.updateById(u);
-
 				}
-			} else {
-				// 企业id为空 企业不存在 营业执照 许可证只能通过前端文件获取
-				supplierBusinessLicensePath = get.uoladimg(supplierBusinessLicense, user.getUuid());// 营业执照
-				supplierproductionLicensePath = get.uoladimg(supplierproductionLicense, user.getUuid());// 许可证
+				
+			
 			}
-			// List<Unit> supplierUnit = unitMapper.select(" n.unit_id = '" +
-			// supplierUnitId + "'", null, null, null);
-			String supplierQualificationPath = null;
-
-			// 资质证明非必传
+			// 检验合格报告
 			if (supplierQualification != null) {
-				supplierQualificationPath = get.uoladimg(supplierQualification, user.getUuid());// 资质
+				supplierQualificationPath = get.uoladimg(supplierQualification, user.getUuid());
+				/*if(supplierUnitId!=null){
+					u.setUnitId(supplierUnitId);
+					u.setQualificationPath(supplierQualificationPath);
+					unitMapper.updateById(u);
+				}*/
 			}
-			String invoicePath = get.uoladimg(invoice, user.getUuid());// 发票
-
-			/*
-			 * if(supplierUnit.isEmpty()){ rr = new
-			 * ResponseResult<>(ResponseResult.ERROR,"供货商信息不存在，添加采购信息失败！"); };
-			 */
-			if (StringUtils.isEmpty(supplierBusinessLicensePath)) {
-				System.out.println(supplierBusinessLicensePath);
-				rr = new ResponseResult<>(ResponseResult.ERROR, "营业执照上传失败，添加采购信息失败！");
-			} else if (StringUtils.isEmpty(invoicePath)) {
-				rr = new ResponseResult<>(ResponseResult.ERROR, "发票上传失败，添加采购信息失败！");
-			} else if (StringUtils.isEmpty(detailList)) {
-				rr = new ResponseResult<>(ResponseResult.ERROR, "未添加采购详情，添加采购信息失败！");
-			} else if (StringUtils.isEmpty(supplierproductionLicensePath)) {
-				rr = new ResponseResult<>(ResponseResult.ERROR, "食品许可证上传失败，添加采购信息失败！");
-			} else {
-				// 如果企业id未传 说明企业不存在
-				if (supplierUnitId == null) {
-
+			//上传发票	
+			if(invoice!=null){
+				invoicePath=get.uoladimg(invoice, user.getUuid());// 发票
+			}
+			
+			if (supplierUnitId == null) {
+				logger.info("新增企业============================");
 					u.setBusinessLicense(supplierBusinessLicensePath);
-					// u.setBusinessLicenseCode(businessLicenseCode);
 					u.setCreateTime(new Date());
-					// u.setExpirationDate(expirationDate);
 					u.setLegalPerson(supplierPerson);
-					u.setProductionLicense(supplierBusinessLicensePath);
-					// u.getUnitAddress();
-					// u.getUnitId();
+					u.setProductionLicense(supplierproductionLicensePath);
 					u.setUnitName(supplier);
 					u.setUnitType(4);
+					/*u.setQualification(supplierQualificationPath);*/
 
-					// 添加企业信息
-					// 默认企业类型为4
+					// 添加企业信息 默认企业类型为4
 
 					unitMapper.insert(u);
 
 					// 添加部门信息
-
+					
 					iDepartmentServiceImpl.addUnitDepartment(u);
-
 				}
 				// 上传采购信息
 				Procurement procurement = new Procurement();
@@ -277,8 +275,8 @@ public class IProcurementServiceImpl implements IProcurementService {
 				Integer row = null;
 
 				row = procurementMapper.insertProcurement(procurement);
-
-				System.out.println("新增采购信息【单号：" + procurement.getId() + " " + row + "条】");
+				logger.info("新增采购信息【单号：" + procurement.getId() + " " + row + "条】");
+				//增加采购详情
 				ProcurementDetail procurementDetail = null;
 				Date productionDate = null;
 				JSONArray parseArray = JSONArray.parseArray(detailList);
@@ -292,16 +290,15 @@ public class IProcurementServiceImpl implements IProcurementService {
 					procurementDetail.setCount(array.getString(1));
 					procurementDetail.setProductionDate(productionDate);
 					row = procurementMapper.insertProcurementDetail(procurementDetail);
-					System.out.println("新增采购详情信息【单号：" + procurementDetail.getProcurementDetailId() + " " + row + "条】");
+					logger.info("新增采购详情信息【单号：" + procurementDetail.getProcurementDetailId() + " " + row + "条】");
 				}
 				rr = new ResponseResult<>(ResponseResult.SUCCESS, "操作成功！");
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+			logger.info("操作失败！错误信息:"+e.getMessage());
 			rr = new ResponseResult<>(ResponseResult.SUCCESS, "操作失败！错误信息:" + e.getMessage());
-			//	throw new MyRuntimeException(e.getMessage());
+				throw new TXruntimeException("操作失败",e.getMessage());
 				
 		}
 		
@@ -317,7 +314,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 			Integer unitType, Date createTime) {
 
 		Unit unit = new Unit(unitId, unitName, legalPerson, businessLicenseCode, businessLicense, productionLicense,
-				unitAddress, expirationDate, unitType, createTime);
+				unitAddress, expirationDate, unitType, null,createTime);
 
 		unitMapper.insert(unit);
 	}

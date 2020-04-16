@@ -42,7 +42,7 @@
 					<li class="padding-side">
 						<div class="check_self">
 							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj3.png" class="img-responsive">
-							<p class="text-center text-white fonwei">商家自检</p>
+							<p class="text-center text-white fonwei">主体自查</p>
 						</div>
 					</li>
 				</c:if>
@@ -51,13 +51,13 @@
 					<li class="padding-side">
 						<div class="check_gov">
 							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj4.png" class="img-responsive">
-							<p class="text-center text-white fonwei">管局专检</p>
+							<p class="text-center text-white fonwei">监管检查</p>
 						</div>
 					</li>
 					<li class="padding-side">
 						<div class="check_prof">
 							<img src="${pageContext.request.contextPath}/static/images/bks_wap/jgcj2.png" class="img-responsive">
-							<p class="text-center text-white fonwei">督察专检</p>
+							<p class="text-center text-white fonwei">督查抽查</p>
 						</div>
 					</li>
 				</c:if>

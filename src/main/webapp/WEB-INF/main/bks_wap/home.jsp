@@ -45,40 +45,30 @@
 				<div id="certify" style="width: 100%;">
 					<div class="swiper-container swiper-container-horizontal">
 						<div class="swiper-wrapper" style="transition-duration: 300ms; transform: translate3d(-4340px, 0px, 0px);">
-							<%-- <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" style="transform: translateX(7956px) scale(-0.8); z-index: 909; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner1.jpg" class="img-responsive">
-							</div>
-							<div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="transform: translateX(6448px) scale(-0.6); z-index: 919; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner1.jpg">
-							</div>
-							<div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" style="transform: translateX(5096px) scale(-0.4); z-index: 929; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner2.jpg">
-							</div>
-							<div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev" data-swiper-slide-index="3" style="transform: translateX(3900px) scale(-0.2); z-index: 939; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner3.jpg">
-							</div>
-							<div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="4" style="transform: translateX(2860px) scale(0); z-index: 949; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner1.jpg">
-							</div> --%>
-							
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner1.jpg" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b5.png" class="img-responsive">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner2.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b2.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="2" style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner3.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b3.png" class="img-responsive ">
 							</div>
-							<%-- <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="3" style="transform: translateX(260px) scale(0.8); z-index: 989; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner1.jpg" class="img-responsive">
+							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b4.png" class="img-responsive ">
 							</div>
-							<div class="swiper-slide swiper-slide-active" data-swiper-slide-index="4" style="transform: translateX(0px) scale(1); z-index: 999; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner1.jpg" class="img-responsive">
+							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b1.png" class="img-responsive">
 							</div>
-							<div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="0" style="transform: translateX(-260px) scale(0.8); z-index: 989; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/banner1.jpg" class="img-responsive">
-							</div> --%>
+							<div class="swiper-slide" data-swiper-slide-index="2" style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 300ms;">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b6.png" class="img-responsive ">
+							</div>
+							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
+								<img id="img_fd" src="${pageContext.request.contextPath}/static/images/bks_wap/b7.png" class="img-responsive ">
+							</div>
+							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b8.png" class="img-responsive ">
+							</div>
 						</div>
 					</div>
 					<div class="swiper-pagination swiper-pagination-bullets">
@@ -93,7 +83,7 @@
 				</div>
 			</div>
 			<div class="menu fc padding-side"> <!-- style="margin-bottom: 51.2px" -->
-				<ul class="list-unstyled" style="display: flex;flex-wrap: wrap;width: 294px;">
+				<ul class="list-unstyled" style="">
 					<shiro:hasPermission name="wap_unit">
 						<li>
 							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
@@ -102,20 +92,24 @@
 							</a>
 						</li>
 					</shiro:hasPermission>
-					<%-- <shiro:hasPermission name="wap_user">
-						<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
-					</shiro:hasPermission> --%>
+					<shiro:hasPermission name="wap_user">
+						<c:if test="${user.type == 2}">						
+							<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
+						</c:if>
+					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_pro">
-						<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/><p class="text-center">采购报送</p></a></li>
+						<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/><p class="text-center">索证索票</p></a></li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="web_food">
-						<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/><p href="" class="text-center">制餐检视</p></a></li>
+						<c:if test="${user.type == 1}">	
+							<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/><p href="" class="text-center">AI识别</p></a></li>
+						</c:if>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_dry">
-						<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/><p class="text-center">配送报备</p></a></li>
+						<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/><p class="text-center">配送核查</p></a></li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_clean">
-						<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/><p class="text-center">清洁记录</p></a></li>
+						<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/><p class="text-center">洗消记录</p></a></li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_ins">
 						<li><a href="${pageContext.request.contextPath}/wap_ins/inspect_choise"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon7.png" border="0" alt="" title=""/><p class="text-center">监管采集</p></a></li>
@@ -134,9 +128,19 @@
 					</shiro:hasPermission>
 				</ul>
 			</div>
-			
 			<c:import url="public/footer.jsp"></c:import>
+			<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 			<script type="text/javascript">
+				/* var current = $(".swiper-wrapper");		
+				current.find("img").bind("click",function(){
+					var path=$(this).attr('src');
+					layerImg(path);
+				});
+				
+				$("#img_fd").click(function(){
+					layerImg($("#img_fd").attr('src'));
+				}); */
+				
 				$("#detection").click(function(){
 					 /* if('${user.type}' != 1){
 						layer.msg("此功能尚未对外开放！",{icon:0,time:1000});
@@ -151,14 +155,16 @@
 					centeredSlides: true,
 					loop: true,
 					loopedSlides: 5,
-					autoplay: false,
+					autoplay: {
+					    disableOnInteraction: false,
+					},
 					navigation: {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
 					},
 					pagination: {
 						el: '.swiper-pagination',
-						//clickable :true,
+						clickable :true,
 					},
 					on: {
 						progress: function(progress) {

@@ -156,6 +156,13 @@ public interface IUserService {
 	 */
 	ResponseResult<Void> webAddUser(User user);
 
+	/**
+	 * 
+	 * @param userList
+	 * @return
+	 */
+	ResponseResult<List<List<String>>> batchAddUser(String userList);
+
 
 	
 }

@@ -2,6 +2,8 @@ package cn.dibcbks.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -66,5 +68,21 @@ public class WebUserController {
 	public ResponseResult<Void> addUser(User user){
 		
 		return iUserService.webAddUser(user);
+	}
+	
+	
+	@ApiOperation("监管人员批量添加页")
+	@GetMapping("/excel")
+	public String batchAddUser(ModelMap modelMap){
+		
+		return "bks_web/excel/user_excel";
+	}
+	
+	@ApiOperation("监管人员批量添加页")
+	@PostMapping("/bath_add")
+	@ResponseBody
+	public ResponseResult<List<List<String>>> batchAddUser(String userList){
+		
+		return iUserService.batchAddUser(userList);
 	}
 }

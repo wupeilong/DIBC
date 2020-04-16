@@ -134,7 +134,7 @@
 				  </fieldset>
 			</form>
 		</main>
-		<div class="login_form1 inputbox margin-top3 margin-bot2" style="display: none;" id="add_unit">
+		<div class="login_form1 inputbox margin-top2 margin-bot2 padding-side" style="display: none;" id="add_unit">
 						<h5 class="fonwei margin-bot2">完善信息：</h5>
 						<div class="input-group form-group">
 						  <span class="input-group-addon">企业名称</span>
@@ -193,10 +193,10 @@
 		if($("#reg_unitName").val() == ""){
 			layer.msg("请输入企业名称",{icon:2,time:1000});
 			$("#reg_unitName").focus();	
-		} else if ($("#reg_businessLicenseCode").val() == "") {
+		} /* else if ($("#reg_businessLicenseCode").val() == "") {
 			layer.msg("请正确输入社会统一信用代码",{icon:2,time:1000});
 			$("#reg_businessLicenseCode").focus();		
-		} /* else if($("#preview3").attr('src') == ""){
+		} else if($("#preview3").attr('src') == ""){
 			layer.msg("请上传营业执照",{icon:2,time:1000});							
 		}else if($("#preview4").attr('src') == ""){
 			layer.msg("请上传食品许可证",{icon:2,time:1000});							
@@ -204,7 +204,6 @@
 			layer.msg("请选择企业类型",{icon:2,time:1000});
 			$("#ureg_nitType").focus();		
 		}else{
-			var we_reg = layerloadingOpen();
 			var formData = new FormData();
 			formData.append('unitName',$("#reg_unitName").val());
 			formData.append('businessLicenseCode',$("#reg_businessLicenseCode").val());
@@ -215,31 +214,34 @@
 				formData.append('businessLicense',dataURLtoFile($("#preview4").attr('src'),"we.jpg"));
 			}							
 			formData.append('unitType',$("#reg_unitType").val());
+			var we_reg = layerloadingOpen();
 			 $.ajax({
-				 url: '${pageContext.request.contextPath}/wap_unit/add',
-		          type: 'POST',
-		          cache: false,				          
-		          data: formData,				        
-		          processData: false,
-		          contentType: false,
-					"success" : function(obj) {
-						layer.close(we_reg);
-						if (obj.state == 0) {
-							layer.msg(obj.message,{icon:2,time:1000});									 
-							return;				
-						}else{					
-							layer.msg(obj.message,{icon:1,time:1000},function(){
-								window.location.href = "${pageContext.request.contextPath}/wap_dry/delivery_add";
-							});							
-						}								
-					}
-				}); 
+				 "url": '${pageContext.request.contextPath}/wap_unit/add',
+		         "type": 'POST',
+		         "cache": false,				          
+		         "data": formData,				        
+		         "processData": false,
+		         "contentType": false,
+				 "success" : function(obj) {
+					var we_reg = layerloadingOpen();
+					layer.close(we_reg);
+					if (obj.state == 0) {
+						layer.msg(obj.message,{icon:2,time:1000});									 
+						return;				
+					}else{					
+						layer.msg(obj.message,{icon:1,time:1000},function(){
+							window.location.href = "${pageContext.request.contextPath}/wap_dry/delivery_add";
+						});							
+					}								
+				}
+			}); 
 		}
 	});
 	
 	function insertUnit(){
 		layer.open({
 			  type: 1,
+			  title:'新增配餐信息',
 			  content: $('#add_unit') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
 			});
 	}

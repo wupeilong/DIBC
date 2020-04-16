@@ -15,65 +15,55 @@
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layCommon.js"></script>
 </head>
 <body class="bg_body container">
-		<div class="container">
-			<div class="text-center margin-top">
-				<div class="logo"><img src="${pageContext.request.contextPath}/static/images/bks_wap/wep_login.png" class="img-responsive"></div>
-				<!-- <h3>云岩食安监督管理系统</h3> -->
-				<%-- <a href="${pageContext.request.contextPath}/home">进入主页</a> --%>
+		<div class="login_wrap">
+			<div class="padding-side fc" style="padding: 0 6rem;padding-top: 1rem;">
+				<img src="${pageContext.request.contextPath}/static/images/bks_wap/wep_login.png" class="img-responsive">
 			</div>
-			<div class="margin-top3">
-				<form class="login_formIn fc">
-					<fieldset id="" class="margin-top margin-bot">
-						<!-- <div class="login_form"> -->
-						<div class="wap_login">
-							<img alt="" src="${pageContext.request.contextPath}/static/images/bks_wap/zlogin.png" class="img-responsive">
-							<div class="login_switch tabbox">
-								<div class="login_form_top tabh margin-bot">
-									<a class="cur">微信登录</a>|<a>账号登录</a>
-								</div>
-								<div class="tabb">
-									<div class="tab_type cur">
-										<div class="padding-side fc margin-bot2">
-											<div style="margin-top: 45px;">
-												<h5 class="fonwei" style="margin-left: -15px;">登录后系统将获得以下权限</h5>
-												<p class="" style="    margin-left: 10px;"> 获取你的公开信息（呢称、头像等） </p>
-											</div>
-										</div>
-										<div class="text-center">
-											<button type="button" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="height: 50px;width: 180px;  background-color: #15bb17;
-		    border-color: #a9e895;background-image: inherit;">微信一键登陆</button>
-	    								</div>
-	    							</div>
-									<div class="tab_type">
-										<div class="login_user">
-											<input type="text" class="login_input box-shadow0" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
-										</div>
-										<div class="login_pwd">
-											<input type="password" class="login_input bg-pwd box-shadow0" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
-										</div>
-										<div class="text-center margin-top2 margin-bot2">
-											<button type="button" class="btn btn-primary form-control" id="login" value="登陆" style="height: 40px;background-color: #5298fe; border-color: #66a4da;width: 250px;">立即登录</button>
-										</div>
+			<div class="fc margin-top2">
+				<div class="margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zlogin.png);background-repeat: no-repeat;background-size: 100% 100%;width: 70vw;height: 74vw;">
+					<div class="login_switch tabbox" style="padding: 0 4vw;">
+						<ul class="login_form_top tabh list-unstyled clearfix fc margin-top">
+							<li class="pull-left">微信登录</li><li class="pull-left cur">账号登录</li>
+						</ul>
+						<div class="tabb">
+							<div class="tab_type">
+								<div class="padding-side fc" style="margin-top: 5vh;">
+									<div class="" style="">
+										<h5 class="fonwei" style="margin-left: -6vw;font-size: 3.4vw;padding: 0;">登录后系统将获得以下权限</h5>
+										<p class="margin-top" style="margin-left: 0;font-size: 3vw;"> 获取你的公开信息（呢称、头像等） </p>
 									</div>
-		
 								</div>
-							</div>					
+								<div class="text-center" style="margin-top: 4vh;">
+									<button type="button" class="btn btn-primary form-control" id="wx_login" value="微信授权登陆" style="	border-color: #a9e895;background-image: inherit;background-color: #15bb17;">微信一键登陆</button>
+								</div>
+							</div>
+							<div class="tab_type cur">
+								<div class="login_user margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginuser.png);background-repeat: no-repeat;background-size: 100% 109%;">
+									<input type="text" class="login_input box-shadow0 width100" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
+								</div>
+								<div class="login_pwd margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginpwd.png);background-repeat: no-repeat;background-size: 100% 109%;">
+									<input type="password" class="login_input bg-pwd box-shadow0 width100" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
+								</div>
+								<div class="text-center btn_box margin-top2">
+									<button type="button" class="btn btn-primary form-control bg-gradient" id="login" value="登陆" style="border-color: #66a4da;">立即登录</button>
+								</div>
+							</div>
+
 						</div>
-					</fieldset>
-				</form>
-				
+					</div>
+				</div>
 			</div>
-			<div class="text-center text-white">
-				<p>Copyright&copy;2020 贵州科技</p>
+			<div class="footer_flag margin-top2 text-center text-white margin-top2">
+				<p>Copyright&copy;2020 贵州指上通科技有限责任公司</p>
 				<p>黔公网安备11000002000001号</p>
-			</div>	
+			</div>
 		</div>
 		<script type="text/javascript">
 		
 		
 		//切换登陆方式
-		$(".tabbox").find(".tabh a").click(function(){
-			$(this).parent().children("a").removeClass("cur");
+		$(".tabbox").find(".tabh li").click(function(){
+			$(this).parent().children("li").removeClass("cur");
 			$(this).addClass("cur");
 			var index=$(this).index();
 			console.log(index);

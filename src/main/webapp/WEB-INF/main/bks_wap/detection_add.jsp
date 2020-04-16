@@ -40,8 +40,8 @@
 				</div>
 			</div>						
 		</div>
-		<main class="main margin-top2 padding-side05">
-			<form action="" method="post" class="detection_add padding-side">
+		<main class="main padding-side05">
+			<form action="" method="post" class="detection_add margin-top2 padding-side">
 				<fieldset>
 				    <!-- <legend class="">检测详情:</legend> -->
 					<div class="border-bottom margin-bot2">
@@ -82,23 +82,23 @@
 						</div>
 						<div class="input-group form-group fs">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>包装分类</span>
-						  <input type="text" class="width100 box-shadow0 border-bottom" id="specifications" name="specifications" placeholder="请输入包装分类" aria-describedby="sizing-addon1">
+						  <input type="text" class="width100 box-shadow0 border-bottom" id="specifications" name="specifications" placeholder="请输入包装分类" value="无" aria-describedby="sizing-addon1">
 						</div>
 						<div class="input-group form-group fs">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>抽检批次</span>
-						  <input type="text" class="width100 box-shadow0 border-bottom" id="bath" name="bath" placeholder="请输入抽检批次" aria-describedby="sizing-addon1">
+						  <input type="text" class="width100 box-shadow0 border-bottom" id="bath" name="bath" placeholder="请输入抽检批次" value="无"  aria-describedby="sizing-addon1">
 						</div>
 						<div class="input-group form-group fs">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>检测项目</span>
-						  <input type="text" class="width100 box-shadow0 border-bottom" id="item" name="item" placeholder="请输入检测项目" aria-describedby="sizing-addon1">
+						  <input type="text" class="width100 box-shadow0 border-bottom" id="item" name="item" placeholder="请输入检测项目" value="无"  aria-describedby="sizing-addon1">
 						</div>
 						<div class="input-group form-group fs">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>检测结果</span>
-						  <input type="text" class="width100 box-shadow0 border-bottom" id="result" name="result" placeholder="请输入检测结果" aria-describedby="sizing-addon1">
+						  <input type="text" class="width100 box-shadow0 border-bottom" id="result" name="result" placeholder="请输入检测结果" value="无"  aria-describedby="sizing-addon1">
 						</div>
 						<div class="input-group form-group fs">
 						  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>备&ensp;&ensp;&ensp;&ensp;注</span>
-						  <input type="text" class="width100 box-shadow0 border-bottom" id="remark" name="remark" placeholder="请输入备注" aria-describedby="sizing-addon1">
+						  <input type="text" class="width100 box-shadow0 border-bottom" id="remark" name="remark" placeholder="请输入备注" value="无"  aria-describedby="sizing-addon1">
 						</div>
 					</div>
 					<div class="margin-top">
@@ -132,7 +132,7 @@ $("#detection").click(function() {
 	}else if($("#samplName").val() == ""){
 		layer.msg("请输入样品名",{icon:2,time:1000});
 		$("#samplName").focus();		
-	}else if ($("#specifications").val() == "") {
+	} else if ($("#specifications").val() == "") {
 		layer.msg("请输入包装分类",{icon:2,time:1000});
 		$("#specifications").focus();		
 	}else if($("#bath").val() == 0){
@@ -147,9 +147,9 @@ $("#detection").click(function() {
 	}else if($("#remark").val() == ""){
 		layer.msg("请输入备注",{icon:2,time:1000});
 		$("#remark").focus();		
-	}else if($("#preview").attr('src') == ""){
+	}/* else if($("#preview").attr('src') == ""){
 		layer.msg("请上传过程图片",{icon:2,time:1000});				
-	}else{
+	} */else{
 		var we5 = layerloadingOpen();
 		var formData = new FormData();				
 		formData.append('unitId',$("#unit_list").val());
@@ -174,10 +174,10 @@ $("#detection").click(function() {
 						layer.msg(obj.message,{icon:2,time:1000});
 						return;				
 					}else{					
-						layer.msg(obj.message,{icon:1,time:1000});
-						location.href = "${pageContext.request.contextPath}/wap_det/detection_add";
+						layer.msg(obj.message,{icon:1,time:1000},function (){
+							location.href = "${pageContext.request.contextPath}/wap_det/detection_add";
+						});
 					}
-					
 				}
 			}); 
 	}

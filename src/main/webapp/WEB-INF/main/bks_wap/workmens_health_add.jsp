@@ -22,7 +22,10 @@
 				<div class="header-content">
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<button type="button" class="btn btn-primary form-control" onclick="save()">提交</button>
+					</div>		
 				</div>
 			</div>
 			<div class="bannerPane">
@@ -32,8 +35,8 @@
 				</div>
 			</div>					
 		</div> 
-		<main class="main margin-top padding-side05">
-			<form action="" method="" class="clearfix" id="hygiene_form">
+		<main class="main padding-side05">
+			<form action="" method="" class="clearfix margin-top" id="hygiene_form">
 				<div class="margin-bot2">
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>姓名</span>
@@ -107,10 +110,6 @@
 			</div>
 				</div>
 			</form>
-			
-			<div class="margin-top2 margin-bot2">
-				<button type="button" class="btn btn-primary form-control" onclick="save()">提交</button>
-			</div>
 		</main>		
 	<c:import url="public/footer.jsp"></c:import>
 	</body>

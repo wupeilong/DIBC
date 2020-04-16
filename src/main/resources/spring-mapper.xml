@@ -57,8 +57,11 @@
 	<aop:config>
 		<aop:pointcut expression="execution(* cn.dibcbks.service..*(..))" id="point"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="point"/>
-	</aop:config> -->
+	</aop:config> -->	
 	
+	
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<!-- 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/> 
@@ -106,6 +109,7 @@
 	<!-- 自定义Shiro loginUrl重定向拦截器 -->
 	<bean id="myFormAuthenticationFilter" class="cn.dibcbks.filter.MyFormAuthenticationFilter"/>    
 	
+	<aop:config proxy-target-class="true"/>
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
 	</bean>
@@ -123,7 +127,7 @@
 		<property name="filterChainDefinitions">
 			<!-- <value>
 				/*/** = anon
-			</value>	 -->	
+			</value> -->
 			<value>
 			/static/** = anon
 			/web_login = anon
@@ -135,7 +139,7 @@
 			/wx_login = anon
 			/wap_user_login = anon
 			/wap_is_exist = anon
-			/*/** = authc
+			/** = authc
 			</value>
 		</property>
 	</bean>		
