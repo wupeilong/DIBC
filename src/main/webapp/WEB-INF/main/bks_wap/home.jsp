@@ -144,7 +144,7 @@
 					centeredSlides: true,
 					loop: true,
 					loopedSlides: 5,
-					autoplay: false,
+					autoplay: true,
 					navigation: {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
