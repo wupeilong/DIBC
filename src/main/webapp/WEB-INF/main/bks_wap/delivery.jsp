@@ -45,8 +45,19 @@
 				<c:forEach items="${distributionList}" var="item" varStatus="vs">
 				<div class="delivery_li fb" style="height: 100px;">
 					<div class="" style="width: 90%;">
-						<div class="margin-bot">
+						<div class="margin-bot fb">
 							<div class="fonwei"><i class="fa fa-address-card-o text-primary"></i> 供应商：${item.mealsUnitName}</div>
+							<div class="padding-side">
+							<c:if test="${item.status == 1}">
+								<span class="label label-info">启送中</span>
+							</c:if>
+							<c:if test="${item.status == 2}">
+								<span class="label label-success">已送达</span>
+							</c:if>
+							<c:if test="${item.status == 3}">
+								<span class="label label-warning">已验收</span>
+							</c:if>
+							</div>
 						</div>
 						<div class="fb ftop" style="font-size: 12px;">
 							<div class="">
