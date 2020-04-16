@@ -204,7 +204,6 @@
 			layer.msg("请选择企业类型",{icon:2,time:1000});
 			$("#ureg_nitType").focus();		
 		}else{
-			var we_reg = layerloadingOpen();
 			var formData = new FormData();
 			formData.append('unitName',$("#reg_unitName").val());
 			formData.append('businessLicenseCode',$("#reg_businessLicenseCode").val());
@@ -215,25 +214,27 @@
 				formData.append('businessLicense',dataURLtoFile($("#preview4").attr('src'),"we.jpg"));
 			}							
 			formData.append('unitType',$("#reg_unitType").val());
+			var we_reg = layerloadingOpen();
 			 $.ajax({
-				 url: '${pageContext.request.contextPath}/wap_unit/add',
-		          type: 'POST',
-		          cache: false,				          
-		          data: formData,				        
-		          processData: false,
-		          contentType: false,
-					"success" : function(obj) {
-						layer.close(we_reg);
-						if (obj.state == 0) {
-							layer.msg(obj.message,{icon:2,time:1000});									 
-							return;				
-						}else{					
-							layer.msg(obj.message,{icon:1,time:1000},function(){
-								window.location.href = "${pageContext.request.contextPath}/wap_dry/delivery_add";
-							});							
-						}								
-					}
-				}); 
+				 "url": '${pageContext.request.contextPath}/wap_unit/add',
+		         "type": 'POST',
+		         "cache": false,				          
+		         "data": formData,				        
+		         "processData": false,
+		         "contentType": false,
+				 "success" : function(obj) {
+					var we_reg = layerloadingOpen();
+					layer.close(we_reg);
+					if (obj.state == 0) {
+						layer.msg(obj.message,{icon:2,time:1000});									 
+						return;				
+					}else{					
+						layer.msg(obj.message,{icon:1,time:1000},function(){
+							window.location.href = "${pageContext.request.contextPath}/wap_dry/delivery_add";
+						});							
+					}								
+				}
+			}); 
 		}
 	});
 	

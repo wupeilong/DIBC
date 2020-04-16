@@ -131,7 +131,7 @@
 			<c:import url="public/footer.jsp"></c:import>
 			<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 			<script type="text/javascript">
-				var current = $(".swiper-wrapper");		
+				/* var current = $(".swiper-wrapper");		
 				current.find("img").bind("click",function(){
 					var path=$(this).attr('src');
 					layerImg(path);
@@ -139,7 +139,7 @@
 				
 				$("#img_fd").click(function(){
 					layerImg($("#img_fd").attr('src'));
-				});
+				}); */
 				
 				$("#detection").click(function(){
 					 /* if('${user.type}' != 1){
