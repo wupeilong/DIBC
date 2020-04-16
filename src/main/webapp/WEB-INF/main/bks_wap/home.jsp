@@ -46,28 +46,28 @@
 					<div class="swiper-container swiper-container-horizontal">
 						<div class="swiper-wrapper" style="transition-duration: 300ms; transform: translate3d(-4340px, 0px, 0px);">
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b1.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b1.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b2.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b2.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="2" style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b3.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b3.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b4.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b4.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b5.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b5.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="2" style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b6.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b6.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b7.png" class="img-responsive">
+								<img id="img_fd" src="${pageContext.request.contextPath}/static/images/bks_wap/b7.png" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b8.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b8.png" class="img-responsive ">
 							</div>
 						</div>
 					</div>
@@ -129,7 +129,17 @@
 				</ul>
 			</div>
 			<c:import url="public/footer.jsp"></c:import>
+			<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 			<script type="text/javascript">
+				var current = $(".swiper-wrapper");		
+				current.find("img").bind("click",function(){
+					var path=$(this).attr('src');
+					layerImg(path);
+				});
+				$("#img_fd").click(function(){
+					layerImg($("#img_fd").attr('src'));
+				});
+				
 				$("#detection").click(function(){
 					 /* if('${user.type}' != 1){
 						layer.msg("此功能尚未对外开放！",{icon:0,time:1000});
@@ -144,7 +154,7 @@
 					centeredSlides: true,
 					loop: true,
 					loopedSlides: 5,
-					autoplay: false,
+					autoplay: true,
 					navigation: {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
