@@ -50,6 +50,7 @@ public class GetCommonUser {
     	//long time = new Date().getTime();
     	long time = IDWorkUtil.nextId();
 	    String extName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));	  
+	    System.out.println("文件路径：" + file.getOriginalFilename());
 	    try {
 	    	File file5 = new File(path1+"/static/images/bks_wap/company_img/"+uuid);
 		    if (!file5.exists()) {
