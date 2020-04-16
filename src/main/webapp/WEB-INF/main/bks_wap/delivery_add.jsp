@@ -134,7 +134,7 @@
 				  </fieldset>
 			</form>
 		</main>
-		<div class="login_form1 inputbox margin-top3 margin-bot2 padding-side" style="display: none;" id="add_unit">
+		<div class="login_form1 inputbox margin-top2 margin-bot2 padding-side" style="display: none;" id="add_unit">
 						<h5 class="fonwei margin-bot2">完善信息：</h5>
 						<div class="input-group form-group">
 						  <span class="input-group-addon">企业名称</span>
