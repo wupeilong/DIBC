@@ -128,7 +128,7 @@
 		<property name="filterChainDefinitions">
 			<!-- <value>
 				/*/** = anon
-			</value>	 -->	
+			</value> -->
 			<value>
 			/static/** = anon
 			/web_login = anon

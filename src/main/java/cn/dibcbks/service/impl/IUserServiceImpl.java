@@ -127,6 +127,7 @@ public class IUserServiceImpl implements IUserService {
 		ResponseResult<User> rr = null;
 		try {			
 			User user = userMapper.queryUser(idCard);
+			System.out.println(user+"sddddddddddddddddddddddddddddddddddddddddd");
 			if(user == null){
 				user = userMapper.queryUserByPhone(idCard);
 			}

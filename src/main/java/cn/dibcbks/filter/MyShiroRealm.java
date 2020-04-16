@@ -12,14 +12,14 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-
 import cn.dibcbks.entity.User;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.util.CommonUtil;
@@ -43,7 +43,7 @@ public class MyShiroRealm extends AuthorizingRealm{
 	
 	//每次验证权限执行
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {	
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {		
 		String authorization = CommonUtil.getSessionUser().getAuthorization();
 		logger.info("【" + CommonUtil.getSessionUser().getUsername() + "】用户的授权信息：" + authorization);
 		if(StringUtils.isNotEmpty(authorization)){
@@ -71,14 +71,40 @@ public class MyShiroRealm extends AuthorizingRealm{
 			user = userMapper.queryUserByOpenid(account);
 		}
 		if(user != null){
-			this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+			//清理当前用户权限
+			//this.clearCache(SecurityUtils.getSubject().getPrincipals());
+			//this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
 			ByteSource byteSource = ByteSource.Util.bytes(user.getUuid());
 			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account,user.getPassword(),getName());
 			info.setCredentialsSalt(byteSource);
 			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+			System.out.println(SecurityUtils.getSubject().getPrincipals());
+			//给当前用户授权			
+			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals(),user);
 			return info;
 		}
 		return null;
 	}
 	
+	/**
+	 * 登陆后立即授权
+	 * @param principals
+	 * @param user
+	 * @return
+	 */
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals , User user) {
+		String authorization = user.getAuthorization();
+		logger.info("【" + user.getUsername() + "】用户的授权信息：" + user.getAuthorization());
+		if(StringUtils.isNotEmpty(authorization)){
+			String[] auths = authorization.split(";");
+			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+			if(auths.length > 0){
+				for(int i=0;i<auths.length;i++){
+					info.addStringPermission(auths[i]);
+				}			
+				return info;
+			}
+		}		
+		return null;
+	}
 }
