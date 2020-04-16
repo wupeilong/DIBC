@@ -223,6 +223,12 @@
 	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 <script type="text/javascript">
 
+$("img").click(function(){
+	var path=$(this).attr('src');		
+	layerImg(path);
+});
+
+
 	//申明一个全局的企业名单变量
 	var UnitList=null;
 	
@@ -247,19 +253,14 @@
 					$("#inputType").focus()
 					return false;
 				}
-			})
-			
-			
+			})		
 		}
 	}
 	
 	
 	/* 切换按钮事件 */
-	function swhBtn() {
-		
-	
-		//默认选中第一个
-		
+	function swhBtn() {			
+		//默认选中第一个		
 		$("#unit_list").find("option:selected").attr("selected", false);
 			$("#unit_list").find("option[value='']").attr("selected",true);//任务名称
 			$("#unit_list").find("option:selected").each(function(i){
@@ -271,8 +272,7 @@
 	   					}
 	   			});
    			}
-			})
-		
+			})	
 		
 		//清空是否已有证件的标志
 			$("#fileinput").attr("name","");
@@ -341,10 +341,10 @@
 												return;
 											} else {
 												console
-														.log("${pageContext.request.contextPath}/"
+														.log("${pageContext.request.contextPath}"
 																+ obj.data[0].businessLicense);
 												console
-														.log("${pageContext.request.contextPath}/"
+														.log("${pageContext.request.contextPath}"
 																+ obj.data[0].productionLicense);
 												if (obj.data[0].businessLicense == ""
 														|| obj.data[0].businessLicense == null) {
@@ -355,7 +355,7 @@
 
 												} else {
 													
-													$("#preview").attr("src","${pageContext.request.contextPath}/"+ obj.data[0].businessLicense);
+													$("#preview").attr("src","${pageContext.request.contextPath}"+ obj.data[0].businessLicense);
 													//设置已有证件标志
 													$("#fileinput").attr("name","yes");
 													
@@ -372,7 +372,7 @@
 														time : 1000
 													});
 												} else {
-													$("#preview1").attr("src","${pageContext.request.contextPath}/"+ obj.data[0].productionLicense);
+													$("#preview1").attr("src","${pageContext.request.contextPath}"+ obj.data[0].productionLicense);
 													//设置已有证件标志
 													$("#fileinput1").attr("name","yes");
 													
@@ -479,19 +479,23 @@
 							//企业没有存证件并且选择上传才放入数据
 							
 							if ($("#fileinput").attr('name')!="yes" && $("#preview").attr('src') != "") { 
-								var blo=dataURLtoBlob($("#preview").attr('src'));
-								formData.append('supplierBusinessLicense',blobToFile(blo,"we.jpg"));//营业执照			
+								/* var blo=dataURLtoBlob($("#preview").attr('src'));
+								formData.append('supplierBusinessLicense',blobToFile(blo,"we.jpg"));//营业执照 */
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview").attr('src'),'dsf.jpg'));//营业执照
 							}
 							if ($("#fileinput1").attr('name')!="yes" && $("#preview1").attr('src') != "") {
-								var blo1=dataURLtoBlob($("#preview1").attr('src'));
-								formData.append('supplierproductionLicense',blobToFile(blo1,"we.jpg"));//许可证										
+								/* var blo1=dataURLtoBlob($("#preview1").attr('src'));
+								formData.append('supplierproductionLicense',blobToFile(blo1,"we.jpg"));//许可证	 */	
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview1").attr('src'),'dsf.jpg'));
 							}							
 							if ($("#preview2").attr('src') != "") {
-								var blo2=dataURLtoBlob($("#preview2").attr('src'));
-								formData.append('supplierQualification',blobToFile(blo2,"we.jpg"));//资质
+								/* var blo2=dataURLtoBlob($("#preview2").attr('src'));
+								formData.append('supplierQualification',blobToFile(blo2,"we.jpg"));//资质 */
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview2").attr('src'),'dsf.jpg'));
 							}
 							if($("#preview3").attr('src') != ""){
-								formData.append('invoice',blobToFile(dataURLtoBlob($("#preview3").attr('src')),"we.jpg"));//发票 
+								/* formData.append('invoice',blobToFile(dataURLtoBlob($("#preview3").attr('src')),"we.jpg"));//发票  */
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview3").attr('src'),'dsf.jpg'));
 							}
 							
 							formData.append('supplierPerson', $("#supplierPerson").val());//联系人					
