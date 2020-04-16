@@ -3,7 +3,7 @@
 	 		var filePath = $("#"+inputId).val(), //获取input的value,里面是文件的路径
             	fileFormat = filePath.substring(filePath.lastIndexOf('.')).toLowerCase(),
             	imgBase64 = '', //存储图片的base64
-           	 	maxSize = 1*1024*1024,
+           	 	maxSize = 300*1024,
             	fileObj = $("#"+inputId)[0].files[0];//document.getElementById('upload').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象            	
 	 		//检查文件格式
 	        if(!fileFormat.match(/.png|.jpg|.jpeg|.gif/)){
