@@ -62,7 +62,7 @@
 							</div> --%>
 							
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b1.jpg" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b1.png" class="img-responsive">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
 								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b2.png" class="img-responsive">

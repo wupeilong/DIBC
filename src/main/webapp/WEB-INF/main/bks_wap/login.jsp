@@ -53,8 +53,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="footer_flag margin-top2 text-center text-white">
-				<p>Copyright&copy;2020 贵州科技</p>
+			<div class="footer_flag margin-top2 text-center text-white margin-top2">
+				<p>Copyright&copy;2020 贵州指上通科技</p>
 				<p>黔公网安备11000002000001号</p>
 			</div>
 		</div>
