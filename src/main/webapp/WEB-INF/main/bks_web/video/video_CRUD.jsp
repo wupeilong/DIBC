@@ -96,12 +96,13 @@
 						<td style="text-align: cnter"><c:if
 								test="${item.videoType==1}">实时监控</c:if> <c:if
 								test="${item.videoType==2}">视频回放</c:if></td>
-						<td style="text-align: cnter"><c:if
+						<td style="text-align: cnter">${item.streamType}</td>		
+						<%-- <td style="text-align: cnter"><c:if
 								test="${item.streamType==1}">RTMP</c:if> <c:if
 								test="${item.streamType==2}">TRSP</c:if> <c:if
 								test="${item.streamType==3}">FLV</c:if> <c:if
-								test="${item.streamType==4}">HTTP</c:if></td>
-						<td style="text-align: cnter">
+								test="${item.streamType==4}">HTTP</c:if></td>--%>
+						<td style="text-align: cnter"> 
 							<button id="address_update" videoId=${item.videoId}  class="modifyClass"><a href="${pageContext.request.contextPath}/web_video/updateVideoInfo?unitId=${item.unitId}&videoId=${item.videoId}">修改</a></button>
 							<button id="address_delete" videoId=${item.videoId}  class="deleteClass" onclick="addressDelete(this)">删除</button>
 						</td>
