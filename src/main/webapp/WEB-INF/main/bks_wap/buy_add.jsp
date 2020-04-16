@@ -478,7 +478,7 @@
 							
 							//企业没有存证件并且选择上传才放入数据
 							
-							if ($("#fileinput").attr('name')!="yes" && $("#preview").attr('src') != "") {
+							if ($("#fileinput").attr('name')!="yes" && $("#preview").attr('src') != "") { 
 								var blo=dataURLtoBlob($("#preview").attr('src'));
 								formData.append('supplierBusinessLicense',blobToFile(blo,"we.jpg"));//营业执照			
 							}
