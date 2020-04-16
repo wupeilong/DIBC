@@ -193,10 +193,10 @@
 		if($("#reg_unitName").val() == ""){
 			layer.msg("请输入企业名称",{icon:2,time:1000});
 			$("#reg_unitName").focus();	
-		} else if ($("#reg_businessLicenseCode").val() == "") {
+		} /* else if ($("#reg_businessLicenseCode").val() == "") {
 			layer.msg("请正确输入社会统一信用代码",{icon:2,time:1000});
 			$("#reg_businessLicenseCode").focus();		
-		} /* else if($("#preview3").attr('src') == ""){
+		} else if($("#preview3").attr('src') == ""){
 			layer.msg("请上传营业执照",{icon:2,time:1000});							
 		}else if($("#preview4").attr('src') == ""){
 			layer.msg("请上传食品许可证",{icon:2,time:1000});							
