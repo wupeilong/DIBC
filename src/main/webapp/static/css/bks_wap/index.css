@@ -686,13 +686,13 @@ table.table_arrange>tbody>tr>td:nth-of-type(4)>div:active{
 	height: 10vw;
 	border-radius: 4em;
 	padding-left: 16vw;
-	background-color: rgba(164, 164, 164, 0.2);
+	background-color: rgba(240, 240, 240, 0.59);
 	border: 0;
 	margin-left: 3%;
 	outline: none;
 }
 .login_wrap .login_switch .tab_type input:focus{
-	background-color: rgba(164, 164, 164, 0.3);
+	background-color: rgba(164, 164, 164, 0.09);
 }
 .footer_flag p{
 	text-align: center;

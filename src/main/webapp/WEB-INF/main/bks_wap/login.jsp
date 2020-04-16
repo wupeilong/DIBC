@@ -38,10 +38,10 @@
 								</div>
 							</div>
 							<div class="tab_type cur">
-								<div class="login_user margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginuser.png);background-repeat: no-repeat;background-size: 100% 100%;">
+								<div class="login_user margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginuser.png);background-repeat: no-repeat;background-size: 100% 109%;">
 									<input type="text" class="login_input box-shadow0 width100" id="idCard" name="idCard" placeholder="请输入账号" aria-describedby="sizing-addon1">
 								</div>
-								<div class="login_pwd margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginpwd.png);background-repeat: no-repeat;background-size: 100% 100%;">
+								<div class="login_pwd margin-top" style="background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/zloginpwd.png);background-repeat: no-repeat;background-size: 100% 109%;">
 									<input type="password" class="login_input bg-pwd box-shadow0 width100" id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1">
 								</div>
 								<div class="text-center btn_box margin-top2">
