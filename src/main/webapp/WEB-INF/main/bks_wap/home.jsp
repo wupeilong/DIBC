@@ -136,6 +136,7 @@
 					var path=$(this).attr('src');
 					layerImg(path);
 				});
+				
 				$("#img_fd").click(function(){
 					layerImg($("#img_fd").attr('src'));
 				});
@@ -154,14 +155,16 @@
 					centeredSlides: true,
 					loop: true,
 					loopedSlides: 5,
-					autoplay: true,
+					autoplay: {
+					    disableOnInteraction: false,
+					},
 					navigation: {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
 					},
 					pagination: {
 						el: '.swiper-pagination',
-						//clickable :true,
+						clickable :true,
 					},
 					on: {
 						progress: function(progress) {
