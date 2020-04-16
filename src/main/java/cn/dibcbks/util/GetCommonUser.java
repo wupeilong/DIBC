@@ -45,11 +45,18 @@ public class GetCommonUser {
     }
     public  String uoladimg(MultipartFile file,String uuid)
     {
+    	
     	String start=null;
     	String path1=this.getpath();	
     	//long time = new Date().getTime();
     	long time = IDWorkUtil.nextId();
-	    String extName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));	  
+    	String extName=null;
+    	//如果是blob类型的文件  扩展名就为.blob
+    	if(!file.getOriginalFilename().contains(".")){
+    		extName=".jpg";
+    	}else{
+    		extName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));	  
+    	} 
 	    try {
 	    	File file5 = new File(path1+"/static/images/bks_wap/company_img/"+uuid);
 		    if (!file5.exists()) {

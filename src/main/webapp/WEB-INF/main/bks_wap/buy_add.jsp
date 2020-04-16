@@ -435,7 +435,7 @@
 								time : 1000
 							});
 							$("#select").focus();
-						} else if ($("#preview").attr('src') == "") {
+						} /* else if ($("#preview").attr('src') == "") {
 							layer.msg("请上传营业执照", {
 								icon : 2,
 								time : 1000
@@ -452,14 +452,15 @@
 								icon : 2,
 								time : 1000
 							});
-							$("#preview3").focus();
-						} else if ($("#supplierPerson").attr('src') == "") {
+							$("#preview3").focus(); 
+						}*/
+						else if ($("#supplierPerson").val() == "") {
 							layer.msg("请填写供货商联系人", {
 								icon : 2,
 								time : 1000
 							});
 							$("#supplierPerson").focus();
-						} else if ($("#supplierPhone").attr('src') == "") {
+						} else if ($("#supplierPhone").val()=="") {
 							layer.msg("请填写供货商联系电话", {
 								icon : 2,
 								time : 1000
@@ -475,19 +476,24 @@
 							//传入供货商名称
 							formData.append('supplier',$("#unit_list").val() == "" ? $("#inputType").val() : $("#unit_list").find("option:selected").text());//供货商ID											
 							
-							//若果企业已有证件 则不传
+							//企业没有存证件并且选择上传才放入数据
 							
-							if ($("#fileinput").attr('name')!="yes") {							
-								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview").attr('src'),"we.jpg"));//营业执照			
+							if ($("#fileinput").attr('name')!="yes" && $("#preview").attr('src') != "") {
+								var blo=dataURLtoBlob($("#preview").attr('src'));
+								formData.append('supplierBusinessLicense',blobToFile(blo,"we.jpg"));//营业执照			
 							}
-							if ($("#fileinput1").attr('name')!="yes") {
-								formData.append('supplierproductionLicense',
-								dataURLtoFile($("#preview1").attr('src'), "we.jpg"));//许可证										
+							if ($("#fileinput1").attr('name')!="yes" && $("#preview1").attr('src') != "") {
+								var blo1=dataURLtoBlob($("#preview1").attr('src'));
+								formData.append('supplierproductionLicense',blobToFile(blo1,"we.jpg"));//许可证										
 							}							
 							if ($("#preview2").attr('src') != "") {
-								formData.append('supplierQualification',dataURLtoFile($("#preview2").attr('src'), "we.jpg"));//资质
+								var blo2=dataURLtoBlob($("#preview2").attr('src'));
+								formData.append('supplierQualification',blobToFile(blo2,"we.jpg"));//资质
 							}
-							formData.append('invoice', dataURLtoFile($("#preview3").attr('src'), "we.jpg"));//发票 
+							if($("#preview3").attr('src') != ""){
+								formData.append('invoice',blobToFile(dataURLtoBlob($("#preview3").attr('src')),"we.jpg"));//发票 
+							}
+							
 							formData.append('supplierPerson', $("#supplierPerson").val());//联系人					
 							formData.append('supplierPhone',$("#supplierPhone").val());//联系电话
 							formData.append('detailList', JSON.stringify(detailList));//采购详情
