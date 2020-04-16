@@ -223,6 +223,12 @@
 	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 <script type="text/javascript">
 
+$("img").click(function(){
+	var path=$(this).attr('src');		
+	layerImg(path);
+});
+
+
 	//申明一个全局的企业名单变量
 	var UnitList=null;
 	
@@ -247,19 +253,14 @@
 					$("#inputType").focus()
 					return false;
 				}
-			})
-			
-			
+			})		
 		}
 	}
 	
 	
 	/* 切换按钮事件 */
-	function swhBtn() {
-		
-	
-		//默认选中第一个
-		
+	function swhBtn() {			
+		//默认选中第一个		
 		$("#unit_list").find("option:selected").attr("selected", false);
 			$("#unit_list").find("option[value='']").attr("selected",true);//任务名称
 			$("#unit_list").find("option:selected").each(function(i){
@@ -271,8 +272,7 @@
 	   					}
 	   			});
    			}
-			})
-		
+			})	
 		
 		//清空是否已有证件的标志
 			$("#fileinput").attr("name","");
