@@ -248,35 +248,29 @@
 					return false;
 				}
 			})
-			
-			
 		}
 	}
 	
-	
 	/* 切换按钮事件 */
-	function swhBtn() {
-		
-	
-		//默认选中第一个
-		
+	function swhBtn() {	
+		//默认选中第一个		
 		$("#unit_list").find("option:selected").attr("selected", false);
-			$("#unit_list").find("option[value='']").attr("selected",true);//任务名称
-			$("#unit_list").find("option:selected").each(function(i){
-				if($(this).text()=="查询所有企业信息"){
-   				var divVal=$(this).val();
-					$("#unitspan").find("div").each(function(){
-	   					if($(this).attr("data-value")==divVal){
-	   					 	$(this).click();
-	   					}
-	   			});
-   			}
-			})
+		$("#unit_list").find("option[value='']").attr("selected",true);//任务名称
+		$("#unit_list").find("option:selected").each(function(i){
+			if($(this).text()=="查询所有企业信息"){
+	   			var divVal=$(this).val();
+				$("#unitspan").find("div").each(function(){					
+		   			if($(this).attr("data-value")==divVal){
+		   				$(this).click();
+		   			}
+		   		});
+	   		}
+		})
 		
 		
 		//清空是否已有证件的标志
-			$("#fileinput").attr("name","");
-			$("#fileinput1").attr("name","");
+		$("#fileinput").attr("name","");
+		$("#fileinput1").attr("name","");
 		
 		//清空值
 		$("#unit_list").val("");
@@ -295,8 +289,7 @@
 		
 		//展示上传功能
 		$("#fileinput").css("display", "block");
-		$("#fileinput1").css("display", "block");
-		
+		$("#fileinput1").css("display", "block");		
 		
 	}
 
@@ -317,7 +310,6 @@
 
 							var url = "${pageContext.request.contextPath}/wap_unit/list";
 							var data = "unitId=" + $("#unit_list").val();
-
 							$.ajax({
 										"url" : url,
 										"data" : data,
@@ -331,54 +323,38 @@
 												});
 												
 												return;
-											}
-											console.log(obj);
-											
+											}										
 											UnitList=obj;
 											
 											$("#supplierPerson").val(obj.data[0].legalPerson);
 											if ($("#unit_list").val() == "") {
 												return;
 											} else {
-												console
-														.log("${pageContext.request.contextPath}/"
-																+ obj.data[0].businessLicense);
-												console
-														.log("${pageContext.request.contextPath}/"
-																+ obj.data[0].productionLicense);
-												if (obj.data[0].businessLicense == ""
-														|| obj.data[0].businessLicense == null) {
+												console.log("${pageContext.request.contextPath}" + obj.data[0].businessLicense);
+												console.log("${pageContext.request.contextPath}" + obj.data[0].productionLicense);
+												if (obj.data[0].businessLicense == "" || obj.data[0].businessLicense == null) {
 													layer.msg("未保存该企业的营业执照", {
 														icon : 2,
 														time : 1000
 													});
-
-												} else {
-													
-													$("#preview").attr("src","${pageContext.request.contextPath}/"+ obj.data[0].businessLicense);
+												} else {													
+													$("#preview").attr("src","${pageContext.request.contextPath}"+ obj.data[0].businessLicense);
 													//设置已有证件标志
 													$("#fileinput").attr("name","yes");
-													
-													
 													//已有证件  禁止更改
-													$("#fileinput").css(
-															"display", "none");
-
+													$("#fileinput").css("display", "none");
 												}
-												if (obj.data[0].productionLicense == ""
-														|| obj.data[0].productionLicense == null) {
+												if (obj.data[0].productionLicense == ""	|| obj.data[0].productionLicense == null) {
 													layer.msg("未保存该企业的食品许可证", {
 														icon : 2,
 														time : 1000
 													});
 												} else {
-													$("#preview1").attr("src","${pageContext.request.contextPath}/"+ obj.data[0].productionLicense);
+													$("#preview1").attr("src","${pageContext.request.contextPath}"+ obj.data[0].productionLicense);
 													//设置已有证件标志
-													$("#fileinput1").attr("name","yes");
-													
+													$("#fileinput1").attr("name","yes");													
 													//已有证件  禁止更改
-													$("#fileinput1").css(
-															"display", "none");
+													$("#fileinput1").css("display", "none");
 												}
 
 											}
@@ -391,12 +367,8 @@
 
 			);
 	
-	
-
 	$("#add").click(
 					function() {
-						
-						
 						var detailList = new Array();
 						var tr = document.querySelectorAll("tbody tr");
 						for (var i = 0; i < tr.length; i++) {
@@ -499,32 +471,26 @@
 							formData.append('detailList', JSON.stringify(detailList));//采购详情
 							console.log(formData);
 							$.ajax({
-										url : "${pageContext.request.contextPath}/wap_pro/add",
-										type : 'POST',
-										cache : false,
-										data : formData,
-										processData : false,
-										contentType : false,
-										"success" : function(obj) {
-											layer.close(we1);
-											console.log(obj);
-											if (obj.state == 0) {
-												layer.msg(obj.message, {
-													icon : 2,
-													time : 1000
-												});
-												return;
-											} else {
-												layer.msg(obj.message, {
-													icon : 1,
-													time : 1000
-												});
+									url : "${pageContext.request.contextPath}/wap_pro/add",
+									type : 'POST',
+									cache : false,
+									data : formData,
+									processData : false,
+									contentType : false,
+									"success" : function(obj) {
+										layer.close(we1);
+										console.log(obj);
+										if (obj.state == 0) {
+											layer.msg(obj.message, {icon : 2,time : 1000});
+											return;
+										} else {
+											layer.msg(obj.message, {icon : 1,time : 1000},function (){
 												//延时刷新页面																	 
 												location.href = "${pageContext.request.contextPath}/wap_pro/buy_list";
-											}
-
+											});											
 										}
-									});
+									}
+							});
 
 						}
 					});
