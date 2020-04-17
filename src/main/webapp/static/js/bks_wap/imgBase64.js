@@ -11,7 +11,10 @@
 	            return;
 	        }
 	        var index = layerloadingOpen();
-	        if(fileObj.size > maxSize){	        	
+	        console.log("未压缩文件Size：" + fileObj.size);
+	        console.log("压缩界限Size：" + maxSize);
+	        if(fileObj.size > maxSize){
+	        	alert("1111")
 	            //调用函数,对图片进行压缩
 	            compressBase64(fileObj,function (imgBase64) {
 	                imgBase64 = imgBase64;
@@ -86,8 +89,7 @@
 	        r.readAsDataURL(fileObj);//转成base64格式
 	    }
 	 
-	    //对图片进行压缩
-	 
+	    //对图片进行压缩	 
 	    function compressBase64(fileObj,callback) {
 	        if(typeof (FileReader) === 'undefined'){
 	        	layer.msg("当前浏览器内核不支持base64图片压缩",{icon:2,time:1000}); 	                     

@@ -78,7 +78,6 @@ public class MyShiroRealm extends AuthorizingRealm{
 			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account,user.getPassword(),getName());
 			info.setCredentialsSalt(byteSource);
 			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
-			System.out.println(SecurityUtils.getSubject().getPrincipals());
 			//给当前用户授权			
 			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals(),user);
 			return info;
