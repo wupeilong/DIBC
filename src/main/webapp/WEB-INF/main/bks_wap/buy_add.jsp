@@ -4,43 +4,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8>
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<title>采购信息添加</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js"
-	type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
-<style type="text/css">
-.table>tbody>tr>td {
-	padding: 0;
-}
+	<meta charset=utf-8>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<title>采购信息添加</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+	<style type="text/css">
+	.table>tbody>tr>td {
+		padding: 0;
+	}
 </style>
 </head>
 <body class="contain">
