@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +23,23 @@
 			<li><a href="${pageContext.request.contextPath}/wap_unit/coopration_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" border="0" alt="" title=""/></a><p class="text-center" >企业信息</p></li>					
 			<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/></a><p class="text-center">从业人员</p></li>
 			<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/></a><p class="text-center">索证索票</p></li>
-			<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/></a><p class="text-center">制餐检视</p></li>
+			<shiro:hasPermission name="web_food">				
+					<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/></a><p class="text-center">AI识别</p></li>
+			</shiro:hasPermission>
+			<shiro:lacksPermission name="web_food">
+					<li><a href="javascript:alert('您没有权限……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/></a><p class="text-center">AI识别</p></li>
+			</shiro:lacksPermission>
 			<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/></a><p class="text-center">配送核查</p></li>
-			<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/></a><p class="text-center">清消记录</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/></a><p class="text-center">洗消记录</p></li>
 			<li><a href="${pageContext.request.contextPath}/wap_ins/inspect_choise"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon7.png" border="0" alt="" title=""/></a><p class="text-center">监管采集</p></li>
-			<li><a href="${pageContext.request.contextPath}/wap_det/detection_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/></a><p class="text-center">检测结果</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_det/detection_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/></a><p class="text-center">
+			<c:if test="${user.type == 1}">
+				检验检测
+			</c:if>
+			<c:if test="${user.type != 1}">
+				检测结果
+			</c:if>			
+			</p></li>
 			<li><a href="${pageContext.request.contextPath}/wap_video/wap_videoscan"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon9.png" border="0" alt="" title=""/></a><p class="text-center">视频监控</p></li>
 		</ul>	
   	</nav>
