@@ -20,7 +20,7 @@
 				<div class="header-content">
 					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
 					<a class="menu-btn" id="demoSingle" href="#menu"></a>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
 			</div>
 			<div class="bannerPane" style="background:#ffffff;opacity:0">

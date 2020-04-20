@@ -29,7 +29,7 @@
 					<c:if test="${user.type != 1}">
 						<a class="menu-btn" href="#menu"></a>
 					</c:if>						
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					<a href="${pageContext.request.contextPath}/wap_ins/inspect_choise" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
 				</div>
 				<div class="bg-gradient" style="margin-top: 89px;">
 					<ul class="menu clearfix list-unstyled padding-side margin0" style="padding-top:1em;">
