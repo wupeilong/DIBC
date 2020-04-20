@@ -106,9 +106,12 @@
 					<shiro:hasPermission name="wap_dry">
 						<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/><p class="text-center">配送核查</p></a></li>
 					</shiro:hasPermission>
-					<li>
-						<img src="${pageContext.request.contextPath}/static/images/bks_wap/logo_home.png" class="img-responsive" style="height: 18vw;" alt="" title=""/>
+					
+					<li style="background:url(${pageContext.request.contextPath}/static/images/bks_wap/logo_home.png) no-repeat;background-size: 65%;background-position: center;">
+						<%-- <img src="${pageContext.request.contextPath}/static/images/bks_wap/logo_home.png" class="img-responsive" style="height: 18vw;" alt="" title=""/> --%>
+						<div style="height: 18vw;"></div>
 					</li>
+					
 					<shiro:hasPermission name="wap_clean">
 						<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/><p class="text-center">洗消记录</p></a></li>
 					</shiro:hasPermission>
