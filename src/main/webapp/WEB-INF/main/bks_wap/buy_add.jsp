@@ -454,16 +454,16 @@ $("img").click(function(){
 							if ($("#fileinput1").attr('name')!="yes" && $("#preview1").attr('src') != "") {
 								/* var blo1=dataURLtoBlob($("#preview1").attr('src'));
 								formData.append('supplierproductionLicense',blobToFile(blo1,"we.jpg"));//许可证	 */	
-								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview1").attr('src'),'dsf.jpg'));
+								formData.append('supplierproductionLicense',dataURLtoFile($("#preview1").attr('src'),'dsf.jpg'));
 							}							
 							if ($("#preview2").attr('src') != "") {
 								/* var blo2=dataURLtoBlob($("#preview2").attr('src'));
 								formData.append('supplierQualification',blobToFile(blo2,"we.jpg"));//资质 */
-								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview2").attr('src'),'dsf.jpg'));
+								formData.append('supplierQualification',dataURLtoFile($("#preview2").attr('src'),'dsf.jpg'));
 							}
 							if($("#preview3").attr('src') != ""){
 								/* formData.append('invoice',blobToFile(dataURLtoBlob($("#preview3").attr('src')),"we.jpg"));//发票  */
-								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview3").attr('src'),'dsf.jpg'));
+								formData.append('invoice',dataURLtoFile($("#preview3").attr('src'),'dsf.jpg'));
 							}
 							
 							formData.append('supplierPerson', $("#supplierPerson").val());//联系人					

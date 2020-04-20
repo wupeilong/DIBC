@@ -27,7 +27,7 @@
 					<c:if test="${user.type != 1}">
 						<a class="menu-btn" href="#menu"></a>
 					</c:if>
-					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
 					<c:if test="${user.type == 2}">
 						<a href="${pageContext.request.contextPath}/wap_dry/delivery_add" class="btn bg-primary" style="position: absolute; right: 5px;top: 50px;"><i class="fa fa-plus"></i></a>
 					</c:if>						
