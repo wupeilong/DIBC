@@ -66,9 +66,6 @@
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
 								<img id="img_fd" src="${pageContext.request.contextPath}/static/images/bks_wap/ban7.jpg" class="img-responsive ">
 							</div>
-							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban1.jpg" class="img-responsive ">
-							</div>
 						</div>
 					</div>
 					<div class="swiper-pagination swiper-pagination-bullets">
@@ -153,16 +150,16 @@
 					/*  } */					  
 				});	
 				
-				/* autoplay: {
-				    disableOnInteraction: false,
-				}, */
+				
 				certifySwiper = new Swiper('#certify .swiper-container', {
 					watchSlidesProgress: true,
 					slidesPerView: 'auto',
 					centeredSlides: true,
 					loop: true,
 					loopedSlides: 5,
-					autoplay:false,
+					autoplay: {
+					    disableOnInteraction: false,
+					},
 					navigation: {
 						nextEl: '.swiper-button-next',
 						prevEl: '.swiper-button-prev',
