@@ -130,6 +130,7 @@
 			</value> -->
 			<value>
 			/static/** = anon
+			/logout = logout
 			/web_login = anon
 			/web_login = anon
 			/web_user_login = anon

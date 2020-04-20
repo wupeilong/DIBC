@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -13,6 +14,7 @@ import cn.dibcbks.entity.Authorization;
 import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Menu;
 import cn.dibcbks.entity.Role;
+import cn.dibcbks.filter.MyShiroRealm;
 import cn.dibcbks.mapper.AuthorizationMapper;
 import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.MenuMapper;
@@ -450,6 +452,10 @@ public class IAuthorizationServiceImpl implements IAuthorizationService {
 				rr = new ResponseResult<>(ResponseResult.ERROR,"权限名称重复，操作失败！");
 			}else{
 				authorizationMapper.updateById(authorization);
+				RealmSecurityManager rsm = (RealmSecurityManager)SecurityUtils.getSecurityManager();
+				MyShiroRealm shiroRealm = (MyShiroRealm)rsm.getRealms().iterator().next();
+				//清理所有授权缓存
+				shiroRealm.clearAllCachedAuthorizationInfo();
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 			}			
 		} catch (Exception e) {

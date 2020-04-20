@@ -12,15 +12,14 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.User;
+import cn.dibcbks.mapper.AuthorizationMapper;
+import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.util.CommonUtil;
 
@@ -40,23 +39,34 @@ public class MyShiroRealm extends AuthorizingRealm{
 	private static final Logger logger = LogManager.getLogger(MyShiroRealm.class.getName());
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private AuthorizationMapper authorizationMapper;
+	@Autowired
+	private DepartmentMapper departmentMapper;
 	
 	//每次验证权限执行
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {		
-		String authorization = CommonUtil.getSessionUser().getAuthorization();
-		logger.info("【" + CommonUtil.getSessionUser().getUsername() + "】用户的授权信息：" + authorization);
-		if(StringUtils.isNotEmpty(authorization)){
-			String[] auths = authorization.split(";");
-			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-			if(auths.length > 0){
-				for(int i=0;i<auths.length;i++){
-					info.addStringPermission(auths[i]);
-				}			
-				return info;
-			}
-		}
-		return null; 		
+		try {
+			//String authorization = CommonUtil.getSessionUser().getAuthorization();		
+			Department department = departmentMapper.selectById(CommonUtil.getSessionUser().getDepartmentId());
+			String authorization = authorizationMapper.selectById(department.getAuthorizationId()).getAuthorizationContent();
+			logger.info("『" + CommonUtil.getSessionUser().getUsername() + "』的授权信息：" + authorization);
+			if(StringUtils.isNotEmpty(authorization)){
+				String[] auths = authorization.split(";");
+				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+				if(auths.length > 0){
+					for(int i=0;i<auths.length;i++){
+						info.addStringPermission(auths[i]);
+					}			
+					return info;
+				}
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("『" + CommonUtil.getSessionUser().getUsername() + "』用户授权异常:" + e.getMessage());
+		}		
+		return null;		
 	}
 
 	//登录执行
@@ -70,40 +80,58 @@ public class MyShiroRealm extends AuthorizingRealm{
 		if(user == null){
 			user = userMapper.queryUserByOpenid(account);
 		}
-		if(user != null){
-			//清理当前用户权限
-			//this.clearCache(SecurityUtils.getSubject().getPrincipals());
-			//this.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+		if(user != null){			
 			ByteSource byteSource = ByteSource.Util.bytes(user.getUuid());
 			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(account,user.getPassword(),getName());
-			info.setCredentialsSalt(byteSource);
-			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
-			//给当前用户授权			
-			//doGetAuthorizationInfo(SecurityUtils.getSubject().getPrincipals(),user);
+			info.setCredentialsSalt(byteSource);			
 			return info;
 		}
 		return null;
 	}
-	
-	/**
-	 * 登陆后立即授权
-	 * @param principals
-	 * @param user
-	 * @return
-	 */
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals , User user) {
-		String authorization = user.getAuthorization();
-		logger.info("【" + user.getUsername() + "】用户的授权信息：" + user.getAuthorization());
-		if(StringUtils.isNotEmpty(authorization)){
-			String[] auths = authorization.split(";");
-			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-			if(auths.length > 0){
-				for(int i=0;i<auths.length;i++){
-					info.addStringPermission(auths[i]);
-				}			
-				return info;
-			}
-		}		
-		return null;
-	}
+
+
+
+	 /**
+     * 重写方法,清除当前用户的的 授权缓存
+     * @param principals
+     */
+    public void clearCachedAuthorizationInfo() {
+        super.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
+    }
+
+    /**
+     * 重写方法，清除当前用户的 认证缓存
+     * @param principals
+     */
+    public void clearCachedAuthenticationInfo() {
+        super.clearCachedAuthenticationInfo(SecurityUtils.getSubject().getPrincipals());
+    }
+    /**     * 清除某个用户认证和授权缓存
+     */
+    @Override
+    public void clearCache(PrincipalCollection principals) {
+        super.clearCache(principals);
+    }
+
+    /**
+     * 自定义方法：清除所有 授权缓存
+     */
+    public void clearAllCachedAuthorizationInfo() {
+        getAuthorizationCache().clear();
+    }
+
+    /**
+     * 自定义方法：清除所有 认证缓存
+     */
+    public void clearAllCachedAuthenticationInfo() {
+        getAuthenticationCache().clear();
+    }
+
+    /**
+     * 自定义方法：清除所有的  认证缓存  和 授权缓存
+     */
+    public void clearAllCache() {
+        clearAllCachedAuthenticationInfo();
+        clearAllCachedAuthorizationInfo();
+    }
 }
