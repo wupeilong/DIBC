@@ -83,10 +83,12 @@ public class IDetectionServiceImpl implements IDetectionService{
 
 	@Override
 	public String selectDetectionListPage(ModelMap modelMap) {
-		
+		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time) ";		
 		iUnitService.addUnitListToModelMap(modelMap);
-		String where = "date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time) ";
-		List<Detection> detectionList = detectionMapper.select(where, null, null, null);
+		if(CommonUtil.getSessionUser().getType() != 1){
+			where += " AND d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'";
+		}
+		List<Detection> detectionList = detectionMapper.select(where, "d.create_time DESC", null, null);
 		modelMap.addAttribute("detectionList", detectionList);
 		return "bks_wap/detection_list";
 	}
@@ -113,8 +115,8 @@ public class IDetectionServiceImpl implements IDetectionService{
 												String remark, 
 												MultipartFile file) {
 		
-		ResponseResult<Void> rr = null;		
-		GetCommonUser get=new GetCommonUser();			
+		ResponseResult<Void> rr = null;
+		GetCommonUser get=new GetCommonUser();
 		String detectionpath=get.uoladimg(file,CommonUtil.getSessionUser().getUuid());
 		if (detectionpath==null) {
 			rr = new ResponseResult<Void>(ResponseResult.ERROR,"图片上传异常,人员信息添加失败");

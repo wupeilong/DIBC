@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.dibcbks.mapper.TimeIntervalMapper">
+	 <resultMap id="BaseResultMap" type="cn.dibcbks.entity.TimeInterval">
+	 	<id property="id" column="id" />
+	    <result property="startTime" column="start_time" />
+	    <result property="endTime" column="end_time" /> 	
+	</resultMap>
+	
+	<!-- 查询单个用户信息 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+			id,
+			start_time,
+			end_time
+		FROM
+			time_interval
+		WHERE
+			id = #{id} 
+	</select>
+	 
+
+	<update id="updateById"  parameterType="cn.dibcbks.entity.TimeInterval">
+		update time_interval
+	    <set>
+	      <if test="startTime != null">
+	        start_time = #{startTime},
+	      </if>
+	      <if test="endTime != null">
+	        end_time = #{endTime},
+	      </if>	  
+	    </set>
+	    where id = #{id}
+	</update>
+
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	

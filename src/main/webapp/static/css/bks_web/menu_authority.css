@@ -1,0 +1,94 @@
+body {
+  background: #ddd;
+  color: #000;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+#main {
+  background: #fff;
+  border-left: 20px solid #eee;
+  border-right: 20px solid #eee;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+pre.listing {
+  background: #eee;
+  border: 1px solid #ccc;
+  margin: .6em 0 .3em 0;
+  padding: .1em .3em;
+}
+
+pre.listing b {
+  color: #f00;
+}
+table.treetable  {
+	width:100%;
+	margin:15px 0;
+	height: 35px;
+}
+table.treetable thead tr th {
+	background-color: #020c13;
+    background: -o-linear-gradient(90deg, #000000, #6d6d6d);
+    background: -moz-linear-gradient( center top, #000000 5%, #6d6d6d 100% );
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #915307), color-stop(1, rgba(186, 124, 41, 0.4196078431372549)) );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#6d6d6d');
+    color: #FFFFFF;
+    font-size: 19px;
+    font-weight: 600;
+}
+.treetable,table.treetable thead tr th,table.treetable  tr  td
+{
+	font-size:0.95em;
+	padding:4px;
+	border:1px solid #202020;
+	border-collapse:collapse;
+	color: #0c0b0b
+}
+table.treetable  tr  td {
+
+	border:1px solid #6d6d6d;
+	border-collapse:collapse
+}
+.treetable tr:nth-child(odd){
+	    background-color: #ded8d8;
+    background: -o-linear-gradient(90deg, #aaaaaa, #eeeeee);
+    background: -moz-linear-gradient( center top, #aaaaaa 5%, #eeeeee 100% );
+    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #eaeaea), color-stop(1, #eeeeee) );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaaaaa', endColorstr='#eeeeee');
+    height: 35px;
+}
+.treetable tr:nth-child(even){
+	background-color:#fdfdfd;
+	height: 35px;
+}
+
+
+
+
+* { margin: 0; padding: 0; }
+a:hover, a:active { outline: none; }
+#sizer      { width: 340px; margin: 0 auto; padding: 144px 200px 240px; background: url(../../checkbox/images/highlight.png) no-repeat 50% 0; }
+form        { width: 300px; padding: 18px 20px 0; margin-bottom: 18px; background: #4f84b8 url(../../checkbox/images/box-grad.png) repeat-x 0 0; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; -khtml-border-radius: 10px; box-shadow: 0 5px 12px rgba(0,0,0,.4); -webkit-box-shadow: 0 5px 12px rgba(0,0,0,.4); -moz-box-shadow: 0 5px 12px rgba(0,0,0,.4); -khtml-box-shadow: 0 5px 12px rgba(0,0,0,.4); }
+fieldset    { border: 0; padding-bottom: 9px; }
+label       { display: block; cursor: pointer; line-height: 20px;  text-shadow: 0 -1px 0 rgba(0,0,0,.2); }
+.radios     { padding-top: 18px; background: url(divider.png) repeat-x 0 0; }
+.label_check input,
+.label_radio input  { margin-right: 5px; }
+#footer     { width: 100%; text-align: center; font-size: 12px; }
+#footer a   { display: inline-block; padding: 2px 10px; margin: 0 2px .75em; color: #999; background: #ddd; text-decoration: none; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; -khtml-border-radius: 10px; }
+#footer a:hover,
+#footer a:focus { color: #fff; background: #333; background: rgba(0,0,0,.3); }
+
+.has-js .label_check,
+.has-js .label_radio    { padding-left: 34px;     display: inline-block;}
+.has-js .label_radio    { background: url(../../images/checkbox/radio-off.png) no-repeat; }
+.has-js .label_check    { background: url(../../images/checkbox/check-off.png) no-repeat; }
+.has-js label.c_on      { background: url(../../images/checkbox/check-on.png) no-repeat; }
+.has-js label.r_on      { background: url(../../images/checkbox/radio-on.png) no-repeat; }
+.has-js .label_check input,
+.has-js .label_radio input  { position: absolute; left: -9999px; }

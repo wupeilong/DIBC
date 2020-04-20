@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +10,49 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=0.1"> -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/sidenav.css" type="text/css">
+<style type="text/css">
+
+   
+</style>
 </head>
 <body>
-	<div class="tabBar">
-		<ul class="list-unstyled clearfix margin0">
-			<li><a href="${pageContext.request.contextPath}/home"><div><i class="fa fa-home"></i><div>工作台</div></div></a></li>
-			<li><a href="${pageContext.request.contextPath}/user/user_pcenter?id=${user.id}"><div><i class="fa fa-user"></i><div>个人中心</div></div></a></li>
+<c:if test="${user.type != 3}">
+	<nav class="sidenav" data-sidenav data-sidenav-toggle="#sidenav-toggle">	
+		<ul class="footer_ul">
+			<li><a href="${pageContext.request.contextPath}/wap_unit/coopration_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" border="0" alt="" title=""/></a><p class="text-center" >企业信息</p></li>					
+			<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/></a><p class="text-center">从业人员</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/></a><p class="text-center">索证索票</p></li>
+			<shiro:hasPermission name="web_food">				
+					<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/></a><p class="text-center">AI识别</p></li>
+			</shiro:hasPermission>
+			<shiro:lacksPermission name="web_food">
+					<li><a href="javascript:;" style="cursor: default;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title="" style="-webkit-filter: grayscale(1);filter: gray; filter: grayscale(1);"/></a><p class="text-center">AI识别</p></li>
+			</shiro:lacksPermission>
+			<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/></a><p class="text-center">配送核查</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/></a><p class="text-center">洗消记录</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_ins/inspect_choise"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon7.png" border="0" alt="" title=""/></a><p class="text-center">监管采集</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_det/detection_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon8.png" border="0" alt="" title=""/></a><p class="text-center">
+			<c:if test="${user.type == 1}">
+				检验检测
+			</c:if>
+			<c:if test="${user.type != 1}">
+				检测结果
+			</c:if>			
+			</p></li>
+			<li><a href="${pageContext.request.contextPath}/wap_video/wap_videoscan"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon9.png" border="0" alt="" title=""/></a><p class="text-center">视频监控</p></li>
+		</ul>	
+  	</nav>
+  		<div class="tabBar footer_div">
+		<ul class="list-unstyled clearfix margin0">				
+			<li style="width: 43%;    font-size:1.5em;"><a href="${pageContext.request.contextPath}/wap_home"><div><i class="fa fa-home"></i></div></a></li>
+			<li style="width: 14%;"><a href="javascript:;" class="toggle" id="sidenav-toggle"><div class="footer_dh_bj" style="width: 54px;"><div class="footer_dh" style="width: 54px;"></div></div></a></li>
+			<li style="width: 43%;    font-size: 1.5em;"><a href="${pageContext.request.contextPath}/wap_user/user_home"><div><i class="fa fa-user-circle"></i></div></a></li>
 		</ul>
-	</div>		
+	</div>
+	<script src="${pageContext.request.contextPath}/static/js/bks_wap/sidenav.min.js"></script>
+	<script>$('[data-sidenav]').sidenav();</script>
+</c:if>	
 </body>
 </html>
 

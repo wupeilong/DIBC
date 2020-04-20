@@ -9,31 +9,41 @@
 	<title>企业信息</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>	
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<button type="button" id="update" class="btn btn-primary" id="register">保存</button>
+					</div>
+				</div>
+			</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>
+		</div>
+		<!-- <div class="navigation bg-primary">
 			<div class="fb padding-side">
 				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
 			</div>
-		</div>
-		<main class="main margin-top2 padding-side">
+		</div> -->
+		<main class="main padding-side">
 			<form action="" method="post" class="cooperation_detal">
-				<div class="border-bottom margin-top">
-					<div class="fb padding-side05 sb margin-bot">
-						<div class="item_name fonwei">企业信息</div>
-						<div class="">
-							<!-- <span><a href="user_update.html"><i class="fa fa-edit"></i></a></span> -->
-						</div>
-					</div>
-				</div>
 				<fieldset>
-				    <!-- <legend>企业信息:</legend> -->
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">企业名称</span>
 					  <input type="hidden" id="unitId" value="${detailUnit.unitId}"/>
@@ -119,9 +129,7 @@
 					</div>
 				  </fieldset>			
 		</main>	
-		<div class="margin-top2 margin-bot2">
-				<button type="button" id="update" class="btn btn-primary form-control" id="register">保存</button>
-			</div>
+		
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 		<script type="text/javascript">
 			
@@ -139,20 +147,20 @@
 		if(!name_reg.test($("#unitName").val())){
 			layer.msg("请正确输入企业名称",{icon:2,time:1000});
 			$("#unitName").focus();		
-		}else if (!password_reg.test($("#businessLicenseCode").val())) {
+		}else if ($("#businessLicenseCode").val() != "" && !password_reg.test($("#businessLicenseCode").val())) {
 			layer.msg("请正确输入社会统一信用代码",{icon:2,time:1000});
 			$("#businessLicenseCode").focus();		
-		}else if($("#preview").attr('src') == ""){
+		}/* else if($("#preview").attr('src') == ""){
 			layer.msg("请上传营业执照",{icon:2,time:1000});							
 		}else if($("#preview1").attr('src') == ""){
 			layer.msg("请上传食品许可证",{icon:2,time:1000});							
-		}else if($("#unitType").val() == 0){
+		} */else if($("#unitType").val() == 0){
 			layer.msg("请选择企业类型",{icon:2,time:1000});
 			$("#unitType").focus();		
 		}else  if($("#unitAddress").val() == ""){
 			layer.msg("请正确填写营业地址",{icon:2,time:1000});
 			$("#unitAddress").focus();		
-		}else if(!username_reg.test($("#legalPerson").val())){
+		}else if($("#legalPerson").val() != "" && !username_reg.test($("#legalPerson").val())){
 			layer.msg("请填写法人姓名",{icon:2,time:1000});
 			$("#legalPerson").focus();		
 		}else{
@@ -171,7 +179,7 @@
 			formData.append('unitType',$("#unitType").val());
 			formData.append('legalPerson',$("#legalPerson").val());					
 			 $.ajax({
-				 url: '${pageContext.request.contextPath}/unit/update',
+				 url: '${pageContext.request.contextPath}/wap_unit/update',
 		          type: 'POST',
 		          cache: false,				          
 		          data: formData,				        
@@ -184,7 +192,7 @@
 							return;				
 						}else{
 							layer.msg(obj.message,{icon:1,time:1000} ,function(){
-								location.href = "${pageContext.request.contextPath}/unit/coopration_detal?unitId=" + $("#unitId").val(); 
+								location.href = "${pageContext.request.contextPath}/wap_unit/coopration_detal?unitId=" + $("#unitId").val(); 
 							});							
 						}								
 					}

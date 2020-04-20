@@ -16,9 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
+
+import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
+import cn.dibcbks.filter.LoginType;
+import cn.dibcbks.filter.MyUsernamePasswordToken;
+import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.HygieneMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UserMapper;
@@ -27,6 +32,8 @@ import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.Constants;
 import cn.dibcbks.util.GetCommonUser;
 import cn.dibcbks.util.ResponseResult;
+import net.bytebuddy.dynamic.scaffold.MethodRegistry.Handler.ForAbstractMethod;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -43,6 +50,9 @@ public class IUserServiceImpl implements IUserService {
 	private UnitMapper unitMapper;
 	@Autowired
 	private HygieneMapper hygieneMapper;
+	@Autowired
+	private DepartmentMapper departmentMapper;
+	
 	
 	@Override
 	public User queryUser(String idCard) {
@@ -113,40 +123,36 @@ public class IUserServiceImpl implements IUserService {
 
 
 	@Override
-	public ResponseResult<Void> login(String idCard, String password) {
-		ResponseResult<Void> rr = null;
-		try {
-			System.out.println("用户：" + idCard + " " + password);
-			Subject subject = SecurityUtils.getSubject();
+	public ResponseResult<User> login(String idCard, String password) {
+		ResponseResult<User> rr = null;
+		try {			
 			User user = userMapper.queryUser(idCard);
 			if(user == null){
 				user = userMapper.queryUserByPhone(idCard);
 			}
 			if (user == null) {
-				rr = new ResponseResult<Void>(ResponseResult.ERROR, "账户信息不存在！请重新输入...");
+				rr = new ResponseResult<User>(ResponseResult.ERROR, "账户信息不存在！请重新输入...");
 				logger.error(Constants.ERROR_HEAD_INFO + "账户信息不存在 ，账号：" + idCard);
-			} else {				
-				UsernamePasswordToken token = new UsernamePasswordToken(idCard, password);
-				subject.login(token);
-				Session session = subject.getSession();
-				JSONObject userJson = JSONObject.fromObject(user);				
-				session.setAttribute("userJson", userJson);
-				session.setAttribute("user", user);
-				rr = new ResponseResult<Void>(ResponseResult.SUCCESS, "登录成功");
+			} else {
+				CommonUtil.login(new MyUsernamePasswordToken(idCard, password));
+				JSONObject userJson = JSONObject.fromObject(user);	
+				CommonUtil.setAttribute("userJson", userJson);
+				CommonUtil.setAttribute("user", user);
+				rr = new ResponseResult<User>(ResponseResult.SUCCESS, "登录成功",user);
 				logger.info(Constants.SUCCESSU_HEAD_INFO + "账号登录成功，账号：" + idCard);
 			}
 		}catch(IncorrectCredentialsException e){			
 			rr = new ResponseResult<>(ResponseResult.ERROR,"密码错误！请重新输入...");
 			logger.error(Constants.ERROR_HEAD_INFO + "用户注册失败 原因：" + e.getMessage());
 		} catch (Exception e) {			
-			rr = new ResponseResult<Void>(ResponseResult.ERROR, "数据存在异常，请联系工作人员处理！");
+			rr = new ResponseResult<User>(ResponseResult.ERROR, "数据存在异常，请联系工作人员处理！");
 			logger.error(Constants.ERROR_HEAD_INFO + "账户登录失败，原因： " + e.getMessage());
 		}
 		return rr;
 	}
 
 
-	@Override
+	/*@Override
 	public ResponseResult<Void> updateUser(User user) {
 		ResponseResult<Void> rr = null;
 		try {
@@ -163,7 +169,7 @@ public class IUserServiceImpl implements IUserService {
 				user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, user.getPassword(), user.getUuid(), 1024));
 			}
 			userMapper.updateById(user);
-			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功");
+			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户资料修改成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,7 +177,7 @@ public class IUserServiceImpl implements IUserService {
 			logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：" + e.getMessage());
 		}
 		return rr;
-	}
+	}*/
 
 	
 
@@ -236,19 +242,26 @@ public class IUserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public String workmens(ModelMap modelMap) {
-		Session session = SecurityUtils.getSubject().getSession();
-		User user = (User)session.getAttribute("user");
-		List<User> userList = new ArrayList<>();
-		if(user.getType().equals(1)){//市场监管局账户
-			List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
-			modelMap.addAttribute("unitList", unitList);
-			userList = userMapper.select(null, " u.create_time DESC", null, null);
-		}else {//企业用户
-			userList = userMapper.select(" u.unit_id = '" + user.getUnitId() + "'", " u.create_time DESC", null, null);
+	public String workmens(Integer unitId, ModelMap modelMap) {
+		try {
+			List<User> userList = new ArrayList<>();
+			User user = CommonUtil.getSessionUser();
+			if(user.getType().equals(1)){//市监管
+				List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
+				modelMap.addAttribute("unitList", unitList);
+				userList = userMapper.select(null, " u.create_time DESC", null, null);
+			}else if(user.getType().equals(2)){//主体
+				userList = userMapper.select(" u.unit_id = '" + user.getUnitId() + "'", " u.create_time DESC", null, null);
+			}else{//大众
+				userList = userMapper.select(" u.unit_id = '" + unitId + "'", " u.create_time DESC", null, null);
+			}
+			modelMap.addAttribute("userList", userList);
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "进入从业人员信息页面成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(Constants.ERROR_HEAD_INFO + "进入从业人员信息页面失败！");
 		}
-		modelMap.addAttribute("userList", userList);		
-		logger.info(Constants.SUCCESSU_HEAD_INFO + "用户进入从业人员信息页面成功！");
+		
 		return "bks_wap/workmens";
 	}
 
@@ -271,7 +284,8 @@ public class IUserServiceImpl implements IUserService {
 	public String queryUserPcenter(ModelMap modelMap, String id) {
 		try {
 			List<User> list = userMapper.select(" u.id = '" + id + "'", null, null, null);
-			modelMap.addAttribute("userPcenter", list.isEmpty() ? null : list.get(0));			
+			System.out.println("list : " + list.get(0));
+			modelMap.addAttribute("userPcenter", list.isEmpty() ? null : list.get(0));	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -327,7 +341,7 @@ public class IUserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public ResponseResult<Void> allocateAccount(String duty, 
+	public ResponseResult<Void> allocateAccount(Integer departmentId, 
 												String idCard, 
 												String username, 
 												String password,
@@ -360,7 +374,7 @@ public class IUserServiceImpl implements IUserService {
 				}				
 				password = password == null ? Constants.INITIAL_PASSWORD : password;
 				String hashPassword = CommonUtil.getEncrpytedPassword(Constants.MD5, password, uuid, 1024);
-				User insert = new User();
+				User insert = new User();				
 				insert.setUsername(username);
 				insert.setIdCard(idCard);
 				insert.setPhone(phone);
@@ -371,6 +385,7 @@ public class IUserServiceImpl implements IUserService {
 				insert.setUuid(uuid);
 				insert.setUnitId(CommonUtil.getSessionUser().getUnitId());
 				insert.setParentId(CommonUtil.getSessionUser().getId());
+				insert.setDepartmentId(departmentId);
 				insert.setType(CommonUtil.getSessionUser().getType());
 				insert.setCreateTime(new Date());
 				userMapper.insert(insert);
@@ -469,6 +484,7 @@ public class IUserServiceImpl implements IUserService {
 				update.setHealthCertificateCode(healthCertificateCode);	
 				update.setHealthCertificate(newHealthCertificate);
 				userMapper.updateById(update);
+				CommonUtil.setAttribute("user", update);
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 			}			
 		} catch (Exception e) {
@@ -480,9 +496,241 @@ public class IUserServiceImpl implements IUserService {
 
 	@Override
 	public String updateUserPage(ModelMap modelMap) {
-		
-		modelMap.addAttribute("userDetail", userMapper.queryUser(CommonUtil.getSessionUser().getIdCard()));
+		List<User> list = userMapper.select("u.id = '" + CommonUtil.getSessionUser().getId() + "'", null, null, null);
+		if(!list.isEmpty()){
+			modelMap.addAttribute("userDetail", list.get(0));
+		}		
 		return "bks_wap/workmens_update";
 	}
 
+	@Override
+	public ResponseResult<Void> weblogin(String idCard, String password) {
+		ResponseResult<Void> rr = null;
+		try {
+			System.out.println("用户：" + idCard + " " + password);
+			User user = userMapper.queryUser(idCard);
+			if(user == null){
+				user = userMapper.queryUserByPhone(idCard);
+			}
+			if (user == null) {
+				rr = new ResponseResult<Void>(ResponseResult.ERROR, "账户信息不存在！请重新输入...");
+				logger.error(Constants.ERROR_HEAD_INFO + "账户信息不存在 ，账号：" + idCard);
+			} else if(user.getType() == 3){
+				rr = new ResponseResult<Void>(ResponseResult.ERROR, "该账户信息没有权限！请重新输入...");
+				logger.error(Constants.ERROR_HEAD_INFO + "该账户信息没有权限 ，账号：" + idCard);
+			} else {
+				CommonUtil.login(new MyUsernamePasswordToken(idCard, password));			
+				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
+				CommonUtil.setAttribute("user", user);
+				rr = new ResponseResult<Void>(ResponseResult.SUCCESS, "登录成功");
+				logger.info(Constants.SUCCESSU_HEAD_INFO + "账号登录成功，账号：" + idCard);
+			}
+		}catch(IncorrectCredentialsException e){			
+			rr = new ResponseResult<>(ResponseResult.ERROR,"密码错误！请重新输入...");
+			logger.error(Constants.ERROR_HEAD_INFO + "用户登录失败 原因：" + e.getMessage());
+		} catch (Exception e) {			
+			rr = new ResponseResult<Void>(ResponseResult.ERROR, "数据存在异常，请联系工作人员处理！");
+			logger.error(Constants.ERROR_HEAD_INFO + "账户登录失败，原因： " + e.getMessage());
+		}
+		return rr;
+	}
+
+	@Override
+	public String selectUserList(ModelMap modelMap) {
+		try {
+			if(CommonUtil.isLogin()){
+				modelMap.addAttribute("userList", userMapper.select("u.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "'", "u.create_time DESC", null, null));				
+			}						
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return "bks_web/user/user";
+	}
+
+	@Override
+	public ResponseResult<Void> userBindDepartment(Integer userId, Integer departmentId) {
+		ResponseResult<Void> rr = null;
+		try {
+			User update = new User();
+			update.setId(userId);
+			update.setDepartmentId(departmentId);
+			userMapper.updateById(update);
+			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			rr = new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}
+		return rr;
+	}
+
+	@Override
+	public String workmensAdd(ModelMap modelMap) {
+		try {
+			List<Department> departmentList = departmentMapper.select("d.unit_id = '" + CommonUtil.getSessionUser().getUnitId() + "' AND d.department_parent_id > 0", null, null, null);
+			modelMap.addAttribute("departmentList", departmentList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "bks_wap/workmens_add";
+	}
+		
+	
+	@Override
+	public ResponseResult<Void> webUpdateUser(User user) {
+		try {
+			List<User> userList = userMapper.select("u.id = '" + user.getId() + "'", null, null, null);
+			User oldUser = userList.get(0);
+			if(StringUtils.isNotEmpty(user.getIdCard())){
+				User queryUser = queryUser(user.getIdCard());
+				if (queryUser != null && !oldUser.getIdCard().equals(queryUser.getIdCard())) {
+					logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：身份证已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "身份证已存在！");
+				}				
+			}	
+			if(StringUtils.isNotEmpty(user.getPhone())){
+				User queryUser = userMapper.queryUserByPhone(user.getPhone());
+				if (queryUser != null && !oldUser.getPhone().equals(queryUser.getPhone())) {
+					logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：手机号已存在！");
+					return new ResponseResult<>(ResponseResult.ERROR, "身份证已存在！");
+				}
+			}
+			userMapper.updateById(user);
+			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户资料修改成功！");
+			return new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：" + e.getMessage());
+			return new ResponseResult<Void>(ResponseResult.ERROR, "用户资料修改操作失败！");			
+		}
+	}
+
+	@Override
+	public ResponseResult<Void> deleteUser(Integer id) {
+		try {
+			userMapper.deleteById(id);
+			return new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
+		}
+	}
+
+	@Override
+	public ResponseResult<Void> webAddUser(User user) {
+		try {
+			if(userMapper.queryUserByPhone(user.getPhone()) != null){
+				return new ResponseResult<>(ResponseResult.ERROR,"手机号重复，添加失败！");
+			}
+			String uuid = CommonUtil.getUUID();
+			user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, user.getPhone().substring(user.getPhone().length() - 6), uuid, 1024));
+			user.setUnitId(CommonUtil.getSessionUser().getUnitId());
+			userMapper.insert(user);
+			return new ResponseResult<>(ResponseResult.SUCCESS,"添加成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseResult<>(ResponseResult.ERROR,"添加失败！");
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ResponseResult<List<List<String>>> batchAddUser(String userList) {
+		ResponseResult<List<List<String>>> rr = null;
+		List<List<String>> list=new ArrayList<List<String>>();
+		JSONArray json = JSONArray.fromObject(userList);
+		String username = "";//姓名
+		String phone = "";//联系方式
+		String departmentName = "";//工作部门
+		String authorization = "";//权限级别
+//		Integer departmentId = null;//部门ID
+//		String uuid = "";//用户UUID
+//		User user = null;
+//		Integer row = null;
+//		List<Department> departments = null;
+//		Department department = null;
+		Date createTime = new Date();
+		for(int i=0;i<json.size();i++){
+			JSONArray jsonArray = json.getJSONArray(i);
+			username = jsonArray.get(0).toString().trim();
+			phone = jsonArray.get(1).toString().trim();
+			departmentName = jsonArray.get(2).toString().trim();
+			authorization = jsonArray.get(3).toString().trim();
+//			//依据部门名字 查询部门信息			
+//			departments = departmentMapper.select(" d.department_name = '" + departmentName + "'", null, null, null);
+//			if(departments.isEmpty()){
+//				department = new Department();
+//				department.setUnitId(1);//市场监管局
+//				department.setDepartmentName(departmentName);//部门名字
+//				department.setDepartmentParentId(1);//上级部门为市场监管局
+//				department.setDepartmentType(1);//管辖部门类型：1-市场监管局 2-市场监管分局 3-社区[街道办事处] 4-居委会 5-网格 6-主体
+//				department.setAuthorizationId(authorization.equals("一级权限") ? 1 : 2);
+//				departmentMapper.insert(department);
+//				departmentId = department.getDepartmentId();
+//			}else{
+//				departmentId = departments.get(0).getDepartmentId();
+//			}		
+//			if(userMapper.queryUserByPhone(phone) != null){ //该手机账户已存在企业账户无法绑定
+//				logger.error(Constants.ERROR_HEAD_INFO + "手机号：" + phone + "已存在账户无法绑定部门：" + departmentName);
+//				continue;
+//			}		
+//			if(StringUtils.isNotEmpty(phone)){
+//				user = new User();
+//				user.setPhone(phone);//联系方式
+//				user.setUsername(username);//联系人
+//				user.setDepartmentId(departmentId);//负责人部门ID
+//				user.setType(1);//监管人员				
+//				user.setUnitId(1);//企业ID
+//				uuid = CommonUtil.getUUID();
+//				user.setUuid(uuid);//uuid
+//				user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, phone.substring(phone.length() - 6), uuid, 1024));//默认密码为手机后六位
+//				user.setCreateTime(createTime);//创建时间
+//				row = userMapper.insert(user);
+//			}
+//			if(row == 0){
+//				list.add(json.getJSONArray(i));			
+//			}	
+			executeAddUser(jsonArray,username,phone,departmentName,authorization,createTime,list);
+		}		
+		rr = new ResponseResult<List<List<String>>>(ResponseResult.SUCCESS,"操作成功:" + (json.size() - list.size()) + "条  失败：" + list.size() + "条 ",list);		
+		return rr;
+	}
+	
+	public synchronized void executeAddUser(JSONArray json,String username,String phone,String departmentName,String authorization,Date createTime,List<List<String>> list){		
+		//依据部门名字 查询部门信息
+		List<Department> departments = departmentMapper.select(" d.department_name = '" + departmentName + "'", null, null, null);
+		Integer departmentId = null;
+		Integer row = 0;
+		if(departments.isEmpty()){
+			Department department = new Department();
+			department.setUnitId(1);//市场监管局
+			department.setDepartmentName(departmentName);//部门名字
+			department.setDepartmentParentId(1);//上级部门为市场监管局
+			department.setDepartmentType(1);//管辖部门类型：1-市场监管局 2-市场监管分局 3-社区[街道办事处] 4-居委会 5-网格 6-主体
+			department.setAuthorizationId(authorization.equals("一级权限") ? 1 : 2);
+			departmentMapper.insert(department);
+			departmentId = department.getDepartmentId();
+		}else{
+			departmentId = departments.get(0).getDepartmentId();
+		}
+		if(userMapper.queryUserByPhone(phone) != null){ //该手机账户已存在企业账户无法绑定
+			logger.error(Constants.ERROR_HEAD_INFO + "手机号：" + phone + "已存在账户无法绑定部门：" + departmentName);
+			return;
+		}
+		if(StringUtils.isNotEmpty(phone)){
+			User user = new User();
+			user.setPhone(phone);//联系方式
+			user.setUsername(username);//联系人
+			user.setDepartmentId(departmentId);//负责人部门ID
+			user.setType(1);//监管人员					
+			user.setUnitId(1);//企业ID
+			String uuid = CommonUtil.getUUID();
+			user.setUuid(uuid);//uuid
+			user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, phone.substring(phone.length() - 6), uuid, 1024));//默认密码为手机后六位
+			user.setCreateTime(createTime);//创建时间
+			row = userMapper.insert(user);
+		}
+		if(row == 0){
+			list.add(json);		
+		}
+	}
 }

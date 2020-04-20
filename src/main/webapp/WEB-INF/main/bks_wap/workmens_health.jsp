@@ -10,31 +10,50 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+		<main class="main">
+			<!-- <div class="navigation bg-primary">
+				<div class="fb padding-side">
+					<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+				</div>
+			</div> -->
+			<div id="page" class="">
+				<div id="header">
+					<div class="header-content">
+						<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>				
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+						<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					</div>
+				</div>
+				<div class="bannerPane">
+					<div class="overlay"></div>
+					<div class="s-banner-content">
+						<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+					</div>
+				</div>			
 			</div>
-		</div>
-		<main class="main margin-top2 padding-side05">			
 			<div class="">
 				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<caption>从业人员健康信息</caption>
-					<thead>
+					<thead class="bg-primary">
 						<tr><th>编号</th><th>姓名</th><th>体温状况℃</th><th>测温日期</th><th>操作</th></tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${hygieneList}" var="item" varStatus="vs">
-							<tr><td>${vs.count}</td><td>${item.username}</td><td>${item.celsius}</td><td>${item.dailyTime }</td><td><a href="${pageContext.request.contextPath}/user/workmens_health_detal?hygieneId=${item.hygieneId}">详情</a></td></tr>
+							<tr><td>${vs.count}</td><td>${item.username}</td><td>${item.celsius}</td><td>${item.dailyTime }</td><td><a href="${pageContext.request.contextPath}/wap_user/workmens_health_detal?hygieneId=${item.hygieneId}">详情</a></td></tr>
 						</c:forEach>	
 						</tbody>
 				</table>
 			</div>
+			<c:if test="${user.type == 3}">
+				<c:import url="public/public_footer.jsp"></c:import>
+			</c:if>
 		</main>
-	<c:import url="public/footer.jsp"></c:import>
+		<c:if test="${user.type != 3}">
+			<c:import url="public/footer.jsp"></c:import>
+		</c:if>
 	</body>
-
 </html>

@@ -9,8 +9,6 @@ import cn.dibcbks.util.ResponseResult;
 
 public interface IUnitService {
 
-	ResponseResult<Void> updatUnit(Unit unit);
-
 	ResponseResult<List<Unit>> getAllUnit();
 
 	ResponseResult<Unit> unitDetail(Integer unitId);
@@ -20,9 +18,12 @@ public interface IUnitService {
 	ResponseResult<List<Unit>> queryUnitList(Integer unitId, String unitName);
 
 	String CooprationList(ModelMap modelMap);
+	
 	List<Unit> CooprationList();
 
 	String CooprationDetal(ModelMap modelMap, Integer unitId);
+	
+	String selectUnit(ModelMap modelMap);
 	
 	/**
 	 * 添加企业列表到ModelMap
@@ -48,6 +49,42 @@ public interface IUnitService {
 									String unitAddress, 
 									Integer unitType, 
 									String legalPerson);
+
+	
+	ResponseResult<Void> addUnit(String unitName, String businessLicenseCode, MultipartFile file, MultipartFile file1,
+			Integer unitType);
+
+	/**
+	 * 
+	 * @param unitList
+	 * @return
+	 */
+	ResponseResult<List<List<String>>> batchAddUnit(String unitList);
+
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String selectWebUnitList(ModelMap modelMap);
+
+	
+	ResponseResult<Void> updateUnit(Unit unit);
+
+	/**
+	 * 
+	 * @param unit
+	 * @return
+	 */
+	ResponseResult<Void> addUnit(Unit unit);
+
+	/**
+	 * 
+	 * @param unitId
+	 * @return
+	 */
+	ResponseResult<Void> deleteUnit(Integer unitId);
+
 
 
 }

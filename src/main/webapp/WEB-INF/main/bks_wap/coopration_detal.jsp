@@ -1,51 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset=utf-8>
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="viewport" content="width=device-width,initial-scale=0.1,minimum-scale=1,maximum-scale=0.1,user-scalable=no">
 	<title>企业信息</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
-	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />		
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
 </head>
-	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
-			</div>
-		</div>
-		<main class="main margin-top2 padding-side">
-			<form action="" method="post" class="cooperation_detal">
-				<div class="border-bottom margin-top">
-					<div class="fb padding-side05 sb margin-bot">
-						<div class="item_name fonwei">企业信息</div>
-						<div class="">
-							<span>
-								<c:if test="${user.parentId == 0 && user.unitId == unitDetail.unitId}">
-									<a href="${pageContext.request.contextPath}/unit/coopration_update"><input type="button"class="btn btn-primary form-control" value="完善企业信息"><!-- <i style="font-size: 20px;color: #1294b3;" class="fa fa-edit"></i> --></a>
-								</c:if>
-							</span>
-						</div>
+	<body class="contain o-page p-about">
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${user.unitId == unitDetail.unitId}">							
+							<shiro:hasPermission name="unit_update">
+								<a href="${pageContext.request.contextPath}/wap_unit/coopration_update"><input type="button"class="btn btn-primary" value="完善企业信息"></a>
+							</shiro:hasPermission>
+							</c:if>
 					</div>
 				</div>
-				<fieldset>
-				    <!-- <legend>企业信息:</legend> -->
+			</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>
+		</div>
+		<main class="main">
+			<div class="cooperation_detal">
+				
+				<div class="margin-top margin-bot">
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">企业名称</span>
-					  <div class="form-control box-shadow0 border0">${unitDetail.unitName}</div>
+					  <div class="form-control box-shadow0 border0" style="font-size:13px;white-space:nowrap;">${unitDetail.unitName}</div>
 					</div>
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">统一社会信用代码</span>
 					  <div class="form-control box-shadow0 border0">${unitDetail.businessLicenseCode}</div>
 					</div>
-					<div class="fsa border-bottom">
+					<div class="fsa">
 						<div class="margin-bot2">
 							  <div class="fc">
 								<div class="layui-upload-list fc">
@@ -70,38 +77,59 @@
 					</div>
 					<div class="input-group form-group fs border-bottom">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">企业类型</span>
-					  <c:choose>
-					  	<c:when test="${unitDetail.unitType == 1}">
-					  		<div class="form-control box-shadow0 border0">监管局</div>
-					  	</c:when>
-					  	<c:when test="${unitDetail.unitType == 2}">
-					  		<div class="form-control box-shadow0 border0">学校</div>
-					  	</c:when>
-					  	<c:when test="${unitDetail.unitType == 3}">
-					  		<div class="form-control box-shadow0 border0">餐饮业</div>
-					  	</c:when>
-					  	<c:when test="${unitDetail.unitType == 4}">
-					  		<div class="form-control box-shadow0 border0">其他</div>
-					  	</c:when>
-					  </c:choose>
 					  
+					  <div class="form-control box-shadow0 border0">
+					 	 <c:choose>
+						  	<c:when test="${unitDetail.unitType == 1}">
+						  		监管局
+						  	</c:when>
+						  	<c:when test="${unitDetail.unitType == 2}">
+						  		学校
+						  	</c:when>
+						  	<c:when test="${unitDetail.unitType == 3}">
+						  		餐饮业
+						  	</c:when>
+						  	<c:when test="${unitDetail.unitType == 4}">
+						  		其他
+						  	</c:when>
+						  	<c:otherwise></c:otherwise>
+					  	 </c:choose>
+					  </div>
+					 
 					</div>
-					<div class="input-group form-group fs border-bottom">
+					<div class="input-group form-group margin0 fs">
 					  <span class="input-group-addon border0 clear-bg fonwei" id="sizing-addon1">法人姓名</span>
 					  <div class="form-control box-shadow0 border0">${unitDetail.legalPerson}</div>
 					</div>
-				  </fieldset>
-				 <!-- <div class="margin-top2">
-				  	<div>
-			　　　　　　<input type="file" accept="image/*">
-			　　　　　　<input type="file" accept="video/*" capture="camcorder">
-			　　　　</div>
-				  </div> -->
-				  
-			</form>
-			<!-- <div class="margin-top2 margin-bot2">
-				<button type="button" class="btn btn-primary form-control">保存</button>
-			</div> -->
+					</div>
+					
+				<c:if test="${userDetail.size()>0}">
+					<div class="">
+						<div class="" style="">
+							<div class="padding-side fonwei" style="padding:.6em 1em;border-left:4px solid #348dec;background-color:#f7fbfd;">从业人员</div>
+						</div>
+						<ul class="padding-side list-unstyled margin-bot2 margin-top">
+						<c:forEach items="${userDetail}" var="item" varStatus="vs">
+							<li class="fb staff_lis border-bottom padding-side">
+								<div class="staff-face fs padding-side">
+									<div class="bg-gradient bg-circle fc">
+										<i class="fa fa-address-book fa-2x text-white"></i>
+									</div>
+									<div class="padding-side">
+										<div class="fonwei staff_name text-muted">${item.username}</div>
+										<div class="staff_name text-muted"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd" /></div>
+										<div class="text-muted bfrifRow staff_oc">${item.departmentName}</div>
+									</div>
+								</div>
+								<div class="padding-side" style="padding-left: 0;">
+									<a href="${pageContext.request.contextPath}/wap_user/workmens_detal?id=${item.id}"><i class="fa fa-angle-right text-muted fa-2x"></i></a>
+								</div>
+							</li>
+						</c:forEach>
+						</ul>
+					</div>
+					</c:if>
+				</div>
 		</main>		
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
 		<script type="text/javascript">
@@ -141,6 +169,13 @@
 			    }
 			  });
 			  });
+			
+			
+			var $current = $("main");		
+			$current.find("img").bind("click",function(){
+				var path=$(this).attr('src');			
+				layerImg(path);
+			});	
 		</script>
 	<c:import url="public/footer.jsp"></c:import>
 	</body>

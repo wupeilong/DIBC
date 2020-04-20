@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/resources/config.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/main/bks_wap/coopration_update.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/main/bks_wap/workmens_update.jsp=UTF-8
 encoding//src/main/webapp/index.jsp=UTF-8
+encoding//src/main/webapp/static/css/bks_wap/config.properties=UTF-8
+encoding//src/main/webapp/static/css/bks_wap/user_pcenter.css=UTF-8
+encoding//src/test/java=UTF-8

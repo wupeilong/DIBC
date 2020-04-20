@@ -11,38 +11,49 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
-			</div>
-		</div>
-		<main class="main margin-top padding-side">
+		<main class="main" style="padding-top:100px;">
+			<div id="page" class="">
+				<div id="header">
+					<div class="header-content">
+						<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+						<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+					</div>
+				</div>
+				<div class="bannerPane">
+					<div class="overlay"></div>
+					<div class="s-banner-content">
+						<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+					</div>
+				</div>			
+			</div>   	
 			<form action="" method="" class="clearfix">
 				<div class="workmens_info_top margin-bot">
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.unitName}</div>
+					  <div class="width100">${userDetail.unitName}</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>职&ensp;&ensp;&ensp;&ensp;务</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.duty }</div>
+					  <div class="width100">${userDetail.duty }</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>姓&ensp;&ensp;&ensp;&ensp;名</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.username }</div>
+					  <div class="width100">${userDetail.username }</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>身份证号</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.idCard }</div>
+					  <div class="width100">${userDetail.idCard }</div>
 					</div>
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>年&ensp;&ensp;&ensp;&ensp;龄</span>
-					  <div class="form-control box-shadow0 border0">
+					  <div class="width100">
 					  	<c:if test=" ${userDetail.age != null}">
 					  	  ${userDetail.age }岁
 					  	</c:if>					
@@ -63,12 +74,17 @@
 				</div>
 			</form>
 			
-			<div class="margin-top2 margin-bot2">
-				<a href="${pageContext.request.contextPath}/user/workmens_health?userId=${userDetail.id}" class="btn btn-primary form-control">健康状况查询</a>
+			<div class="margin-top2 margin-bot2 padding-side">
+				<a href="${pageContext.request.contextPath}/wap_user/workmens_health?userId=${userDetail.id}" class="btn btn-primary form-control">健康状况查询</a>
 			</div>
 		</main>		
 		<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
-	<c:import url="public/footer.jsp"></c:import>
+		<c:if test="${user.type == 3}">
+			<c:import url="public/public_footer.jsp"></c:import>
+		</c:if>
+		<c:if test="${user.type != 3}">
+			<c:import url="public/footer.jsp"></c:import>
+		</c:if>
 	</body>
 <script type="text/javascript">
 var $current = $("form");		

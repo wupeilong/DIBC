@@ -66,7 +66,7 @@ public class IDistributionServiceImpl implements IDistributionService {
 		try {
 			String where ="date_sub(curdate(), INTERVAL 30 DAY) <= date(d.create_time) ";
 			if(StringUtils.isNotEmpty(unitName)){
-				where += " ADN d.meals_unit_name = '" + unitName + "' or d.acceptance_unit_name = '" + unitName + "'";
+				where += " and d.meals_unit_name = '" + unitName + "' or d.acceptance_unit_name = '" + unitName + "'";
 			}
 			List<Distribution> distributionList = distributionMapper.select(where, " d.create_time DESC", null, null);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！",distributionList);
@@ -79,19 +79,21 @@ public class IDistributionServiceImpl implements IDistributionService {
 
 	@Override
 	public String distributionDetailPag(ModelMap modelMap, String id) {
-		
-		modelMap.addAttribute("distributionDetial", distributionMapper.queryDistribution(id));
+		Distribution distribution = distributionMapper.queryDistribution(id);
+		modelMap.addAttribute("distributionDetial", distribution);
+		//modelMap.addAttribute("distributionDetialResult", JSONArray.parseArray(distribution.getAcceptanceResult()));
 		return "bks_wap/delivery_detal";
 	}
 
 	@Override
-	public ResponseResult<Void> confirmDeliver(String id) {
+	public ResponseResult<Void> confirmDeliver(String id,ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {
 			Distribution distribution = new Distribution();
 			distribution.setId(id);
 			distribution.setEndTime(new Date());
 			distribution.setStatus(2);//已送达
+			modelMap.addAttribute("distributionDetial", distribution);
 			distributionMapper.updateById(distribution);
 			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 		} catch (Exception e) {
@@ -102,15 +104,14 @@ public class IDistributionServiceImpl implements IDistributionService {
 	}
 
 	@Override
-	public ResponseResult<Void> confirmAcceptance(String id, MultipartFile openedPhoto,String acceptanceResult) {
+	public ResponseResult<Void> confirmAcceptance(String id, MultipartFile openedPhoto,String acceptanceResult,ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {			
 			User user = CommonUtil.getSessionUser();
 			GetCommonUser get = new GetCommonUser();			
 			String openedPhotoPath = get.uoladimg(openedPhoto,user.getUuid());
 			if (StringUtils.isNotEmpty(openedPhotoPath)) {
-				Distribution distribution = new Distribution();
-				distribution.setId(id);
+				Distribution distribution = distributionMapper.queryDistribution(id);
 				distribution.setAcceptanceUserName(user.getUsername());
 				distribution.setOpenedPhoto(openedPhotoPath);//拆封取餐图
 				distribution.setAcceptanceTime(new Date());
@@ -138,6 +139,7 @@ public class IDistributionServiceImpl implements IDistributionService {
 					unqualifiedMapper.insert(unqualified);
 					logger.info(Constants.SUCCESSU_HEAD_INFO + "配餐单号:" + id + " 生成不合格信息记录！");
 				}
+				modelMap.addAttribute("distributionDetial", distribution);
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 			}else{
 				rr = new ResponseResult<>(ResponseResult.ERROR,"上传拆封取餐图失败，请重新上传！");

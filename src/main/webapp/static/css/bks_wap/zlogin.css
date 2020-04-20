@@ -1,0 +1,86 @@
+.bg_body{
+	background-image: url("../../images/bks_wap/top_login.png");
+	background-size: 100% 100%;
+}
+.login_form{
+	width: 100%;
+	background-size: 100% 100%; 
+	background-image: url("../../images/bks_wap/zlogin.png");
+    background-repeat: no-repeat;
+	
+}
+/* .login_user{
+	background-image: url("../../images/bks_wap/zloginuser.png");
+	background-size: 100% 100%;
+	width: 90%;
+    height: 50px;
+    margin: 15px;
+    margin-top: 25px;
+} */
+/* .login_pwd{
+	background-image: url("../../images/bks_wap/zloginpwd.png");
+	background-size: 100% 100%; 
+	width: 90%;
+    height: 50px;
+    margin: 15px;
+    margin-top: 25px;
+} */
+.login_input{
+	background-size: 100% 100%;
+	display: block;
+    width: 95%;
+    height: 95%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    /* background-color: inherit; */
+    background-color: rgba(227, 227, 227, 0.68);
+	background-image: none;
+	border: 0px solid #ccc;
+	border-radius: 9em;
+	padding-left: 24%;
+	margin-left: 9px;
+	outline: none;
+}
+.tabb input:focus{
+	background-color:rgba(0,0,0,0);
+	background-color:#736c6c0f;
+}
+
+/* .login_form_top{
+	text-align: center;
+	padding-top: 25px;
+} */
+.active{	
+   border-bottom: 2px solid #39b90d;
+}
+
+.tabbox .tabh a.cur{
+	color:#11b71d;
+	border-bottom: 2px solid #11b71d;
+}
+.tabbox .tabh a{
+	color:#999;
+	padding: 25px 25px 5px;
+	font-size: 17px;
+    font-weight: 600;
+	border-bottom: 0;
+	cursor:pointer;
+}
+.tabb .tab_type{
+	display:none;
+}
+.tabb .tab_type.cur{
+	display:block;
+}
+
+.wap_login{
+	position:relative;
+}
+.wap_login .login_switch{
+	width:100%;
+	position: absolute;
+	top:0;
+	left:0;
+}

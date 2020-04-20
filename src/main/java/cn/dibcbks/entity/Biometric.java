@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Biometric implements Serializable {
 	/**
-	 * 序列化版本ID
+	 * 序列化版本ID1111
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;//主键ID

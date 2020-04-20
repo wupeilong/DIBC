@@ -10,29 +10,40 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />		
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>		
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="javascript:history.go(-1)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+				</div>
 			</div>
-		</div>
-		<main class="main margin-top padding-side05">
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>			
+		</div>   		
+		<main class="main padding-side05">
 			<form action="" method="post">
 				  <div class="">
 				  	<table class="table table-bordered" cellspacing="" cellpadding="">
 				  		<caption>
 				  			<c:if test="${checkListbyid.checkType==1}">
-				  				<h3 class="text-center">食品商家专项监督检查表</h3>
+				  				<h3 class="text-center">云岩区餐饮主体监督自查表</h3>
 				  			</c:if>
 							<c:if test="${checkListbyid.checkType==2}">
-				  				<h3 class="text-center">监督管理局专项监督检查表</h3>
+				  				<h3 class="text-center">云岩区市场监督管理局监督检查表</h3>
 				  			</c:if>
 				  			<c:if test="${checkListbyid.checkType==3}">
-				  				<h3 class="text-center">督查专项监督检查表</h3>
+				  				<h3 class="text-center">云岩区督查专项监督检查表</h3>
 				  			</c:if>
 							<div class="margin-top2">
 								<div class="">
@@ -46,12 +57,12 @@
 								<div class="fs margin-top05 padding-side">
 									<div class="form_title">类型：</div>
 									<div class="">
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="大学" />大学</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="高职高专" />高职高专</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="中学" />中学</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="小学" />小学</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="幼儿园" />幼儿园</label>
-										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="餐饮企业" />餐饮企业</label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="大学" /> <span>大学</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="高职高专" /> <span>高职高专</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="中学" /> <span>中学</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="小学" /> <span>小学</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="幼儿园" /> <span>幼儿园</span></label>
+										<label for="" class="padding-side05"><input type="radio" name="objectType" id="" value="餐饮企业" /> <span>餐饮企业</span></label>
 									</div>
 									<input type="hidden" value="${checkListbyid.unitType}" id="unitType">
 									<script type="text/javascript">
@@ -192,7 +203,12 @@
 			  });
 			  });
 		</script>	
-	<c:import url="public/footer.jsp"></c:import>
+	<c:if test="${user.type == 3}">
+			<c:import url="public/public_footer.jsp"></c:import>
+		</c:if>
+		<c:if test="${user.type != 3}">
+			<c:import url="public/footer.jsp"></c:import>
+		</c:if>	
 	</body>
 
 </html>

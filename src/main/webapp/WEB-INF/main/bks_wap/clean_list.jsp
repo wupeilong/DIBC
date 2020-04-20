@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,82 +9,149 @@
 	<title>清洗消毒记录</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/selectmenu/css/selectmenu.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
-	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.0.min.js"></script>
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
+	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
-	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
-				<div class="">
-					<div class="">
-						<c:if test="${user.type==1}">
-							<select id="unit_list"">
-									<option value="0">选择全部企业信息</option>
-									<c:forEach items="${unitList}" var="item">								
-										<option value="${item.unitId}">${item.unitName}</option>
-									</c:forEach>							
-							</select>
-						</c:if>						
+	<body class="contain" style="background-color: #f7f7f7;">
+		<div id="page">
+			<div id="header">
+				<div class="header-content">					
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<c:if test="${user.type == 1}">
+						<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					</c:if>	
+					<c:if test="${user.type != 1}">
+						<a class="menu-btn" href="#menu"></a>
+					</c:if>
+					<a href="${pageContext.request.contextPath}/wap_home" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<c:if test="${user.type == 2}">
+							<a href="${pageContext.request.contextPath}/wap_clean/clean_add" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+						</c:if>
 					</div>
 				</div>
-				<c:if test="${user.type == 2}">
-					<a href="${pageContext.request.contextPath}/clean/clean_add" class="btn bg-primary"><i class="fa fa-plus"></i></a>
-				</c:if>				
 			</div>
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>						
 		</div>
-		<main class="main margin-top2 padding-side05">
-			<div class="">
-				<table class="table table-striped table-hover" cellspacing="" cellpadding="">
-					<thead>
-						<tr><th width="45">序号</th><th>学校名称</th><th>消毒日期</th><th width="45">操作</th></tr>
-					</thead>
-					<tbody id="datvarbody">
-						<c:forEach items="${disinfectionlist}" var="f" varStatus="vs">
-							<tr>
-								<td>${vs.count}</td>
-								<td>${f.unitName}</td>
-								<td>${f.dailyTime}</td>
-								<td><a href="${pageContext.request.contextPath}/clean/clean_detal?id=${f.id}">详情</a></td>
-							</tr>
-						</c:forEach>						
-					</tbody>
-				</table>
+		<main class="delivery main padding-side05"">
+			<div class="margin-top" id="result_list">
+				<c:if test="${disinfectionlist == null || fn:length(disinfectionlist) <= 0 }">
+					<div class="text-center" style="top: 65px;position: relative;color: #c23412;font-size: 17px;font-weight: 600">暂无清洗记录</div>
+				</c:if>
+				<c:forEach items="${disinfectionlist}" var="f" varStatus="vs">
+					<div class="buy_list">
+						<div class="buy_top">
+							<p class="fb">
+								<span class="buy_top_span bfrifRow fonwei"><i class="fa fa-address-card-o text-danger"></i> <!-- 学校： -->${f.unitName}</span>
+								<span class="bfrifRow"></span>
+							</p>
+						</div>
+						<div class="buy_top1">
+							<div class="fb">
+								<span class="text-muted bfrifRow"><!--  消毒日期 ：-->${f.dailyTime}</span>
+								<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=${f.id}">详情</a>
+							</div>
+						</div>				
+					</div>
+				</c:forEach>
 			</div>
-		</main>	
-	<c:import url="public/footer.jsp"></c:import>
+			<!--序号 vs.count -->		
+		</main>
+		
+		
+	<c:if test="${user.type == 3}">
+		<c:import url="public/public_footer.jsp"></c:import>
+	</c:if>
+	<c:if test="${user.type != 3}">
+		<c:import url="public/footer.jsp"></c:import>
+	</c:if>	
 	</body>
-<script type="text/javascript">
-	$('#unit_list').searchableSelect({
-		"afterSelectItem":function(){			
-			var url = "../clean/clean_alllist";
-			var data = "unitId=" + $("#unit_list").val();
-			$.ajax({
-				"url" : url,
-				"data" : data,
-				"type" : "POST",
-				"dataType" : "json",
-				"success" : function(obj) {
-					if (obj.state == 0) {
-						layer.msg(obj.message,{icon:2,time:1000});
-						return;
-					}else{							
-						var datvar="";							
-						for(var i=0;i<obj.data.length;i++){
-							datvar +='<tr><td>' + (i+1) + '</td>'+
-									'<td>'+obj.data[i].unitName+'</td>'+
-									'<td>'+obj.data[i].dailyTime+'</td>'+
-									'<td><a href="${pageContext.request.contextPath}/clean/clean_detal?id='+obj.data[i].id+'">详情</a></td></tr>';							
-						}
-						$("#datvarbody").html(datvar);													
-					}				
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/selectmenu/js/selectmenu.min.js" ></script>    
+    <script type="text/javascript">
+	$(function(){
+		//selectunit("");	
+		var url = "${pageContext.request.contextPath}/wap_unit/select_unit";		
+		$.ajax({
+			"url" : url,			
+			"type" : "POST",
+			"dataType" : "json",
+			"success" : function(e) {				
+				if (e.state == 0) {layer.msg(e.message,{icon:2,time:1000});
+					return;
+				}else{					
+					 $('#demoSingle').click(function(){
+						$(this).selectMenu({
+							title : '<i class="fa fa-fw fa-thumbs-o-up"></i> 请选择市场主体',
+							arrow : true,
+							showField : 'unitName',
+							keyField : 'unitId',
+							 position : 'center',
+							search : true,
+							data :e.data,
+							eSelect : function(data){
+								if(data && data.length > 0){								
+								selectunit(data[0].unitId)
+								}
+							}
+						});
+					});
 				}
-			}); 					
-		}
+			}
+		});		 
 	});	
-</script>
+	function selectunit(unitId) {
+		console.log("qqqqqqqq");
+		var url = "${pageContext.request.contextPath}/wap_clean/clean_alllist";
+		var data = "unitId=" + unitId;
+		$.ajax({
+			"url" : url,
+			"data" : data,
+			"type" : "POST",
+			"dataType" : "json",
+			"success" : function(obj) {
+				if (obj.state == 0) {
+					layer.msg(obj.message,{icon:2,time:1000});
+					return;
+				}else{							
+					var datvar="";							
+					for(var i=0;i<obj.data.length;i++){
+						datvar += '<div class="buy_list">'
+						datvar += '<div class="buy_top">'
+						datvar += '<p class="fb">'
+						datvar += '<span class="buy_top_span bfrifRow"><i class="fa fa-bookmark text-danger"></i> <!-- 学校： -->' + obj.data[i].unitName + '</span>'
+						datvar += '<span class="bfrifRow"></span>'
+						datvar += '</p>'
+						datvar += '</div>'
+						datvar += '<div class="buy_top1">'
+						datvar += '<div class="fb">'
+						datvar += '<span class="text-muted bfrifRow"><!--  消毒日期 ：-->' + obj.data[i].dailyTime + '</span>'
+						datvar += '<a class="buy_top_a btn btn-warning"  href="${pageContext.request.contextPath}/wap_clean/clean_detal?id=' + obj.data[i].id + '">详情</a>'
+						datvar += '</div>'
+						datvar += '</div>'				
+						datvar += '</div>'
+						/* datvar += '<div class="buy_list">'
+							   +  '<div class="buy_top"><p class="text-muted"><i class="fa fa-bookmark text-danger"></i>'
+							   +  '订单号:<span class="buy_top_span">'+obj.data[i].id+'</span>'
+							   +  '<a class="buy_top_a"  href="${pageContext.request.contextPath}/wap_pro/buy_detal?id='+ obj.data[i].id +'">详情</a>';
+						datvar += '</p></div><div class="buy_top1"><div><span class="fonwei text-muted bfrifRow">' +obj.data[i].unitName+'</span>'							  
+							   +  '<span class="buy_top1_span text-muted">format(' + obj.data[i].purchasingTime + ',yyyy-MM-dd)"</span></div></div></div>';	 */												
+					}
+					$("#result_list").html(datvar);											
+				}				
+			}
+		}); 				
+	}
+    </script>	
+
 </html>

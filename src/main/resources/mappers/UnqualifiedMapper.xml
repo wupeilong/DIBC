@@ -12,6 +12,7 @@
 	    <result column="status" property="status" />
 	    <result column="create_time" property="createTime" />
 	    <result column="process_user_id" property="processUserId" />
+	    <result column="process_user_name" property="processUserName" />
 	    <result column="process_time" property="processTime" />
 	    <result column="result" property="result" />
   	</resultMap>
@@ -24,6 +25,9 @@
 	      </if>
 	      <if test="unitId != null">
 	        unit_id,
+	      </if>
+	      <if test="unitName != null">
+	        unit_name,
 	      </if>
 	      <if test="type != null">
 	        type,
@@ -56,6 +60,9 @@
 	      </if>
 	      <if test="unitId != null">
 	        #{unitId},
+	      </if>
+	      <if test="unitName != null">
+	        #{unitName},
 	      </if>
 	      <if test="type != null">
 	        #{type},
@@ -117,10 +124,12 @@
 			q.`status`,
 			q.create_time,
 			q.process_user_id,
+			u.username AS process_user_name,
 			q.process_time,
 			q.result
 		FROM
 			unqualified AS q
+		LEFT JOIN user AS u ON u.id = q.process_user_id
 		WHERE	
 			q.id = #{id}
 	</select>

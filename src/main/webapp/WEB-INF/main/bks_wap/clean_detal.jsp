@@ -11,17 +11,29 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>	
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>		
 </head>
 	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="javascript:history.go(-1)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>					
+				</div>
 			</div>
-		</div>
-		<main class="main margin-top2 padding-side05">
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>					
+		</div>  
+		<main class="main padding-side05">
+			<div class="margin-top"></div>
 			<form action="" method="post">
 				<fieldset>
 				    <legend class="text-center border0">餐饮具、工具及保洁设施清洗消毒记录</legend>
@@ -119,12 +131,12 @@
 								<tr>
 									<td>消毒药水</td>
 									<c:if test="${DisinfectionDetal[7]==1}">
-										<td>是：<input type="radio" name="tableware7" id="tableware" value="1" checked="checked" /></td>
-										<td>否：<input type="radio" name="tableware7" id="tableware" value="2" /></td>
+										<td>是：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="1" checked="checked" /></td>
+										<td>否：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="2" /></td>
 									</c:if>
 									<c:if test="${DisinfectionDetal[7]!=1}">
-										<td>是：<input type="radio" name="tableware7" id="tableware" value="1"  /></td>
-										<td>否：<input type="radio" name="tableware7" id="tableware" value="2" checked="checked"/></td>
+										<td>是：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="1"  /></td>
+										<td>否：<input type="radio" disabled="disabled" name="tableware7" id="tableware" value="2" checked="checked"/></td>
 									</c:if>
 								</tr>
 								<tr>
@@ -132,10 +144,7 @@
 									<td colspan="2" style="width: 15em;">
 										<div class="">
 											<input readonly="" class="form-control" type="text" id="date-group1-6" value="<fmt:formatDate value="${disinfectionbyid.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>" placeholder="hh:mm">
-										</div>
-										<!-- <select name="">
-											<option value="">请选择时间</option>
-										</select> -->
+										</div>										
 									</td>
 								</tr>
 							</tbody>
@@ -143,11 +152,26 @@
 					</div>
 				  </fieldset>
 			</form>
-			<div class="margin-top2 margin-bot2">
-				<!-- <button type="button" class="btn btn-primary form-control">提交</button> -->
 			</div>
 		</main>			
-	<c:import url="public/footer.jsp"></c:import>
+	<c:if test="${user.type == 3}">
+		<c:import url="public/public_footer.jsp"></c:import>
+	</c:if>
+	<c:if test="${user.type != 3}">
+		<c:import url="public/footer.jsp"></c:import>
+	</c:if>	
 	</body>
+<script type="text/javascript">
+	
+	$(function(){
+		
+		/* $('input').each(function(index,e){
+			$(e).attr("disabled","disabled");
+		}) */
+		$('input[type=radio]').attr("disabled","disabled")
+		
+	});
+	
+</script>
 
 </html>

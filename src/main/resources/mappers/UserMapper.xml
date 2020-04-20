@@ -10,6 +10,11 @@
 	    <result column="phone" property="phone" />
 	    <result column="unit_id" property="unitId" />
 	    <result column="unit_name" property="unitName" />
+	    <result column="role_id" property="roleId" />
+	    <result column="role_name" property="roleName" />	    
+	    <result column="department_id" property="departmentId" />
+	    <result column="department_name" property="departmentName" />
+	    <result column="openid" property="openid" />	    
 	    <result column="deparment" property="deparment" />
 	    <result column="duty" property="duty" />
 	    <result column="age" property="age" />
@@ -20,6 +25,7 @@
 		<result column="sex" property="sex" />
 		<result column="type" property="type" />
 		<result column="uuid" property="uuid" />
+		<result column="authorization" property="authorization" />		
 		<result column="create_time" property="createTime" />
 	</resultMap>
 
@@ -41,9 +47,18 @@
 	      <if test="unitId != null">
 	        unit_id,
 	      </if>
+	      <if test="roleId != null">
+	        role_id,
+	      </if>
+	      <if test="departmentId != null">
+	        department_id,
+	      </if>
+	      <if test="openid != null">
+	        openid,
+	      </if>	
 	      <if test="deparment != null">
 	        deparment,
-	      </if>
+	      </if>	      
 	      <if test="duty != null">
 	        duty,
 	      </if>
@@ -71,6 +86,9 @@
 	      <if test="uuid != null">
 	        uuid,
 	      </if>
+	      <if test="authorization != null">
+	        authorization,
+	      </if>	      
 	      <if test="createTime != null">
 	        create_time,
 	      </if>
@@ -91,6 +109,15 @@
 	      <if test="unitId != null">
 	        #{unitId},
 	      </if>
+	       <if test="roleId != null">
+	        #{roleId},
+	      </if>
+	      <if test="departmentId != null">
+	        #{departmentId},
+	      </if>
+	      <if test="openid != null">
+	        #{openid},
+	      </if>	
 	      <if test="deparment != null">
 	        #{deparment},
 	      </if>
@@ -121,11 +148,15 @@
 	      <if test="uuid != null">
 	        #{uuid},
 	      </if>
+	      <if test="authorization != null">
+	        #{authorization},
+	      </if>
 	      <if test="createTime != null">
 	        #{createTime},
 	      </if>
 	    </trim>
 	</insert>
+	
 	
 	<!--查询用户 -->
 	<select id="select" resultMap="BaseResultMap"> 
@@ -136,21 +167,30 @@
 			u.`password`,
 			u.phone,
 			u.unit_id,
-			n.unit_name,
-			u.deparment,
+			u.role_id,
 			u.duty,
 			u.age,
 			u.health_certificate_code,
 			u.health_certificate,
 			u.head_url,
+			u.openid,
 			u.parent_id,
 			u.sex,
 			u.type,
 			u.uuid,
-			u.create_time
+			a.authorization_content AS authorization,
+			u.`status`,
+			u.create_time,
+			n.unit_name,
+			r.role_name,		
+			d.department_id,
+			d.department_name
 		FROM
-			user AS u
+			`user` AS u
 		LEFT JOIN unit AS n ON n.unit_id = u.unit_id
+		LEFT JOIN role AS r ON r.role_id = u.role_id
+		LEFT JOIN department AS d ON d.department_id = u.department_id
+		LEFT JOIN authorization AS a ON a.authorization_id = d.authorization_id
 		<if test="where != null">where ${where}</if>
 		<if test="orderBy != null">order by ${orderBy}</if>
 		<if test="offset != null">limit ${offset},${countPerPage}</if>
@@ -165,26 +205,35 @@
 			u.`password`,
 			u.phone,
 			u.unit_id,
-			n.unit_name,
-			u.deparment,
+			u.role_id,
 			u.duty,
 			u.age,
 			u.health_certificate_code,
 			u.health_certificate,
 			u.head_url,
+			u.openid,
 			u.parent_id,
 			u.sex,
 			u.type,
 			u.uuid,
-			u.create_time
+			a.authorization_content AS authorization,
+			u.`status`,
+			u.create_time,
+			n.unit_name,
+			r.role_name,		
+			d.department_id,
+			d.department_name
 		FROM
-			user AS u
+			`user` AS u
 		LEFT JOIN unit AS n ON n.unit_id = u.unit_id
+		LEFT JOIN role AS r ON r.role_id = u.role_id
+		LEFT JOIN department AS d ON d.department_id = u.department_id
+		LEFT JOIN authorization AS a ON a.authorization_id = d.authorization_id
 		WHERE
 			u.id_card = #{idCard} 
 	</select>
 	 
-	 	<!-- 查询单个用户信息 -->
+	<!-- 查询单个用户信息 -->
 	<select id="queryUserByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
 		SELECT
 			u.id,
@@ -193,23 +242,69 @@
 			u.`password`,
 			u.phone,
 			u.unit_id,
-			n.unit_name,
-			u.deparment,
+			u.role_id,
 			u.duty,
 			u.age,
 			u.health_certificate_code,
 			u.health_certificate,
 			u.head_url,
+			u.openid,
 			u.parent_id,
 			u.sex,
 			u.type,
 			u.uuid,
-			u.create_time
+			a.authorization_content AS authorization,
+			u.`status`,
+			u.create_time,
+			n.unit_name,
+			r.role_name,		
+			d.department_id,
+			d.department_name
 		FROM
-			user AS u
+			`user` AS u
 		LEFT JOIN unit AS n ON n.unit_id = u.unit_id
+		LEFT JOIN role AS r ON r.role_id = u.role_id
+		LEFT JOIN department AS d ON d.department_id = u.department_id
+		LEFT JOIN authorization AS a ON a.authorization_id = d.authorization_id
 		WHERE
 			u.phone = #{phone}
+	</select>
+	
+	<!-- 查询单个用户信息 -->
+	<select id="queryUserByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+			u.id,
+			u.id_card,
+			u.username,
+			u.`password`,
+			u.phone,
+			u.unit_id,
+			u.role_id,
+			u.duty,
+			u.age,
+			u.health_certificate_code,
+			u.health_certificate,
+			u.head_url,
+			u.openid,
+			u.parent_id,
+			u.sex,
+			u.type,
+			u.uuid,
+			a.authorization_content AS authorization,
+			u.`status`,
+			u.create_time,
+			n.unit_name,
+			r.role_name,		
+			d.department_id,
+			d.department_name
+		FROM
+			`user` AS u
+		LEFT JOIN unit AS n ON n.unit_id = u.unit_id
+		LEFT JOIN role AS r ON r.role_id = u.role_id
+		LEFT JOIN department AS d ON d.department_id = u.department_id
+		LEFT JOIN authorization AS a ON a.authorization_id = d.authorization_id
+		WHERE
+			u.openid = #{openid}
 	</select>
 
 	<update id="updateById"  parameterType="cn.dibcbks.entity.User">
@@ -229,6 +324,15 @@
 	      </if>
 	      <if test="unitId != null">
 	        unit_id = #{unitId},
+	      </if>
+	      <if test="roleId != null">
+	        role_id = #{roleId},
+	      </if>
+	      <if test="departmentId != null">
+	        department_id = #{departmentId},
+	      </if>
+	      <if test="openid != null">
+	        openid = #{openid},
 	      </if>
 	      <if test="deparment != null">
 	        deparment = #{deparment},
@@ -259,6 +363,9 @@
 	      </if>
 	      <if test="uuid != null">
 	        uuid = #{uuid},
+	      </if>
+	      <if test="authorization != null">
+	        authorization = #{authorization},
 	      </if>
 	      <if test="createTime != null">
 	        create_time = #{createTime},

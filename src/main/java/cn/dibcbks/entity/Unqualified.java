@@ -23,14 +23,16 @@ public class Unqualified implements Serializable{
 	private String cause;//原因
 	private Integer status;//状态：0-未处理 1-处理中 2-已处理
 	private Date createTime;//创建时间
-	private Integer processUserId;//处理人	
+	private Integer processUserId;//处理人
+	private String processUserName;//处理人
 	private Date processTime;//处理时间
 	private String result;//处理结果
 	public Unqualified() {
 		super();
 	}
 	public Unqualified(Integer id, Integer unitId, String unitName, Integer type, String orderId, String cause,
-			Integer status, Date createTime, Integer processUserId, Date processTime, String result) {
+			Integer status, Date createTime, Integer processUserId, String processUserName, Date processTime,
+			String result) {
 		super();
 		this.id = id;
 		this.unitId = unitId;
@@ -41,6 +43,7 @@ public class Unqualified implements Serializable{
 		this.status = status;
 		this.createTime = createTime;
 		this.processUserId = processUserId;
+		this.processUserName = processUserName;
 		this.processTime = processTime;
 		this.result = result;
 	}
@@ -98,6 +101,12 @@ public class Unqualified implements Serializable{
 	public void setProcessUserId(Integer processUserId) {
 		this.processUserId = processUserId;
 	}
+	public String getProcessUserName() {
+		return processUserName;
+	}
+	public void setProcessUserName(String processUserName) {
+		this.processUserName = processUserName;
+	}
 	public Date getProcessTime() {
 		return processTime;
 	}
@@ -114,7 +123,8 @@ public class Unqualified implements Serializable{
 	public String toString() {
 		return "Unqualified [id=" + id + ", unitId=" + unitId + ", unitName=" + unitName + ", type=" + type
 				+ ", orderId=" + orderId + ", cause=" + cause + ", status=" + status + ", createTime=" + createTime
-				+ ", processUserId=" + processUserId + ", processTime=" + processTime + ", result=" + result + "]";
+				+ ", processUserId=" + processUserId + ", processUserName=" + processUserName + ", processTime="
+				+ processTime + ", result=" + result + "]";
 	}
 	
 	

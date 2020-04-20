@@ -21,6 +21,8 @@ public interface UserMapper {
 	
 	User queryUserByPhone(@Param("phone")String phone);
 	
+	User queryUserByOpenid(@Param("openid")String openid);
+	
 	Integer updateById(User user);
 	
 	Integer deleteById(Integer id);

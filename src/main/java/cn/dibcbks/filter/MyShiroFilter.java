@@ -4,7 +4,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
-import org.springframework.stereotype.Component;
 
 /**
 * @Title: MyShiroFilter.java
@@ -22,8 +21,7 @@ public class MyShiroFilter extends AuthorizationFilter {
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
 			throws Exception {
 		Subject subject = getSubject(request, response);
-		String[] perms = (String[]) mappedValue;
-
+		String[] perms = (String[]) mappedValue;		
 		boolean isPermitted = true;
 		if (perms != null && perms.length > 0) {
 			if (perms.length == 1) {

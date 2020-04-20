@@ -5,30 +5,44 @@
 <head>
 	<meta charset=utf-8>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-	<title>从业人员信息添加</title>
+	<title>个人信息完善</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css">
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>	
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 </head>
-	<body class="contain">
-		<div class="navigation bg-primary">
-			<div class="fb padding-side">
-				<a href="javascript:history.go(-1)" class="text-white"><i class="fa fa-angle-left"></i></a>
+	<body class="contain">	
+		<div id="page">
+			<div id="header">
+				<div class="header-content">
+					<a href="javascript:history.go(0)" class="p-link-back"><i class="fa fa-refresh"></i></a>					
+					<a class="menu-btn" id="demoSingle" href="#menu"></a>
+					<a href="javascript:history.go(-1)" class="p-link-home"><i class="fa fa-arrow-left"></i></a>
+					<div class="header-btn text-right">
+						<button type="button" class="btn btn-primary form-control" id="register">保存</button>
+					</div>			
+				</div>
 			</div>
-		</div>
-		<main class="main margin-top padding-side">
+			<div class="bannerPane">
+				<div class="overlay"></div>
+				<div class="s-banner-content">
+					<div><img  width="100" src="${pageContext.request.contextPath}/static/images/bks_wap/logo-pages.svg" /></div>					
+				</div>
+			</div>
+		</div>		
+		<main class="main padding-side">
 			<form action="" method="" class="clearfix">
-				<div class="workmens_info_top margin-bot">
+				<div class="workmens_info_top margin-bot margin-top">					
 					<div class="input-group form-group fs">
-					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
-					  <div class="form-control box-shadow0 border0">${userDetail.unitName}</div>					 
-					</div>
+						  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>所属企业</span>
+					<div class="form-control box-shadow0 border0">${userDetail.unitName}</div>					 
+					</div>					
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>身份证号</span>
 					  <input type="hidden" id="id" name="id" value="${userDetail.id }">
@@ -50,7 +64,7 @@
 					<div class="input-group form-group fs">
 					  <span class="input-group-addon border0 clear-bg" id="sizing-addon1"><i class="padding-side05 text-danger vertical-mid">*</i>密&ensp;&ensp;&ensp;&ensp;码</span>
 					  <div class="form-control box-shadow0 border0">
-					  	<div class="fb"><span>********</span><span><a href="${pageContext.request.contextPath}/user/reset_password" class="btn btn-warning btn-sm">修改密码</a></span></div>
+					  	<div class="fb"><span>********</span><span><a href="${pageContext.request.contextPath}/wap_user/reset_password" class="btn btn-warning btn-sm">修改密码</a></span></div>
 					  </div>
 					  <%-- <input type="password" class="form-control box-shadow0 border-bottom" readonly="readonly" value="${userDetail.password }"  id="password" name="password" placeholder="请输入密码" aria-describedby="sizing-addon1"> --%>
 					</div>
@@ -84,12 +98,13 @@
 				</div>				
 			</form>
 			
-			<div class="margin-top2 margin-bot2">
+			<!-- <div class="margin-top2 margin-bot2">
 				<button type="button" class="btn btn-primary form-control" id="register">保存</button>
-			</div>
+			</div> -->
 		</main>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>		
 		<script type="text/javascript">
+		console.log('用户: ${userDetail}');
 			$("#fileinput").on("change",function() {
 				intoBase64("fileinput","preview");
 			})
@@ -139,7 +154,7 @@
 					formData.append('healthCertificateCode',$("#healthCertificateCode").val());		
 					formData.append('healthCertificate',$("#healthCertificate").val());	
 					 $.ajax({
-						 url: '${pageContext.request.contextPath}/user/update',
+						 url: '${pageContext.request.contextPath}/wap_user/update',
 				          type: 'POST',
 				          cache: false,
 				          data: formData,				        
@@ -152,7 +167,7 @@
 									return;				
 								}else{					
 									layer.msg(obj.message,{icon:1,time:1000});
-									location.href = "${pageContext.request.contextPath}/user/workmens";
+									location.href = "${pageContext.request.contextPath}/wap_user/user_pcenter?id=${user.id}";
 								}				
 							}
 						}); 

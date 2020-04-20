@@ -23,9 +23,7 @@ public interface IUserService {
 	ResponseResult<Void> registeradd(String uuid,String idCard, String username, String password, String phone, String duty, Integer age,
 			String unitName, String legalPerson, String businessLicenseCode, String businessLicense, String productionLicense, String unitAddress, String expirationDate, Integer unitType);
 
-	ResponseResult<Void> login(String idCard, String password);
-
-	ResponseResult<Void> updateUser(User user);	
+	ResponseResult<User> login(String idCard, String password);
 
 	ResponseResult<Void> userIsExist(String idCard,String phone);
 
@@ -37,7 +35,7 @@ public interface IUserService {
 	
 	String queryUserPcenter(ModelMap modelMap,String id);
 
-	String workmens(ModelMap modelMap);
+	String workmens(Integer unitId, ModelMap modelMap);
 
 	String workmensHealth(ModelMap modelMap,Integer userId);
 
@@ -65,7 +63,7 @@ public interface IUserService {
 	 * @param file
 	 * @return
 	 */
-	ResponseResult<Void> allocateAccount(String duty, String idCard, String username, String password, String phone,
+	ResponseResult<Void> allocateAccount(Integer departmentId, String idCard, String username, String password, String phone,
 			Integer age, String healthCertificateCode, MultipartFile file);
 	
 	/**
@@ -106,6 +104,65 @@ public interface IUserService {
 	 * @return
 	 */
 	String updateUserPage(ModelMap modelMap);
+
+	/**
+	 * PC端实现用户登录
+	 * @param idCard
+	 * @param password
+	 * @return
+	 */
+	ResponseResult<Void> weblogin(String idCard, String password);
+
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String selectUserList(ModelMap modelMap);
+
+	/**
+	 * 
+	 * @param userId
+	 * @param departmentId
+	 * @return
+	 */
+	ResponseResult<Void> userBindDepartment(Integer userId, Integer departmentId);
+
+	/**
+	 * 
+	 * @param modelMap
+	 * @return
+	 */
+	String workmensAdd(ModelMap modelMap);
+
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	ResponseResult<Void> webUpdateUser(User user);
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	ResponseResult<Void> deleteUser(Integer id);
+
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	ResponseResult<Void> webAddUser(User user);
+
+	/**
+	 * 
+	 * @param userList
+	 * @return
+	 */
+	ResponseResult<List<List<String>>> batchAddUser(String userList);
+
 
 	
 }
