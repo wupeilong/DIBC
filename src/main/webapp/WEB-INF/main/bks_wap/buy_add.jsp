@@ -4,43 +4,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8>
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
-<title>采购信息添加</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css" />
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js"
-	type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
-<style type="text/css">
-.table>tbody>tr>td {
-	padding: 0;
-}
+	<meta charset=utf-8>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<title>采购信息添加</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/zhou_style.css" />
+	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/ajaxfileupload.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/bks_wap/rolldate.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
+	<style type="text/css">
+	.table>tbody>tr>td {
+		padding: 0;
+	}
 </style>
 </head>
 <body class="contain">
@@ -445,16 +429,71 @@ $("img").click(function(){
 					data : formData,
 					processData : false,
 					contentType : false,
-					"success" : function(obj) {
+					success : function(obj) {
 						layer.close(we1);
 						if (obj.state == 0) {
 							layer.msg(obj.message, {icon : 2,time : 1000});
 							return;
 						} else {
-							layer.msg(obj.message, {icon : 1,time : 1000},function (){
-								//延时刷新页面																	 
-								location.href = "${pageContext.request.contextPath}/wap_pro/buy_list";
-							});											
+							var we1 = layerloadingOpen();
+							var formData = new FormData();
+							//若供货id不为空 传入供货商id
+							if ($("#unit_list").val() != "") {
+								formData.append('supplierUnitId', $("#unit_list").val());//供货商ID
+							}
+							//传入供货商名称
+							formData.append('supplier',$("#unit_list").val() == "" ? $("#inputType").val() : $("#unit_list").find("option:selected").text());//供货商ID											
+							
+							//企业没有存证件并且选择上传才放入数据
+							
+							if ($("#fileinput").attr('name')!="yes" && $("#preview").attr('src') != "") { 
+								/* var blo=dataURLtoBlob($("#preview").attr('src'));
+								formData.append('supplierBusinessLicense',blobToFile(blo,"we.jpg"));//营业执照 */
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview").attr('src'),'dsf.jpg'));//营业执照
+							}
+							if ($("#fileinput1").attr('name')!="yes" && $("#preview1").attr('src') != "") {
+								/* var blo1=dataURLtoBlob($("#preview1").attr('src'));
+								formData.append('supplierproductionLicense',blobToFile(blo1,"we.jpg"));//许可证	 */	
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview1").attr('src'),'dsf.jpg'));
+							}							
+							if ($("#preview2").attr('src') != "") {
+								/* var blo2=dataURLtoBlob($("#preview2").attr('src'));
+								formData.append('supplierQualification',blobToFile(blo2,"we.jpg"));//资质 */
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview2").attr('src'),'dsf.jpg'));
+							}
+							if($("#preview3").attr('src') != ""){
+								/* formData.append('invoice',blobToFile(dataURLtoBlob($("#preview3").attr('src')),"we.jpg"));//发票  */
+								formData.append('supplierBusinessLicense',dataURLtoFile($("#preview3").attr('src'),'dsf.jpg'));
+							}
+							
+							formData.append('supplierPerson', $("#supplierPerson").val());//联系人					
+							formData.append('supplierPhone',$("#supplierPhone").val());//联系电话
+							formData.append('detailList', JSON.stringify(detailList));//采购详情
+							console.log(formData);
+							$.ajax({
+										url : "${pageContext.request.contextPath}/wap_pro/add",
+										type : 'POST',
+										cache : false,
+										data : formData,
+										processData : false,
+										contentType : false,
+										"success" : function(obj) {
+											layer.close(we1);
+											console.log(obj);
+											if (obj.state == 0) {
+												layer.msg(obj.message, {
+													icon : 2,
+													time : 1000
+												});
+												return;
+											} else {
+												layer.msg(obj.message, {icon : 1,time : 1000},function (){
+													//延时刷新页面																	 
+													location.href = "${pageContext.request.contextPath}/wap_pro/buy_list";
+												});	
+											}
+										}
+									});
 						}
 					}
 			});
