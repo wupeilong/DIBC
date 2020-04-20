@@ -100,15 +100,20 @@
 					<shiro:hasPermission name="wap_pro">
 						<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/><p class="text-center">索证索票</p></a></li>
 					</shiro:hasPermission>
+					<c:if test="${user.type == 1}">
 					<shiro:hasPermission name="web_food">
 						<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/><p href="" class="text-center">AI识别</p></a></li>
 					</shiro:hasPermission>
 					<shiro:lacksPermission name="web_food">
 						<li><a href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title="" style="-webkit-filter: grayscale(1);filter: gray; filter: grayscale(1);"/><p href="" class="text-center">AI识别</p></a></li>
 					</shiro:lacksPermission>
+					</c:if>
 					<shiro:hasPermission name="wap_dry">
 						<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/><p class="text-center">配送核查</p></a></li>
 					</shiro:hasPermission>
+					<li>
+						<img src="${pageContext.request.contextPath}/static/images/bks_wap/logo_home.png" class="img-responsive" style="height: 18vw;" alt="" title=""/>
+					</li>
 					<shiro:hasPermission name="wap_clean">
 						<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/><p class="text-center">洗消记录</p></a></li>
 					</shiro:hasPermission>
