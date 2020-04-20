@@ -82,7 +82,7 @@
 					<div class="swiper-button-next"></div> -->
 				</div>
 			</div>
-			<div class="menu fc padding-side"> <!-- style="margin-bottom: 51.2px" -->
+			<div class="menu fc padding-side">
 				<ul class="list-unstyled" style="">
 					<shiro:hasPermission name="wap_unit">
 						<li>

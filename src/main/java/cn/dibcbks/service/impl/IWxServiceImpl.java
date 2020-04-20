@@ -131,28 +131,31 @@ public class IWxServiceImpl implements IWxService {
 	public ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {
-			WxUserInfoOut wxUserInfo =  (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
-			Date createTime = new Date();
-	        User user = new User();
-	        String uuid = CommonUtil.getUUID();
-	        user.setOpenid(wxUserInfo.getOpenId());
-	        user.setUsername(wxUserInfo.getNickname());
-	        user.setSex(wxUserInfo.getSex());
-	        user.setHeadUrl(wxUserInfo.getHeadimgurl());
-	        user.setUuid(uuid);
-	        user.setDepartmentId(220);//默认消费者
-	        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
-	        user.setType(3);//公众
-	        user.setCreateTime(createTime);	        
-	        userMapper.insert(user);
-	        //微信大众用户预授权
-	        Authorization authorization = authorizationMapper.selectById(3);
-	        user.setAuthorization(authorization.getAuthorizationContent());
+			WxUserInfoOut wxUserInfo = (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
+			User user = userMapper.queryUserByOpenid(wxUserInfo.getOpenId());
+			if(user == null){
+				Date createTime = new Date();
+		        user = new User();
+		        String uuid = CommonUtil.getUUID();
+		        user.setOpenid(wxUserInfo.getOpenId());
+		        user.setUsername(wxUserInfo.getNickname());
+		        user.setSex(wxUserInfo.getSex());
+		        user.setHeadUrl(wxUserInfo.getHeadimgurl());
+		        user.setUuid(uuid);
+		        user.setDepartmentId(220);//默认消费者
+		        user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, Constants.INITIAL_PASSWORD, uuid, 1024));
+		        user.setType(3);//公众
+		        user.setCreateTime(createTime);	        
+		        userMapper.insert(user);
+		       //微信大众用户预授权
+		        Authorization authorization = authorizationMapper.selectById(3);
+		        user.setAuthorization(authorization.getAuthorizationContent());
+			}
 	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));
-	        JSONObject userJson = JSONObject.fromObject(user);	
+	        JSONObject userJson = JSONObject.fromObject(user);
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
-	        rr = new ResponseResult<>(ResponseResult.SUCCESS,"绑定成功！"); 
+	        rr = new ResponseResult<>(ResponseResult.SUCCESS,"绑定成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("绑定用户类型:大众错误信息 >>>>>>> " + DateUtil.dateFormat(new Date(),DateUtil.DATE_TIME_PATTERN));
