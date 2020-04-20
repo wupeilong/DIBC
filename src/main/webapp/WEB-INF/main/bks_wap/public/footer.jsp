@@ -27,7 +27,7 @@
 					<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/></a><p class="text-center">AI识别</p></li>
 			</shiro:hasPermission>
 			<shiro:lacksPermission name="web_food">
-					<li><a href="javascript:alert('您没有权限……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/></a><p class="text-center">AI识别</p></li>
+					<li><a href="javascript:;" style="cursor: default;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title="" style="-webkit-filter: grayscale(1);filter: gray; filter: grayscale(1);"/></a><p class="text-center">AI识别</p></li>
 			</shiro:lacksPermission>
 			<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/></a><p class="text-center">配送核查</p></li>
 			<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/></a><p class="text-center">洗消记录</p></li>
