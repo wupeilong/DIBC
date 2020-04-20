@@ -60,12 +60,12 @@ h6{padding:0 10px 5px 0px; margin:0px;font-size:14px; font-weight:bold; text-dec
 }
 .menu ul li a img {
 	padding: 0px;
-	width: 70px;
-	height: 70px;
+	width: 18vw;
+	height: 18vw;
 }
 
 .menu ul li p {
-	font-size:.8em;
+	font-size:2.8vw;
 	position: absolute;
 	bottom: 1em;
 	left: 0;
