@@ -107,7 +107,7 @@
 	</bean>
 	
 	<!-- 自定义Shiro loginUrl重定向拦截器 -->
-	<bean id="myFormAuthenticationFilter" class="cn.dibcbks.filter.MyFormAuthenticationFilter"/>    
+	<bean id="myFormAuthenticationFilter" class="cn.dibcbks.filter.MyFormAuthenticationFilter"/>
 	
 	<aop:config proxy-target-class="true"/>
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
@@ -121,7 +121,7 @@
 		 <!-- 自定义filter配置 -->
 	    <property name="filters">    
             <util:map>    
-                 <entry key="authc" value-ref="myFormAuthenticationFilter"/>    
+                 <entry key="authc" value-ref="myFormAuthenticationFilter"/>
             </util:map>    
         </property>
 		<property name="filterChainDefinitions">

@@ -85,7 +85,7 @@ public class IWxServiceImpl implements IWxService {
 					CommonUtil.setAttribute("user", user);
 					CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
 					response.setContentType("text/html;charset=utf-8");
-					String url = "http://" + request.getServerName() + ":" + request.getContextPath() + request.getServerPort();
+					String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 					if(user.getType() == 3){
 						url += "/wap_public_home";
 			        }else{
