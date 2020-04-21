@@ -220,7 +220,7 @@
 	<c:import url="public/footer.jsp"></c:import>
 </body>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
+	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script> 
 <script type="text/javascript">
 
 	//申明一个全局的企业名单变量
