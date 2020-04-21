@@ -53,9 +53,9 @@ public class MyFormAuthenticationFilter  extends FormAuthenticationFilter {
 //        System.out.println("当前请求的协议版本:" + req.getProtocol());
 //        System.out.println("当前请求的协议类型:" + req.getScheme());    
         if (url.contains("web")) {
-            loginUrl = req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/web_login";
+            loginUrl = CommonUtil.getServerPathPrefix(req) + "/web_login";
         }else{
-        	loginUrl = req.getServerName() + ":" + req.getServerPort() + req.getContextPath() +  "/wx_login";
+        	loginUrl = CommonUtil.getServerPathPrefix(req) + "/wx_login";
         }
         System.out.println("loginUrl : " + loginUrl);
         WebUtils.issueRedirect(request, response, loginUrl);
