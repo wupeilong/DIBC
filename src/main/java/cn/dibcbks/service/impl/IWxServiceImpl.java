@@ -84,15 +84,15 @@ public class IWxServiceImpl implements IWxService {
 					CommonUtil.login(new MyUsernamePasswordToken(account));
 					CommonUtil.setAttribute("user", user);
 					CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
-					response.setContentType("text/html");
-					String url = request.getServerName() + ":" + request.getServerPort();
+					response.setContentType("text/html;charset=utf-8");
+					String url = "http://" + request.getServerName() + ":" + request.getContextPath() + request.getServerPort();
 					if(user.getType() == 3){
-						url += "/bks_wap/public_list";
+						url += "/wap_public_home";
 			        }else{
-			        	url += "/bks_wap/home";
+			        	url += "/wap_home";
 			        }	
 					try {
-						logger.error(Constants.SUCCESSU_HEAD_INFO + "Cookie 免登录陆，账户：" + account);
+						logger.info(Constants.SUCCESSU_HEAD_INFO + "Cookie 免登录陆，账户：" + account);
 						response.sendRedirect(url);
 						return null;
 					} catch (IOException e) {						
