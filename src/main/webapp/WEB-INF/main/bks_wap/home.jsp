@@ -44,11 +44,11 @@
 			<div class="banner_wrap ">
 				<div id="certify" style="width: 100%;">
 					<div class="swiper-container swiper-container-horizontal">
-						<div class="swiper-wrapper" style="transition-duration: 300ms; transform: translate3d(-4340px, 0px, 0px);">
+						<div class="swiper-wrapper">
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
 								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban1.jpg" class="img-responsive">
 							</div>
-							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
+							 <div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
 								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban2.jpg" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="2" style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 300ms;">
@@ -72,7 +72,7 @@
 						<span class="swiper-pagination-bullet"></span>
 						<span class="swiper-pagination-bullet"></span>
 						<span class="swiper-pagination-bullet"></span>
-						<span class="swiper-pagination-bullet"></span>
+						<span class="swiper-pagination-bullet"></span> 
 						<span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
 					</div>
 					<!-- <div class="swiper-button-prev"></div>
@@ -80,7 +80,7 @@
 				</div>
 			</div>
 			<div class="menu fc padding-side">
-				<ul class="list-unstyled" style="">
+				<ul class="list-unstyled" style="" id="menu_top">
 					<shiro:hasPermission name="wap_unit">
 						<li>
 							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
@@ -154,12 +154,12 @@
 				});	
 				
 				
-				certifySwiper = new Swiper('#certify .swiper-container', {
+				 certifySwiper = new Swiper('#certify .swiper-container', {
 					watchSlidesProgress: true,
 					slidesPerView: 'auto',
 					centeredSlides: true,
 					loop: true,
-					loopedSlides: 5,
+					loopedSlides:5,
 					autoplay: {
 					    disableOnInteraction: false,
 					},
@@ -204,12 +204,26 @@
 				
 				$(document).ready(function() {
 					$(".loader_wrap").fadeOut();
+					 var m1_top = ($(window).height() - $(".banner_wrap").height() - $(".footer_div").height() - $(".padding-side").height())/3;				       
+				     $("#menu_top").css({"margin-top": m1_top + "px"});
+				    //alert(m1_top);
 				})
 				
-				window.ontouchstart = function(e) {
+				 window.ontouchstart = function(e) {
 				    if (e.target.tagName === 'img')
 				         e.preventDefault();
-				 };
+				 }; 
+				/*  (document).ready(function(){
+				    
+				 
+				 // 下面为随窗口变化动态改变margin
+				     window.onresize=function(){
+				     var m1_top = (( $(window).height() - $(".login-box-body").height() )/2-$(".login-logo").height())/2;
+				      $(".login-logo").css({"margin": m1_top + "px auto"});
+				      $(".login-bottom").css({"margin-top": m1_top + "px"});
+				     } 
+				 
+				}); */
 			</script>
 			
 		</main>
