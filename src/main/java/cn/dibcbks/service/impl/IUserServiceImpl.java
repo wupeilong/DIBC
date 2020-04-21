@@ -127,7 +127,6 @@ public class IUserServiceImpl implements IUserService {
 		ResponseResult<User> rr = null;
 		try {			
 			User user = userMapper.queryUser(idCard);
-			System.out.println(user+"sddddddddddddddddddddddddddddddddddddddddd");
 			if(user == null){
 				user = userMapper.queryUserByPhone(idCard);
 			}
@@ -135,16 +134,10 @@ public class IUserServiceImpl implements IUserService {
 				rr = new ResponseResult<User>(ResponseResult.ERROR, "账户信息不存在！请重新输入...");
 				logger.error(Constants.ERROR_HEAD_INFO + "账户信息不存在 ，账号：" + idCard);
 			} else {
-				Subject subject = SecurityUtils.getSubject();
-				subject.login(new MyUsernamePasswordToken(idCard, password));
-				//CommonUtil.login(new MyUsernamePasswordToken(idCard, password));
+				CommonUtil.login(new MyUsernamePasswordToken(idCard, password));
 				JSONObject userJson = JSONObject.fromObject(user);	
-				Session session = subject.getSession();
-				session.setAttribute("userJson", userJson);
-				session.setAttribute("user", user);
-//				CommonUtil.setAttribute("userJson", userJson);
-//				CommonUtil.setAttribute("user", user);
-				System.out.println("user:" + user);
+				CommonUtil.setAttribute("userJson", userJson);
+				CommonUtil.setAttribute("user", user);
 				rr = new ResponseResult<User>(ResponseResult.SUCCESS, "登录成功",user);
 				logger.info(Constants.SUCCESSU_HEAD_INFO + "账号登录成功，账号：" + idCard);
 			}

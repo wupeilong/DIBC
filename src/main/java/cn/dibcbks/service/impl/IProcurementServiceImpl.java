@@ -169,6 +169,8 @@ public class IProcurementServiceImpl implements IProcurementService {
 			MultipartFile supplierBusinessLicense, MultipartFile supplierproductionLicense,
 			MultipartFile supplierQualification, MultipartFile invoice, String supplierPerson, String supplierPhone,
 			String detailList) {
+		System.out.println("营业执照：="+supplierBusinessLicense+"许可证：="
+			+supplierproductionLicense+"资质报告=："+supplierproductionLicense+"法票="+invoice);
 		
 		ResponseResult<Void> rr = null;
 		User user = CommonUtil.getSessionUser();

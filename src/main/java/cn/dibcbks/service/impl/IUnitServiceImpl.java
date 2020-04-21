@@ -411,11 +411,10 @@ public class IUnitServiceImpl implements IUnitService {
 						unit.setUnitType(4); break;//其他
 				}			
 				unit.setLegalPerson(legalPerson);//企业法人				
-				unit.setUnitAddress(unitAddress);//经营地址				
+				unit.setUnitAddress(unitAddress);//经营地址
 				unit.setExpirationDate(expirationDate);//到期时间
 				unit.setCreateTime(createTime);//创建时间
 				row = unitMapper.insert(unit);
-				System.out.println("unit:" + unit);
 				departmentId = iDepartmentService.addUnitDepartment(unit);
 			}else{
 				unit = units.get(0);				
@@ -425,7 +424,6 @@ public class IUnitServiceImpl implements IUnitService {
 				logger.error(Constants.ERROR_HEAD_INFO + "手机号：" + phone + "  已存在企业账户无法绑定企业：" + unit.getUnitName());
 				continue;
 			}
-			System.out.println(unit);
 			if(StringUtils.isNotEmpty(phone)){
 				user = new User();
 				user.setPhone(phone);//联系方式

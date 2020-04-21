@@ -28,7 +28,7 @@
 		});
 	</script>
 </head>
-<body class="contain" style=";background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_home.jpg);position: relative;height: auto;">
+<body class="contain" style=";background-image: url(${pageContext.request.contextPath}/static/images/bks_wap/bg_home.jpg);position: relative;height: auto;height: 100%;">
 		<div class="bg-primary loader_wrap">
 			<div class="loader">
 				<div class="line-scale-pulse-out">
@@ -46,28 +46,25 @@
 					<div class="swiper-container swiper-container-horizontal">
 						<div class="swiper-wrapper" style="transition-duration: 300ms; transform: translate3d(-4340px, 0px, 0px);">
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b5.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban1.jpg" class="img-responsive">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b2.png" class="img-responsive ">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban2.jpg" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="2" style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b3.png" class="img-responsive ">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban3.jpg" class="img-responsive ">
 							</div>
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b4.png" class="img-responsive ">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban4.jpg" class="img-responsive ">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b1.png" class="img-responsive">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban5.jpg" class="img-responsive">
 							</div>
 							<div class="swiper-slide" data-swiper-slide-index="2" style="transform: translateX(676px) scale(0.6); z-index: 979; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b6.png" class="img-responsive ">
+								<img src="${pageContext.request.contextPath}/static/images/bks_wap/ban6.jpg" class="img-responsive ">
 							</div>
 							<div class="swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0" style="transform: translateX(1976px) scale(0.2); z-index: 959; opacity: 0; transition-duration: 300ms;">
-								<img id="img_fd" src="${pageContext.request.contextPath}/static/images/bks_wap/b7.png" class="img-responsive ">
-							</div>
-							<div class="swiper-slide" data-swiper-slide-index="1" style="transform: translateX(1248px) scale(0.4); z-index: 969; opacity: 1; transition-duration: 300ms;">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/b8.png" class="img-responsive ">
+								<img id="img_fd" src="${pageContext.request.contextPath}/static/images/bks_wap/ban7.jpg" class="img-responsive ">
 							</div>
 						</div>
 					</div>
@@ -82,7 +79,7 @@
 					<div class="swiper-button-next"></div> -->
 				</div>
 			</div>
-			<div class="menu fc padding-side"> <!-- style="margin-bottom: 51.2px" -->
+			<div class="menu fc padding-side">
 				<ul class="list-unstyled" style="">
 					<shiro:hasPermission name="wap_unit">
 						<li>
@@ -92,22 +89,29 @@
 							</a>
 						</li>
 					</shiro:hasPermission>
-					<shiro:hasPermission name="wap_user">
-						<c:if test="${user.type == 2}">						
-							<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
-						</c:if>
+					<shiro:hasPermission name="wap_user">				
+						<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
 					</shiro:hasPermission>
 					<shiro:hasPermission name="wap_pro">
 						<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/><p class="text-center">索证索票</p></a></li>
 					</shiro:hasPermission>
+					<c:if test="${user.type == 1}">
 					<shiro:hasPermission name="web_food">
-						<c:if test="${user.type == 1}">	
-							<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/><p href="" class="text-center">AI识别</p></a></li>
-						</c:if>
+						<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/><p href="" class="text-center">AI识别</p></a></li>
 					</shiro:hasPermission>
+					<shiro:lacksPermission name="web_food">
+						<li><a href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title="" style="-webkit-filter: grayscale(1);filter: gray; filter: grayscale(1);"/><p href="" class="text-center">AI识别</p></a></li>
+					</shiro:lacksPermission>
+					</c:if>
 					<shiro:hasPermission name="wap_dry">
 						<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/><p class="text-center">配送核查</p></a></li>
 					</shiro:hasPermission>
+					
+					<li style="background:url(${pageContext.request.contextPath}/static/images/bks_wap/logo_home.png) no-repeat;background-size: 65%;background-position: center;">
+						<%-- <img src="${pageContext.request.contextPath}/static/images/bks_wap/logo_home.png" class="img-responsive" style="height: 18vw;" alt="" title=""/> --%>
+						<div style="height: 18vw;"></div>
+					</li>
+					
 					<shiro:hasPermission name="wap_clean">
 						<li><a href="${pageContext.request.contextPath}/wap_clean/clean_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon6.png" border="0" alt="" title=""/><p class="text-center">洗消记录</p></a></li>
 					</shiro:hasPermission>
@@ -148,7 +152,8 @@
 						location.href = "${pageContext.request.contextPath}/wap_det/detection_list";		
 					/*  } */					  
 				});	
-			
+				
+				
 				certifySwiper = new Swiper('#certify .swiper-container', {
 					watchSlidesProgress: true,
 					slidesPerView: 'auto',

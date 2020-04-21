@@ -3,15 +3,18 @@
 	 		var filePath = $("#"+inputId).val(), //获取input的value,里面是文件的路径
             	fileFormat = filePath.substring(filePath.lastIndexOf('.')).toLowerCase(),
             	imgBase64 = '', //存储图片的base64
-           	 	maxSize =1*1024*1024,
+           	 	maxSize = 100*1024,
             	fileObj = $("#"+inputId)[0].files[0];//document.getElementById('upload').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象            	
 	 		//检查文件格式
 	        if(!fileFormat.match(/.png|.jpg|.jpeg|.gif/)){
-	        	layer.msg('文件类型错误,文件格式必须为:png/jpg/jpeg! 文件类型：' + fileFormat,{icon:2,time:1000}); 	          
+	        	layer.msg('文件类型错误,文件格式必须为:png/jpg/jpeg! ',{icon:2,time:1000}); 	          
 	            return;
 	        }
 	        var index = layerloadingOpen();
-	        if(fileObj.size > maxSize){	        	
+	        console.log("未压缩文件Size：" + fileObj.size);
+	        console.log("压缩界限Size：" + maxSize);
+	        if(fileObj.size > maxSize){
+	        	alert("1111")
 	            //调用函数,对图片进行压缩
 	            compressBase64(fileObj,function (imgBase64) {
 	                imgBase64 = imgBase64;
@@ -86,8 +89,7 @@
 	        r.readAsDataURL(fileObj);//转成base64格式
 	    }
 	 
-	    //对图片进行压缩
-	 
+	    //对图片进行压缩	 
 	    function compressBase64(fileObj,callback) {
 	        if(typeof (FileReader) === 'undefined'){
 	        	layer.msg("当前浏览器内核不支持base64图片压缩",{icon:2,time:1000}); 	                     

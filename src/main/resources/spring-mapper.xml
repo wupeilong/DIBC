@@ -100,7 +100,7 @@
 	<!-- 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="myShiroRealm" />		
-		<property name="cacheManager" ref="cacheManager"/> 
+		<property name="cacheManager" ref="cacheManager"/>
 		<!-- 记住密码 remenberMe配置 -->
    		<property name="rememberMeManager" ref="rememberMeManager" />
    		
@@ -130,6 +130,7 @@
 			</value> -->
 			<value>
 			/static/** = anon
+			/logout = logout
 			/web_login = anon
 			/web_login = anon
 			/web_user_login = anon
