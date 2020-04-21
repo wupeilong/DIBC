@@ -1,14 +1,18 @@
 package cn.dibcbks.util;
 
 
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.tomcat.util.http.Cookies;
+
 import cn.dibcbks.entity.User;
 import cn.dibcbks.util.wx.WxUserInfoOut;
 
@@ -97,9 +101,9 @@ public class CommonUtil {
 	
 	
 	public static void main(String[] args) {
-		String uuid = "1";
+		String uuid = "10B47079-3EF8-411D-82C3-599F5759DB47";
 		System.out.println("uuid: " + uuid);
-		System.out.println("密码: " + getEncrpytedPassword(Constants.MD5,"1",uuid,1024));
+		System.out.println("密码: " + getEncrpytedPassword(Constants.MD5,"606668",uuid,1024));
 	}
 	
 	/**
@@ -143,4 +147,16 @@ public class CommonUtil {
 		return codeHashMap.get(code).getWxUserInfoOut();
 	}
 	
+	public static String getCookieValue(HttpServletRequest request,String cookieName){
+		String cookieValue = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies !=null ) {
+			for (Cookie cookie: cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					cookieValue = cookie.getValue();
+				}
+			}
+		}	
+		return cookieValue;
+	}
 }

@@ -31,5 +31,9 @@ public interface Constants{
 	 */
 	public static final String ERROR_HEAD_INFO = "错误信息>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
 
-	
+	/**
+	 * 登录方式
+	 */
+	public static final String LOGIN_TYPE_WX = "wx";
+	public static final String LOGIN_TYPE_ACCOUNT = "account";
 }

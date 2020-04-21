@@ -94,7 +94,7 @@
 								</li>
 							</shiro:hasPermission>
 							<li class="b-line">
-									<a href="${pageContext.request.contextPath}/logout">
+									<a href="${pageContext.request.contextPath}/sign_out">
 										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh8.png"></div>
 										<h3>退出登录</h3>
 										<div class="aui-time"><!-- <i class="aui-jump"></i> --></div>

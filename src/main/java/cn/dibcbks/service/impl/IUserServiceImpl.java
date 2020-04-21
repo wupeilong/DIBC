@@ -3,6 +3,11 @@ package cn.dibcbks.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +33,7 @@ import cn.dibcbks.mapper.HygieneMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.service.IUserService;
+import cn.dibcbks.util.AESUtil;
 import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.Constants;
 import cn.dibcbks.util.GetCommonUser;
@@ -123,7 +129,7 @@ public class IUserServiceImpl implements IUserService {
 
 
 	@Override
-	public ResponseResult<User> login(String idCard, String password) {
+	public ResponseResult<User> login(HttpServletRequest request, HttpServletResponse response, String idCard, String password) {
 		ResponseResult<User> rr = null;
 		try {			
 			User user = userMapper.queryUser(idCard);
@@ -139,8 +145,13 @@ public class IUserServiceImpl implements IUserService {
 				CommonUtil.setAttribute("userJson", userJson);
 				CommonUtil.setAttribute("user", user);
 				rr = new ResponseResult<User>(ResponseResult.SUCCESS, "登录成功",user);
-				logger.info(Constants.SUCCESSU_HEAD_INFO + "账号登录成功，账号：" + idCard);
-			}
+				Cookie cookie = new Cookie("zhishangtong_account", AESUtil.encrypt(idCard, AESUtil.ASSETS_DEV_PWD_FIELD));
+		        cookie.setMaxAge(60*60*24*30);//设置生存期为30天
+//				cookie.setDomain("h5.gzws.online");//子域，在这个子域下才可以访问该Cookie
+//				cookie.setPath("/");//在这个路径下面的页面才可以访问该Cookie
+//				cookie.setSecure(true);//如果设置了Secure，则只有当使用https协议连接时cookie才可以被页面访问
+		        response.addCookie(cookie);
+				logger.info(Constants.SUCCESSU_HEAD_INFO + "账号登录成功，账号：" + idCard);			}
 		}catch(IncorrectCredentialsException e){			
 			rr = new ResponseResult<>(ResponseResult.ERROR,"密码错误！请重新输入...");
 			logger.error(Constants.ERROR_HEAD_INFO + "用户注册失败 原因：" + e.getMessage());
@@ -151,33 +162,6 @@ public class IUserServiceImpl implements IUserService {
 		return rr;
 	}
 
-
-	/*@Override
-	public ResponseResult<Void> updateUser(User user) {
-		ResponseResult<Void> rr = null;
-		try {
-			User oldUser = (User)SecurityUtils.getSubject().getSession().getAttribute("user");
-			user.setId(oldUser.getId());
-			if(StringUtils.isNotEmpty(user.getIdCard())){
-				User queryUser = queryUser(user.getIdCard());
-				if (queryUser != null && !oldUser.getIdCard().equals(queryUser.getIdCard())) {
-					logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：身份证已存在！");
-					return new ResponseResult<>(ResponseResult.ERROR, "身份证已存在！");
-				}
-			}
-			if(StringUtils.isNotEmpty(user.getPassword())){
-				user.setPassword(CommonUtil.getEncrpytedPassword(Constants.MD5, user.getPassword(), user.getUuid(), 1024));
-			}
-			userMapper.updateById(user);
-			rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
-			logger.info(Constants.SUCCESSU_HEAD_INFO + "用户资料修改成功！");
-		} catch (Exception e) {
-			e.printStackTrace();
-			rr = new ResponseResult<Void>(ResponseResult.ERROR, "用户资料修改操作失败！");
-			logger.error(Constants.ERROR_HEAD_INFO + "用户资料修改失败，原因：" + e.getMessage());
-		}
-		return rr;
-	}*/
 
 	
 

@@ -115,9 +115,9 @@
 	</bean>
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />		
-		<property name="loginUrl" value="/wap_login" />
-		<property name="successUrl" value="/hoem" />
-		<property name="unauthorizedUrl" value="/error" />		
+		<property name="loginUrl" value="/wx_login" />
+		<property name="successUrl" value="/home" />
+		<property name="unauthorizedUrl" value="/error" />
 		 <!-- 自定义filter配置 -->
 	    <property name="filters">    
             <util:map>    
