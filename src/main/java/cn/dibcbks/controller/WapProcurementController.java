@@ -86,8 +86,12 @@ public class WapProcurementController {
 									String supplierPerson,
 									String supplierPhone,
 									String detailList) throws ParseException{
-		
-		return iProcurementService.addProcurement(supplier,supplierUnitId,supplierBusinessLicense,supplierproductionLicense,supplierQualification,invoice,supplierPerson,supplierPhone,detailList);
+		try{
+			return iProcurementService.addProcurement(supplier,supplierUnitId,supplierBusinessLicense,supplierproductionLicense,supplierQualification,invoice,supplierPerson,supplierPhone,detailList);
+
+		}catch(Exception e){
+			return new ResponseResult<Void>(ResponseResult.ERROR,"操作失败！"+e.getMessage());
+		}
 	}
 	
 

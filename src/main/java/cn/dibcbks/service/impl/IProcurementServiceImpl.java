@@ -163,6 +163,7 @@ public class IProcurementServiceImpl implements IProcurementService {
 		return "bks_wap/buy_add";
 	}
 
+	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public ResponseResult<Void> addProcurement(String supplier, Integer supplierUnitId,
@@ -294,17 +295,23 @@ public class IProcurementServiceImpl implements IProcurementService {
 					row = procurementMapper.insertProcurementDetail(procurementDetail);
 					logger.info("新增采购详情信息【单号：" + procurementDetail.getProcurementDetailId() + " " + row + "条】");
 				}
-				rr = new ResponseResult<>(ResponseResult.SUCCESS, "操作成功！");
-
+				
+				rr=new ResponseResult<>(ResponseResult.SUCCESS, "操作成功！");
+				return rr;
+				
+				
+				
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 			logger.info("操作失败！错误信息:"+e.getMessage());
-			rr = new ResponseResult<>(ResponseResult.SUCCESS, "操作失败！错误信息:" + e.getMessage());
-				throw new TXruntimeException("操作失败",e.getMessage());
+			throw new TXruntimeException("操作失败",e.getMessage());
+				
 				
 		}
 		
-		return rr;
+		
+		
 
 	}
 
