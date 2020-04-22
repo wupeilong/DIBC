@@ -14,7 +14,6 @@
 	        console.log("未压缩文件Size：" + fileObj.size);
 	        console.log("压缩界限Size：" + maxSize);
 	        if(fileObj.size > maxSize){
-	        	alert("1111")
 	            //调用函数,对图片进行压缩
 	            compressBase64(fileObj,function (imgBase64) {
 	                imgBase64 = imgBase64;
