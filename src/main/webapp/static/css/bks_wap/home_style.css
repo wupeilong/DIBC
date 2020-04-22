@@ -180,6 +180,8 @@ body{
 }
 #certify  .swiper-slide img{
 	display:block;
+	height: 180px;
+    width:100%;
 }
 #certify  .swiper-slide p {
 	/* line-height: 98px; */
@@ -193,6 +195,18 @@ body{
 	bottom: 1em;
 	color: #fff;
 }
+@media screen and (min-width:374px) 
+{  
+	.menu ul li p {
+        font-size: 13px;
+	}
+	.menu ul li a img {
+    padding: 0px;
+    width: 20vw;
+    height: 20vw;
+	}
+
+ }
 
 #certify .swiper-pagination {
 	width: 100%;

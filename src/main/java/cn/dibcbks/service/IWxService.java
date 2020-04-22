@@ -1,12 +1,10 @@
 package cn.dibcbks.service;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-
-import cn.dibcbks.entity.Unit;
 import cn.dibcbks.util.ResponseResult;
 import cn.dibcbks.util.wx.WxUserInfoOut;
 
@@ -17,7 +15,7 @@ public interface IWxService {
 	 * @param modelMap
 	 * @return
 	 */
-	String wxLogin(ModelMap modelMap);
+	String wxLogin(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap);
 
 	/**
 	 * 处理网页授权回调
@@ -25,7 +23,7 @@ public interface IWxService {
 	 * @param request
 	 * @return
 	 */
-	String wxOauth2Redirect(String code, HttpServletRequest request,ModelMap modelMap);
+	String wxOauth2Redirect(String code, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap);
 
 	
 	/**
@@ -34,7 +32,7 @@ public interface IWxService {
 	 * @param modelMap
 	 * @return
 	 */
-	ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, ModelMap modelMap);
+	ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap);
 
 	/**
 	 * 绑定用户类型:主体人员
@@ -53,7 +51,7 @@ public interface IWxService {
 	 * @param modelMap
 	 * @return
 	 */
-	ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request, ModelMap modelMap);
+	ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap);
 
 	/**
 	 * 创建主体绑定用户类型:主体人员

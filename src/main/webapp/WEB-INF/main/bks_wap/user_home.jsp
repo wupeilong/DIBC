@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/user_pcenter.css">
+	<link rel="icon" href="${pageContext.request.contextPath}/static/images/favicon.ico" type="image/x-icon">
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>		
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
@@ -94,7 +95,7 @@
 								</li>
 							</shiro:hasPermission>
 							<li class="b-line">
-									<a href="${pageContext.request.contextPath}/logout">
+									<a href="${pageContext.request.contextPath}/sign_out">
 										<div class="aui-icon"><img src="${pageContext.request.contextPath}/static/images/bks_wap/user_pcenter/my_dh8.png"></div>
 										<h3>退出登录</h3>
 										<div class="aui-time"><!-- <i class="aui-jump"></i> --></div>

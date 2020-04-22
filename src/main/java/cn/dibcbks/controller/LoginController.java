@@ -2,6 +2,9 @@ package cn.dibcbks.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -123,10 +126,12 @@ public class LoginController {
 	})
 	@PostMapping("/wap_user_login")
 	@ResponseBody
-	public ResponseResult<User> login(@RequestParam(value="idCard",required = true) String idCard,
+	public ResponseResult<User> login(HttpServletRequest request,
+									  HttpServletResponse response,
+									  @RequestParam(value="idCard",required = true) String idCard,
 									  @RequestParam(value="password",required = true) String password){
 		
-		return iUserService.login(idCard,password);
+		return iUserService.login(request,response,idCard,password);
 	}
 	
 	
@@ -166,18 +171,18 @@ public class LoginController {
 
 	@ApiOperation(value = "微信登录获取网页授权地址页", notes = "微信登录获取网页授权地址页")
 	@GetMapping("/wx_login")
-	public String wxLogin(ModelMap modelMap) {
+	public String wxLogin(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 
-	   return iWxService.wxLogin(modelMap);
+	   return iWxService.wxLogin(request,response,modelMap);
 	}
 	
 	
 	@ApiOperation(value = "处理网页授权回调", notes = "处理网页授权回调")
 	@ApiImplicitParam(name = "code", value = "换取oauth2_token的票据")
 	@GetMapping("/wx_oauth2")
-	public String wxOauth2Redirect(String code,HttpServletRequest request,ModelMap modelMap) {
+	public String wxOauth2Redirect(String code,HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 		
-	   return iWxService.wxOauth2Redirect(code,request,modelMap);
+	   return iWxService.wxOauth2Redirect(code,request,response,modelMap);
 	}
 	
 	
@@ -186,9 +191,9 @@ public class LoginController {
 	@ApiOperation(value = "绑定用户类型:大众", notes = "绑定用户类型:大众")
 	@PostMapping("/wap_bind_public")
 	@ResponseBody
-	public ResponseResult<Void> bindUserType(WxUserInfoOut wxUserInfoOut, HttpServletRequest request,ModelMap modelMap) {
+	public ResponseResult<Void> bindUserType(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 
-	   return iWxService.bindPublic(wxUserInfoOut,request,modelMap);
+	   return iWxService.bindPublic(wxUserInfoOut,request,response,modelMap);
 	}
 	
 	
@@ -221,9 +226,9 @@ public class LoginController {
 	@ApiOperation(value = "绑定用户类型:监管人员/主体人员", notes = "绑定用户类型:监管人员/主体人员")
 	@PostMapping("/wap_bind_supervise")
 	@ResponseBody
-	public ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request,ModelMap modelMap) {
+	public ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 
-	   return iWxService.bindSupervise(phone,password,type,request,modelMap);
+	   return iWxService.bindSupervise(phone,password,type,request,response,modelMap);
 	}
 	
 	
@@ -269,4 +274,11 @@ public class LoginController {
 	}
 	
 
+	@ApiOperation("退出当前账户")
+	@RequestMapping("/sign_out")
+	public String loginout(ModelMap modelMap){
+		SecurityUtils.getSubject().logout();
+		modelMap.addAttribute("sign_out", true);
+		return "bks_wap/login";
+	}
 }

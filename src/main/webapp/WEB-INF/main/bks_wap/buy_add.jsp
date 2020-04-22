@@ -15,6 +15,7 @@
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bks_wap/header_style.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/layui/css/layui.css" />
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.css">
+	<link rel="icon" href="${pageContext.request.contextPath}/static/images/favicon.ico" type="image/x-icon">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
@@ -204,7 +205,7 @@
 	<c:import url="public/footer.jsp"></c:import>
 </body>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script>
+	src="${pageContext.request.contextPath}/static/js/bks_wap/imgBase64.js"></script> 
 <script type="text/javascript">
 
 $("img").click(function(){

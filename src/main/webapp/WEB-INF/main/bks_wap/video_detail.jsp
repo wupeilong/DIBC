@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
 <link href="${pageContext.request.contextPath}/static/css/bks_wap/video-js.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/static/css/bks_wap/video.css" rel="stylesheet">
+<link rel="icon" href="${pageContext.request.contextPath}/static/images/favicon.ico" type="image/x-icon">
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/layui/layui.js"></script>
 <script type="text/javascript"	src="${pageContext.request.contextPath}/static/js/selector/jquery.searchableSelect.js"></script>
@@ -36,7 +37,7 @@
 					<h4 style="font-size: 20px;font-weight: 600;padding: 25px 0 0 0; text-align: center" >${item.unitName}</h4>
 				</c:if>
 				<p>位置：<span>${item.cameraPosition}</span></p>
-			    <video id="my-video${item.videoId}" class="video-js" controls preload="auto" width="340" height="200" poster="m.jpg" data-setup="{}">      	
+			    <video id="my-video${item.videoId}" class="video-js" controls preload="auto" width="340" height="200"  poster="" data-setup="{}">      	
 			    	<source src="${item.videoAddress}" type="application/x-mpegURL">
 			        <p class="vjs-no-js"> 111 <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
 			    </video>
@@ -51,13 +52,12 @@
 		<c:import url="public/footer.jsp"></c:import>
 	</c:if>	
 </body>
-<script src="${pageContext.request.contextPath}/static/js/bks_wap/video.min.js"></script> 
+<script src="${pageContext.request.contextPath}/static/js/bks_wap/video.min.js"></script>
 	<script type="text/javascript">
 		if('${user.type}' == 3){
 			var date = new Date('${endTime}');
 		    var timeId = setInterval(function () {
 		      var now = new Date();
-		      console.log('定时运行：' + i + '次')
 		      if(now > date){
 		    	  layer.msg("已过监控开放时间，即将关闭服务！",{icon:0,time:10000},function(){
 		    		  location.href = "${pageContext.request.contextPath}/wap_public_home"; 

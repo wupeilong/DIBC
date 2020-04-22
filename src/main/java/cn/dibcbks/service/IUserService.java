@@ -4,6 +4,10 @@ package cn.dibcbks.service;
 
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 import cn.dibcbks.entity.Hygiene;
@@ -23,7 +27,7 @@ public interface IUserService {
 	ResponseResult<Void> registeradd(String uuid,String idCard, String username, String password, String phone, String duty, Integer age,
 			String unitName, String legalPerson, String businessLicenseCode, String businessLicense, String productionLicense, String unitAddress, String expirationDate, Integer unitType);
 
-	ResponseResult<User> login(String idCard, String password);
+	ResponseResult<User> login(HttpServletRequest request, HttpServletResponse response, String idCard, String password);
 
 	ResponseResult<Void> userIsExist(String idCard,String phone);
 

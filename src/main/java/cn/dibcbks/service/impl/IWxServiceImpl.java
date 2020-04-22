@@ -2,9 +2,12 @@ package cn.dibcbks.service.impl;
 
 
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,20 +19,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-
 import cn.dibcbks.entity.Authorization;
-import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Role;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
 import cn.dibcbks.filter.MyUsernamePasswordToken;
 import cn.dibcbks.mapper.AuthorizationMapper;
-import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.RoleMapper;
 import cn.dibcbks.mapper.UnitMapper;
 import cn.dibcbks.mapper.UserMapper;
 import cn.dibcbks.mapper.WxAccessTokenMapper;
 import cn.dibcbks.service.IWxService;
+import cn.dibcbks.util.AESUtil;
 import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.Constants;
 import cn.dibcbks.util.DateUtil;
@@ -56,7 +57,39 @@ public class IWxServiceImpl implements IWxService {
 	
 	
 	@Override
-	public String wxLogin(ModelMap modelMap) {
+	public String wxLogin(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap) {
+    	String account = AESUtil.decrypt( CommonUtil.getCookieValue(request,Constants.COOKIE_NAME), AESUtil.ASSETS_DEV_PWD_FIELD);
+        if (StringUtils.isNotEmpty(account)) {
+        	User user = userMapper.queryUserByOpenid(account);
+        	if (user == null) {
+        		user = userMapper.queryUserByPhone(account);
+        	}
+        	if (user == null) {
+        		user = userMapper.queryUser(account);
+			}
+        	if (user != null) {
+				CommonUtil.login(new MyUsernamePasswordToken(account));
+				CommonUtil.setAttribute("user", user);
+				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
+				response.setContentType("text/html;charset=utf-8");
+				//String url = CommonUtil.getServerPathPrefix(request);
+				String url = "http://edt.gzws.online:8081";
+				if(user.getType() == 3){
+					url += "/wap_public_home";
+		        }else{
+		        	url += "/wap_home";
+		        }	
+				try {
+					logger.info(Constants.SUCCESSU_HEAD_INFO + "Cookie 免登录陆，账户：" + account);
+					response.sendRedirect(url);
+					return null;
+				} catch (IOException e) {						
+					e.printStackTrace();
+					logger.error("Cookie 免登录重定向异常：" + e.getMessage());
+				}
+			}
+		} 
+            
 //		WxAccessToken token = wxAccessTokenMapper.selectById("1");
 //		if(token == null){
 //            //首次获取微信token存入数据库
@@ -84,13 +117,14 @@ public class IWxServiceImpl implements IWxService {
 //         }
 //		
 //		String shortUrl = WxApi.getOAuth2Url(token.getAccessToken());
+		
 		String shortUrl = WxApi.getOAuth2Url(null);		
 	    modelMap.addAttribute("wechat_login_url", shortUrl);
 	    return "bks_wap/login";
 	}
 
 	@Override
-	public String wxOauth2Redirect(String code, HttpServletRequest request ,ModelMap modelMap) {
+	public String wxOauth2Redirect(String code, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 		try {
 			WxUserInfoOut wxUserInfo = null;
 			if(CommonUtil.containsCode(code)){
@@ -101,21 +135,26 @@ public class IWxServiceImpl implements IWxService {
 			}
 			if(wxUserInfo == null ){	        	
 	        	logger.error(Constants.ERROR_HEAD_INFO + "获取微信用户信息失败");
-	        	return wxLogin(modelMap);//重定向登陆页	        	
+	        	return wxLogin(request,response,modelMap);//重定向登陆页	        	
 	        }      
 			CommonUtil.setAttributeCodeHashMap(code, wxUserInfo);
 			CommonUtil.setAttribute("wx_user_info", wxUserInfo);
 	        User user  = userMapper.queryUserByOpenid( wxUserInfo.getOpenId());
 	        if (user == null || user.getType() == null) {
 	        	modelMap.addAttribute("isbind", 1);
-	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));
-	        	
+	        	modelMap.addAttribute("wx_user", JSONObject.fromObject(wxUserInfo));	        	
 	        	return "bks_wap/roles_choose";
 	        }
 	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);				
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
+	        Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
+	        cookie.setMaxAge(60*60*24*30);//设置生存期为30天
+//			cookie.setDomain("h5.gzws.online");//子域，在这个子域下才可以访问该Cookie
+//			cookie.setPath("/");//在这个路径下面的页面才可以访问该Cookie
+//			cookie.setSecure(true);//如果设置了Secure，则只有当使用https协议连接时cookie才可以被页面访问
+	        response.addCookie(cookie);
 	        if(user.getType() == 3){
 	        	return "bks_wap/public_list";
 	        }else{
@@ -128,7 +167,7 @@ public class IWxServiceImpl implements IWxService {
 	}
 
 	@Override
-	public ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, ModelMap modelMap) {
+	public ResponseResult<Void> bindPublic(WxUserInfoOut wxUserInfoOut, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {
 			WxUserInfoOut wxUserInfo = (WxUserInfoOut)CommonUtil.getAttribute("wx_user_info");	
@@ -155,6 +194,12 @@ public class IWxServiceImpl implements IWxService {
 	        JSONObject userJson = JSONObject.fromObject(user);
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
+	        Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
+	        cookie.setMaxAge(60*60*24*30);//设置生存期为30天
+//			cookie.setDomain("h5.gzws.online");//子域，在这个子域下才可以访问该Cookie
+//			cookie.setPath("/");//在这个路径下面的页面才可以访问该Cookie
+//			cookie.setSecure(true);//如果设置了Secure，则只有当使用https协议连接时cookie才可以被页面访问
+	        response.addCookie(cookie);
 	        rr = new ResponseResult<>(ResponseResult.SUCCESS,"绑定成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -280,7 +325,7 @@ public class IWxServiceImpl implements IWxService {
 
 
 	@Override
-	public ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request, ModelMap modelMap) {
+	public ResponseResult<Void> bindSupervise(String phone, String password, Integer type, HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
 		ResponseResult<Void> rr = null;
 		try {
 			User user = userMapper.queryUserByPhone(phone);
@@ -306,6 +351,12 @@ public class IWxServiceImpl implements IWxService {
 				CommonUtil.login(new MyUsernamePasswordToken(wxUserInfo.getOpenId()));
 				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
 				CommonUtil.setAttribute("user", user);
+				Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
+		        cookie.setMaxAge(60*60*24*30);//设置生存期为30天
+//				cookie.setDomain("h5.gzws.online");//子域，在这个子域下才可以访问该Cookie
+//				cookie.setPath("/");//在这个路径下面的页面才可以访问该Cookie
+//				cookie.setSecure(true);//如果设置了Secure，则只有当使用https协议连接时cookie才可以被页面访问
+		        response.addCookie(cookie);
 				rr = new ResponseResult<>(ResponseResult.SUCCESS,"操作成功！");
 			}
 		} catch (Exception e) {
@@ -317,8 +368,7 @@ public class IWxServiceImpl implements IWxService {
 
 	@Override
 	public String getUnitList(ModelMap modelMap) {
-		// 查询企业列表 企业类型不包括1
-		
+		// 查询企业列表 企业类型不包括		
 		String view=null;
 		try {
 			List<Unit> unitList = unitMapper.select(" n.unit_type BETWEEN 2 AND 4 ", " n.create_time DESC", null, null);
@@ -339,9 +389,8 @@ public class IWxServiceImpl implements IWxService {
 		Unit unitDetail = null;
 		List<Unit> list = unitMapper.select(" unit_id = '" + unitId + "'", null, null, null);
 		try {
-			
-				unitDetail = list.get(0);
-				modelMap.addAttribute("unitDetail", unitDetail);
+			unitDetail = list.get(0);
+			modelMap.addAttribute("unitDetail", unitDetail);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
