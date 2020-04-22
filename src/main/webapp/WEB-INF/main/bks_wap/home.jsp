@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/home_style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/style.css"/>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bks_wap/index.css"/>
+	<link rel="icon" href="${pageContext.request.contextPath}/static/images/favicon.ico" type="image/x-icon">
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.1.1.min.js"></script>
 	<script  type="text/javascript" src="${pageContext.request.contextPath}/static/js/layer/2.4/layer.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/swper5.0.1.js" type="text/javascript" charset="utf-8"></script>
@@ -80,28 +81,27 @@
 				</div>
 			</div>
 			<div class="menu fc padding-side">
-				<ul class="list-unstyled" style="" id="menu_top">
+				<ul class="list-unstyled" style="" id="menu_top">				
 					<shiro:hasPermission name="wap_unit">
 						<li>
-							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list">
-								<img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" bor der="0" alt="" title=""/>
-								<p class="text-center">企业信息</p>
-							</a>
+							<a href="${pageContext.request.contextPath}/wap_unit/coopration_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon1.png" bor der="0" alt="" title=""/><p class="text-center">企业信息</p></a>
 						</li>
 					</shiro:hasPermission>
-					<shiro:hasPermission name="wap_user">				
-						<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
-					</shiro:hasPermission>
+					<c:if test="${user.type == 2}">
+						<shiro:hasPermission name="wap_user">				
+							<li><a href="${pageContext.request.contextPath}/wap_user/workmens"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon2.png" border="0" alt="" title=""/><p class="text-center">从业人员</p></a></li>
+						</shiro:hasPermission>
+					</c:if>					
 					<shiro:hasPermission name="wap_pro">
 						<li><a href="${pageContext.request.contextPath}/wap_pro/buy_list"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon3.png" border="0" alt="" title=""/><p class="text-center">索证索票</p></a></li>
 					</shiro:hasPermission>
 					<c:if test="${user.type == 1}">
-					<shiro:hasPermission name="web_food">
-						<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/><p href="" class="text-center">AI识别</p></a></li>
-					</shiro:hasPermission>
-					<shiro:lacksPermission name="web_food">
-						<li><a href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title="" style="-webkit-filter: grayscale(1);filter: gray; filter: grayscale(1);"/><p href="" class="text-center">AI识别</p></a></li>
-					</shiro:lacksPermission>
+						<shiro:hasPermission name="web_food">
+							<li><a href="javascript:alert('功能开发中……');"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title=""/><p href="" class="text-center">AI识别</p></a></li>
+						</shiro:hasPermission>
+						<shiro:lacksPermission name="web_food">
+							<li><a href="javascript:;"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon4.png" border="0" alt="" title="" style="-webkit-filter: grayscale(1);filter: gray; filter: grayscale(1);"/><p href="" class="text-center">AI识别</p></a></li>
+						</shiro:lacksPermission>
 					</c:if>
 					<shiro:hasPermission name="wap_dry">
 						<li><a href="${pageContext.request.contextPath}/wap_dry/delivery"><img src="${pageContext.request.contextPath}/static/images/bks_wap/icon5.png" border="0" alt="" title=""/><p class="text-center">配送核查</p></a></li>

@@ -147,16 +147,35 @@ public class CommonUtil {
 		return codeHashMap.get(code).getWxUserInfoOut();
 	}
 	
+	/**
+	 * 获取Cookie中值
+	 * @param request 
+	 * @param cookieName
+	 * @return
+	 */
 	public static String getCookieValue(HttpServletRequest request,String cookieName){
 		String cookieValue = null;
 		Cookie[] cookies = request.getCookies();
-		if (cookies !=null ) {
+		if (cookies != null ) {
 			for (Cookie cookie: cookies) {
 				if (cookie.getName().equals(cookieName)) {
 					cookieValue = cookie.getValue();
+					break;
 				}
+				
 			}
 		}	
 		return cookieValue;
+	}
+	
+	
+	/**
+	 * 获取远程服务器  域名+端口+上下文
+	 * @param request
+	 * @return
+	 */
+	public static String getServerPathPrefix(HttpServletRequest request){
+		
+		return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 	}
 }

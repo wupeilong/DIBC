@@ -58,50 +58,37 @@ public class IWxServiceImpl implements IWxService {
 	
 	@Override
 	public String wxLogin(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap) {
-		
-        String device = request.getHeader("device");
-        // 如果是客户端是H5
-//        if (StringUtils.isNotBlank(device) && device.equals("H5")) {
-        	String account = "";
-            Cookie[] cookies = request.getCookies();
-            if (null != cookies) {
-                for (Cookie cookie : cookies) {                    
-                    if (cookie.getName().equals("zhishangtong_account")) {
-                    	account = AESUtil.decrypt(cookie.getValue(),AESUtil.ASSETS_DEV_PWD_FIELD); 
-                    	break;
-                    }
-                }
-            }
-            if (StringUtils.isNotEmpty(account)) {
-            	User user = userMapper.queryUserByOpenid(account);
-            	if (user == null) {
-            		user = userMapper.queryUserByPhone(account);
-            	}
-            	if (user == null) {
-            		user = userMapper.queryUser(account);
+    	String account = AESUtil.decrypt( CommonUtil.getCookieValue(request,Constants.COOKIE_NAME), AESUtil.ASSETS_DEV_PWD_FIELD);
+        if (StringUtils.isNotEmpty(account)) {
+        	User user = userMapper.queryUserByOpenid(account);
+        	if (user == null) {
+        		user = userMapper.queryUserByPhone(account);
+        	}
+        	if (user == null) {
+        		user = userMapper.queryUser(account);
+			}
+        	if (user != null) {
+				CommonUtil.login(new MyUsernamePasswordToken(account));
+				CommonUtil.setAttribute("user", user);
+				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
+				response.setContentType("text/html;charset=utf-8");
+				//String url = CommonUtil.getServerPathPrefix(request);
+				String url = "http://edt.gzws.online:8081";
+				if(user.getType() == 3){
+					url += "/wap_public_home";
+		        }else{
+		        	url += "/wap_home";
+		        }	
+				try {
+					logger.info(Constants.SUCCESSU_HEAD_INFO + "Cookie 免登录陆，账户：" + account);
+					response.sendRedirect(url);
+					return null;
+				} catch (IOException e) {						
+					e.printStackTrace();
+					logger.error("Cookie 免登录重定向异常：" + e.getMessage());
 				}
-            	if (user != null) {
-					CommonUtil.login(new MyUsernamePasswordToken(account));
-					CommonUtil.setAttribute("user", user);
-					CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
-					response.setContentType("text/html;charset=utf-8");
-					String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-					if(user.getType() == 3){
-						url += "/wap_public_home";
-			        }else{
-			        	url += "/wap_home";
-			        }	
-					try {
-						logger.info(Constants.SUCCESSU_HEAD_INFO + "Cookie 免登录陆，账户：" + account);
-						response.sendRedirect(url);
-						return null;
-					} catch (IOException e) {						
-						e.printStackTrace();
-						logger.error("Cookie 免登录重定向异常：" + e.getMessage());
-					}
-				}
-			}            
-//        }    
+			}
+		} 
             
 //		WxAccessToken token = wxAccessTokenMapper.selectById("1");
 //		if(token == null){
@@ -162,7 +149,7 @@ public class IWxServiceImpl implements IWxService {
 	        JSONObject userJson = JSONObject.fromObject(user);				
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
-	        Cookie cookie = new Cookie("zhishangtong_account", AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
+	        Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
 	        cookie.setMaxAge(60*60*24*30);//设置生存期为30天
 //			cookie.setDomain("h5.gzws.online");//子域，在这个子域下才可以访问该Cookie
 //			cookie.setPath("/");//在这个路径下面的页面才可以访问该Cookie
@@ -207,7 +194,7 @@ public class IWxServiceImpl implements IWxService {
 	        JSONObject userJson = JSONObject.fromObject(user);
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
-	        Cookie cookie = new Cookie("zhishangtong_account", AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
+	        Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
 	        cookie.setMaxAge(60*60*24*30);//设置生存期为30天
 //			cookie.setDomain("h5.gzws.online");//子域，在这个子域下才可以访问该Cookie
 //			cookie.setPath("/");//在这个路径下面的页面才可以访问该Cookie
@@ -364,7 +351,7 @@ public class IWxServiceImpl implements IWxService {
 				CommonUtil.login(new MyUsernamePasswordToken(wxUserInfo.getOpenId()));
 				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
 				CommonUtil.setAttribute("user", user);
-				Cookie cookie = new Cookie("zhishangtong_account", AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
+				Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
 		        cookie.setMaxAge(60*60*24*30);//设置生存期为30天
 //				cookie.setDomain("h5.gzws.online");//子域，在这个子域下才可以访问该Cookie
 //				cookie.setPath("/");//在这个路径下面的页面才可以访问该Cookie

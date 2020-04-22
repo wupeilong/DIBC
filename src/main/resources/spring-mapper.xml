@@ -35,6 +35,30 @@
 		<property name="url" value="#{dbConf.url}" />
 		<property name="username" value="#{dbConf.username}" />
 		<property name="password" value="#{dbConf.password}" />		
+   		<!-- <property name="filters" value="#{dbConf.filters}"/> -->
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="#{dbConf.maxActive}"/>
+        <!-- 初始化连接数量 -->
+        <property name="initialSize" value="#{dbConf.initialSize}"/>
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="#{dbConf.maxWait}"/>
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="#{dbConf.minIdle}"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="#{dbConf.timeBetweenEvictionRunsMillis}"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="#{dbConf.minEvictableIdleTimeMillis}"/>
+        <property name="validationQuery" value="#{dbConf.validationQuery}"/>
+        <property name="testWhileIdle" value="#{dbConf.testWhileIdle}"/>
+        <property name="testOnBorrow" value="#{dbConf.testOnBorrow}"/>
+        <property name="testOnReturn" value="#{dbConf.testOnReturn}"/>
+        <property name="maxOpenPreparedStatements" value="#{dbConf.maxOpenPreparedStatements}"/>
+        <!-- 打开 removeAbandoned 功能 -->
+        <property name="removeAbandoned" value="#{dbConf.removeAbandoned}"/>
+        <!-- 1800 秒，也就是 30 分钟 -->
+        <property name="removeAbandonedTimeout" value="#{dbConf.removeAbandonedTimeout}"/>
+        <!-- 关闭 abanded 连接时输出错误日志 -->
+        <property name="logAbandoned" value="#{dbConf.logAbandoned}"/>
    </bean>
 	<!-- SqlSessionFactoryBean的初始化 -->
 	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">

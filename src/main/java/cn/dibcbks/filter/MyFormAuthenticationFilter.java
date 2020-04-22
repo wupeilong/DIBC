@@ -49,15 +49,19 @@ public class MyFormAuthenticationFilter  extends FormAuthenticationFilter {
 //        System.out.println("请求的网址全路径:" + req.getRequestURL());
 //        System.out.println("请求的工程名和请求路径:" + req.getRequestURI());
 //        System.out.println("请求的上下文:" + req.getContextPath());
-//        System.out.println("前服务器servlet映射的路径:" + req.getServletPath());  
+//        System.out.println("前服务器servlet映射的路径:" + req.getServletPath());
 //        System.out.println("当前请求的协议版本:" + req.getProtocol());
-//        System.out.println("当前请求的协议类型:" + req.getScheme());    
+//        System.out.println("当前请求的协议类型:" + req.getScheme());
         if (url.contains("web")) {
-            loginUrl = req.getServerName() + ":" + req.getServerPort() + req.getContextPath() + "/web_login";
+            //loginUrl = CommonUtil.getServerPathPrefix(req) + "/web_login";
+            loginUrl = "http://edt.gzws.online:8081/web_login";
         }else{
-        	loginUrl = req.getServerName() + ":" + req.getServerPort() + req.getContextPath() +  "/wx_login";
+        	loginUrl = CommonUtil.getServerPathPrefix(req) + "/wx_login";
+        	loginUrl = "http://edt.gzws.online:8081/wx_login";
         }
         System.out.println("loginUrl : " + loginUrl);
+        System.out.println("LocalPort : " + req.getLocalPort());
+        System.out.println("ServerPort : " + req.getServerPort());
         WebUtils.issueRedirect(request, response, loginUrl);
     }
 	
