@@ -11,8 +11,6 @@
 	            return;
 	        }
 	        var index = layerloadingOpen();
-	        console.log("未压缩文件Size：" + fileObj.size);
-	        console.log("压缩界限Size：" + maxSize);
 	        if(fileObj.size > maxSize){
 	            //调用函数,对图片进行压缩
 	            compressBase64(fileObj,function (imgBase64) {
@@ -127,7 +125,6 @@
 	                        var base64 = canvas.toDataURL('image/jpeg', quality);
 	                        // 回调函数返回base64的值
 	                        callback(base64);
-	                        console.log(base64);
 	                    } 	                   
 	                };
 	                reader.readAsDataURL(fileObj);
