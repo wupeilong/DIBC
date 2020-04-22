@@ -91,7 +91,6 @@ public class WapProcurementController {
 		} catch (Exception e) {
 			return new ResponseResult<>(ResponseResult.ERROR,"操作失败！");
 		}
-		
 	}
 	
 
