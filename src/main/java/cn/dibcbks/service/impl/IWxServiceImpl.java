@@ -72,8 +72,8 @@ public class IWxServiceImpl implements IWxService {
 				CommonUtil.setAttribute("user", user);
 				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
 				response.setContentType("text/html;charset=utf-8");
-				//String url = CommonUtil.getServerPathPrefix(request);
-				String url = "http://edt.gzws.online:8081";
+				String url = CommonUtil.getServerPathPrefix(request);
+				//String url = "http://edt.gzws.online:8081";
 				if(user.getType() == 3){
 					url += "/wap_public_home";
 		        }else{
