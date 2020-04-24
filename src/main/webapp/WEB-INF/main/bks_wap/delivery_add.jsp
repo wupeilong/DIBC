@@ -212,7 +212,8 @@
 				formData.append('businessLicense',dataURLtoFile($("#preview3").attr('src'),"we.jpg"));
 			}
 			if($("#preview4").attr('src') != ""){
-				formData.append('businessLicense',dataURLtoFile($("#preview4").attr('src'),"we.jpg"));
+				console.log(dataURLtoFile($("#preview4").attr('src'),"we1.jpg"));
+				formData.append('productionLicense',dataURLtoFile($("#preview4").attr('src'),"we1.jpg"));
 			}							
 			formData.append('unitType',$("#reg_unitType").val());
 			var we_reg = layerloadingOpen();
