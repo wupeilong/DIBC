@@ -34,8 +34,7 @@
 		<property name="driverClassName" value="#{dbConf.driverClassName}" />
 		<property name="url" value="#{dbConf.url}" />
 		<property name="username" value="#{dbConf.username}" />
-		<property name="password" value="#{dbConf.password}" />		
-   		<!-- <property name="filters" value="#{dbConf.filters}"/> -->
+		<property name="password" value="#{dbConf.password}" />   		
         <!-- 最大并发连接数 -->
         <property name="maxActive" value="#{dbConf.maxActive}"/>
         <!-- 初始化连接数量 -->

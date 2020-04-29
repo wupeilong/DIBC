@@ -7,9 +7,9 @@
         <!--设置日志在硬盘上输出的目录${log4j:configParentLocation}使用此查找将日志文件放在相对于log4j配置文件的目录中-->
 
 		<!-- linux -->
-        <!-- <property name="Log_Home">${web:rootDir}/DIBC_BKS_logs</property> -->
+        <property name="Log_Home">${web:rootDir}/DIBC_BKS_logs</property>
         <!-- windows -->
-        <property name="Log_Home">D:/DIBC_BKS_logs</property>
+        <!-- <property name="Log_Home">D:/DIBC_BKS_logs</property> -->
         <Property name="patternLayout">[%d{yyyy-MM-dd HH:mm:ss,SSS} %-10r %-5p  %class{36}.%M @%L %m]%n</Property>   
     </properties>
     
