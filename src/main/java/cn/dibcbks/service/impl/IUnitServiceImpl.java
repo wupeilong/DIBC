@@ -313,12 +313,10 @@ public class IUnitServiceImpl implements IUnitService {
 	@Override
 	public ResponseResult<Void> addUnit(String unitName, String businessLicenseCode, MultipartFile file,MultipartFile file1, Integer unitType) {		
 		try {
-			System.out.println("unitType:" + unitType);
 			GetCommonUser get = new GetCommonUser();
 			User user = CommonUtil.getSessionUser();
 			List<Unit> unitList = unitMapper.select(" n.unit_name = '" + unitName + "'", null, null, null);
 			if(!unitList.isEmpty()){
-				System.out.println("企业：" + unitName);
 				return new ResponseResult<Void>(ResponseResult.ERROR,"企业名称已存在，新增失败！");
 			}else if(StringUtils.isNotEmpty(businessLicenseCode) && unitMapper.queryUnit(businessLicenseCode) != null){
 				return new ResponseResult<>(ResponseResult.ERROR, "营业执照编码已存在，新增失败！");
@@ -342,7 +340,6 @@ public class IUnitServiceImpl implements IUnitService {
 					}
 					insert.setProductionLicense(productionLicense);		
 				}
-				System.out.println(insert);
 				unitMapper.insert(insert);
 				iDepartmentService.addUnitDepartment(insert);
 				return new ResponseResult<Void>(ResponseResult.SUCCESS,"操作成功！");

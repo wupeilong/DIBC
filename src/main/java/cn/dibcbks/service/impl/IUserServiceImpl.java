@@ -21,7 +21,6 @@ import cn.dibcbks.entity.Department;
 import cn.dibcbks.entity.Hygiene;
 import cn.dibcbks.entity.Unit;
 import cn.dibcbks.entity.User;
-import cn.dibcbks.filter.LoginType;
 import cn.dibcbks.filter.MyUsernamePasswordToken;
 import cn.dibcbks.mapper.DepartmentMapper;
 import cn.dibcbks.mapper.HygieneMapper;

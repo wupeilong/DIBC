@@ -6,6 +6,8 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.Base64Utils;
@@ -52,16 +54,18 @@ public class AESUtil {
     public static String decrypt(String content, String secretkey) {
 
         try {
-            //实例化
-            Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
+            if(StringUtils.isNotEmpty(content)){
+            	//实例化
+                Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
 
-            //使用密钥初始化，设置为解密模式
-            cipher.init(Cipher.DECRYPT_MODE, getSecretKey(secretkey));
+                //使用密钥初始化，设置为解密模式
+                cipher.init(Cipher.DECRYPT_MODE, getSecretKey(secretkey));
 
-            //执行操作
-            byte[] result = cipher.doFinal(Base64Utils.decodeFromString(content));
-            String s = new String(result, "utf-8");
-            return s;
+                //执行操作
+                byte[] result = cipher.doFinal(Base64Utils.decodeFromString(content));
+                String s = new String(result, "utf-8");
+                return s;
+            }        	
         } catch (Exception ex) {
             ex.printStackTrace();
             logger.error("AES 解密异常:" + ex.getMessage());
