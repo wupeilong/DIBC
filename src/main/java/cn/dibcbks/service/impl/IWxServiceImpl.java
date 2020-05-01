@@ -1,8 +1,6 @@
 package cn.dibcbks.service.impl;
 
 
-
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.Cookie;
@@ -58,38 +56,30 @@ public class IWxServiceImpl implements IWxService {
 	
 	@Override
 	public String wxLogin(HttpServletRequest request, HttpServletResponse response,ModelMap modelMap) {
-    	String account = AESUtil.decrypt( CommonUtil.getCookieValue(request,Constants.COOKIE_NAME), AESUtil.ASSETS_DEV_PWD_FIELD);
-        if (StringUtils.isNotEmpty(account)) {
-        	User user = userMapper.queryUserByOpenid(account);
-        	if (user == null) {
-        		user = userMapper.queryUserByPhone(account);
-        	}
-        	if (user == null) {
-        		user = userMapper.queryUser(account);
-			}
-        	if (user != null) {
-				CommonUtil.login(new MyUsernamePasswordToken(account));
-				CommonUtil.setAttribute("user", user);
-				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
-				response.setContentType("text/html;charset=utf-8");
-				String url = CommonUtil.getServerPathPrefix(request);
-				//String url = "http://edt.gzws.online:8081";
-				if(user.getType() == 3){
-					url += "/wap_public_home";
-		        }else{
-		        	url += "/wap_home";
-		        }	
-				try {
-					logger.info(Constants.SUCCESSU_HEAD_INFO + "Cookie 免登录陆，账户：" + account);
-					response.sendRedirect(url);
-					return null;
-				} catch (IOException e) {						
-					e.printStackTrace();
-					logger.error("Cookie 免登录重定向异常：" + e.getMessage());
-				}
-			}
-		} 
-            
+//    	String account = AESUtil.decrypt( CommonUtil.getCookieValue(request,Constants.COOKIE_NAME), AESUtil.ASSETS_DEV_PWD_FIELD);
+//        if (StringUtils.isNotEmpty(account)) {
+//        	User user = userMapper.queryUserByOpenid(account);
+//        	if (user == null) {
+//        		user = userMapper.queryUserByPhone(account);
+//        	}
+//        	if (user == null) {
+//        		user = userMapper.queryUser(account);
+//			}
+//        	if (user != null) {
+//				CommonUtil.login(new MyUsernamePasswordToken(account));
+//				setLastLoginTime(user);//记录最近一次登陆时间
+//				CommonUtil.setAttribute("user", user);
+//				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
+//				response.setContentType("text/html;charset=utf-8");	
+//				logger.info(Constants.SUCCESSU_HEAD_INFO + "Cookie 免登录陆，账户：" + account);
+//				if(user.getType() == 3){
+//		        	return "bks_wap/public_list";
+//		        }else{
+//		        	return "bks_wap/home";
+//		        }
+//			}
+//		} 
+//            
 //		WxAccessToken token = wxAccessTokenMapper.selectById("1");
 //		if(token == null){
 //            //首次获取微信token存入数据库
@@ -146,6 +136,7 @@ public class IWxServiceImpl implements IWxService {
 	        	return "bks_wap/roles_choose";
 	        }
 	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));
+	        setLastLoginTime(user);//记录最近一次登陆时间
 	        JSONObject userJson = JSONObject.fromObject(user);				
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
@@ -192,6 +183,7 @@ public class IWxServiceImpl implements IWxService {
 			}
 	        CommonUtil.login(new MyUsernamePasswordToken(user.getOpenid()));
 	        JSONObject userJson = JSONObject.fromObject(user);
+	        setLastLoginTime(user);//记录最近一次登陆时间
 	        CommonUtil.setAttribute("userJson", userJson);
 	        CommonUtil.setAttribute("user", user);
 	        Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
@@ -349,6 +341,7 @@ public class IWxServiceImpl implements IWxService {
 				user.setOpenid(wxUserInfo.getOpenId());				
 				userMapper.updateById(user);
 				CommonUtil.login(new MyUsernamePasswordToken(wxUserInfo.getOpenId()));
+				setLastLoginTime(user);//记录最近一次登陆时间
 				CommonUtil.setAttribute("userJson", JSONObject.fromObject(user));
 				CommonUtil.setAttribute("user", user);
 				Cookie cookie = new Cookie(Constants.COOKIE_NAME, AESUtil.encrypt(user.getOpenid(), AESUtil.ASSETS_DEV_PWD_FIELD));
@@ -399,4 +392,14 @@ public class IWxServiceImpl implements IWxService {
 		return "bks_wap/public_detal";
 	}
 	
+	private void setLastLoginTime(User user){
+		try {
+			user.setLastLoginTime(new Date());
+	        userMapper.updateById(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(Constants.ERROR_HEAD_INFO + "记录最近一次登陆时间异常，原因："+e.getMessage());
+		}
+		
+	}
 }

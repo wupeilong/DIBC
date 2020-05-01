@@ -37,14 +37,15 @@ public class User implements Serializable {
 	private String uuid;//唯一识别码
 	private String authorization;//用户授权
 	private Date createTime;//创建时间
+	private Date lastLoginTime;//最近一次登陆时间
 	public User() {
 		super();
-	}
+	}	
 	public User(Integer id, String idCard, String username, String password, String phone, Integer unitId,
 			String unitName, Integer departmentId, String departmentName, Integer roleId, Integer roleName,
 			String openid, String deparment, String duty, Integer age, String healthCertificateCode,
 			String healthCertificate, String headUrl, Integer parentId, Integer sex, Integer type, String uuid,
-			String authorization, Date createTime) {
+			String authorization, Date createTime, Date lastLoginTime) {
 		super();
 		this.id = id;
 		this.idCard = idCard;
@@ -70,6 +71,7 @@ public class User implements Serializable {
 		this.uuid = uuid;
 		this.authorization = authorization;
 		this.createTime = createTime;
+		this.lastLoginTime = lastLoginTime;
 	}
 	public Integer getId() {
 		return id;
@@ -214,6 +216,12 @@ public class User implements Serializable {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}	
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 	@Override
 	public String toString() {
