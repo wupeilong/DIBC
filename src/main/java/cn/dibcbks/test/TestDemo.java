@@ -2,20 +2,20 @@ package cn.dibcbks.test;
 
 import java.util.List;
 
-
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
 import cn.dibcbks.controller.WapVideoAddressController;
 import cn.dibcbks.entity.VideoAddress;
 import cn.dibcbks.mapper.VideoAddressMapper;
+import cn.dibcbks.util.CommonUtil;
 import cn.dibcbks.util.ResponseResult;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:spring-mapper.xml","classpath:spring-mvc.xml"})
+@ContextConfiguration(locations={"classpath:spring-mapper.xml","classpath:spring-mvc.xml","classpath:spring-quartz.xml"})
 @WebAppConfiguration
 public class TestDemo {
 	@Autowired 
@@ -26,30 +26,20 @@ public class TestDemo {
 	
 
 	@Test
-	public void test(){
-		
-		VideoAddress ss = addressMapper.SelectAddressByVideoId(6);
-		
-		System.out.println(ss);
-		
-		VideoAddress address =new VideoAddress();
-		address.setCameraPosition("一个大卧室");
-		address.setStreamType("sss");
-		address.setUnitId(12);
-		address.setVideoAddress("http://wx19.sdvideo.cn:9999/3HKCA33014CUQPC_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810");
-		address.setVideoId(7);
-		
-		
-		//ResponseResult<?> GG =sdf.DeleteVideoAddress(8);
-		//System.out.println(GG.getMessage());
-		
-	
-		
-		
-		
-		
-		
-
+	public void test(){		
+		List<VideoAddress> list = addressMapper.select(null, null, null, null);
+		System.out.println("测试视频匹配信息开始>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		for(VideoAddress address : list){
+			if(StringUtils.isNotEmpty(address.getUnitName())){
+				boolean connect = CommonUtil.isConnect(address.getVideoAddress());
+				if (connect) {
+					System.out.println(address.getUnitName() + " " + address.getCameraPosition() +  " " + address.getVideoAddress() + " 匹配成功");
+				}else{
+					System.out.println(address.getUnitName() + " " + address.getCameraPosition() +  " " + address.getVideoAddress() + " 匹配不成功");
+				}
+			}
+		}
+		System.out.println("测试视频匹配信息结束>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 	}
 	
 } 

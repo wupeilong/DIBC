@@ -41,4 +41,6 @@ public interface Constants{
 	 * 前端缓存 cookie 名称
 	 */
 	public static final String COOKIE_NAME = "zhishangtong_account";
+	
+	public static final Integer DEFAULT_PORT = 80; //默认端口
 }
